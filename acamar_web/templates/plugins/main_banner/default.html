@@ -1,0 +1,22 @@
+{% load cms_tags %}
+
+<div class="main-banner">
+    <video poster="{{ instance.background_image.url }}" id="bgvid" playsinline autoplay muted {# loop #}>
+{#      - Video needs to be muted, since Chrome 66+ will not autoplay video with sound.#}
+{#      WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button#}
+        <source src="{{ instance.background_video.url }}" type="video/{{ instance.background_video.extension }}">
+    </video>
+    <div class="title-wrapper text-center container">
+        <h1 class="main-title">{{ instance.title|linebreaksbr }}</h1>
+        <span class="main-title-small">{{ instance.subtitle|linebreaksbr }}</span>
+    </div>
+    {% if instance.child_plugin_instances %}
+    <div class="looking-wrapper container">
+        <div class="row pb-lg-4 box-shadow-custom">
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

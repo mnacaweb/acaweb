@@ -6,7 +6,8 @@
     },
     "globals": {
         "moment": true,
-        "_": true
+        "_": true,
+        "google": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {

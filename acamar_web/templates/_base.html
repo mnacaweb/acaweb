@@ -1,10 +1,76 @@
+{% load i18n static cms_tags sekizai_tags menu_tags %}
+{% load render_bundle from webpack_loader %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>{% block title %}Acamar{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=1">
+    {% block meta %}
+        {% include 'meta/meta.html' %}
+    {% endblock %}
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% render_bundle 'main' %}
+    {% render_block "css" %}
+
+    <link href="{% static "acamar_web/images/favicon.ico" %}" rel="Shortcut Icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-57x57.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-114x114.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-72x72.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-144x144.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-60x60.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-120x120.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-76x76.png" %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-152x152.png" %}" />
+    <link rel="icon" type="image/png" href="{% static "acamar_web/images/fav-icons/favicon-196x196.png" %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static "acamar_web/images/fav-icons/favicon-96x96.png" %}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{% static "acamar_web/images/fav-icons/favicon-32x32.png" %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static "acamar_web/images/fav-icons/favicon-16x16.png" %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static "acamar_web/images/fav-icons/favicon-128.png" %}" sizes="128x128" />
+    <meta name="application-name" content="Acamar"/> {# TODO: WTF? #}
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static "acamar_web/images/fav-icons/mstile-144x144.png" %}" />
+    <meta name="msapplication-square70x70logo" content="{% static "acamar_web/images/fav-icons/mstile-70x70.png" %}" />
+    <meta name="msapplication-square150x150logo" content="{% static "acamar_web/images/fav-icons/mstile-150x150.png" %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static "acamar_web/images/fav-icons/mstile-310x150.png" %}" />
+    <meta name="msapplication-square310x310logo" content="{% static "acamar_web/images/fav-icons/mstile-310x310.png" %}" />
+</head>
+
+
+<body{% block body_attributes %}{% endblock %}>
+{% cms_toolbar %}
+
+<div class="site-header">
+    <div class="d-flex justify-content-between px-md-4 py-3 position-relative">
+        <div class="logo-background-wrapper pl-4 py-3">
+            <a href="/"><img class="main-logo" src="{% static "acamar_web/images/acamar-logo.svg" %}" /></a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light justify-content-end w-100">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    {% show_menu 1 2 0 0 "menu/main.html" %}
+                    {% language_chooser "menu/language_chooser.html" "native" %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="site-content">
+    {% block content %}
+    {% endblock %}
+</div>
 </body>
+
+{% render_block "js" %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZhqiBW_mwoMlX4uB_gpFr7qjo4vSoUHM&callback=initMap" async defer></script>
 </html>

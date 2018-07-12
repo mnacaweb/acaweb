@@ -1,0 +1,18 @@
+{% load i18n menu_tags acamar %}
+
+
+<li class="nav-item dropdown d-none d-lg-block">
+    <a class="nav-link dropdown-toggle font-weight-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ current_language|language_verbose }}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        {% for language in languages %}
+        <a class="dropdown-item text-small" href="{% page_language_url language.0 %}" title="{% trans "Změnit na jazyk:" %} {{ language.0|language_name_local }}">{{ language.0|language_verbose }}</a>
+        {% endfor %}
+    </div>
+</li>
+<li class="nav-item language-mobile d-lg-none d-flex">
+    {% for language in languages %}
+    <a class="text-small{% if current_language == language.0 %} active{% endif %}" href="{% page_language_url language.0 %}" title="{% trans "Změnit na jazyk:" %} {{ language.0|language_name_local }}">{{ language.0|language_verbose }}</a>
+    {% endfor %}
+</li>

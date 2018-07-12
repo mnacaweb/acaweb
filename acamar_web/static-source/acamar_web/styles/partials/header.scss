@@ -1,0 +1,171 @@
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.site-header {
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  &.open-menu {
+    background-color: white;
+    top: -13px;
+  }
+
+  .logo-background-wrapper {
+    position: absolute;
+    background-image: url("../images/logo-bg.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 120px;
+
+    @include media-breakpoint-up(md) {
+      width: 180px;
+      height: 150px;
+    }
+
+    .main-logo {
+      height: 65px;
+      width: 75px;
+
+      @include media-breakpoint-up(md) {
+        height: 77px;
+        width: 90px;
+      }
+    }
+
+  }
+
+  .navbar {
+    padding: 0;
+
+    .navbar-toggler {
+      border: none;
+
+      &:focus, &:active {
+        outline: none;
+      }
+    }
+    .collapse {
+      &.navbar-collapse, &.navbar-collapsing {
+        justify-content: flex-end;
+        position: relative;
+
+        .navbar-nav {
+
+          .dropdown-menu {
+            position: absolute;
+            left: 0;
+            min-width: 0;
+            text-align: center;
+            border-radius: 0;
+            border: none;
+            box-shadow: 0 13px 38px -12px rgba(0,0,0,0.75);
+
+            a {
+              padding: 10px 28px;
+            }
+          }
+          .nav-item {
+            border-top: transparent;
+            padding: 0 8px;
+
+            .nav-link {
+              font-size: 14px;
+              color: $black;
+              text-transform: uppercase;
+              font-weight: 900;
+              padding: 0 1rem;
+
+              @include media-breakpoint-up(md) {
+                font-size: 16px;
+
+                &.dropdown-toggle {
+                  position: relative;
+
+                  &:after {
+                    position: absolute;
+                    border: none;
+                    background-image: url("../images/arrow-down.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 11px;
+                    height: 6px;
+                    top: 8px;
+                    right: 0;
+                  }
+                }
+              }
+
+              &.border-right-custom {
+                padding-right: 30px;
+                border-right: 1px solid $black;
+                border-top: transparent;
+              }
+            }
+          }
+        }
+
+        &.show {
+          .navbar-nav {
+            padding-top: 70px;
+
+            @include media-breakpoint-up(lg) {
+              padding-top: 0;
+            }
+
+            .nav-item {
+              border-top: 1px solid $black;
+              padding-bottom: 4px;
+              padding-top: 4px;
+
+              &.language-mobile {
+
+                a {
+                  padding: 5px;
+
+                  &.active {
+                    font-weight: 700;
+                    color: #ed002d;
+                  }
+                }
+              }
+
+              &:first-child {
+                border-top: transparent;
+              }
+
+              .nav-link {
+                padding: 0.5rem 1rem 0.5rem 0;
+
+                &.border-right-custom {
+                  border-right: transparent;
+                }
+
+                &.dropdown-toggle {
+                  position: relative;
+
+                  &:after {
+                    position: absolute;
+                    border: none;
+                    background-image: url("../images/arrow-down.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 11px;
+                    height: 6px;
+                    top: 15px;
+                    left: 20px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block body_attributes %}class="error404"{% endblock %}
+{% block title %}Acamar | Error 404{% endblock %}
+
+{% block meta %} {# TODO #}
+    <meta name="description" content="Acamar">
+    <meta name="keywords" content="starterpack starter pack">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-404">
+    <div class="container">
+        <div class="error404-wrapper">
+            <div class="error404-title">
+                <h1>{% trans "Hledali jste pozici" %}<br>
+                    <strong>{% trans "Programátor hvězdy smrti?" %}</strong>
+                </h1>
+            </div>
+            <div class="error404-image">
+                <img src="static/images/404-planet.png" alt="Hvězda smrti 404">
+            </div>
+            <div class="error404-back">
+                <span>{% trans "Ne?" %}</span><br>
+                <a href="/" title="{% trans "Vrátit se zpět" %}">{% trans "Zkuste se vrátit zpět" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

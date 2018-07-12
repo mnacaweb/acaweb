@@ -10,13 +10,14 @@ module.exports = {
 		main: "./scripts/main.js",
 	},
 	externals: {
-		jquery: "jQuery"
+		jquery: "jQuery",
+		google: "google"
 	},
 	plugins: [
-		// new CopyWebpackPlugin([{
-		// 	from: "./plain-copy",
-		// 	to: "."
-		// }]),
+		new CopyWebpackPlugin([{
+			from: "./images",
+			to: "./images"
+		}]),
 		// new webpack.ProvidePlugin({
 		// 	"window.$": "jquery",
 		// 	$: "jquery",

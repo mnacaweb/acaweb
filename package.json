@@ -42,5 +42,9 @@
     "watch": "webpack --config webpack.dev.js --watch",
     "build:preview": "webpack --config webpack.dev.js --progress",
     "build:master": "webpack --config webpack.prod.js --progress"
+  },
+  "dependencies": {
+    "owl.carousel": "^2.2.0",
+    "bootstrap": "4.1.1"
   }
 }

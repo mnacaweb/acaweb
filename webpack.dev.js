@@ -16,7 +16,7 @@ module.exports = merge(common, {
 		path: path.resolve(__dirname, project_name, "static-preview", project_name),
 	},
 	plugins: [
-		new CleanWebpackPlugin([project_name+"/static-preview"], {watch: true}),
+		new CleanWebpackPlugin([project_name+"/static-preview"], {watch: false}),
 		new BundleTracker({filename: "./webpack-stats-preview.json", indent: 4}),
 		new BrowserSyncPlugin({
 			host: 'localhost',

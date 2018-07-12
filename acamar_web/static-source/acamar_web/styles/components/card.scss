@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Global cards
+   ========================================================================== */
+
+.zoom-card {
+  transition: all 250ms ease-in;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* ==========================================================================
+   Cards Course
+   ========================================================================== */
+.card {
+  padding-bottom: 25px;
+  border: 0;
+  border-radius: 0;
+
+  .card-top {
+    padding: 25px 20px 0 20px;
+
+    .card-title {
+      font-weight: 900;
+    }
+    .training {
+      display: none;
+
+      @include media-breakpoint-up(md) {
+        display: block;
+        font-weight: 300;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 20px 20px 0 20px;
+    background-size: 100%;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        margin-bottom: 4px;
+      }
+
+      img {
+        width: 14px;
+        margin-right: 6px;
+      }
+
+      .card-li-text {
+        font-weight: 300;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Cards with Image Radius
+   ========================================================================== */
+
+.card-wrapper {
+  position: relative;
+  .card {
+    overflow: hidden;
+
+    .card-top {
+      padding: 25px 20px 0px 20px;
+
+      @include media-breakpoint-up(md) {
+        padding: 25px 20px 20px 20px;
+      }
+    }
+    .card-body {
+      position: relative;
+      z-index: 1;
+    }
+    .card-footer {
+      width: 350%;
+      height: 225%;
+      border-radius: 50%;
+      position: absolute;
+      left: calc(50%);
+      transform: translateX(-50%);
+      overflow: hidden;
+      background-color: #f3f3f3;
+      border: none;
+      bottom: calc(-61% - 182px);
+
+      @include media-breakpoint-up(sm) {
+        bottom: calc(-66% - 175px);
+      }
+
+      @include media-breakpoint-up(md) {
+        bottom: calc(-119% - 160px);
+      }
+
+      @include media-breakpoint-up(lg) {
+        bottom: calc(-119% - 250px);
+      }
+    }
+  }
+  .card-button {
+    position: absolute;
+    transform: translateY(-50%);
+    font-size: 12px;
+  }
+}

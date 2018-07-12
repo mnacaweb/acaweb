@@ -1,16 +1,205 @@
+{% extends "_base.html" %}
+
 {% load cms_tags sekizai_tags page_meta_tags %}
-<html>
-<head>
-    <title>{% page_attribute "page_title" %}</title>
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+{% block meta %}
     {% page_meta request.current_page as meta %}
     {% include 'djangocms_page_meta/meta.html' with meta=meta %}
-    
-    {% render_block "css" %}
-</head>
+{% endblock %}
 
-<body>
-{% cms_toolbar %}
-{% placeholder "content" %}
-{% render_block "js" %}
-</body>
-</html>
+{% block content %}
+    <div class="page homepage">
+        {% placeholder "main_banner" %}
+{##}
+{#        <div class="work-section">#}
+{#            <div class="container">#}
+{#                <div class="d-flex align-items-center justify-content-center text-center pb-3 pb-md-0">#}
+{#                    <h4 class="subtitle-large">Spolupracuje se s námi dobře, protože…</h4>#}
+{#                </div>#}
+{#                <div class="elipse-background">#}
+{#                    <div class="row px-md-4">#}
+{#                        <div class="col-12 col-md-4 pb-3 pb-md-0">#}
+{#                            <div class="work-col ">#}
+{#                                <div class="wrapper-image"><img class="mb-2" src="static/images/education.jpg"/></div>#}
+{#                                <div class="d-flex justify-content-center align-items-center">#}
+{#                                    <div class="text-wrapper">#}
+{#                                        <h5 class="subtitle-work">Rozumíme řeči IT</h5>#}
+{#                                        <p class="font-weight-light text-normal">Jsme profesionální recruiteři,<br />zato dobře proškolení.<br />Víme, v čem spočívá práce<br />v různých oborech IT.</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-12 col-md-4 pb-4 pb-md-0">#}
+{#                            <div class="work-col">#}
+{#                                <div class="wrapper-image"><img class="mb-2" src="static/images/communication.jpg"/></div>#}
+{#                                <div class="d-flex justify-content-center align-items-center">#}
+{#                                    <div class="text-wrapper">#}
+{#                                        <h5 class="subtitle-work">Jednáme fér<br />a zajímame se</h5>#}
+{#                                        <p class="font-weight-light text-normal">Interně říkáme, že chceme být Akamarádi. Bez osobního přístupu to ostatně ani nejde.</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-12 col-md-4 pb-4 pb-md-0">#}
+{#                            <div class="work-col">#}
+{#                                <div class="wrapper-image"><img class="mb-2" src="static/images/folders.png"/></div>#}
+{#                                <div class="d-flex justify-content-center align-items-center">#}
+{#                                    <div class="text-wrapper">#}
+{#                                        <h5 class="subtitle-work">Máme vyladěné procesy<br /> a živou databázi</h5>#}
+{#                                        <p class="font-weight-light text-normal">Systémy nám hlásí, kdy komu končí projekt. Rychle dostaneme do firmy kontraktora i celý tým.</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="reviews-section">#}
+{#            <div class="container custom-container-lg">#}
+{#                <div class="d-flex align-items-center justify-content-center text-center flex-column mb-5 mt-md-4 mt-lg-0">#}
+{#                    <h4 class="subtitle-large title-reviews">Nejvíc nás těší seznamovat správné lidi.</h4>#}
+{#                    <h4 class="subtitle-large title-reviews title-light"> Takové, kterým se bude dobře spolupracovat</h4>#}
+{#                </div>#}
+{#                <div class="row pt-md-5">#}
+{#                    <div class="col-12 col-md-3 p-0 pl-md-3 elipse-reviews-desktop">#}
+{#                        <div class="elipse-reviews-background pl-3 justify-content-md-end d-md-flex">#}
+{#                            <p class="text-reviews-mobile pl-3">Už jsme našli toho pravého na <span>543</span> pozic</p>#}
+{#                            <div class="text-reviews-desktop">#}
+{#                                <p class="text-right mb-4">Už jsme našli<br />toho pravého na</p>#}
+{#                                <div class="text-right"><span>543</span></div>#}
+{#                                <p class="text-right mt-1">pozici</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="box-shadow-custom col-12 col-md-9 review-person">#}
+{#                        <div class="row ">#}
+{#                            <div class="col-12 col-md-6 left-side-review">#}
+{#                                <div class="d-flex justify-content-end"><img class="quotes mb-3 mb-md-5" src="static/images/quote-start.svg" /></div>#}
+{#                                <p class="description-review">S Acamarem jsme si sedli už od začátku. Řekli jsme si koho přesně potřebujeme. Obrovskou výhodou je, že nesleduje jenom zkušenosti potenciálního kandidáta, ale i jeho přístup a chování. A v neposlední řadě si představuje, zda daný člověk dokáže v našem dost složitém firemním ekosystémů fungovat.</p>#}
+{#                                <span class="bos-proboston">Šéf Probostronu</span>#}
+{#                                <div class="d-flex justify-content-start"><img class="quotes my-3 my-md-4" src="static/images/quote-end.svg" /></div>#}
+{#                            </div>#}
+{#                            <div class="col-12 col-md-6 position-relative pb-3 pb-md-0">#}
+{#                                <div class="d-md-flex justify-content-md-end"><img class="img-logo" src="static/images/logo.svg" /></div>#}
+{#                                <div class="person-wrapper"><img class="img-person" src="static/images/filip-libal.png" /></div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="teamwork-section">#}
+{#            <div class="container container-xlg">#}
+{#                <div class="text-center pb-5">#}
+{#                    <h4 class="subtitle-large">Spolupracujeme s největšími organizacemi v oboru</h4>#}
+{#                </div>#}
+{#                <div class="row pb-5 text-center d-flex align-items-center justify-content-center">#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/plzensky-prazdroj.jpg" /></div>#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/flextronics.jpg" /></div>#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/deloitte.jpg" /></div>#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/adastra.jpg" /></div>#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/allianz.png" /></div>#}
+{#                    <div class="col-6 col-md-4 col-lg py-3"><img src="static/images/clients/ccs.jpg" /></div>#}
+{#                    <div class="col-12 col-md-4 col-lg py-3"><img src="static/images/clients/cortis-consulting.jpg"/></div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="button-wrapper d-flex justify-content-center pt-md-5">#}
+{#                <a class="button button-secondary button-arrow-right button-arrow-white" href="we-are.html">Více o acamaru</a>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="course-section">#}
+{#            <div class="container">#}
+{#                <div class="d-flex align-items-center justify-content-center text-center flex-column mb-5">#}
+{#                    <h4 class="subtitle-large title-course">Láká vás IT, ale teprve se učíte?</h4>#}
+{#                    <h4 class="subtitle-large title-course light-text mb-4">Máme také kurzy</h4>#}
+{#                    <p class="change-prof">Chcete změnit obor a táhne vás to do IT? Nebo informatiku už studujete, ale chcete si vyzkoušet něco z praxe? Vyberte si z našich školení.</p>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 pr-md-0 mb-3 mb-md-0">#}
+{#                        <div class="card-wrapper pb-2  pb-lg-5 pb-lg-0">#}
+{#                            <div class="card zoom-card box-shadow-custom">#}
+{#                                <div class="card-top">#}
+{#                                    <h5 class="card-title">Kurz testing</h5>#}
+{#                                    <p class="training">Školení "testing" je pro nováčky v IT, kteří se chtějí učit. Seznámíme tě se základy testování. Školení jsme rozdělili na dva bloky a to teoretickou a praktickou část.</p>#}
+{#                                </div>#}
+{#                                <div class="card-body py-md-3">#}
+{#                                    <ul class="pt-lg-4">#}
+{#                                        <li><img src="static/images/small-icons/tag.png" /><span class="card-li-text">Cena: <span>3 000 Kč</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/timer.png" /><span class="card-li-text">Délka školení: <span>2 x 4hod</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/location.png" /><span class="card-li-text">Místo školení: <span>Praha</span></span></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                                <div class="card-footer">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 pr-md-0 mb-3 mb-md-0">#}
+{#                        <div class="card-wrapper pb-2  pb-lg-5 pb-lg-0">#}
+{#                            <div class="card zoom-card box-shadow-custom">#}
+{#                                <div class="card-top">#}
+{#                                    <h5 class="card-title">Kurz testing</h5>#}
+{#                                    <p class="training">Školení "testing" je pro nováčky v IT, kteří se chtějí učit. Seznámíme tě se základy testování. Školení jsme rozdělili na dva bloky a to teoretickou a praktickou část.</p>#}
+{#                                </div>#}
+{#                                <div class="card-body py-md-3">#}
+{#                                    <ul class="pt-lg-4">#}
+{#                                        <li><img src="static/images/small-icons/tag.png" /><span class="card-li-text">Cena: <span>3 000 Kč</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/timer.png" /><span class="card-li-text">Délka školení: <span>2 x 4hod</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/location.png" /><span class="card-li-text">Místo školení: <span>Praha</span></span></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                                <div class="card-footer">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 pr-md-0 mb-3 mb-md-0">#}
+{#                        <div class="card-wrapper pb-2  pb-lg-5 pb-lg-0">#}
+{#                            <div class="card zoom-card box-shadow-custom">#}
+{#                                <div class="card-top">#}
+{#                                    <h5 class="card-title">Kurz testing</h5>#}
+{#                                    <p class="training">Školení "testing" je pro nováčky v IT, kteří se chtějí učit. Seznámíme tě se základy testování. Školení jsme rozdělili na dva bloky a to teoretickou a praktickou část.</p>#}
+{#                                </div>#}
+{#                                <div class="card-body py-md-3">#}
+{#                                    <ul class="pt-lg-4">#}
+{#                                        <li><img src="static/images/small-icons/tag.png" /><span class="card-li-text">Cena: <span>3 000 Kč</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/timer.png" /><span class="card-li-text">Délka školení: <span>2 x 4hod</span></span></li>#}
+{#                                        <li><img src="static/images/small-icons/location.png" /><span class="card-li-text">Místo školení: <span>Praha</span></span></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                                <div class="card-footer">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div> <div class="col-12 col-sm-6 col-md-6 col-lg-3 pr-md-0 mb-3 mb-md-0">#}
+{#                    <div class="card-wrapper pb-2  pb-lg-5 pb-lg-0">#}
+{#                        <div class="card zoom-card box-shadow-custom">#}
+{#                            <div class="card-top">#}
+{#                                <h5 class="card-title">Kurz testing</h5>#}
+{#                                <p class="training">Školení "testing" je pro nováčky v IT, kteří se chtějí učit. Seznámíme tě se základy testování. Školení jsme rozdělili na dva bloky a to teoretickou a praktickou část.</p>#}
+{#                            </div>#}
+{#                            <div class="card-body py-md-3">#}
+{#                                <ul class="pt-lg-4">#}
+{#                                    <li><img src="static/images/small-icons/tag.png" /><span class="card-li-text">Cena: <span>3 000 Kč</span></span></li>#}
+{#                                    <li><img src="static/images/small-icons/timer.png" /><span class="card-li-text">Délka školení: <span>2 x 4hod</span></span></li>#}
+{#                                    <li><img src="static/images/small-icons/location.png" /><span class="card-li-text">Místo školení: <span>Praha</span></span></li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                            <div class="card-footer">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                </div>#}
+{#                <div class="button-wrapper d-flex justify-content-center my-4 my-md-5">#}
+{#                    <a class="button button-secondary button-arrow-right button-arrow-white" href="course.html">CHCI VĚDĚT VÍCE O KURZECH</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+{% endblock %}

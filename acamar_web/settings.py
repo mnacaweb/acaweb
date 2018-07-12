@@ -106,6 +106,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,6 +121,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 TEMPLATES = [
@@ -165,6 +167,12 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.autocrop',
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
+)
+
+FILER_FILE_MODELS = (
+    'acamar_web.FilerVideo',
+    'filer.Image',
+    'filer.File'
 )
 
 META_SITE_PROTOCOL = "http"
@@ -280,6 +288,11 @@ LANGUAGES = [
     ('ru', 'русский')
 ]
 LANGUAGE_CODE = 'cs'
+LANGUAGES_VERBOSE = {
+    "cs": "CZ",
+    "en": "EN",
+    "ru": "RU"
+}
 TIME_ZONE = 'Europe/Prague'
 
 # uncomment to enable TZ support
@@ -290,6 +303,23 @@ USE_L10N = True
 MANAGERS = ADMINS = (
     ('Jirka Makarius', 'jiri.makarius@proboston.net'),
 )
+
+CMS_PLACEHOLDER_CONF = {
+    "main_banner": {
+        "plugins": ["MainBannerPlugin"],
+        "name": "Main Banner",
+        "limits": {
+            "MainBannerPlugin": 1,
+            "MainBannerCardPlugin": 2
+        },
+        "default_plugins": [{
+            "plugin_type": "MainBannerPlugin",
+            "values": {
+                "title": ""
+            }
+        }]
+    }
+}
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -310,6 +340,14 @@ if DEV_PROFILE != 'local':
     proxy_support = urllib2.ProxyHandler({"http": "http://localhost:8888", "https": "http://localhost:8888"})
     opener = urllib2.build_opener(proxy_support)
     urllib2.install_opener(opener)
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
 
 
 if os.path.exists(os.path.join(BASE_DIR, 'settings.local.py')):

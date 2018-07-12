@@ -1,0 +1,170 @@
+
+
+.elipse-reviews-desktop {
+  @include media-breakpoint-up(md) {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      background-image: url(../images/elipsa-reviews-large.svg);
+      background-size: 500px;
+      height: 500px;
+      width: 500px;
+      background-position: bottom left;
+      bottom: -13%;
+      left: 20%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &.elipse-bacground-without-text {
+    &:before {
+      bottom: -30%;
+      left: -35%;
+      background-size: 450px;
+    }
+  }
+}
+
+.elipse-reviews-background {
+  width: 250px;
+  height: 125px;
+  background-image: url(../images/elipsa-reviews-small.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
+  position: relative;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+
+  @include media-breakpoint-up(md) {
+    background-image: none;
+  }
+
+  .text-reviews-mobile {
+    max-width: 145px;
+    line-height: 18px;
+    font-weight: 700;
+    border-left: 1px solid #1f1210;
+    margin: 0;
+    padding-bottom: 14px;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+  .text-reviews-desktop {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+      border-left: transparent;
+      border-top: 1px solid #1f1210;
+      padding-top: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 22px;
+      padding-right: 30px;
+
+      span {
+        font-size: 50px;
+      }
+    }
+  }
+}
+
+.review-person {
+  padding-top: 20px;
+  background-color: white;
+  overflow: hidden;
+
+  .left-side-review {
+    @include media-breakpoint-up(md) {
+      padding-top: 40px;
+      padding-right: 0;
+      padding-left: 50px;
+    }
+  }
+
+  .quotes {
+    width: 41px;
+    height: 37px;
+  }
+
+
+  .description-review {
+    font-weight: 300;
+    margin-bottom: 10px;
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .bos-proboston {
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    color: #999999;
+    font-size: 14px;
+  }
+
+  .bos-proboston-bold {
+    font-weight: 700;
+  }
+
+  .about {
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    color: #999999;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  .img-logo {
+    width: 140px;
+
+    @include media-breakpoint-up(md) {
+      width: 180px;
+    }
+  }
+
+  .person-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: -10%;
+
+    @include media-breakpoint-up(md) {
+      left: 10px;
+    }
+    img {
+      height: 228px;
+
+      @include media-breakpoint-up(md) {
+        height: 270px;
+      }
+    }
+  }
+  .person-wrapper-without-text {
+    position: absolute;
+    bottom: -10px;
+    right: -15%;
+
+    @include media-breakpoint-up(md) {
+      bottom: 0;
+      left: 8%;
+    }
+    img {
+      height: 190px;
+
+      @include media-breakpoint-up(md) {
+        height: 270px;
+      }
+    }
+  }
+}
