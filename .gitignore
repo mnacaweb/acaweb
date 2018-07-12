@@ -1,0 +1,17 @@
+*.pyc
+.idea
+.template
+*.iml
+/media
+/settings
+/htdocs
+/libs/unpacked/django
+/libs/unpacked/PIL
+/etc
+/backups
+/static
+/node_modules
+/TODO.txt
+/nbproject
+/whoosh_index
+/import

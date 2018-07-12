@@ -1,0 +1,10 @@
+{
+    "status": "done",
+    "chunks": {
+        "main": [
+            {
+                "name": "main.bundle.js"
+            }
+        ]
+    }
+}

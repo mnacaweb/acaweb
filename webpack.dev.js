@@ -1,0 +1,29 @@
+const merge = require("webpack-merge");
+const common = require("./webpack.common.js");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const BundleTracker = require("./customBundleTracker");
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const project_name = "acamar_web";
+
+module.exports = merge(common, {
+	mode: "development",
+	devtool: "eval-source-map",
+	output: {
+		filename: "[name].bundle.js",
+		chunkFilename: "[name].bundle.js",
+		path: path.resolve(__dirname, project_name, "static-preview", project_name),
+	},
+	plugins: [
+		new CleanWebpackPlugin([project_name+"/static-preview"], {watch: true}),
+		new BundleTracker({filename: "./webpack-stats-preview.json", indent: 4}),
+		new BrowserSyncPlugin({
+			host: 'localhost',
+			port: 3000,
+			proxy: 'http://127.0.0.1:8000/',
+			files: ["app/*/templates/**/*.html", project_name+"/templates/**/*.html"],
+			open: false
+		})
+	]
+});

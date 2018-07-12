@@ -1,0 +1,8 @@
+django<1.9
+djangocms_admin_style
+raven
+django-webpack-loader
+django-cms
+django-polymorphic==1.3
+django-filer
+djangocms-text-ckeditor

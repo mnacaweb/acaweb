@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ -d unpacked ]; then
+	if [ "$1" = "upgrade" ]; then
+		pip install -r _requirements.txt --target=./unpacked --upgrade
+	elif [ "$1" != "" ]; then
+		pip install $1 --target=./unpacked --upgrade
+	else
+		pip install -r _requirements.txt --target=./unpacked
+	fi
+
+	cd unpacked
+	rm -rf *.dist-info *.egg-info
+	cd ..
+fi
