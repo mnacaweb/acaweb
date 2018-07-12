@@ -96,6 +96,8 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'mptt',
     'djangocms_text_ckeditor',
+    'meta',
+    'djangocms_page_meta',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -164,6 +166,16 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
+META_SITE_PROTOCOL = "http"
+META_USE_SITES = True
+META_SITE_TYPE = "website"
+META_SITE_NAME = "Acamar"
+META_INCLUDE_KEYWORDS = []
+META_DEFAULT_KEYWORDS = []
+META_USE_OG_PROPERTIES = False
+META_USE_TWITTER_PROPERTIES = False
+META_USE_GOOGLEPLUS_PROPERTIES = False
 
 if RAVEN_ENABLED:
     import raven

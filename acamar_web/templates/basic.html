@@ -1,7 +1,10 @@
-{% load cms_tags sekizai_tags %}
+{% load cms_tags sekizai_tags page_meta_tags %}
 <html>
 <head>
     <title>{% page_attribute "page_title" %}</title>
+    {% page_meta request.current_page as meta %}
+    {% include 'djangocms_page_meta/meta.html' with meta=meta %}
+    
     {% render_block "css" %}
 </head>
 
