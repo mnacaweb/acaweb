@@ -1,0 +1,25 @@
+{
+	"var":"Context var",
+	"list": [
+		{
+			"name": "Row 1",
+			"val": "Value 1"
+		},
+		{
+			"name": "Row 2",
+			"val": "Value 2"
+		},
+		{
+			"name": "Row 3",
+			"val": "Value 3"
+		},
+		{
+			"name": "Row 4",
+			"val": "Value 4"
+		},
+		{
+			"name": "Row 5",
+			"val": "Value 5"
+		}
+	]
+}

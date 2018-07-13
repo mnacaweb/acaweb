@@ -1,0 +1,89 @@
+body.thank-you{
+  background: white url('../images/thank-you-bg.png') center center no-repeat;
+
+  @include r(tablet){
+    max-height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.page-thank-you{
+  min-height: 100vh;
+  background: transparent url('../images/404-menu-bg.png') top right no-repeat;
+  background-size: 400px auto;
+
+  @include r(tablet){
+    background-size: 800px auto;
+  }
+
+  @include r(desktop) {
+    background-size: 1055px auto;
+  }
+
+  .thank-you-wrapper{
+    padding: 140px 0px;
+    text-align: center;
+    box-sizing: border-box;
+
+    .thank-you-image{
+      @include r(tablet){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 600px;
+      }
+
+      @include r(tablet){
+        min-height: 800px;
+      }
+
+      &:after{
+        background: transparent url('../images/thank-you-image.png') center center no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        max-width: 800px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        content: '';
+        display: block;
+
+        @include r(tablet){
+          background-size: contain;
+        }
+
+        @include r(desktop){
+          max-width: 1050px;
+        }
+      }
+
+      .thank-you-image-wrapper{
+        max-width: 544px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        color: #ffffff;
+
+        .checkmark{
+          margin-bottom: 20px;
+        }
+
+        h1{
+          margin: 0px;
+          font-size: 45px;
+          font-weight: 900;
+          text-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+          margin-bottom: 20px;
+        }
+
+        p{
+          font-size: 25px;
+          font-weight: 300;
+          line-height: 36px;
+        }
+      }
+    }
+  }
+}

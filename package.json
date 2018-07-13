@@ -44,7 +44,7 @@
     "build:master": "webpack --config webpack.prod.js --progress"
   },
   "dependencies": {
-    "owl.carousel": "^2.2.0",
-    "bootstrap": "4.1.1"
+    "bootstrap": "4.1.1",
+    "owl.carousel": "^2.2.0"
   }
 }

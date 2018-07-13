@@ -58,9 +58,11 @@ class WorkElipsePlugin(CMSPluginBase):
 class ReviewPanelPlugin(CMSPluginBase):
     name = "Review panel"
     model = ReviewPanel
-    render_template = "plugins/review_panel.html"
+    render_template = "plugins/review_panel/base.html"
 
     def render(self, context, instance, placeholder):
         context = super(ReviewPanelPlugin, self).render(context, instance, placeholder)
-        context["reviews"] = Review.objects.order_by("?").filter(show=True).first()  # TODO
+        reviews = Review.objects.order_by("?").filter(show=True)  # TODO
+        context["review"] = reviews[0]
+        context["review_ids"] = [x.id for x in reviews]
         return context

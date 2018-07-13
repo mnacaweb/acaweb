@@ -1,0 +1,25 @@
+{
+  "name": "template",
+  "version": "0.1.0",
+  "devDependencies": {
+    "autoprefixer": "^8.6.3",
+    "bootstrap": "4.1.1",
+    "grunt": "latest",
+    "grunt-bower-concat": "latest",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-css-url-rewrite": "latest",
+    "grunt-jinja": "latest",
+    "grunt-postcss": "^0.8.0",
+    "grunt-sass": "2.1.0",
+    "grunt-spritesmith": "latest"
+  },
+  "dependencies": {
+    "owl.carousel": "^2.2.0"
+  }
+}

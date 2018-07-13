@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Course
+   ========================================================================== */
+.main-banner-course {
+  position: relative;
+  background-image: url(../../static/images/banner/hp-banner-mobile.png);
+  background-repeat: no-repeat;
+  background-position: 100% 25px;
+  background-size: cover;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  padding-top: 110px;
+  padding-bottom: 50px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 0;
+    background-image: url(../../static/images/banner/banner-course.jpg);
+    min-height: 360px;
+    align-items: flex-end;
+    background-position: top left;
+  }
+
+  .title-course {
+    max-width: 380px;
+
+    @include media-breakpoint-up(sm) {
+      max-width: none;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 380px;
+    }
+  }
+}
+
+.page-course {
+  .tester-position-section {
+    text-align: center;
+    padding-bottom: 0;
+    h3.course-title {
+      font-size: 30px;
+      font-weight: 900;
+    }
+    span.course-subtitle {
+      font-size: 30px;
+      font-weight: 300;
+    }
+  }
+
+  .course-icon-section {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 40px 0;
+
+    .work-col {
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      text-align: center;
+      margin-top: 0;
+
+      .wrapper-image {
+        img {
+          width: 90px;
+          height: 90px;
+          @include media-breakpoint-up(md) {
+            width: 120px;
+            height: 105px;
+          }
+        }
+      }
+      .icon-title {
+        font-size: 18px;
+      }
+      .icon-subtitle {
+        font-size: 16px;
+      }
+    }
+  }
+  /* ==========================================================================
+ Course-cards
+ ========================================================================== */
+
+  .course-cards-section {
+    @include media-breakpoint-up(md) {
+      background-image: url("../../static/images/bubble4.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 700px;
+    }
+
+    .card-wrapper {
+      position: relative;
+      .card {
+        overflow: hidden;
+        .card-top {
+          padding: 25px 20px 20px 20px;
+        }
+        .card-body {
+          position: relative;
+          z-index: 1;
+        }
+        .card-footer {
+          width: 350%;
+          height: 225%;
+          border-radius: 50%;
+          position: absolute;
+          bottom: calc(-119% - 250px);
+          left: calc(50%);
+          transform: translateX(-50%);
+          overflow: hidden;
+          background-color: #f3f3f3;
+          border: none;
+        }
+      }
+      .card-button {
+        position: absolute;
+        transform: translateY(-50%);
+        font-size: 12px;
+      }
+    }
+  }
+  .course-lector-wrapper {
+    .image-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .img-course-leader {
+        width: 200px;
+      }
+    }
+
+    .course-lector-text {
+      width: 350px;
+      p {
+        max-width: 400px;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 24px;
+        @include media-breakpoint-up(md) {
+          max-width: 450px;
+        }
+      }
+    }
+  }
+  /* ==========================================================================
+    Start-up-Career
+   ========================================================================== */
+  .section-start-career {
+    .card {
+      padding-bottom: 50px;
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+      padding-top: 155px;
+      .acafriends-image {
+        width: 200%;
+        height: 200%;
+        background: transparent;
+        border-radius: 100%;
+        position: absolute;
+        bottom: calc(100% - 150px);
+        left: calc(50% - 25px);
+        transform: translateX(-50%);
+        overflow: hidden;
+        .rounded-image {
+          position: absolute;
+          bottom: 0;
+          width: 50%;
+          height: 150px;
+          left: calc(50% + 25px);
+          object-fit: cover;
+          transform: translateX(-50%);
+        }
+      }
+      .card-body {
+        .friends-card-text {
+          display: block;
+          font-weight: 300;
+          font-size: 14px;
+
+          @include media-breakpoint-up(md) {
+            display: block;
+            font-weight: 300;
+            font-size: 14px;
+          }
+        }
+        .position {
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+
+  .tester-position-way {
+    background-image: url("../../static/images/process-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .text {
+      line-height: 17px;
+    }
+  }
+}
+
+/* ==========================================================================
+   Information
+   ========================================================================== */
+
+.more-information-section {
+  .footer-wrapper {
+    flex-direction: column;
+    @include media-breakpoint-up(sm) {
+      flex-direction: row;
+    }
+    .footer-image-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .footer-img {
+        display: none;
+        @include media-breakpoint-up(sm) {
+          display: block;
+        }
+      }
+    }
+    h3 {
+      font-size: 21px;
+      @include media-breakpoint-up(md) {
+        font-size: 28px;
+      }
+    }
+    .footer-text-wrapper {
+      justify-content: center;
+      align-items: center;
+      @include media-breakpoint-up(md) {
+        align-items: flex-start;
+      }
+    }
+  }
+}

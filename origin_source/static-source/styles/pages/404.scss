@@ -1,0 +1,82 @@
+body.error404{
+  background: white url('../images/404-bubbles.png') center center no-repeat;
+  background-size: cover;
+}
+
+.page-404{
+  background: transparent url('../images/404-menu-bg.png') top right no-repeat;
+  background-size: 400px auto;
+
+  @include r(tablet){
+    background-size: 800px auto;
+  }
+
+  @include r(desktop){
+    background-size: 1055px auto;
+  }
+
+  .error404-wrapper{
+    display: flex;
+    min-height: 100vh;
+    padding: 140px 0px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    .error404-title{
+      h1{
+        margin: 0px;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 40px;
+
+        @include r(tablet){
+          font-size: 45px;
+          line-height: 51.68px;
+        }
+
+        strong{
+          font-weight: 900;
+        }
+      }
+    }
+
+    .error404-image{
+      margin: 30px 0px;
+
+      img{
+        max-width: 300px;
+        width: 100%;
+
+        @include r(tablet){
+          max-width: 439px;
+        }
+      }
+    }
+
+    .error404-back{
+      font-size: 21px;
+      line-height: 32px;
+
+      @include r(tablet){
+        font-size: 30px;
+        line-height: 51.68px;
+      }
+
+      span{
+        font-weight: 400;
+      }
+
+      a{
+        font-weight: 900;
+        text-decoration: underline;
+
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

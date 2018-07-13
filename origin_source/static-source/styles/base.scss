@@ -1,0 +1,32 @@
+/* ==========================================================================
+   GLOBAL BASE STYLES
+   ========================================================================== */
+
+a {
+  color: initial;
+
+  &:hover {
+    color: black;
+  }
+}
+
+/* ==========================================================================
+Containers
+========================================================================== */
+.container {
+  width: 100%;
+  max-width: 960px !important;
+  margin: 0 auto;
+}
+
+.container-lg {
+  max-width: 1200px !important;
+}
+
+.container-xlg {
+  max-width: 1400px !important;
+}
+
+.container-sm {
+  max-width: 800px !important;
+}

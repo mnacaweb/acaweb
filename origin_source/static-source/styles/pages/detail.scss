@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Detail
+   ========================================================================== */
+.page-detail {
+  .title {
+    font-size: 25px;
+    line-height: 27px;
+  }
+
+  .main-banner-detail {
+    position: relative;
+    background-image: url(../../static/images/banner/hp-banner-mobile.png);
+    background-position: 100% 25px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    padding-top: 110px;
+    padding-bottom: 50px;
+
+    @include media-breakpoint-up(lg) {
+      padding-top: 0;
+      background-image: url(../../static/images/banner/banner-detail.jpg);
+      background-position: top left;
+      min-height: 325px;
+      background-size: cover;
+      align-items: flex-end;
+    }
+
+    h4 {
+      @include media-breakpoint-up(md) {
+        max-width: 730px;
+      }
+    }
+  }
+
+  .text-small {
+    margin-bottom: 0;
+    line-height: 19px;
+    font-size: 14px;
+  }
+
+  .recruitment-text {
+    background: white;
+    padding: 30px 1rem;
+
+    @include media-breakpoint-up(md) {
+      padding: 30px 60px 30px 30px !important;
+    }
+
+    ul {
+
+      li {
+        position: relative;
+        font-weight: 300;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .recruitment {
+    .recruitment-wrapper {
+      background-color: #eaeaea;
+      padding: 30px 0 50px 0;
+
+      .person-wrapper-image {
+        position: relative;
+        display: flex;
+        align-self: stretch;
+        overflow: hidden;
+
+        .person-image {
+          height: 140px;
+          position: absolute;
+          top: 0;
+
+          @include media-breakpoint-up(md) {
+            height: 170px;
+            left: 0;
+          }
+        }
+      }
+
+      .person-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+
+      p {
+        font-weight: 300;
+        font-size: 14px;
+      }
+
+      .message {
+        position: relative;
+        padding-left: 35px;
+        text-decoration: underline !important;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          background-image: url("../../static/images/small-icons/envelope-black.png");
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 28px;
+          height: 18px;
+          bottom: 1%;
+          left: 0;
+        }
+      }
+    }
+
+    .interesting-wrapper {
+      background-color: #dfdfdf;
+
+      .mail {
+        position: relative;
+        padding-left: 24px;
+        text-decoration: underline !important;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          background-image: url("../../static/images/small-icons/chat-human-black.png");
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 16px;
+          height: 18px;
+          bottom: 1%;
+          left: 0;
+        }
+      }
+
+      .button-secondary {
+        padding: 12px 27px 12px 27px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .back-position {
+    position: relative;
+    padding-left: 24px;
+    text-decoration: underline !important;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      transform: rotate(180deg);
+      background-image: url("../../static/images/right-arrow.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 16px;
+      height: 16px;
+      bottom: 1%;
+      left: 0;
+    }
+  }
+}

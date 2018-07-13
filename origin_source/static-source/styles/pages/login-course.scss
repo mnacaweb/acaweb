@@ -1,0 +1,50 @@
+.page-login-course {
+  .main-banner-course {
+    background-position: 100% 50px;
+
+    @include media-breakpoint-up(lg) {
+      background-image: url(../../static/images/banner/login-course-title-bg.png);
+      background-position: 50% 0;
+    }
+
+    h4 {
+      text-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .section-about-you {
+    background-color: #dfdfdf;
+    position: relative;
+
+
+   @include media-breakpoint-up(sm) {
+     &:before {
+       content: "";
+       position: absolute;
+       background-color: #dfdfdf;
+       width: 100%;
+       height: 100%;
+       z-index: 0;
+       top: 0;
+       left: -100%;
+     }
+   }
+    .section-form {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .tester-position-way {
+    padding-bottom: 80px;
+  }
+
+  .container > .project-list {
+    display: flex;
+    justify-content: center;
+
+    @include media-breakpoint-up(lg) {
+      justify-content: flex-start;
+    }
+  }
+}

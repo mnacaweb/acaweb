@@ -1,0 +1,243 @@
+.list-item {
+  border-bottom: 1px solid $border-color;
+
+  h5 {
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .employment {
+    position: relative;
+    padding-left: 25px;
+    margin-left: 15px;
+
+    &::before {
+      position: absolute;
+      content: url("../../static/images/small-icons/job-type.png");
+      width: 15px;
+      height: 15px;
+      left: 0;
+    }
+  }
+
+  .settings {
+    position: relative;
+    padding-left: 25px;
+    margin-left: 15px;
+
+    &::before {
+      position: absolute;
+      content: url("../../static/images/small-icons/settings.png");
+      width: 15px;
+      height: 15px;
+      left: 0;
+    }
+  }
+
+  .location {
+    position: relative;
+    padding-left: 25px;
+    margin-left: 15px;
+
+    &::before {
+      position: absolute;
+      content: url("../../static/images/small-icons/location2.png");
+      width: 15px;
+      height: 15px;
+      left: 0;
+    }
+  }
+
+  .text-small {
+    margin-bottom: 0;
+    line-height: 19px;
+    font-size: 14px;
+  }
+
+  .message {
+    position: relative;
+    padding-left: 25px;
+    text-decoration: underline !important;
+    cursor: pointer;
+
+    &::before {
+      position: absolute;
+      content: url("../../static/images/small-icons/chat.png");
+      width: 15px;
+      height: 15px;
+      left: 0;
+    }
+  }
+
+  .face {
+    width: 100%;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+.project-list {
+
+  ul {
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+   &.left {
+     &::before {
+       position: absolute;
+       content: "";
+       height: 100%;
+       border-left: 1px solid #ed002d;
+       transform: translateX(-50%);
+
+       @include media-breakpoint-up(sm) {
+         left: 0;
+       }
+     }
+
+     li {
+       width: 100%;
+     }
+   }
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 100%;
+      border-left: 1px solid #ed002d;
+      transform: translateX(-50%);
+
+      @include media-breakpoint-up(sm) {
+        left: 50%;
+      }
+    }
+
+    li {
+      position: relative;
+      padding: 20px 0 20px 36px;
+
+      @include media-breakpoint-up(sm) {
+        width: 50%;
+
+        &.left-side {
+          direction: rtl;
+          padding: 20px 36px 20px 0;
+          float: left;
+          clear: right;
+
+          .text {
+            padding-left: 0;
+            padding-right: 20px;
+
+            @include media-breakpoint-up(sm) {
+              text-align: right;
+            }
+          }
+
+          &:before {
+            transform: translateX(-50%);
+            left: 100%;
+          }
+        }
+
+        &.right-side {
+          float: right;
+          clear: left;
+
+        }
+      }
+
+      div > img {
+        width: 53px;
+        max-height: 60px;
+      }
+
+      .text {
+        padding-left: 20px;
+
+        p {
+          font-size: 16px;
+          font-weight: 700;
+          margin: 0;
+          line-height: 19px;
+
+          @include media-breakpoint-up(md) {
+            font-size: 20px;
+            line-height: 22px;
+          }
+        }
+
+        .test-online {
+          max-width: 180px;
+
+          @include media-breakpoint-up(md) {
+            max-width: 350px;
+          }
+        }
+
+        .entrance {
+          max-width: 180px;
+
+          @include media-breakpoint-up(md) {
+            max-width: 270px;
+          }
+        }
+
+        .future {
+          max-width: 195px;
+
+          @include media-breakpoint-up(md) {
+            max-width: 286px;
+          }
+        }
+
+        .message-list {
+          max-width: 195px;
+
+          @include media-breakpoint-up(md) {
+            max-width: 330px;
+          }
+        }
+      }
+
+      @include media-breakpoint-up(md) {
+        &:last-of-type::after {
+          left: calc(100% - 1px);
+        }
+      }
+
+      &:first-of-type {
+        &::before {
+          top: 0;
+        }
+      }
+
+      &:last-of-type {
+        padding-top: 0;
+        padding-bottom: 0;
+        transform: translateY(50%);
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        width: 8px;
+        height: 8px;
+        background-color: #ed002d;
+        border-radius: 99px;
+        left: -4px;
+        top: calc(50% - 4px);
+      }
+    }
+  }
+}

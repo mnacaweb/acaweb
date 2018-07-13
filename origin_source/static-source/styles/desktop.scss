@@ -1,0 +1,99 @@
+/* ==========================================================================
+Bootstrap
+========================================================================== */
+/* Functions */
+@import "../../node_modules/bootstrap/scss/functions";
+
+/* Variables - Core */
+@import "variables"; // custom variables
+
+
+/* Mixins */
+@import "../../node_modules/bootstrap/scss/mixins";
+
+
+/* Optional */
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/code";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/input-group";
+@import "../../node_modules/bootstrap/scss/custom-forms";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/card";
+@import "../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+@import "../../node_modules/bootstrap/scss/jumbotron";
+@import "../../node_modules/bootstrap/scss/alert";
+@import "../../node_modules/bootstrap/scss/progress";
+@import "../../node_modules/bootstrap/scss/media";
+@import "../../node_modules/bootstrap/scss/list-group";
+@import "../../node_modules/bootstrap/scss/close";
+@import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/tooltip";
+@import "../../node_modules/bootstrap/scss/popover";
+@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/print";
+
+
+
+/* ==========================================================================
+   GLOBAL
+   ========================================================================== */
+@import "base";
+@import "fonts";
+@import "mixins";
+
+
+/* ==========================================================================
+   VENDOR
+   ========================================================================== */
+@import "vendors/normalize";
+@import "vendors/sanitize";
+
+
+/* ==========================================================================
+   PARTIALS
+   ========================================================================== */
+@import "partials/header";
+
+
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+@import "components/buttons";
+@import "components/icons";
+@import "components/section";
+@import "components/input";
+@import "components/tab";
+@import "components/list";
+@import "components/person-reviews";
+@import "components/text";
+@import "components/icon-text";
+@import "components/card";
+
+
+/* ==========================================================================
+   PAGES
+   ========================================================================== */
+@import "pages/front-page";
+@import "pages/we-are";
+@import "pages/for-candidates";
+@import "pages/course";
+@import "pages/detail";
+@import "pages/contact";
+@import "pages/404";
+@import "pages/thank-you";
+@import "pages/login-course";
+@import "pages/akarta";

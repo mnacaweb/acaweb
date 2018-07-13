@@ -1,0 +1,87 @@
+.icon-text {
+  position: relative;
+  padding-left: 28px;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+
+  &.icon-message {
+    padding-left: 26px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../static/images/small-icons/envelope-black.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 21px;
+      height: 14px;
+      left: 0;
+      top: 1px;
+    }
+  }
+
+  &.icon-in {
+    padding-left: 26px;
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../static/images/small-icons/in.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 17px;
+      height: 17px;
+      left: 0;
+    }
+  }
+
+  &.icon-phone {
+    padding-left: 26px;
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../static/images/small-icons/phone.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 25px;
+      height: 25px;
+      padding-right: 10px;
+      left: 0;
+    }
+  }
+
+  &.icon-phone-no-ring {
+    padding-left: 24px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../static/images/small-icons/phone-no-ring.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 18px;
+      height: 18px;
+      padding-right: 10px;
+      left: 0;
+    }
+  }
+
+  &.icon-diplomatic {
+    padding-left: 24px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../static/images/small-icons/diplom-small.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 21px;
+      height: 21px;
+      padding-right: 10px;
+      left: 0;
+    }
+  }
+}
