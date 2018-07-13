@@ -10,7 +10,7 @@
 .main-banner-we-are {
   background-color: white;
   position: relative;
-  background-image: url(../images/banner/hp-banner-mobile.png);
+  background-image: url(../../images/banner/hp-banner-mobile.png);
   background-position: 0 50px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -20,7 +20,7 @@
   justify-content: center;
 
   @include media-breakpoint-up(md) {
-    background-image: url(../images/banner/about-banner.jpg);
+    background-image: url(../../images/banner/about-banner.jpg);
     min-height: 325px;
     background-size: 125%;
     background-position: 0 0;

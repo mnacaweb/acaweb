@@ -102,7 +102,7 @@
    Well work
    ========================================================================== */
 .work-section {
-  background-image: url("../images/why-bg.jpg");
+  background-image: url("../../images/why-bg.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -125,7 +125,7 @@
   .elipse-background {
 
     @include media-breakpoint-up(md) {
-      background-image: url('../images/elipsa.svg');
+      background-image: url('../../images/elipsa.svg');
       background-size: 100%;
       min-height: 530px;
       background-repeat: no-repeat;
@@ -230,7 +230,7 @@
     &:before {
       content: '';
       position: absolute;
-      background-image: url(../images/elipsa-reviews-large.svg);
+      background-image: url(../../images/elipsa-reviews-large.svg);
       background-size: 700px;
       height: 700px;
       width: 700px;
@@ -267,7 +267,7 @@
    ========================================================================== */
 
 .course-section {
-  background-image: url(../images/course-bg.jpg);
+  background-image: url(../../images/course-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

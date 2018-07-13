@@ -84,7 +84,7 @@
       opacity: 0.8;
       position: absolute;
       content: '';
-      background-image: url('../images/right-arrow-white.svg');
+      background-image: url('../../images/right-arrow-white.svg');
       background-repeat: no-repeat;
       height: 12px;
       width: 20px;
@@ -106,7 +106,7 @@
 
     &:hover {
       &:after {
-        background-image: url('../images/right-arrow.svg');
+        background-image: url('../../images/right-arrow.svg');
       }
     }
 
@@ -115,7 +115,7 @@
   &.button-arrow-white {
     &:hover {
       &:after {
-        background-image: url('../images/right-arrow-white.svg');
+        background-image: url('../../images/right-arrow-white.svg');
       }
     }
   }

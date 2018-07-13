@@ -3,7 +3,7 @@
    ========================================================================== */
 .main-banner-course {
   position: relative;
-  background-image: url(../images/banner/hp-banner-mobile.png);
+  background-image: url(../../images/banner/hp-banner-mobile.png);
   background-repeat: no-repeat;
   background-position: 100% 25px;
   background-size: cover;
@@ -15,7 +15,7 @@
 
   @include media-breakpoint-up(lg) {
     padding-top: 0;
-    background-image: url(../images/banner/banner-course.jpg);
+    background-image: url(../../images/banner/banner-course.jpg);
     min-height: 360px;
     align-items: flex-end;
     background-position: top left;
@@ -86,7 +86,7 @@
 
   .course-cards-section {
     @include media-breakpoint-up(md) {
-      background-image: url("../images/bubble4.svg");
+      background-image: url("../../images/bubble4.svg");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: 700px;
@@ -198,7 +198,7 @@
   }
 
   .tester-position-way {
-    background-image: url("../images/process-bg.jpg");
+    background-image: url("../../images/process-bg.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

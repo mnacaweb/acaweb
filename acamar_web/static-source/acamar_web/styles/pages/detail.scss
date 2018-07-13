@@ -9,7 +9,7 @@
 
   .main-banner-detail {
     position: relative;
-    background-image: url(../images/banner/hp-banner-mobile.png);
+    background-image: url(../../images/banner/hp-banner-mobile.png);
     background-position: 100% 25px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +21,7 @@
 
     @include media-breakpoint-up(lg) {
       padding-top: 0;
-      background-image: url(../images/banner/banner-detail.jpg);
+      background-image: url(../../images/banner/banner-detail.jpg);
       background-position: top left;
       min-height: 325px;
       background-size: cover;
@@ -102,7 +102,7 @@
         &::before {
           content: '';
           position: absolute;
-          background-image: url("../images/small-icons/envelope-black.png");
+          background-image: url("../../images/small-icons/envelope-black.png");
           background-repeat: no-repeat;
           background-size: cover;
           width: 28px;
@@ -125,7 +125,7 @@
         &::before {
           content: '';
           position: absolute;
-          background-image: url("../images/small-icons/chat-human-black.png");
+          background-image: url("../../images/small-icons/chat-human-black.png");
           background-repeat: no-repeat;
           background-size: cover;
           width: 16px;
@@ -152,7 +152,7 @@
       content: '';
       position: absolute;
       transform: rotate(180deg);
-      background-image: url("../images/right-arrow.svg");
+      background-image: url("../../images/right-arrow.svg");
       background-repeat: no-repeat;
       background-size: cover;
       width: 16px;

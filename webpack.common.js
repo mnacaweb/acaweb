@@ -64,6 +64,7 @@ module.exports = {
 					options: {
 						limit: 8192,
 						name: "[path][name].[ext]",
+						publicPath: "/static/acamar_web/"
 					}
 				}]
 			},

@@ -4,7 +4,7 @@
 .page-contact {
   .main-banner-contact {
     position: relative;
-    background-image: url(../images/banner/hp-banner-mobile.png);
+    background-image: url(../../images/banner/hp-banner-mobile.png);
     background-repeat: no-repeat;
     background-position: 100% 25px;
     background-size: cover;
@@ -16,7 +16,7 @@
 
     @include media-breakpoint-up(lg) {
       padding-top: 0;
-      background-image: url(../images/banner/banner-contact.jpg);
+      background-image: url(../../images/banner/banner-contact.jpg);
       min-height: 360px;
       align-items: flex-end;
       background-position: top left;
@@ -32,7 +32,7 @@
       &:after {
         position: absolute;
         content: "";
-        background-image: url("../images/bubble4.svg");
+        background-image: url("../../images/bubble4.svg");
         background-size: cover;
         width: 700px;
         height: 700px;

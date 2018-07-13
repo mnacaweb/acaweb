@@ -2,7 +2,7 @@
 
   .main-banner-akarta {
     position: relative;
-    background-image: url(../images/banner/hp-banner-mobile.png);
+    background-image: url(../../images/banner/hp-banner-mobile.png);
     background-repeat: no-repeat;
     background-position: 100% 25px;
     background-size: cover;
@@ -14,7 +14,7 @@
 
     @include media-breakpoint-up(lg) {
       padding-top: 0;
-      background-image: url(../images/banner/banner-akarta.jpg);
+      background-image: url(../../images/banner/banner-akarta.jpg);
       min-height: 360px;
       align-items: flex-end;
       background-position: top center;
@@ -35,7 +35,7 @@
       transform: translate(-50%, 8%);
       content: '';
       display: block;
-      background: url(../images/accordion-shadow.png) center center no-repeat;
+      background: url(../../images/accordion-shadow.png) center center no-repeat;
       background-size: cover;
       height: 90px;
       width: 100%;
@@ -76,7 +76,7 @@
         transform: translate(-50%, -50%) rotate(180deg);
         content: '';
         display: block;
-        background: url(../images/accordion-caret.png) center center no-repeat;
+        background: url(../../images/accordion-caret.png) center center no-repeat;
         background-size: contain;
         height: 13px;
         width: 15px;

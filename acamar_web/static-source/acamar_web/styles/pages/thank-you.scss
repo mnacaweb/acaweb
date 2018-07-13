@@ -1,5 +1,5 @@
 body.thank-you{
-  background: white url('../images/thank-you-bg.png') center center no-repeat;
+  background: white url('../../images/thank-you-bg.png') center center no-repeat;
 
   @include r(tablet){
     max-height: 100vh;
@@ -9,7 +9,7 @@ body.thank-you{
 
 .page-thank-you{
   min-height: 100vh;
-  background: transparent url('../images/404-menu-bg.png') top right no-repeat;
+  background: transparent url('../../images/404-menu-bg.png') top right no-repeat;
   background-size: 400px auto;
 
   @include r(tablet){
@@ -38,7 +38,7 @@ body.thank-you{
       }
 
       &:after{
-        background: transparent url('../images/thank-you-image.png') center center no-repeat;
+        background: transparent url('../../images/thank-you-image.png') center center no-repeat;
         background-size: cover;
         width: 100%;
         height: 100%;

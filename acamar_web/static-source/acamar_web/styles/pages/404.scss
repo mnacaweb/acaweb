@@ -1,10 +1,10 @@
 body.error404{
-  background: white url('../images/404-bubbles.png') center center no-repeat;
+  background: white url('../../images/404-bubbles.png') center center no-repeat;
   background-size: cover;
 }
 
 .page-404{
-  background: transparent url('../images/404-menu-bg.png') top right no-repeat;
+  background: transparent url('../../images/404-menu-bg.png') top right no-repeat;
   background-size: 400px auto;
 
   @include r(tablet){
