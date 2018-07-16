@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% load cms_tags sekizai_tags page_meta_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+{% block meta %}
+    {% page_meta request.current_page as meta %}
+    {% include 'djangocms_page_meta/meta.html' with meta=meta %}
+{% endblock %}
+
+{% block content %}
+    <div class="page homepage">
+        {% placeholder "main_banner" %}
+        {% placeholder "we_are" %}
+    </div>
+{% endblock %}

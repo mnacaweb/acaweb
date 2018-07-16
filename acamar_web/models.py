@@ -13,6 +13,9 @@ from django.utils.translation import ugettext as _
 from filer.fields.image import FilerImageField
 from filer.models import File
 
+from acamar_api.manager import AcamarCourseManager
+from acamar_api.models import Course
+
 
 class FilerVideo(File):
     _icon = "video"
@@ -139,3 +142,18 @@ class TeamworkLogo(CMSPlugin):
 
     def __str__(self):
         return self.image.path.rsplit("/")[-1]
+
+
+@python_2_unicode_compatible
+class CoursePanel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    text = models.TextField(verbose_name="Text")
+    button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+    def courses(self):
+        return AcamarCourseManager.all()

@@ -7,7 +7,7 @@ from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, Teamwork, \
-    TeamworkLogo
+    TeamworkLogo, CoursePanel
 
 
 @plugin_pool.register_plugin
@@ -85,3 +85,10 @@ class TeamworkLogoPlugin(CMSPluginBase):
     render_template = "plugins/teamwork/logo.html"
     require_parent = True
     parent_classes = ["TeamworkPlugin"]
+
+
+@plugin_pool.register_plugin
+class CoursePanelPlugin(CMSPluginBase):
+    name = "Course panel"
+    model = CoursePanel
+    render_template = "plugins/course_panel/course_panel.html"

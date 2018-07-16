@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'webpack_loader',
     'raven.contrib.django.raven_compat',
 
+    'acamar_api',
     'acamar_web'
 )
 
@@ -149,7 +150,8 @@ STATICFILES_FINDERS = (
 )
 
 CMS_TEMPLATES = [
-    ('basic.html', 'Basic page template')
+    ('basic.html', 'Basic page template'),
+    ('we_are.html', 'We are page template')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -320,8 +322,12 @@ CMS_PLACEHOLDER_CONF = {
         }]
     },
     "basic": {
-        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "TeamworkPlugin"],
+        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "TeamworkPlugin", "CoursePanelPlugin"],
         "name": "Content"
+    },
+    "we_are": {
+        "plugins": ["TeamworkPlugin"],
+        "name": "Content - we are"
     }
 }
 
