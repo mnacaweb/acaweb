@@ -320,7 +320,7 @@ CMS_PLACEHOLDER_CONF = {
         }]
     },
     "basic": {
-        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin"],
+        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "TeamworkPlugin"],
         "name": "Content"
     }
 }

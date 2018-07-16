@@ -121,3 +121,21 @@ class ReviewPanel(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class Teamwork(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class TeamworkLogo(CMSPlugin):
+    image = FilerImageField(verbose_name="Image", related_name="teamwork_logos", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.image.path.rsplit("/")[-1]

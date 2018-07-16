@@ -1,4 +1,4 @@
-const review_refresh_rate = 6000;
+const review_refresh_rate = 20000;
 
 $(document).ready(function () {
 	$.fn.initReviewCycle = function () {

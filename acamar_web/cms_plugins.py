@@ -6,7 +6,8 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 
-from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review
+from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, Teamwork, \
+    TeamworkLogo
 
 
 @plugin_pool.register_plugin
@@ -66,3 +67,21 @@ class ReviewPanelPlugin(CMSPluginBase):
         context["review"] = reviews[0]
         context["review_ids"] = [x.id for x in reviews]
         return context
+
+
+@plugin_pool.register_plugin
+class TeamworkPlugin(CMSPluginBase):
+    name = "Teamwork"
+    model = Teamwork
+    render_template = "plugins/teamwork/main.html"
+    allow_children = True
+    child_classes = ["TeamworkLogoPlugin"]
+
+
+@plugin_pool.register_plugin
+class TeamworkLogoPlugin(CMSPluginBase):
+    name = "Teamwork - logo"
+    model = TeamworkLogo
+    render_template = "plugins/teamwork/logo.html"
+    require_parent = True
+    parent_classes = ["TeamworkPlugin"]

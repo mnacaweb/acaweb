@@ -1,0 +1,17 @@
+{% load cms_tags %}
+
+<div class="teamwork-section">
+    <div class="container container-xlg">
+        <div class="text-center pb-5">
+            <h4 class="subtitle-large">{{ instance.title }}</h4>
+        </div>
+        <div class="row pb-5 text-center d-flex align-items-center justify-content-center">
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="button-wrapper d-flex justify-content-center pt-md-5">
+        <a class="button button-secondary button-arrow-right button-arrow-white" href="{{ instance.button_link.get_absolute_url }}">{{ instance.button_text }}</a>
+    </div>
+</div>
