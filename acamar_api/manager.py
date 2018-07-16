@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 import requests
 from django.core.cache import cache
-from django.utils.termcolors import colorize
 
 from .models import Course
 
@@ -21,8 +20,6 @@ class AcamarCourseManager:
         if courses is None:
             courses = cls._all()
             cache.set(cache_key, courses, cls.cache_duration)
-        else:
-            print(colorize("CACHE HIT - {}".format(cache_key), fg="red"))
         return courses
 
     @classmethod
