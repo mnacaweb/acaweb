@@ -98,6 +98,7 @@ INSTALLED_APPS = (
     'djangocms_text_ckeditor',
     'meta',
     'djangocms_page_meta',
+    'adminsortable',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -134,6 +135,8 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'sekizai.context_processors.sekizai',
@@ -322,11 +325,11 @@ CMS_PLACEHOLDER_CONF = {
         }]
     },
     "basic": {
-        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "TeamworkPlugin", "CoursePanelPlugin"],
+        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "LogoPanelPlugin", "CoursePanelPlugin"],
         "name": "Content"
     },
     "we_are": {
-        "plugins": ["TeamworkPlugin"],
+        "plugins": ["CreateTeamPlugin", "TeamGridPlugin", "LogoPanelPlugin"],
         "name": "Content - we are"
     }
 }

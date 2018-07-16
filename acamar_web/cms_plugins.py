@@ -6,8 +6,8 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 
-from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, Teamwork, \
-    TeamworkLogo, CoursePanel
+from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
+    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember
 
 
 @plugin_pool.register_plugin
@@ -70,21 +70,21 @@ class ReviewPanelPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class TeamworkPlugin(CMSPluginBase):
-    name = "Teamwork"
-    model = Teamwork
-    render_template = "plugins/teamwork/main.html"
+class LogoPanelPlugin(CMSPluginBase):
+    name = "Logo panel"
+    model = LogoPanel
+    render_template = "plugins/logo_panel/logo_panel.html"
     allow_children = True
-    child_classes = ["TeamworkLogoPlugin"]
+    child_classes = ["LogoPlugin"]
 
 
 @plugin_pool.register_plugin
-class TeamworkLogoPlugin(CMSPluginBase):
-    name = "Teamwork - logo"
-    model = TeamworkLogo
-    render_template = "plugins/teamwork/logo.html"
+class LogoPlugin(CMSPluginBase):
+    name = "Logo"
+    model = Logo
+    render_template = "plugins/logo_panel/logo.html"
     require_parent = True
-    parent_classes = ["TeamworkPlugin"]
+    parent_classes = ["LogoPanelPlugin"]
 
 
 @plugin_pool.register_plugin
@@ -92,3 +92,29 @@ class CoursePanelPlugin(CMSPluginBase):
     name = "Course panel"
     model = CoursePanel
     render_template = "plugins/course_panel/course_panel.html"
+
+
+@plugin_pool.register_plugin
+class CreateTeamPlugin(CMSPluginBase):
+    name = "Create team - panel"
+    model = CreateTeam
+    render_template = "plugins/create_team/create_team.html"
+    allow_children = True
+    child_classes = ["CreateTeamCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class CreateTeamCardPlugin(CMSPluginBase):
+    name = "Create team - card"
+    model = CreateTeamCard
+    render_template = "plugins/create_team/create_team_card.html"
+    require_parent = True
+    parent_classes = ["CreateTeamPlugin"]
+
+
+@plugin_pool.register_plugin
+class TeamGridPlugin(CMSPluginBase):
+    name = "Team grid"
+    model = TeamGrid
+    render_template = "plugins/team_grid/team_grid.html"
+

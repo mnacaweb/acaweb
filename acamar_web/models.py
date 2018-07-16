@@ -4,11 +4,13 @@ from __future__ import unicode_literals
 
 import os
 
+from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from filer.fields.image import FilerImageField
 from filer.models import File
@@ -127,7 +129,7 @@ class ReviewPanel(CMSPlugin):
 
 
 @python_2_unicode_compatible
-class Teamwork(CMSPlugin):
+class LogoPanel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
     button_text = models.CharField(verbose_name="Button text", max_length=254)
@@ -137,7 +139,7 @@ class Teamwork(CMSPlugin):
 
 
 @python_2_unicode_compatible
-class TeamworkLogo(CMSPlugin):
+class Logo(CMSPlugin):
     image = FilerImageField(verbose_name="Image", related_name="teamwork_logos", on_delete=models.PROTECT)
 
     def __str__(self):
@@ -157,3 +159,62 @@ class CoursePanel(CMSPlugin):
 
     def courses(self):
         return AcamarCourseManager.all()
+
+
+@python_2_unicode_compatible
+class CreateTeam(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.TextField(verbose_name="Sub-title")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CreateTeamCard(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class TeamGrid(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.TextField(verbose_name="Sub-title")
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    limit = models.PositiveSmallIntegerField(verbose_name="Limit count", null=True, blank=True)
+
+    def _members(self):
+        return TeamMember.objects.all()
+
+    @cached_property
+    def members_limited(self):
+        return self._members()[:self.limit] if self.limit else self._members()
+
+    @cached_property
+    def members_lazy(self):
+        return self._members()[self.limit:] if self.limit else []
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class TeamMember(SortableMixin):
+    name = models.CharField(verbose_name="Name", max_length=254)
+    nickname = models.CharField(verbose_name="Position / Nickname", max_length=254)
+    text = models.TextField(verbose_name="Text")
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Team member"
+        verbose_name_plural = "Team members"
+        ordering = ["order"]
