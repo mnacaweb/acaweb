@@ -1,0 +1,17 @@
+<div class="together-section">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center text-center mb-4 mb-md-5">
+            <h4 class="subtitle-large creat-title">{{ instance.title }}<br /><span class="subtitle-large creat-title font-weight-light">{{ instance.subtitle }}</span></h4>
+        </div>
+        <div class="row team-grid">
+            {% for member in instance.members_limited %}
+                {% include "plugins/team_grid/team_grid_item.html" with object=member %}
+            {% endfor %}
+        </div>
+        {% if instance.members_lazy|length %}
+        <div class="d-flex justify-content-center pt-3 pt-md-5">
+            <button class="button button-secondary team-grid-button" data-href="{% url "api:team-grid" id=instance.id %}">{{ instance.button_text }}</button>
+        </div>
+        {% endif %}
+    </div>
+</div>

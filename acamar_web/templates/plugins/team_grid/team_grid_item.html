@@ -1,0 +1,16 @@
+{% load cms_tags %}
+
+{#{% render_model_block object %}#}
+<div class="col-12 col-md-6 col-lg-4 mb-3 pr-0 pl-0 pl-md-3">
+    <div class="card person box-shadow-custom">
+        <div class="card-top">
+            <p>{{ object.text|linebreaksbr }}</p>
+        </div>
+        <div class="card-body">
+            <p>{{ object.name }}</p>
+            <p class="nickname">{{ object.nickname }}</p>
+        </div>
+        <div class="icon-wrapper"><img src="{{ object.image.url }}" /></div>
+    </div>
+</div>
+{#{% endrender_model_block %}#}

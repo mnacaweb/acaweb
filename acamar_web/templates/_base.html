@@ -1,6 +1,5 @@
 {% load i18n static cms_tags sekizai_tags menu_tags %}
 {% load render_bundle from webpack_loader %}
-{% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -57,7 +56,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    {% show_menu 1 2 0 0 "menu/main.html" %}
+                    {% show_menu 1 2 0 100 "menu/main.html" %}
                     {% language_chooser "menu/language_chooser.html" "native" %}
                 </ul>
             </div>

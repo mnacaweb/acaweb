@@ -3,6 +3,7 @@ import "../styles/main.scss";
 import "./vendor";
 
 import "./plugins/review_panel";
+import "./plugins/team_grid";
 
 $(document).ready(function() {
 	$("body").on("click", function() {

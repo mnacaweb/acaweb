@@ -1,0 +1,14 @@
+{% load cms_tags %}
+
+<div class="creat-team-section">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center text-center mb-4 mb-md-5">
+            <h4 class="subtitle-large creat-title">{{ instance.title }}<br /><span class="creat-title font-weight-light">{{ instance.subtitle }}</span></h4>
+        </div>
+        <div class="row">
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
