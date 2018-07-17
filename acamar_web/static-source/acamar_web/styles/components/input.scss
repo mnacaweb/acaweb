@@ -160,6 +160,7 @@ input[type="text"] {
       &.message-control {
         border-radius: 9px;
         min-height: 100px;
+        resize: none;
 
         @include media-breakpoint-up(md) {
           min-height: 160px;

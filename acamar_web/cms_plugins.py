@@ -7,7 +7,8 @@ from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
-    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard
+    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
+    ContactFormPurposeOption
 
 
 @plugin_pool.register_plugin
@@ -135,3 +136,17 @@ class ContactCardPlugin(CMSPluginBase):
     render_template = "plugins/contact/contact_card.html"
     require_parent = True
     parent_classes = ["ContactGridPlugin"]
+
+
+class ContactFormPurposeOptionInline(admin.TabularInline):
+    model = ContactFormPurposeOption
+    min_num = 1
+    extra = 1
+
+
+@plugin_pool.register_plugin
+class ContactFormPlugin(CMSPluginBase):
+    name = "Contact form"
+    model = ContactFormModel
+    render_template = "plugins/contact/contact_form.html"
+    inlines = [ContactFormPurposeOptionInline]

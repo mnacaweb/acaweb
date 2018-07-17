@@ -248,3 +248,30 @@ class ContactCard(CMSPlugin):
         if link.startswith("www."):
             return link[4:]
         return link
+
+
+@python_2_unicode_compatible
+class ContactFormPurposeOption(models.Model):
+    form = models.ForeignKey("acamar_web.ContactFormModel", on_delete=models.CASCADE, related_name="purpose_options", editable=False)
+    name = models.CharField(verbose_name="Option name", max_length=254)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Purpose option"
+        verbose_name_plural = "Purpose options"
+
+
+@python_2_unicode_compatible
+class ContactFormModel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    name_label = models.CharField(verbose_name="Label - name", max_length=254)
+    email_label = models.CharField(verbose_name="Label - email", max_length=254)
+    purpose_label = models.CharField(verbose_name="Label - purpose", max_length=254)
+    text_label = models.CharField(verbose_name="Label - text", max_length=254)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+
+    def __str__(self):
+        return self.title
