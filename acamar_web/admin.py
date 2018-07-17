@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from filer.admin import FileAdmin
+from modeltranslation.admin import TranslationAdmin
 
 from models import FilerVideo, Review, TeamMember
 
@@ -15,10 +16,10 @@ class FilerVideoAdmin(FileAdmin):
 
 
 @admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
+class ReviewAdmin(TranslationAdmin):
     pass
 
 
 @admin.register(TeamMember)
-class TeamMemberAdmin(SortableAdmin):
+class TeamMemberAdmin(SortableAdmin, TranslationAdmin):
     pass

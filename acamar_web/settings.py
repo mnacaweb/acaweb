@@ -78,6 +78,7 @@ ALLOWED_HOSTS = ['p%s.django2.proboston.net' % hyphenate(PB_PROJECT), '127.0.0.1
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
+    'modeltranslation',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -154,7 +155,8 @@ STATICFILES_FINDERS = (
 
 CMS_TEMPLATES = [
     ('basic.html', 'Basic page template'),
-    ('we_are.html', 'We are page template')
+    ('we_are.html', 'We are'),
+    ('contact.html', 'Contact')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -304,6 +306,8 @@ TIME_ZONE = 'Europe/Prague'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+MODELTRANSLATION_DEBUG = False
+# MODELTRANSLATION_DEFAULT_LANGUAGE = "cs"
 
 MANAGERS = ADMINS = (
     ('Jirka Makarius', 'jiri.makarius@proboston.net'),
@@ -331,6 +335,10 @@ CMS_PLACEHOLDER_CONF = {
     "we_are": {
         "plugins": ["CreateTeamPlugin", "TeamGridPlugin", "LogoPanelPlugin"],
         "name": "Content - we are"
+    },
+    "contact": {
+        "plugins": ["ContactGridPlugin"],
+        "name": "Content - contact"
     }
 }
 

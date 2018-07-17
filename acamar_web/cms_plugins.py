@@ -7,7 +7,7 @@ from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
-    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember
+    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard
 
 
 @plugin_pool.register_plugin
@@ -118,3 +118,20 @@ class TeamGridPlugin(CMSPluginBase):
     model = TeamGrid
     render_template = "plugins/team_grid/team_grid.html"
 
+
+@plugin_pool.register_plugin
+class ContactGridPlugin(CMSPluginBase):
+    name = "Contact grid"
+    model = ContactGrid
+    render_template = "plugins/contact/contact_grid.html"
+    allow_children = True
+    child_classes = ["ContactCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class ContactCardPlugin(CMSPluginBase):
+    name = "Contact card"
+    model = ContactCard
+    render_template = "plugins/contact/contact_card.html"
+    require_parent = True
+    parent_classes = ["ContactGridPlugin"]

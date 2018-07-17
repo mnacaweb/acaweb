@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import os
+import urllib
 
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
@@ -218,3 +219,32 @@ class TeamMember(SortableMixin):
         verbose_name = "Team member"
         verbose_name_plural = "Team members"
         ordering = ["order"]
+
+
+@python_2_unicode_compatible
+class ContactGrid(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class ContactCard(CMSPlugin):
+    name = models.CharField(verbose_name="Name", max_length=254)
+    title = models.CharField(verbose_name="Title", max_length=254)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+    text = models.TextField(verbose_name="Text")
+    phone = models.CharField(verbose_name="Phone", blank=True, max_length=20)
+    email = models.EmailField(verbose_name="Email", blank=True)
+    linkedin = models.URLField(verbose_name="LinedIn URL", blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def linkedin_formatted(self):
+        link = urllib.unquote_plus(self.linkedin.encode("utf-8")).decode("utf-8").split("://", 1)[1]
+        if link.startswith("www."):
+            return link[4:]
+        return link

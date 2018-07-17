@@ -1,0 +1,25 @@
+<div class="card header-card box-shadow-custom">
+    <div class="card-top">
+        <p class="subtitle">{{ instance.text }}</p>
+    </div>
+    <div class="card-body">
+        <div class="pb-5">
+            {% if instance.phone %}
+                <div><a href="tel://{{ instance.phone }}" class="icon-text icon-phone-no-ring text-normal text-underline-none">{{ instance.phone }}</a></div>
+            {% endif %}
+            {% if instance.email %}
+                <div><a href="mailto:{{ instance.email }}" class="icon-text icon-message text-normal text-underline-none">{{ instance.email }}</a></div>
+            {% endif %}
+            {% if instance.linkedin %}
+                <div><a href="{{ instance.linkedin }}" target="_blank" class="icon-text icon-in text-normal text-underline-none">{{ instance.linkedin_formatted }}</a></div>
+            {% endif %}
+        </div>
+        <div>
+            <h5 class="subtitle-normal">{{ instance.name }}</h5>
+            <p class="about">{{ instance.title }}</p>
+        </div>
+    </div>
+    <div class="image-wrapper">
+        <img src="{{ instance.image.url }}" />
+    </div>
+</div>
