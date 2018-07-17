@@ -337,7 +337,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - we are"
     },
     "contact": {
-        "plugins": ["ContactGridPlugin", "ContactFormPlugin"],
+        "plugins": ["ContactGridPlugin", "ContactFormPlugin", "MapPlugin"],
         "name": "Content - contact"
     }
 }

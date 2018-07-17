@@ -1,0 +1,46 @@
+{% load sekizai_tags static %}
+
+<div class="section section-map">
+    <div id="map-{{ instance.id }}" class="map" data-icon="{% static "acamar_web/images/marker.png" %}"></div>
+    <div class="map-info d-none">
+        <div class="circle-wrapper">
+            <div class="circle-content">
+                <h3 class="title-map text-center">{{ instance.title|linebreaksbr }}</h3>
+                <div>
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex align-items-start flex-column pl-2">
+                            <div class="d-flex align-items-center pb-3">
+                                <div>
+                                    <img class="pr-2 pr-md-3" src="{% static "acamar_web/images/small-icons/location2.png" %}"/>
+                                </div>
+                                <div>
+                                    <p class="m-0 text-map"><strong>{{ instance.address|linebreaksbr }}</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pb-3">
+                                <img class="pr-2 pr-md-3" src="{% static "acamar_web/images/small-icons/write.png" %}"/>
+                                <div>
+                                    {% if instance.ic %}<p class="m-0 text-map">{{ instance.ic }}</p>{% endif %}
+                                    {% if instance.dic %}<p class="m-0 text-map">{{ instance.dic }}</p>{% endif %}
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pb-3">
+                                <div>
+                                    <img class="pr-2 pr-md-3" src="{% static "acamar_web/images/small-icons/message.png" %}"/>
+                                </div>
+                                <div>
+                                    {% if instance.phone %}<p class="m-0 text-map">{{ instance.phone }}</p>{% endif %}
+                                    {% if instance.email %}<p class="m-0 text-map">{{ instance.email }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% addtoblock "js" %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZhqiBW_mwoMlX4uB_gpFr7qjo4vSoUHM&callback=initMap"
+            async defer></script>{% endaddtoblock %}

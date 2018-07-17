@@ -86,7 +86,7 @@
   .section-map {
     padding: 0;
 
-    #map {
+    .map {
       min-height: 450px;
 
       @include media-breakpoint-up(md) {

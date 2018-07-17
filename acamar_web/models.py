@@ -275,3 +275,16 @@ class ContactFormModel(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class Map(CMSPlugin):
+    title = models.TextField(verbose_name="Title")
+    address = models.TextField(verbose_name="Address")
+    ic = models.CharField(verbose_name="IČ with label", max_length=254)
+    dic = models.CharField(verbose_name="DIČ with label", max_length=254)
+    phone = models.CharField(verbose_name="Phone with label", max_length=254)
+    email = models.CharField(verbose_name="Email with label", max_length=254)
+
+    def __str__(self):
+        return self.title

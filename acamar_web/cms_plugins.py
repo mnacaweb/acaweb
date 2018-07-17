@@ -8,7 +8,7 @@ from django.contrib import admin
 
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption
+    ContactFormPurposeOption, Map
 
 
 @plugin_pool.register_plugin
@@ -150,3 +150,10 @@ class ContactFormPlugin(CMSPluginBase):
     model = ContactFormModel
     render_template = "plugins/contact/contact_form.html"
     inlines = [ContactFormPurposeOptionInline]
+
+
+@plugin_pool.register_plugin
+class MapPlugin(CMSPluginBase):
+    name = "Map"
+    model = Map
+    render_template = "plugins/map/map.html"
