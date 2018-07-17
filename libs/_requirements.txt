@@ -10,3 +10,5 @@ djangocms-page-meta
 requests[security]
 django-admin-sortable
 django-modeltranslation
+django-extensions
+python-dateutil

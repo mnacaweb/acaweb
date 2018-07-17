@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'meta',
     'djangocms_page_meta',
     'adminsortable',
+    'django_extensions',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',

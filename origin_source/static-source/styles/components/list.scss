@@ -226,6 +226,10 @@
         padding-top: 0;
         padding-bottom: 0;
         transform: translateY(50%);
+
+        &.last {
+          padding-top: 40px;
+        }
       }
 
       &:before {
