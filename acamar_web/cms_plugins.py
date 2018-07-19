@@ -66,8 +66,8 @@ class ReviewPanelPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(ReviewPanelPlugin, self).render(context, instance, placeholder)
-        reviews = Review.objects.order_by("?").filter(show=True)  # TODO
-        context["review"] = reviews[0]
+        reviews = Review.objects.filter(show=True)  # TODO
+        context["review"] = reviews.first()
         context["review_ids"] = [x.id for x in reviews]
         return context
 
