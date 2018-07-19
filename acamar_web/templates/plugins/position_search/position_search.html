@@ -37,7 +37,7 @@
             {% endfor %}
         </div>
     </div>
-    <div class="bg-white py-5 border-section-top position-search-results">
+    <div class="bg-white py-5 border-section-top position-search-results" data-limit="{{ instance.limit|default:"" }}">
         {% include "plugins/position_search/results.html" with objects=positions %}
     </div>
 </div>

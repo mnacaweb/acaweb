@@ -9,5 +9,12 @@ from .models import Position
 
 class PositionSearchForm(SearchForm):
     def search(self):
-        sqs = super(PositionSearchForm, self).search()
+        if not self.is_valid():
+            return self.no_query_found()
+
+        sqs = self.searchqueryset.auto_query(self.cleaned_data['q'])
+
+        if self.load_all:
+            sqs = sqs.load_all()
+
         return sqs.models(Position)
