@@ -10,7 +10,7 @@ from django.db.models.aggregates import Count
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard
+    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem
 
 
 @plugin_pool.register_plugin
@@ -202,3 +202,21 @@ class BubbleCardPlugin(CMSPluginBase):
     render_template = "plugins/bubble_panel/bubble_card.html"
     require_parent = True
     parent_classes = ["BubblePanelPlugin"]
+
+
+@plugin_pool.register_plugin
+class TimelinePlugin(CMSPluginBase):
+    name = "Timeline"
+    model = Timeline
+    render_template = "plugins/timeline/timeline.html"
+    allow_children = True
+    child_classes = ["TimelineItemPlugin"]
+
+
+@plugin_pool.register_plugin
+class TimelineItemPlugin(CMSPluginBase):
+    name = "Timeline item"
+    model = TimelineItem
+    render_template = "plugins/timeline/timeline_item.html"
+    require_parent = True
+    parent_classes = ["TimelinePlugin"]

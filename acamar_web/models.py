@@ -336,3 +336,21 @@ class BubbleCard(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class Timeline(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.TextField(verbose_name="Sub-title")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class TimelineItem(CMSPlugin):
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT, null=True, blank=True)
+    text = models.TextField(verbose_name="Text", blank=True)
+
+    def __str__(self):
+        return self.text

@@ -307,7 +307,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - contact"
     },
     "for_candidates": {
-        "plugins": ["PositionSearchPlugin", "QuotePlugin", "BubblePanelPlugin"],
+        "plugins": ["PositionSearchPlugin", "QuotePlugin", "BubblePanelPlugin", "TimelinePlugin"],
         "name": "Content - for candidates"
     }
 }

@@ -1,0 +1,19 @@
+{% load cms_tags %}
+
+<div class="section section-project">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center text-center">
+            <h3 class="subtitle-large">{{ instance.title }}<br /><span class="subtitle-large text-weight-light">{{ instance.subtitle }}</span></h3>
+        </div>
+        <div class="project-list py-md-5">
+            <ul>
+                <li class="right-side"></li>
+                {% for plugin in instance.child_plugin_instances %}
+                    <li class="{% cycle "left-side" "right-side" %}">
+                        {% render_plugin plugin %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

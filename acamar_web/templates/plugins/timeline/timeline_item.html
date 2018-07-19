@@ -1,0 +1,6 @@
+<div class="row d-flex align-items-center">
+    {% if instance.image %}
+        <div><img src="{{ instance.image.url }}"/></div>
+    {% endif %}
+    <div class="text"><p>{{ instance.text }}</p></div>
+</div>
