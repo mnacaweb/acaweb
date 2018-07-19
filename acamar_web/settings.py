@@ -55,7 +55,7 @@ elif DEV_PROFILE == 'preview':
     }
     STATIC_GRUNT_DIR = 'static-preview'
     BASE_URL = 'https://%s.preview.proboston.net' % hyphenate(PB_PROJECT)
-    RAVEN_ENABLED = False
+    RAVEN_ENABLED = True
 
 elif DEV_PROFILE == 'master':
     FILER_DEBUG = False
