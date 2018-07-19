@@ -10,7 +10,7 @@ from django.db.models.aggregates import Count
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map, PositionSearch, Quote
+    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard
 
 
 @plugin_pool.register_plugin
@@ -184,3 +184,21 @@ class QuotePlugin(CMSPluginBase):
     name = "Quote"
     model = Quote
     render_template = "plugins/quote.html"
+
+
+@plugin_pool.register_plugin
+class BubblePanelPlugin(CMSPluginBase):
+    name = "Bubble panel"
+    model = BubblePanel
+    render_template = "plugins/bubble_panel/bubble_panel.html"
+    allow_children = True
+    child_classes = ["BubbleCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class BubbleCardPlugin(CMSPluginBase):
+    name = "Bubble card"
+    model = BubbleCard
+    render_template = "plugins/bubble_panel/bubble_card.html"
+    require_parent = True
+    parent_classes = ["BubblePanelPlugin"]

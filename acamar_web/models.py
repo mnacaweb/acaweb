@@ -317,3 +317,22 @@ class Quote(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class BubblePanel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class BubbleCard(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    text = models.TextField(verbose_name="Text")
+    bubble_highlight = models.CharField(verbose_name="Bubble highlight", max_length=254)
+    bubble_text = models.CharField(verbose_name="Bubble text", max_length=254)
+
+    def __str__(self):
+        return self.title
