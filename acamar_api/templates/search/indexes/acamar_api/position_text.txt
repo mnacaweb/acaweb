@@ -1,0 +1,26 @@
+{{ object.category.name }}
+{{ object.place }}
+{{ object.name }}
+{{ object.introduction }}
+{{ object.user_email }}
+{{ object.user_first_name }}
+{{ object.user_second_name }}
+{{ object.user_phone }}
+{{ object.title1 }}
+{{ object.text1|striptags }}
+{{ object.title2 }}
+{{ object.text2|striptags }}
+{{ object.title3 }}
+{{ object.text3|striptags }}
+{{ object.title4 }}
+{{ object.text4|striptags }}
+{{ object.title5 }}
+{{ object.text5|striptags }}
+{{ object.title6 }}
+{{ object.text6|striptags }}
+{% for technology in object.technologies.all %}
+{{ technology.name }}
+{% endfor %}
+{% for pact in object.pacts.all %}
+{{ pact.name }}
+{% endfor %}

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from djangocms_text_ckeditor.fields import HTMLField
+from haystack.query import SearchQuerySet
 
 
 class Course(object):
@@ -75,6 +77,29 @@ class Position(models.Model):
     user_position = models.CharField(max_length=254, blank=True)
     technologies = models.ManyToManyField("acamar_api.PositionTechnology", related_name="positions")
     pacts = models.ManyToManyField("acamar_api.PositionPact", related_name="positions")
+
+    @classmethod
+    def autocomplete(cls, term):
+        return SearchQuerySet().autocomplete(autocomplete=term)
+
+    @cached_property
+    def pacts_text(self):
+        return ", ".join(self.pacts.values_list("name", flat=True))
+
+    @cached_property
+    def pacts_array(self):
+        return list(self.pacts.values_list("id", flat=True))
+
+    @cached_property
+    def technologies_text(self):
+        return ", ".join(self.technologies.values_list("name", flat=True))
+
+    def get_absolute_url(self):
+        return "#"
+
+    @property
+    def url(self):
+        return self.get_absolute_url()
 
     def __str__(self):
         return self.name if self.name else self.title1

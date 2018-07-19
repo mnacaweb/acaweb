@@ -288,3 +288,18 @@ class Map(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class PositionSearch(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    search_placeholder = models.CharField(verbose_name="Search input placeholder", max_length=254)
+    search_button = models.CharField(verbose_name="Search button text", max_length=254)
+    all_pacts_text = models.CharField(verbose_name="All jobs text", max_length=254, default="Všechny úvazky")
+    recruiter_text = models.CharField(verbose_name="Recruiter text", max_length=254, default="Provedu vás náborem")
+    recruiter_email_text = models.CharField(verbose_name="Recruiter email text", max_length=254, default="Napište mi e-mail")
+    more_button_text = models.CharField(verbose_name="More button text", max_length=254)
+    limit = models.PositiveSmallIntegerField(verbose_name="Limit results", null=True, blank=True)
+
+    def __str__(self):
+        return self.title

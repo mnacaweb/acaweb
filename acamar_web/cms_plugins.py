@@ -5,10 +5,12 @@ from __future__ import unicode_literals
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
+from django.db.models.aggregates import Count
 
+from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map
+    ContactFormPurposeOption, Map, PositionSearch
 
 
 @plugin_pool.register_plugin
@@ -157,3 +159,21 @@ class MapPlugin(CMSPluginBase):
     name = "Map"
     model = Map
     render_template = "plugins/map/map.html"
+
+
+@plugin_pool.register_plugin
+class PositionSearchPlugin(CMSPluginBase):
+    name = "Position search"
+    model = PositionSearch
+    render_template = "plugins/position_search/position_search.html"
+
+    def render(self, context, instance, placeholder):
+        context = super(PositionSearchPlugin, self).render(context, instance, placeholder)
+        positions = Position.objects.all()
+
+        context["categories"] = PositionCategory.objects.annotate(num_positions=Count("positions"))
+        context["pacts"] = PositionPact.objects.all()
+        context["positions"] = positions
+        context["limit"] = instance.limit
+        context["more"] = (positions.count() > instance.limit) if instance.limit else False
+        return context

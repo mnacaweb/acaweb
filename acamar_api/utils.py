@@ -14,4 +14,5 @@ def memoize(func, cache, num_args):
         result = func(*args)
         cache[mem_args] = result
         return result
+
     return wrapper

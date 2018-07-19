@@ -2,11 +2,13 @@
 
 from __future__ import unicode_literals
 
-from django.http.response import HttpResponseNotAllowed
+from django.http.response import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 
-from .models import Review, TeamGrid
+from acamar_api.forms import PositionSearchForm
+from acamar_api.models import Position
+from .models import Review, TeamGrid, PositionSearch
 
 
 class ReviewApi(View):
@@ -22,3 +24,27 @@ class TeamGridApi(View):
     def get(self, request, id):
         instance = get_object_or_404(TeamGrid, pk=id)
         return render(request, "plugins/team_grid/team_grid_ajax.html", {"instance": instance})
+
+
+class PositionSearchApi(View):
+    def get(self, request, id):
+        instance = get_object_or_404(PositionSearch, pk=id)
+        form = PositionSearchForm(request.GET, load_all=True)
+        if form.is_valid():
+            sqs = form.search()
+            return render(request, "plugins/position_search/results.html", {
+                "instance": instance,
+                "objects": sqs,
+                "suggestion": form.get_suggestion(),
+                "limit": instance.limit,
+                "more": (sqs.count() > instance.limit) if instance.limit else False
+            })
+
+        return
+
+
+class PositionSearchAutocompleteApi(View):
+    def get(self, request):
+        sqs = Position.autocomplete(request.GET.get("q", "")).load_all()[:5]
+
+        return render(request, "plugins/position_search/autocomplete.html", {"objects": sqs})

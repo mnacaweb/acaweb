@@ -1,0 +1,43 @@
+<div class="position-search">
+    <div class="container">
+        <div class="section pb-0">
+            <div class="d-flex align-items-center justify-content-center text-center">
+                <h2 class="subtitle-large">{{ instance.title }}</h2>
+            </div>
+            <form method="get" action="{% url "api:position-search" id=instance.id %}">
+                <div class="input-group col-sm-12 px-md-4 pt-4 pb-5">
+                    <input id="queryInput" type="text" name="q" class="form-control" aria-describedby="search"
+                           placeholder="{{ instance.search_placeholder }}" data-url="{% url "api:position-search-autocomplete" %}">
+                    <div class="position-search-autocomplete position-absolute list-group mt-5 ml-5" style="z-index: 100000"></div>
+                    <div class="input-group-append">
+                        <button type="submit" class="input-group-text px-4">
+                            <span class="icon search"></span>
+                            <div class="d-none d-md-block font-weight-bold">{{ instance.search_button }}</div>
+                        </button>
+                    </div>
+                </div>
+                <div class="row px-2 justify-content-start justify-content-md-center  align-items-center pb-5">
+                    {% for category in categories %}
+                        <div class="col-auto col-md-0 pl-0 pl-md-2 pr-0 mb-md-3">
+                            <div class="circle category {# TODO: active-count #}" data-id="{{ category.id }}">{{ category.name }}
+                                <span class="count">{{ category.num_positions }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container container-lg pacts">
+        <div class="row pb-2">
+            <div class="col-auto pl-3 pr-0 pr-md-3 pl-md-0 border-active"><span class="tab active" data-id="">{{ instance.all_pacts_text }}</span>
+            </div>
+            {% for pact in pacts %}
+                <div class="col-auto pl-1 pr-0 pr-md-3 pl-md-3 pact-tab"><span class="tab" data-id="{{ pact.id }}">{{ pact.name }}</span></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="bg-white py-5 border-section-top position-search-results">
+        {% include "plugins/position_search/results.html" with objects=positions %}
+    </div>
+</div>

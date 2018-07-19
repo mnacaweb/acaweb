@@ -98,6 +98,13 @@ class AcamarPositionManager:
         return data.get("inzerat", [])
 
     @classmethod
+    def _delete_old_positions(cls):
+        delete_filter = {}
+        for language, _ in settings.LANGUAGES:
+            delete_filter["lang_{}".format(language)] = False
+        return Position.objects.filter(**delete_filter).delete()
+
+    @classmethod
     def sync_positions(cls):
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
@@ -140,3 +147,5 @@ class AcamarPositionManager:
                     obj.technologies.add(*technologies)
                     obj_ids.append(obj.id)
                 Position.objects.exclude(id__in=obj_ids).update(lang=False)
+
+        cls._delete_old_positions()

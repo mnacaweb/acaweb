@@ -1,0 +1,13 @@
+.position-search {
+  .position-search-results {
+    .position {
+      &.cfilter {
+        display: none !important;
+      }
+
+      &.pfilter {
+        display: none !important;
+      }
+    }
+  }
+}

@@ -12,3 +12,5 @@ django-admin-sortable
 django-modeltranslation
 django-extensions
 python-dateutil
+whoosh
+django-haystack<2.8.0

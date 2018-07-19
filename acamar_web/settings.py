@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     'djangocms_page_meta',
     'adminsortable',
     'django_extensions',
+    'haystack',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -157,7 +158,8 @@ STATICFILES_FINDERS = (
 CMS_TEMPLATES = [
     ('basic.html', 'Basic page template'),
     ('we_are.html', 'We are'),
-    ('contact.html', 'Contact')
+    ('contact.html', 'Contact'),
+    ('for_candidates.html', 'For candidates')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -192,6 +194,111 @@ META_DEFAULT_KEYWORDS = []
 META_USE_OG_PROPERTIES = False
 META_USE_TWITTER_PROPERTIES = False
 META_USE_GOOGLEPLUS_PROPERTIES = False
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'cs'),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    },
+    'default_en': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'en'),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    },
+    'default_ru': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'ru'),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    }
+}
+HAYSTACK_ROUTERS = ['acamar_web.haystack.router.LanguageRouter']
+SEARCH_ENGINE = 'acamar_web.haystack.engine.FoldingWhooshEngine'
+
+EMAIL_SUBJECT_PREFIX = 'DJANGO [%s/%s] ' % (PB_PROJECT, DEV_PROFILE)
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+SECRET_KEY = '*-lra2%t^2z^gs2fbf+&ij_vo2c4nx-v%!kg^f27a!g2l#(2bm'
+
+SITE_ID = 1
+LANGUAGES = [
+    ('cs', 'Čeština'),
+    ('en', 'English'),
+    ('ru', 'русский')
+]
+LANGUAGE_CODE = 'cs'
+LANGUAGES_VERBOSE = {
+    "cs": "CZ",
+    "en": "EN",
+    "ru": "RU"
+}
+TIME_ZONE = 'Europe/Prague'
+
+# uncomment to enable TZ support
+USE_TZ = True
+USE_I18N = True
+USE_L10N = True
+MODELTRANSLATION_DEBUG = False
+# MODELTRANSLATION_DEFAULT_LANGUAGE = "cs"
+
+MANAGERS = ADMINS = (
+    ('Jirka Makarius', 'jiri.makarius@proboston.net'),
+)
+
+CMS_PLACEHOLDER_CONF = {
+    "main_banner": {
+        "plugins": ["MainBannerPlugin"],
+        "name": "Main Banner",
+        "limits": {
+            "MainBannerPlugin": 1,
+            "MainBannerCardPlugin": 2
+        },
+        "default_plugins": [{
+            "plugin_type": "MainBannerPlugin",
+            "values": {
+                "title": ""
+            }
+        }]
+    },
+    "basic": {
+        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "LogoPanelPlugin", "CoursePanelPlugin"],
+        "name": "Content"
+    },
+    "we_are": {
+        "plugins": ["CreateTeamPlugin", "TeamGridPlugin", "LogoPanelPlugin"],
+        "name": "Content - we are"
+    },
+    "contact": {
+        "plugins": ["ContactGridPlugin", "ContactFormPlugin", "MapPlugin"],
+        "name": "Content - contact"
+    },
+    "for_candidates": {
+        "plugins": ["PositionSearchPlugin"],
+        "name": "Content - for candidates"
+    }
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': PB_PROJECT + '/',  # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR,
+                                   'webpack-stats-master.json') if STATIC_GRUNT_DIR == "static-master" else os.path.join(
+            BASE_DIR, 'webpack-stats-preview.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}
 
 if RAVEN_ENABLED:
     import raven
@@ -283,78 +390,6 @@ else:
             },
         }
     }
-
-EMAIL_SUBJECT_PREFIX = 'DJANGO [%s/%s] ' % (PB_PROJECT, DEV_PROFILE)
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
-SECRET_KEY = '*-lra2%t^2z^gs2fbf+&ij_vo2c4nx-v%!kg^f27a!g2l#(2bm'
-
-SITE_ID = 1
-LANGUAGES = [
-    ('cs', 'Čeština'),
-    ('en', 'English'),
-    ('ru', 'русский')
-]
-LANGUAGE_CODE = 'cs'
-LANGUAGES_VERBOSE = {
-    "cs": "CZ",
-    "en": "EN",
-    "ru": "RU"
-}
-TIME_ZONE = 'Europe/Prague'
-
-# uncomment to enable TZ support
-USE_TZ = True
-USE_I18N = True
-USE_L10N = True
-MODELTRANSLATION_DEBUG = False
-# MODELTRANSLATION_DEFAULT_LANGUAGE = "cs"
-
-MANAGERS = ADMINS = (
-    ('Jirka Makarius', 'jiri.makarius@proboston.net'),
-)
-
-CMS_PLACEHOLDER_CONF = {
-    "main_banner": {
-        "plugins": ["MainBannerPlugin"],
-        "name": "Main Banner",
-        "limits": {
-            "MainBannerPlugin": 1,
-            "MainBannerCardPlugin": 2
-        },
-        "default_plugins": [{
-            "plugin_type": "MainBannerPlugin",
-            "values": {
-                "title": ""
-            }
-        }]
-    },
-    "basic": {
-        "plugins": ["WorkElipsePlugin", "ReviewPanelPlugin", "LogoPanelPlugin", "CoursePanelPlugin"],
-        "name": "Content"
-    },
-    "we_are": {
-        "plugins": ["CreateTeamPlugin", "TeamGridPlugin", "LogoPanelPlugin"],
-        "name": "Content - we are"
-    },
-    "contact": {
-        "plugins": ["ContactGridPlugin", "ContactFormPlugin", "MapPlugin"],
-        "name": "Content - contact"
-    }
-}
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': PB_PROJECT + '/',  # must end with slash
-        'STATS_FILE': os.path.join(BASE_DIR,
-                                   'webpack-stats-master.json') if STATIC_GRUNT_DIR == "static-master" else os.path.join(
-            BASE_DIR, 'webpack-stats-preview.json'),
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map']
-    }
-}
 
 if DEV_PROFILE != 'local':
     import urllib2
