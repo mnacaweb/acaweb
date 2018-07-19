@@ -13,6 +13,7 @@ from django.template.defaultfilters import truncatechars
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
+from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
 
@@ -300,6 +301,19 @@ class PositionSearch(CMSPlugin):
     recruiter_email_text = models.CharField(verbose_name="Recruiter email text", max_length=254, default="Napište mi e-mail")
     more_button_text = models.CharField(verbose_name="More button text", max_length=254)
     limit = models.PositiveSmallIntegerField(verbose_name="Limit results", null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class Quote(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.TextField(verbose_name="Sub-title")
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+    author = models.CharField(verbose_name="Author", max_length=254)
+    author_title = models.CharField(verbose_name="Author - title", max_length=254)
+    author_image = FilerImageField(verbose_name="Author - image", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title

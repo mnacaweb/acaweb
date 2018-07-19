@@ -185,6 +185,31 @@ FILER_FILE_MODELS = (
     'filer.File'
 )
 
+CKEDITOR_SETTINGS = {
+    'language': '{{ language }}',
+    'toolbar_CMS': [
+        ['Undo', 'Redo'],
+        ['cmsplugins', '-', 'ShowBlocks'],
+        ['Format', 'Styles'],
+    ],
+    'toolbar_HTMLField': [
+        ['Undo', 'Redo'],
+        ['ShowBlocks'],
+        ['Format', 'Styles'],
+    ],
+    'skin': 'moono-lisa',
+}
+
+CKEDITOR_SETTINGS_TEXT = {
+    'disallowedContent': "h1 h2 h3",
+    'toolbar_HTMLField': [
+        ['Undo', 'Redo'],
+        ['ShowBlocks'],
+        ['Styles'],
+        ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+    ]
+}
+
 META_SITE_PROTOCOL = "http"
 META_USE_SITES = True
 META_SITE_TYPE = "website"
@@ -282,7 +307,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - contact"
     },
     "for_candidates": {
-        "plugins": ["PositionSearchPlugin"],
+        "plugins": ["PositionSearchPlugin", "QuotePlugin"],
         "name": "Content - for candidates"
     }
 }

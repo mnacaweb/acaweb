@@ -10,7 +10,7 @@ from django.db.models.aggregates import Count
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map, PositionSearch
+    ContactFormPurposeOption, Map, PositionSearch, Quote
 
 
 @plugin_pool.register_plugin
@@ -177,3 +177,10 @@ class PositionSearchPlugin(CMSPluginBase):
         context["limit"] = instance.limit
         context["more"] = (positions.count() > instance.limit) if instance.limit else False
         return context
+
+
+@plugin_pool.register_plugin
+class QuotePlugin(CMSPluginBase):
+    name = "Quote"
+    model = Quote
+    render_template = "plugins/quote.html"

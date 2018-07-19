@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="section section-beer">
+    <div class="container">
+        <div class="d-flex justify-content-center  text-center">
+            <h3 class="subtitle-large title-beer">{{ instance.title }} <span class="subtitle-large text-weight-light">{{ instance.subtitle }}</span></h3>
+        </div>
+        <div class="row pt-5 pb-md-5">
+            <div class="col-12 col-md-1 p-0 pl-md-3 elipse-reviews-desktop elipse-bacground-without-text"></div>
+            <div class="box-shadow-custom col-12 col-md-11 review-person pt-0">
+                <div class="row ">
+                    <div class="col-12 col-md-8 left-side-review p-4 pl-5">
+                        <div class="d-flex justify-content-end"><img class="quotes mb-3" src="{% static "acamar_web/images/quote-start.svg" %}" /></div>
+                        <p class="description-review pr-5">
+                            {{ instance.text }}
+                        </p>
+                        <span class="bos-proboston-bold">{{ instance.author }}</span>
+                        <div><p class="about">{{ instance.author_title }}</p></div>
+                        <div class="d-flex justify-content-start"><img class="quotes mt-3 mt-md-4" src="{% static "acamar_web/images/quote-end.svg" %}" /></div>
+                    </div>
+                    <div class="col-12 col-md-4 position-relative pb-3 pb-md-0">
+                        <div class="person-wrapper-without-text"><img class="img-person" src="{{ instance.author_image.url }}" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
