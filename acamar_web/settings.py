@@ -404,6 +404,7 @@ if DEV_PROFILE != 'local':
             'LOCATION': '127.0.0.1:11211',
         }
     }
+    TEST_RUNNER = 'acamar_web.test.testrunner.NoDbTestRunner'
 
 
 
