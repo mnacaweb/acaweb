@@ -11,8 +11,6 @@ from django.conf import settings
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'acamar_web', '0001_initial'), (b'acamar_web', '0002_mainbannercard'), (b'acamar_web', '0003_workelipse_workelipsecolumn'), (b'acamar_web', '0004_auto_20180713_1032'), (b'acamar_web', '0005_reviewpanel'), (b'acamar_web', '0006_auto_20180713_1135'), (b'acamar_web', '0007_review_show'), (b'acamar_web', '0008_teamwork_teamworklogo'), (b'acamar_web', '0009_coursepanel'), (b'acamar_web', '0010_createteam_createteamcard'), (b'acamar_web', '0011_auto_20180716_1629'), (b'acamar_web', '0012_auto_20180716_1635'), (b'acamar_web', '0013_auto_20180716_1650'), (b'acamar_web', '0014_teammember_image'), (b'acamar_web', '0015_contactcard_contactgrid'), (b'acamar_web', '0016_auto_20180717_1049'), (b'acamar_web', '0017_auto_20180717_1057'), (b'acamar_web', '0018_contactformmodel'), (b'acamar_web', '0019_contactformpurposeoption'), (b'acamar_web', '0020_auto_20180717_1213'), (b'acamar_web', '0021_auto_20180717_1242'), (b'acamar_web', '0022_positionsearch'), (b'acamar_web', '0023_positionsearch_limit')]
-
     dependencies = [
         ('filer', '0010_auto_20180414_2058'),
         ('cms', '0020_old_tree_cleanup'),

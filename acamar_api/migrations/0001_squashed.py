@@ -7,8 +7,6 @@ import djangocms_text_ckeditor.fields
 
 class Migration(migrations.Migration):
 
-    replaces = [('acamar_api', '0001_initial'), ('acamar_api', '0002_auto_20180717_1656'), ('acamar_api', '0003_auto_20180717_1746'), ('acamar_api', '0004_auto_20180717_1753')]
-
     dependencies = [
     ]
 
