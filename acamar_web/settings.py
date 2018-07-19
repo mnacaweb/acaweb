@@ -50,7 +50,7 @@ elif DEV_PROFILE == 'preview':
             'ENGINE':   'django.db.backends.mysql',
             'NAME':     PB_PROJECT,
             'USER':     PB_PROJECT,
-            'PASSWORD': '',
+            'PASSWORD': 'GAzwyTUeH',
         }
     }
     STATIC_GRUNT_DIR = 'static-preview'
