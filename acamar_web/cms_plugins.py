@@ -11,7 +11,7 @@ from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
-    AcaFriendPanel, AcaFriendCard
+    AcaFriendPanel, AcaFriendCard, ContactUs
 
 
 @plugin_pool.register_plugin
@@ -153,6 +153,15 @@ class ContactFormPlugin(CMSPluginBase):
     model = ContactFormModel
     render_template = "plugins/contact/contact_form.html"
     inlines = [ContactFormPurposeOptionInline]
+
+
+@plugin_pool.register_plugin
+class ContactUsPlugin(CMSPluginBase):
+    name = "Contact us"
+    model = ContactUs
+    render_template = "plugins/contact/contact_us.html"
+
+    fieldsets = [(None, {"fields": ("title", "button_text", "link_text", ("link_external", "link_internal"))})]
 
 
 @plugin_pool.register_plugin

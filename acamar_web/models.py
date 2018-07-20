@@ -8,17 +8,16 @@ import urllib
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
 
 from acamar_api.manager import AcamarCourseManager
-from acamar_api.models import Course
 
 
 class FilerVideo(File):
@@ -56,8 +55,10 @@ class MainBanner(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.TextField(verbose_name="Sub-title")
 
-    background_video = FilerVideoField(verbose_name="Background video", null=True, blank=True, related_name="main_banners_video")
-    background_image = FilerImageField(verbose_name="Background image", null=True, blank=True, help_text="Fallback for background video", related_name="main_banners_image")
+    background_video = FilerVideoField(verbose_name="Background video", null=True, blank=True,
+                                       related_name="main_banners_video")
+    background_image = FilerImageField(verbose_name="Background image", null=True, blank=True,
+                                       help_text="Fallback for background video", related_name="main_banners_image")
 
     def __str__(self):
         return truncatechars(self.title, 40)
@@ -69,7 +70,8 @@ class MainBannerCard(CMSPlugin):
     subtitle = models.TextField(verbose_name="Sub-title")
     button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
     button_text = models.CharField(max_length=254, verbose_name="Button text")
-    theme = models.CharField(choices=[("", "Black"), ("looking-for-gray", "Gray")], max_length=30, verbose_name="Theme", blank=True)
+    theme = models.CharField(choices=[("", "Black"), ("looking-for-gray", "Gray")], max_length=30, verbose_name="Theme",
+                             blank=True)
 
     def __str__(self):
         return self.title
@@ -106,8 +108,10 @@ class WorkElipse(CMSPlugin):
 class Review(models.Model):
     author = models.CharField(verbose_name="Author", max_length=254)
     text = models.TextField(verbose_name="Text")
-    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT, blank=True, null=True, related_name="reviews_image")
-    logo = FilerImageField(verbose_name="Logo", on_delete=models.PROTECT, blank=True, null=True, related_name="reviews_logo")
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT, blank=True, null=True,
+                            related_name="reviews_image")
+    logo = FilerImageField(verbose_name="Logo", on_delete=models.PROTECT, blank=True, null=True,
+                           related_name="reviews_logo")
     show = models.BooleanField(verbose_name="Show", default=True, db_index=True)
 
     def __str__(self):
@@ -253,7 +257,8 @@ class ContactCard(CMSPlugin):
 
 @python_2_unicode_compatible
 class ContactFormPurposeOption(models.Model):
-    form = models.ForeignKey("acamar_web.ContactFormModel", on_delete=models.CASCADE, related_name="purpose_options", editable=False)
+    form = models.ForeignKey("acamar_web.ContactFormModel", on_delete=models.CASCADE, related_name="purpose_options",
+                             editable=False)
     name = models.CharField(verbose_name="Option name", max_length=254)
 
     def __str__(self):
@@ -279,6 +284,43 @@ class ContactFormModel(CMSPlugin):
 
 
 @python_2_unicode_compatible
+class ContactUs(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    link_text = models.CharField(verbose_name="Link text", max_length=254)
+    link_external = models.URLField(
+        verbose_name='External link',
+        blank=True,
+        max_length=2040,
+        help_text='Provide a valid URL to an external website.',
+    )
+    link_internal = PageField(
+        verbose_name='Internal link',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='If provided, overrides the external link.',
+    )
+
+    @property
+    def link_url(self):
+        if self.link_internal:
+            return self.link_internal.get_absolute_url()
+        elif self.link_external:
+            return self.link_external
+        else:
+            return ""
+
+    def clean(self):
+        super(ContactUs, self).clean()
+        if not self.link_text and self.link_url:
+            raise ValidationError("Please provide a link.")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
 class Map(CMSPlugin):
     title = models.TextField(verbose_name="Title")
     address = models.TextField(verbose_name="Address")
@@ -298,7 +340,8 @@ class PositionSearch(CMSPlugin):
     search_button = models.CharField(verbose_name="Search button text", max_length=254)
     all_pacts_text = models.CharField(verbose_name="All jobs text", max_length=254, default="Všechny úvazky")
     recruiter_text = models.CharField(verbose_name="Recruiter text", max_length=254, default="Provedu vás náborem")
-    recruiter_email_text = models.CharField(verbose_name="Recruiter email text", max_length=254, default="Napište mi e-mail")
+    recruiter_email_text = models.CharField(verbose_name="Recruiter email text", max_length=254,
+                                            default="Napište mi e-mail")
     more_button_text = models.CharField(verbose_name="More button text", max_length=254)
     limit = models.PositiveSmallIntegerField(verbose_name="Limit results", null=True, blank=True)
 
@@ -369,7 +412,7 @@ class AcaFriendCard(CMSPlugin):
     author = models.CharField(verbose_name="Author", max_length=254)
     author_position = models.CharField(verbose_name="Author position", max_length=254)
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
-    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+    text = models.TextField(verbose_name="Text")
 
     def __str__(self):
         return self.author
