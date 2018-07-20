@@ -159,7 +159,8 @@ CMS_TEMPLATES = [
     ('basic.html', 'Basic page template'),
     ('we_are.html', 'We are'),
     ('contact.html', 'Contact'),
-    ('for_candidates.html', 'For candidates')
+    ('for_candidates.html', 'For candidates'),
+    ('for_companies.html', 'For companies')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -309,6 +310,10 @@ CMS_PLACEHOLDER_CONF = {
     "for_candidates": {
         "plugins": ["PositionSearchPlugin", "QuotePlugin", "BubblePanelPlugin", "TimelinePlugin", "AcaFriendPanelPlugin", "ContactUsPlugin"],
         "name": "Content - for candidates"
+    },
+    "for_companies": {
+        "plugins": ["TimelinePlugin"],
+        "name": "Content - for companies"
     }
 }
 

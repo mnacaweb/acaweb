@@ -37,14 +37,16 @@ from .fields import FilerVideoField
 @python_2_unicode_compatible
 class MainBanner(CMSPlugin):
     DEFAULT = "default"
-    CANDIDATES = "candidates"
+    FOR_CANDIDATES = "for_candidates"
+    FOR_COMPANIES = "for_companies"
     WE_ARE = "we_are"
     COURSE = "course"
     CONTACT = "contact"
     DETAIL = "detail"
     _CHOICES = [
         (DEFAULT, "Default"),
-        (CANDIDATES, "Candidates"),
+        (FOR_CANDIDATES, "For candidates"),
+        (FOR_COMPANIES, "For companies"),
         (WE_ARE, "We are"),
         (COURSE, "Course"),
         (CONTACT, "Contact"),
