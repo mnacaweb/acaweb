@@ -10,7 +10,8 @@ from django.db.models.aggregates import Count
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem
+    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
+    AcaFriendPanel, AcaFriendCard
 
 
 @plugin_pool.register_plugin
@@ -220,3 +221,21 @@ class TimelineItemPlugin(CMSPluginBase):
     render_template = "plugins/timeline/timeline_item.html"
     require_parent = True
     parent_classes = ["TimelinePlugin"]
+
+
+@plugin_pool.register_plugin
+class AcaFriendPanelPlugin(CMSPluginBase):
+    name = "AcaFriend panel"
+    model = AcaFriendPanel
+    render_template = "plugins/acafriend_panel/acafriend_panel.html"
+    allow_children = True
+    child_classes = ["AcaFriendCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class AcaFriendCardPlugin(CMSPluginBase):
+    name = "AcaFriend card"
+    model = AcaFriendCard
+    render_template = "plugins/acafriend_panel/acafriend_card.html"
+    require_parent = True
+    parent_classes = ["AcaFriendPanelPlugin"]

@@ -14,7 +14,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    {% render_bundle 'main' %}
+    {% render_bundle 'main' "css" %}
     {% render_block "css" %}
 
     <link href="{% static "acamar_web/images/favicon.ico" %}" rel="Shortcut Icon">
@@ -70,5 +70,6 @@
 </div>
 </body>
 
+{% render_bundle 'main' "js" %}
 {% render_block "js" %}
 </html>

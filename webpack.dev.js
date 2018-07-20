@@ -14,6 +14,7 @@ module.exports = merge(common, {
 		filename: "[name].bundle.js",
 		chunkFilename: "[name].bundle.js",
 		path: path.resolve(__dirname, project_name, "static-preview", project_name),
+		publicPath: "/static/acamar_web/"
 	},
 	plugins: [
 		new CleanWebpackPlugin([project_name+"/static-preview"], {watch: false}),

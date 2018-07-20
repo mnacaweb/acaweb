@@ -1,3 +1,9 @@
 @import "spritesmith/sprite";
 
 @import "desktop";
+
+html.cms-toolbar-expanded {
+  .site-header {
+    top: 46px;
+  }
+}

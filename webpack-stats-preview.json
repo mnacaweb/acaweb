@@ -1,9 +1,15 @@
 {
     "status": "done",
+    "publicPath": "/static/acamar_web/",
     "chunks": {
         "main": [
             {
-                "name": "main.bundle.js"
+                "name": "main.css",
+                "publicPath": "/static/acamar_web/main.css"
+            },
+            {
+                "name": "main.bundle.js",
+                "publicPath": "/static/acamar_web/main.bundle.js"
             }
         ]
     }

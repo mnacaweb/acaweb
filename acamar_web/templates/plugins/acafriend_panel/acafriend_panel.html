@@ -1,0 +1,18 @@
+{% load cms_tags %}
+
+<div class="section section-acafriends bg-white">
+    <div class="container">
+        <div class="friends-section">
+            <div class="container">
+                <div class="d-flex justify-content-center pb-4">
+                    <h3 class="subtitle-large">{{ instance.title }}</h3>
+                </div>
+                <div class="row justify-content-center">
+                    {% for plugin in instance.child_plugin_instances %}
+                        {% render_plugin plugin %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

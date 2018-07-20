@@ -1,5 +1,4 @@
 const merge = require("webpack-merge");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const common = require("./webpack.common.js");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleTracker = require("./customBundleTracker");
@@ -13,11 +12,11 @@ module.exports = merge(common, {
 	output: {
 		filename: "[name]-[hash].bundle.js",
 		chunkFilename: "[name]-[hash].bundle.js",
-		path: path.resolve(__dirname, project_name, "static-master", project_name)
+		path: path.resolve(__dirname, project_name, "static-master", project_name),
+		publicPath: "/static/acamar_web/"
 	},
 	plugins: [
 		new CleanWebpackPlugin([project_name+"/static-master"]),
-		new UglifyJSPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
 				"NODE_ENV": JSON.stringify("production")

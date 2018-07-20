@@ -354,3 +354,22 @@ class TimelineItem(CMSPlugin):
 
     def __str__(self):
         return self.text
+
+
+@python_2_unicode_compatible
+class AcaFriendPanel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class AcaFriendCard(CMSPlugin):
+    author = models.CharField(verbose_name="Author", max_length=254)
+    author_position = models.CharField(verbose_name="Author position", max_length=254)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+
+    def __str__(self):
+        return self.author

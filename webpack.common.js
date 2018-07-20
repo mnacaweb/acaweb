@@ -2,6 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const SpritesmithPlugin = require("webpack-spritesmith");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const project_name = "acamar_web";
 
 module.exports = {
@@ -13,7 +16,22 @@ module.exports = {
 		jquery: "jQuery",
 		google: "google"
 	},
+	optimization: {
+		minimizer: [
+			new UglifyJSPlugin({
+				cache: true,
+				parallel: true,
+			}),
+			new OptimizeCSSAssetsPlugin({})
+		]
+	},
 	plugins: [
+		new MiniCssExtractPlugin({
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: "[name].css",
+			chunkFilename: "[id].css"
+		}),
 		new CopyWebpackPlugin([{
 			from: "./images",
 			to: "./images"
@@ -32,7 +50,7 @@ module.exports = {
 			},
 			target: {
 				image: path.resolve(__dirname, project_name, "static-source", project_name, "styles", "spritesmith/sprite.png"),
-				css: path.resolve(__dirname, project_name,"static-source", project_name, "styles", "spritesmith/_sprite.scss")
+				css: path.resolve(__dirname, project_name, "static-source", project_name, "styles", "spritesmith/_sprite.scss")
 			},
 			apiOptions: {
 				cssImageRef: "./styles/spritesmith/sprite.png"
@@ -79,31 +97,44 @@ module.exports = {
 				}]
 			},
 			{
-				test: /\.scss$/,
-				use: [{
-					loader: "style-loader",
-				}, {
-					loader: "css-loader",
-				},
-				{loader: "resolve-url-loader"},
-				{
-					loader: "sass-loader",
-					options: {
-						includePaths: ["./styles"],
-						sourceMap: true
+				test: /\.(sa|sc|c)ss$/,
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							sourceMap: true
+						}
+					},
+					{
+						loader: "css-loader", options: {
+							sourceMap: true
+						}
+					},
+					{
+						loader: "postcss-loader",
+						options: {
+							plugins() {
+								return [
+									require("precss"),
+									require("autoprefixer")
+								];
+							},
+							sourceMap: true
+						}
+					},
+					{
+						loader: "resolve-url-loader", options: {
+							sourceMap: true
+						}
+					},
+					{
+						loader: "sass-loader",
+						options: {
+							sourceMap: true
+						}
 					}
-				}]
-			},
-			{
-				test: /\.css$/,
-				use: [{
-					loader: "style-loader",
-				}, {
-					loader: "css-loader",
-				},
-				{loader: "resolve-url-loader"}
-				]
-			},
+				],
+			}
 		]
 	}
 };
