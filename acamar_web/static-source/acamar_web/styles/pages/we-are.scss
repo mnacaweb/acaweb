@@ -27,6 +27,13 @@
   }
 
   .main-title-wrapper {
+      max-width: 500px;
+
+      @include media-breakpoint-down(md) {
+        max-width: 280px;
+      }
+
+
 
     @include media-breakpoint-up(md) {
       position: absolute;
@@ -133,6 +140,7 @@
       position: relative;
       overflow: hidden;
       padding: 25px 20px;
+      height: 100%;
 
       .card-top {
         max-width: 200px;

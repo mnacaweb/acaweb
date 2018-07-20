@@ -11561,6 +11561,9 @@ input[type="text"]::placeholder {
 .card .card-body {
   padding: 20px 20px 0 20px;
   background-size: 100%;
+  position: relative;
+  z-index: 1;
+  max-width: 160px;
 }
 
 .card .card-body ul {
@@ -11765,6 +11768,28 @@ input[type="text"]::placeholder {
   }
 }
 
+.looking-wrapper .py-3 {
+  padding-bottom: 3rem !important;
+}
+
+@media (max-width: 991.98px) {
+  .looking-wrapper .py-3 {
+    padding-bottom: 1rem !important;
+  }
+}
+
+.looking-wrapper .button {
+  position: absolute;
+  bottom: 34px;
+}
+
+@media (max-width: 991.98px) {
+  .looking-wrapper .button {
+    position: relative;
+    bottom: auto;
+  }
+}
+
 /* ==========================================================================
    Well work
    ========================================================================== */
@@ -11866,6 +11891,7 @@ input[type="text"]::placeholder {
 
 .reviews-section {
   padding: 40px 0;
+  height: 1050px;
 }
 
 .reviews-section .custom-container-lg {
@@ -11989,6 +12015,45 @@ input[type="text"]::placeholder {
   }
 }
 
+.course-section .card-wrapper {
+  height: 100%;
+}
+
+.course-section .card {
+  padding-bottom: 0;
+  height: 100%;
+}
+
+.course-section .card-top {
+  min-height: 110px;
+}
+
+.course-section .card-body {
+  width: 100%;
+  max-width: 100%;
+}
+
+.course-section .card-body::after {
+  content: "";
+  width: 670px;
+  height: 732px;
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50%);
+  top: 0;
+  bottom: auto;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  overflow: hidden;
+  background-color: #f3f3f3;
+  border: none;
+  z-index: -1;
+}
+
+.course-section .card-footer {
+  display: none;
+}
+
 .creat-title {
   margin-bottom: 0;
 }
@@ -12019,6 +12084,16 @@ input[type="text"]::placeholder {
     min-height: 325px;
     background-size: 125%;
     background-position: 0 0;
+  }
+}
+
+.main-banner-we-are .main-title-wrapper {
+  max-width: 500px;
+}
+
+@media (max-width: 991.98px) {
+  .main-banner-we-are .main-title-wrapper {
+    max-width: 280px;
   }
 }
 
@@ -12143,6 +12218,7 @@ input[type="text"]::placeholder {
   position: relative;
   overflow: hidden;
   padding: 25px 20px;
+  height: 100%;
 }
 
 .together-section .card.person .card-top {
@@ -12212,6 +12288,18 @@ input[type="text"]::placeholder {
     min-height: 325px;
     background-size: 130%;
     background-position: 38% 8%;
+  }
+}
+
+.main-banner-candidates .main-title,
+.main-banner-candidates .main-title-small {
+  max-width: 400px;
+}
+
+@media (max-width: 991.98px) {
+  .main-banner-candidates .main-title,
+  .main-banner-candidates .main-title-small {
+    max-width: unset;
   }
 }
 
@@ -13076,6 +13164,18 @@ input[type="text"]::placeholder {
   }
 }
 
+.page-contact .main-banner-contact .main-title,
+.page-contact .main-banner-contact .subtitle {
+  max-width: 600px;
+}
+
+@media (max-width: 991.98px) {
+  .page-contact .main-banner-contact .main-title,
+  .page-contact .main-banner-contact .subtitle {
+    max-width: unset;
+  }
+}
+
 .page-contact .section-be-heard {
   position: relative;
   overflow: hidden;
@@ -13229,6 +13329,7 @@ input[type="text"]::placeholder {
   font-size: 22px;
   font-weight: 900;
   margin-bottom: 10px;
+  padding: 0 50px;
 }
 
 @media (min-width: 768px) {
@@ -13863,3 +13964,5 @@ html.cms-toolbar-expanded .site-header {
 }
 
 
+
+/*# sourceMappingURL=main.css.map*/

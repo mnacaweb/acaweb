@@ -9,7 +9,7 @@ const project_name = "acamar_web";
 
 module.exports = merge(common, {
 	mode: "development",
-	devtool: "eval-source-map",
+	devtool: "source-map",
 	output: {
 		filename: "[name].bundle.js",
 		chunkFilename: "[name].bundle.js",

@@ -10,6 +10,14 @@
             {
                 "name": "main.bundle.js",
                 "publicPath": "/static/acamar_web/main.bundle.js"
+            },
+            {
+                "name": "main.css.map",
+                "publicPath": "/static/acamar_web/main.css.map"
+            },
+            {
+                "name": "main.bundle.js.map",
+                "publicPath": "/static/acamar_web/main.bundle.js.map"
             }
         ]
     }

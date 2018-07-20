@@ -20,6 +20,17 @@
     background-size: 130%;
     background-position: 38% 8%;
   }
+
+  .main-title,
+  .main-title-small {
+    max-width: 400px;
+
+    @include media-breakpoint-down(md) {
+      max-width: unset;
+    }
+
+  }
+
 }
 
 .input-group {
