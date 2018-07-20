@@ -281,6 +281,14 @@ class ContactFormModel(CMSPlugin):
     text_label = models.CharField(verbose_name="Label - text", max_length=254)
     button_text = models.CharField(verbose_name="Button text", max_length=254)
 
+    def copy_relations(self, old_instance):
+        self.purpose_options.all().delete()
+
+        for purpose_option in old_instance.purpose_options.all():
+            purpose_option.pk = None
+            purpose_option.parent = self
+            purpose_option.save()
+
     def __str__(self):
         return self.title
 
@@ -315,7 +323,7 @@ class ContactUs(CMSPlugin):
 
     def clean(self):
         super(ContactUs, self).clean()
-        if not self.link_text and self.link_url:
+        if not self.link_external and not self.link_internal:
             raise ValidationError("Please provide a link.")
 
     def __str__(self):
@@ -418,3 +426,68 @@ class AcaFriendCard(CMSPlugin):
 
     def __str__(self):
         return self.author
+
+
+@python_2_unicode_compatible
+class GraphSection(CMSPlugin):
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    button_link_external = models.URLField(
+        verbose_name='Button external link',
+        blank=True,
+        max_length=2040,
+        help_text='Provide a valid URL to an external website.',
+    )
+    button_link_internal = PageField(
+        verbose_name='Button internal link',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='If provided, overrides the external link.',
+    )
+
+    @property
+    def link_url(self):
+        if self.button_link_internal:
+            return self.button_link_internal.get_absolute_url()
+        elif self.button_link_external:
+            return self.button_link_external
+        else:
+            return ""
+
+    def clean(self):
+        super(GraphSection, self).clean()
+        if not self.button_link_external and not self.button_link_internal:
+            raise ValidationError("Please provide a link.")
+
+    def __str__(self):
+        return self.button_text
+
+
+@python_2_unicode_compatible
+class GraphCard(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+
+    def copy_relations(self, old_instance):
+        self.texts.all().delete()
+
+        for text in old_instance.texts.all():
+            text.pk = None
+            text.parent = self
+            text.save()
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class GraphCardText(models.Model):
+    parent = models.ForeignKey('acamar_web.GraphCard', related_name="texts", on_delete=models.CASCADE)
+    text = models.CharField(verbose_name="Text", max_length=254)
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Graph card text"
+        verbose_name_plural = "Graph card texts"

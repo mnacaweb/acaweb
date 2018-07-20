@@ -1,0 +1,12 @@
+{% load cms_tags %}
+
+<div class="container container-lg">
+    <div class="section">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        <div class="row justify-content-center button-wrapper">
+            <a href="{{ instance.button_link }}" class="button button-secondary">{{ instance.button_text }}</a>
+        </div>
+    </div>
+</div>

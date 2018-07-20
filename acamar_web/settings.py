@@ -312,7 +312,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - for candidates"
     },
     "for_companies": {
-        "plugins": ["TimelinePlugin"],
+        "plugins": ["GraphSectionPlugin", "TimelinePlugin"],
         "name": "Content - for companies"
     }
 }

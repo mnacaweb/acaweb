@@ -11,7 +11,7 @@ from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
-    AcaFriendPanel, AcaFriendCard, ContactUs
+    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText
 
 
 @plugin_pool.register_plugin
@@ -248,3 +248,30 @@ class AcaFriendCardPlugin(CMSPluginBase):
     render_template = "plugins/acafriend_panel/acafriend_card.html"
     require_parent = True
     parent_classes = ["AcaFriendPanelPlugin"]
+
+
+@plugin_pool.register_plugin
+class GraphSectionPlugin(CMSPluginBase):
+    name = "Graph section"
+    model = GraphSection
+    render_template = "plugins/graph_section/graph_section.html"
+    allow_children = True
+    child_classes = ["GraphCardPlugin"]
+
+    fieldsets = [(None, {"fields": ("button_text", ("button_link_external", "button_link_internal"))})]
+
+
+class GraphCardTextInline(admin.TabularInline):
+    model = GraphCardText
+    max_num = 3
+    min_num = 1
+
+
+@plugin_pool.register_plugin
+class GraphCardPlugin(CMSPluginBase):
+    name = "Graph card"
+    model = GraphCard
+    render_template = "plugins/graph_section/graph_card.html"
+    require_parent = True
+    parent_classes = ["GraphSectionPlugin"]
+    inlines = [GraphCardTextInline]
