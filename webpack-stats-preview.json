@@ -6,5 +6,7 @@
                 "name": "main.bundle.js"
             }
         ]
-    }
+    },
+    "error": "ModuleBuildError",
+    "message": "Module build failed (from C:/Projects/vagrant/web/acamar_web/node_modules/sass-loader/lib/loader.js):\n\r\nundefined\r\n  ^\r\n      Invalid CSS after \"  }\": expected selector or at-rule, was \"}\"\r\n      in C:\\Projects\\vagrant\\web\\acamar_web\\acamar_web\\static-source\\acamar_web\\styles\\pages\\front-page.scss (line 120, column 4)"
 }

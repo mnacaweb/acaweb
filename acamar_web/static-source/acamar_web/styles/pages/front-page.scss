@@ -96,6 +96,26 @@
       }
     }
   }
+
+  .py-3 {
+    padding-bottom: 3rem !important;
+
+    @include media-breakpoint-down(md) {
+      padding-bottom: 1rem !important;
+    }
+
+  }
+
+  .button {
+    position: absolute;
+    bottom: 34px;
+
+    @include media-breakpoint-down(md) {
+      position: relative;
+      bottom: auto;
+    }
+
+  }
 }
 
 /* ==========================================================================
@@ -191,6 +211,7 @@
    ========================================================================== */
 .reviews-section {
   padding: 40px 0;
+  height: 1050px;
 
   .custom-container-lg {
     max-width: 1140px !important;
@@ -299,5 +320,44 @@
       font-size: 18px;
     }
   }
+
+  .card-wrapper {
+    height: 100%;
+  }
+
+  .card {
+    padding-bottom: 0;
+    height: 100%;
+  }
+
+  .card-top {
+    min-height: 110px;
+  }
+
+  .card-body {
+    width: 100%;
+    max-width: 100%;
+
+    &::after {
+      content: "";
+      width: 670px;
+      height: 732px;
+      border-radius: 50%;
+      position: absolute;
+      left: calc(50%);
+      top: 0;
+      bottom: auto;
+      transform: translateX(-50%);
+      overflow: hidden;
+      background-color: #f3f3f3;
+      border: none;
+      z-index: -1;
+    }
+  }
+
+  .card-footer {
+    display: none;
+  }
+
 }
 
