@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, lazy
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
@@ -55,7 +55,7 @@ class MainBanner(CMSPlugin):
 
     template = models.CharField(verbose_name="Template", max_length=100, choices=_CHOICES, default=DEFAULT)
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.TextField(verbose_name="Sub-title")
+    subtitle = models.TextField(verbose_name="Sub-title", blank=True)
 
     background_video = FilerVideoField(verbose_name="Background video", null=True, blank=True,
                                        related_name="main_banners_video")
@@ -156,17 +156,78 @@ class Logo(CMSPlugin):
 
 @python_2_unicode_compatible
 class CoursePanel(CMSPlugin):
+    DEFAULT = ""
+    ALTERNATIVE = "_alternative"
+    _TEMPLATE_OPTIONS = [
+        (DEFAULT, "Default"),
+        (ALTERNATIVE, "Alternative with background")
+    ]
+
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    template = models.CharField(verbose_name="Template", max_length=20, choices=_TEMPLATE_OPTIONS, blank=True, default=DEFAULT)
     text = models.TextField(verbose_name="Text")
-    button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
-    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    button_text = models.CharField(verbose_name="Button text", max_length=254, blank=True)
+    button_link_external = models.URLField(
+        verbose_name='External link',
+        blank=True,
+        max_length=2040,
+        help_text='Provide a valid URL to an external website.',
+    )
+    button_link_internal = PageField(
+        verbose_name='Internal link',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='If provided, overrides the external link.',
+    )
+
+    @property
+    def button_link(self):
+        if self.button_link_internal:
+            return self.button_link_internal.get_absolute_url()
+        elif self.button_link_external:
+            return self.button_link_external
+        else:
+            return ""
 
     def __str__(self):
         return self.title
 
     def courses(self):
-        return AcamarCourseManager.all()
+        items = self.items.all()
+        if items:
+            return [item.course for item in items]
+        return AcamarCourseManager.all_list()
+
+    def copy_relations(self, old_instance):
+        self.items.all().delete()
+
+        for item in old_instance.items.all():
+            item.pk = None
+            item.parent = self
+            item.save()
+
+
+@python_2_unicode_compatible
+class CoursePanelItem(models.Model):
+    course_panel = models.ForeignKey("acamar_web.CoursePanel", on_delete=models.CASCADE, related_name="items")
+    _course = models.PositiveIntegerField(verbose_name="Course", choices=[])
+
+    def __init__(self, *args, **kwargs):
+        super(CoursePanelItem, self).__init__(*args, **kwargs)
+        self._meta.get_field_by_name('_course')[0]._choices = lazy(AcamarCourseManager.get_choices, list)()
+
+    @cached_property
+    def course(self):
+        return AcamarCourseManager.get_by_id(self._course)
+
+    def __str__(self):
+        return self.course.title
+
+    class Meta:
+        verbose_name = "Course"
+        verbose_name_plural = "Courses"
 
 
 @python_2_unicode_compatible

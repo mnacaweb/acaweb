@@ -1,21 +1,25 @@
 {% load static i18n %}
 
 <div class="col-12 col-sm-6 col-md-6 col-lg-3 pr-md-0 mb-3 mb-md-0">
-    <div class="card-wrapper pb-2  pb-lg-5 pb-lg-0">
-        <div class="card zoom-card box-shadow-custom">
+    <div class="card-wrapper pb-4 pb-md-5 pb-lg-0">
+        <div class="card box-shadow-custom">
             <div class="card-top">
                 <h5 class="card-title">{{ object.title }}</h5>
                 <p class="training">{{ object.kratky_popis }}</p>
             </div>
-            <div class="card-body py-md-3">
-                <ul class="pt-lg-4">
-                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}" /><span class="card-li-text">{% trans "Cena: " %}<span>{# 3 000 Kč #}{{ object.cena }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}" /><span class="card-li-text">{% trans "Délka školení: " %}<span>{# 2 x 4hod #}{{ object.delka_skoleni }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}" /><span class="card-li-text">{% trans "Místo školení: " %}<span>{# Praha #}{{ object.misto_skoleni }}</span></span></li>
+            <div class="card-body py-3">
+                <ul class="pt-4">
+                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}"/><span class="card-li-text">{% trans "Cena: " %}<span>{# 3 000 Kč #}{{ object.cena }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}"/><span class="card-li-text">{% trans "Délka školení: " %}<span>{# 2 x 4hod #}{{ object.delka_skoleni }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}"/><span class="card-li-text">{% trans "Místo školení: " %}<span>{# Praha #}{{ object.misto_skoleni }}</span></span></li>
                 </ul>
             </div>
             <div class="card-footer">
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            {% trans "Více o kurzu" as button_text %}
+            <a class="button card-button button-secondary text-uppercase" href="{{ object.get_absolute_url }}l">{{ instance.button_text|default:button_text }}</a>
         </div>
     </div>
 </div>

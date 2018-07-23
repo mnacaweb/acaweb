@@ -5,10 +5,14 @@ from djangocms_text_ckeditor.fields import HTMLField
 from haystack.query import SearchQuerySet
 
 
+@python_2_unicode_compatible
 class Course(object):
     def __init__(self, **kwargs):
         for key, value in kwargs.iteritems():
             setattr(self, key, value)
+
+    def __str__(self):
+        return self.title
 
 
 @python_2_unicode_compatible

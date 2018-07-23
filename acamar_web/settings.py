@@ -160,7 +160,8 @@ CMS_TEMPLATES = [
     ('we_are.html', 'We are'),
     ('contact.html', 'Contact'),
     ('for_candidates.html', 'For candidates'),
-    ('for_companies.html', 'For companies')
+    ('for_companies.html', 'For companies'),
+    ('course.html', 'Courses')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -314,6 +315,10 @@ CMS_PLACEHOLDER_CONF = {
     "for_companies": {
         "plugins": ["GraphSectionPlugin", "PartnersPlugin", "TimelinePlugin", "ContactPersonPlugin"],
         "name": "Content - for companies"
+    },
+    "course": {
+        "plugins": ["CreateTeamPlugin", "CoursePanelPlugin", "TimelinePlugin"],
+        "name": "Content - course"
     }
 }
 

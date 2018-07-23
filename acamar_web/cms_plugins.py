@@ -11,7 +11,8 @@ from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
-    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson
+    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
+    CoursePanelItem
 
 
 @plugin_pool.register_plugin
@@ -91,11 +92,25 @@ class LogoPlugin(CMSPluginBase):
     parent_classes = ["LogoPanelPlugin"]
 
 
+class CoursePanelItemInline(admin.TabularInline):
+    model = CoursePanelItem
+    extra = 0
+
+
 @plugin_pool.register_plugin
 class CoursePanelPlugin(CMSPluginBase):
     name = "Course panel"
     model = CoursePanel
-    render_template = "plugins/course_panel/course_panel.html"
+    inlines = [CoursePanelItemInline]
+
+    fieldsets = [
+        (None, {"fields": ("title", "subtitle", "template", "text")}),
+        ("Button",
+         {"fields": ("button_text", ("button_link_external", "button_link_internal")), "classes": ["collapse"]}),
+    ]
+
+    def get_render_template(self, context, instance, placeholder):
+        return "plugins/course_panel/course_panel{}.html".format(instance.template)
 
 
 @plugin_pool.register_plugin

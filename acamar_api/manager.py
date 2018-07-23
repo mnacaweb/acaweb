@@ -27,15 +27,29 @@ class AcamarCourseManager:
         return courses
 
     @classmethod
+    def all_list(cls, cached=True):
+        return cls.all(cached).values()
+
+    @classmethod
     def _all(cls):
         resp = requests.get(url="https://www.acamar.cz/api_kurzy.php",
                             params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"})
         if resp.status_code == 200:
             json = resp.json()
-            courses = []
+            courses = {}
             for id, course in json.iteritems():
-                courses.append(cls.model(**course))
+                courses[id] = cls.model(**course)
             return courses
+
+    @classmethod
+    def get_by_id(cls, id, cached=True):
+        courses = cls.all(cached)
+        return courses[str(id)]
+
+    @classmethod
+    def get_choices(cls, cached=True):
+        courses = cls.all(cached)
+        return [(int(id), obj.title) for id, obj in courses.iteritems()]
 
 
 class AcamarPositionManager:
