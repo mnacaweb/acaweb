@@ -205,7 +205,7 @@ class CoursePanel(CMSPlugin):
 
         for item in old_instance.items.all():
             item.pk = None
-            item.parent = self
+            item.course_panel = self
             item.save()
 
 
@@ -347,7 +347,7 @@ class ContactFormModel(CMSPlugin):
 
         for purpose_option in old_instance.purpose_options.all():
             purpose_option.pk = None
-            purpose_option.parent = self
+            purpose_option.form = self
             purpose_option.save()
 
     def __str__(self):
