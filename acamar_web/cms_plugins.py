@@ -9,9 +9,9 @@ from django.db.models.aggregates import Count
 
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
-    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, TeamMember, ContactGrid, ContactCard, ContactFormModel, \
+    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
-    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText
+    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson
 
 
 @plugin_pool.register_plugin
@@ -165,6 +165,20 @@ class ContactUsPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class ContactPersonPlugin(CMSPluginBase):
+    name = "Contact person"
+    model = ContactPerson
+    render_template = "plugins/contact/contact_person.html"
+
+    fieldsets = [
+        (None, {"fields": ("title", "subtitle", "button_text", ("button_link_external", "button_link_internal"))}),
+        ("Person", {"fields": ("person_name", "person_title", "person_phone", "image"), "classes": ["wide"]}),
+        ("Additional link",
+         {"fields": ("more_text", ("more_link_external", "more_link_internal")), "classes": ["collapse"]})
+    ]
+
+
+@plugin_pool.register_plugin
 class MapPlugin(CMSPluginBase):
     name = "Map"
     model = Map
@@ -275,3 +289,10 @@ class GraphCardPlugin(CMSPluginBase):
     require_parent = True
     parent_classes = ["GraphSectionPlugin"]
     inlines = [GraphCardTextInline]
+
+
+@plugin_pool.register_plugin
+class PartnersPlugin(CMSPluginBase):
+    name = "Partners"
+    model = PartnersModel
+    render_template = "plugins/partners.html"

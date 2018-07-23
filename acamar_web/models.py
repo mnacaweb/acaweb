@@ -331,6 +331,72 @@ class ContactUs(CMSPlugin):
 
 
 @python_2_unicode_compatible
+class ContactPerson(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
+    person_name = models.CharField(verbose_name="Person name", max_length=254)
+    person_title = models.CharField(verbose_name="Person title", max_length=254)
+    person_phone = models.CharField(verbose_name="Person phone", max_length=254, blank=True)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    button_link_external = models.URLField(
+        verbose_name='Button external link',
+        blank=True,
+        max_length=2040,
+        help_text='Provide a valid URL to an external website.',
+    )
+    button_link_internal = PageField(
+        verbose_name='Button internal link',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='If provided, overrides the external link.',
+        related_name="contact_people_button"
+    )
+    more_text = models.CharField(verbose_name="More link text", max_length=254, blank=True)
+    more_link_external = models.URLField(
+        verbose_name='More external link',
+        blank=True,
+        max_length=2040,
+        help_text='Provide a valid URL to an external website.',
+    )
+    more_link_internal = PageField(
+        verbose_name='More internal link',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='If provided, overrides the external link.',
+        related_name="contact_people_more"
+    )
+
+    @property
+    def button_link(self):
+        if self.button_link_internal:
+            return self.button_link_internal.get_absolute_url()
+        elif self.button_link_external:
+            return self.button_link_external
+        else:
+            return ""
+
+    @property
+    def more_link(self):
+        if self.more_link_internal:
+            return self.more_link_internal.get_absolute_url()
+        elif self.more_link_external:
+            return self.more_link_external
+        else:
+            return ""
+
+    def clean(self):
+        super(ContactPerson, self).clean()
+        if not self.button_link_external and not self.button_link_internal:
+            raise ValidationError("Please provide a link.")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
 class Map(CMSPlugin):
     title = models.TextField(verbose_name="Title")
     address = models.TextField(verbose_name="Address")
@@ -394,7 +460,9 @@ class BubbleCard(CMSPlugin):
 @python_2_unicode_compatible
 class Timeline(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.TextField(verbose_name="Sub-title")
+    subtitle = models.TextField(verbose_name="Sub-title", blank=True)
+    title_after = models.CharField(verbose_name="Title after", max_length=254, blank=True)
+    subtitle_after = models.TextField(verbose_name="Sub-title after", blank=True)
 
     def __str__(self):
         return self.title
@@ -491,3 +559,13 @@ class GraphCardText(models.Model):
     class Meta:
         verbose_name = "Graph card text"
         verbose_name_plural = "Graph card texts"
+
+
+@python_2_unicode_compatible
+class PartnersModel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    text = models.TextField(verbose_name="Text")
+
+    def __str__(self):
+        return self.title

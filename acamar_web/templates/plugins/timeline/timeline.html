@@ -9,11 +9,14 @@
             <ul>
                 <li class="right-side"></li>
                 {% for plugin in instance.child_plugin_instances %}
-                    <li class="{% cycle "left-side" "right-side" %}">
+                    <li class="{% cycle "left-side" "right-side" %} {% if forloop.last %}last{% endif %}">
                         {% render_plugin plugin %}
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="text-center pt-4 pt-md-0">
+            <span class="main-title-small ">{{ instance.title_after }}<br /><span class="main-title-small text-weight-light">{{ instance.subtitle_after }}</span></span>
         </div>
     </div>
 </div>

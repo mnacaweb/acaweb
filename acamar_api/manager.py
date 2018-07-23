@@ -3,10 +3,11 @@
 from __future__ import unicode_literals
 
 import requests
+from dateutil import parser as dateparser
 from django.conf import settings
 from django.core.cache import cache
+from django.core.management import call_command
 from django.utils import translation, timezone
-from dateutil import parser as dateparser
 
 from .models import Course, PositionCategory, PositionPact, Position, PositionTechnology
 
@@ -27,7 +28,8 @@ class AcamarCourseManager:
 
     @classmethod
     def _all(cls):
-        resp = requests.get(url="https://www.acamar.cz/api_kurzy.php", params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"})
+        resp = requests.get(url="https://www.acamar.cz/api_kurzy.php",
+                            params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"})
         if resp.status_code == 200:
             json = resp.json()
             courses = []
@@ -66,7 +68,8 @@ class AcamarPositionManager:
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
                 for category in cls.get_categories(language):
-                    PositionCategory.objects.update_or_create(id=category["id"], defaults={"name": category["category"]})
+                    PositionCategory.objects.update_or_create(id=category["id"],
+                                                              defaults={"name": category["category"]})
 
     @classmethod
     def get_pacts(cls, lng):
@@ -90,7 +93,8 @@ class AcamarPositionManager:
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
                 for technology in cls.get_technologies(language):
-                    PositionTechnology.objects.update_or_create(id=technology["id"], defaults={"name": technology["short"]})
+                    PositionTechnology.objects.update_or_create(id=technology["id"],
+                                                                defaults={"name": technology["short"]})
 
     @classmethod
     def get_positions(cls, lng):
@@ -149,3 +153,5 @@ class AcamarPositionManager:
                 Position.objects.exclude(id__in=obj_ids).update(lang=False)
 
         cls._delete_old_positions()
+
+        call_command('update_index', interactive=False)
