@@ -8,6 +8,7 @@
                 <p class="training">{{ object.kratky_popis }}</p>
             </div>
             <div class="card-body py-md-3">
+{#                {{ object.content|safe }}#}
                 <ul class="pt-lg-4">
                     <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}" /><span class="card-li-text">{% trans "Cena: " %}<span>{# 3 000 Kč #}{{ object.cena }}</span></span></li>
                     <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}" /><span class="card-li-text">{% trans "Délka školení: " %}<span>{# 2 x 4hod #}{{ object.delka_skoleni }}</span></span></li>

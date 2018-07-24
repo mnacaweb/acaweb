@@ -532,10 +532,11 @@ class Timeline(CMSPlugin):
 @python_2_unicode_compatible
 class TimelineItem(CMSPlugin):
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT, null=True, blank=True)
+    title = models.CharField(verbose_name="Title", blank=True, max_length=254)
     text = models.TextField(verbose_name="Text", blank=True)
 
     def __str__(self):
-        return self.text
+        return self.title if self.title else self.text
 
 
 @python_2_unicode_compatible
@@ -627,6 +628,18 @@ class PartnersModel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
     text = models.TextField(verbose_name="Text")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseLector(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    person_name = models.CharField(verbose_name="Person name", max_length=254)
+    person_title = models.CharField(verbose_name="Person title", max_length=254)
+    person_image = FilerImageField(verbose_name="Person image", on_delete=models.PROTECT)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
 
     def __str__(self):
         return self.title

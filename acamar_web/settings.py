@@ -317,7 +317,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - for companies"
     },
     "course": {
-        "plugins": ["CreateTeamPlugin", "CoursePanelPlugin", "TimelinePlugin"],
+        "plugins": ["CreateTeamPlugin", "CoursePanelPlugin", "CourseLectorPlugin", "AcaFriendPanelPlugin", "TimelinePlugin", "ContactPersonPlugin"],
         "name": "Content - course"
     }
 }

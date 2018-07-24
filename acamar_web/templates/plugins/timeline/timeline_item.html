@@ -2,5 +2,12 @@
     {% if instance.image %}
         <div><img src="{{ instance.image.url }}"/></div>
     {% endif %}
-    <div class="text"><p>{{ instance.text }}</p></div>
+    <div class="text">
+        {% if instance.title %}
+            <p>{{ instance.title }}</p>
+        {% endif %}
+        {% if instance.text %}
+            <span>{{ instance.text }}</span>
+        {% endif %}
+    </div>
 </div>

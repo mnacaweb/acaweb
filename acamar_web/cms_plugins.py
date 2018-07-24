@@ -12,7 +12,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem
+    CoursePanelItem, CourseLector
 
 
 @plugin_pool.register_plugin
@@ -311,3 +311,15 @@ class PartnersPlugin(CMSPluginBase):
     name = "Partners"
     model = PartnersModel
     render_template = "plugins/partners.html"
+
+
+@plugin_pool.register_plugin
+class CourseLectorPlugin(CMSPluginBase):
+    name = "Course lector"
+    model = CourseLector
+    render_template = "plugins/course_lector.html"
+
+    fieldsets = [
+        (None, {"fields": ("title", "text")}),
+        ("Person", {"fields": ("person_name", "person_title", "person_image")})
+    ]
