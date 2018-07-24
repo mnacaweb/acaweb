@@ -1,0 +1,92 @@
+{% extends "_base.html" %}
+
+{% load meta static i18n cms_tags %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block meta %}
+    {% include 'meta/meta.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-detail">
+        <div class="main-banner-detail">
+            <div class="container container-lg">
+                <div class="text-center text-lg-left px-sm-5 px-xl-0">
+                    <h1 class="main-title">{{ object.title }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="section pt-md-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8 recruitment-text">
+                        <div>
+                            <p>{{ object.introduction }}</p>
+                        </div>
+                        <div class="row mt-4 mb-5">
+                            {% if object.place %}
+                            <div class="col-6 col-md-4 mt-3 mt-md-0">
+                                <div class="d-flex">
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
+                                    <h3 class="subtitle ml-2">{{ object.place }}</h3>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if object.pacts_text_array|length %}
+                            <div class="col-6 col-md-4 mt-3 mt-md-0">
+                                <div class="d-flex">
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
+                                    <h3 class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</h3>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if object.start %}
+                            <div class="pl-md-0 col-12 col-md-4 mt-3 mt-md-0">
+                                <div class="d-flex">
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
+                                    <h3 class="subtitle ml-2">{{ object.start }}</h3>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% for content in object.content_iterator %}
+                            <div>
+                                <h2 class="subtitle-normal pb-3">{{ content.title }}</h2>
+                                {{ content.text }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-12 col-md-4 recruitment px-0">
+                        <div class="recruitment-wrapper px-3">
+                            <div class="text-center text-md-left pb-4">
+                                <h2 class="title">{% trans "Provedu vás náborem" %}</h2>
+                            </div>
+                            <div class="row d-flex align-items-center justify-content-center">
+                                <div class="col-4 person-wrapper-image">
+                                    <img class="person-image" src="{{ object.user_image_url }}" />
+                                </div>
+                                <div class="col-8 pt-3">
+                                    <h3 class="person-title">{{ object.user_first_name }} {{ object.user_second_name }}</h3>
+                                    <p>{{ object.user_position }}</p>
+                                    <p class="mb-4 mt-4">{% trans "Máte další otázky k vypsané pozici? Napište mi, se vším poradím." %}</p>
+                                    <div><a href="mailto:{{ object.user_email }}" class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-3 py-5 interesting-wrapper">
+                            <h3 class="title pb-3 text-center text-md-left">{% trans "Láká vás to? Ozvěte se!" %}<br /><span class="text-weight-light">{% trans "Odpovíme vždy a každému." %}</span></h3>
+                            <div class="d-flex justify-content-center justify-content-md-start pb-4"><div><button type="button" class="button button-secondary subtitle-small">{% trans "ODPOVĚZTE NA POZICI" %}</button></div></div>
+                            <div class="d-flex justify-content-center justify-content-md-start"><a href="mailto:{{ object.user_email }}" class="mail text-small">{% trans "Napište mi e-mail" %}</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container pt-4">
+                <a href="{{ request.current_page.get_absolute_url }}" class="back-position text-small">{% trans "Zpět na výpis pozic" %}</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

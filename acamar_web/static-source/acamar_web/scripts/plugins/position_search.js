@@ -104,10 +104,10 @@ $(function () {
 				}
 			});
 		});
-		queryInput.on("focusin", () => {
+		queryInput.focus(() => {
 			autocompleteContainer.show();
 		});
-		queryInput.on("focusout", () => {
+		queryInput.blur (() => {
 			autocompleteContainer.hide();
 		});
 

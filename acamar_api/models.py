@@ -1,8 +1,12 @@
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import translation
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.text import slugify
 from djangocms_text_ckeditor.fields import HTMLField
 from haystack.query import SearchQuerySet
+from meta.models import ModelMeta
 
 
 @python_2_unicode_compatible
@@ -52,13 +56,14 @@ class PositionTechnology(models.Model):
 
 
 @python_2_unicode_compatible
-class Position(models.Model):
+class Position(ModelMeta, models.Model):
     lang = models.BooleanField(default=False, db_index=True)
     date = models.DateTimeField()
     category = models.ForeignKey("acamar_api.PositionCategory", on_delete=models.CASCADE, related_name="positions")
     place = models.CharField(max_length=254, blank=True)
     start = models.CharField(max_length=254, blank=True)
     name = models.CharField(max_length=254, blank=True)
+    slug = models.SlugField(blank=True, max_length=120)
     introduction = models.TextField(blank=True)
     title1 = models.CharField(max_length=254, blank=True)
     text1 = HTMLField(blank=True)
@@ -87,8 +92,8 @@ class Position(models.Model):
         return SearchQuerySet().autocomplete(autocomplete=term)
 
     @cached_property
-    def pacts_text(self):
-        return ", ".join(self.pacts.values_list("name", flat=True))
+    def pacts_text_array(self):
+        return self.pacts.values_list("name", flat=True)
 
     @cached_property
     def pacts_array(self):
@@ -98,15 +103,48 @@ class Position(models.Model):
     def technologies_text(self):
         return ", ".join(self.technologies.values_list("name", flat=True))
 
-    def get_absolute_url(self):
-        return "#"
+    @property
+    def title(self):
+        return self.name if self.name else self.title1 if self.title1 else "--"
+
+    def get_absolute_url(self, language=translation.get_language()):
+        with translation.override(language):
+            if self.lang:
+                return reverse("position-detail", kwargs={"slug": self.slug})
+            else:
+                "#"
 
     @property
     def url(self):
         return self.get_absolute_url()
 
+    def content_iterator(self):
+        for index in range(1, 7):
+            title = getattr(self, "title{}".format(index), "")
+            text = getattr(self, "text{}".format(index), "")
+            if title or text:
+                yield {"title": title, "text": text}
+
     def __str__(self):
         return self.name if self.name else self.title1
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Position.objects.filter(slug=unique_slug).exclude(id=self.id).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super(Position, self).save(*args, **kwargs)
+
+    _metadata = {
+        'description': 'title',
+    }
 
     class Meta:
         verbose_name = "Position"

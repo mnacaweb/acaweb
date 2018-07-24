@@ -388,10 +388,10 @@ $(function () {
 				}
 			});
 		});
-		queryInput.on("focusin", function () {
+		queryInput.focus(function () {
 			autocompleteContainer.show();
 		});
-		queryInput.on("focusout", function () {
+		queryInput.blur(function () {
 			autocompleteContainer.hide();
 		});
 

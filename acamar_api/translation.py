@@ -24,5 +24,5 @@ class PositionTechnologyTranslationOptions(TranslationOptions):
 
 @register(Position)
 class PositionTranslationOPtions(TranslationOptions):
-    fields = ["lang", "place", "start", "name", "introduction", "title1", "title2", "title3", "title4", "title5", "title6",
-              "text1", "text2", "text3", "text4", "text5", "text6", "user_position"]
+    fields = ["lang", "place", "start", "name", "slug", "introduction", "title1", "title2", "title3", "title4",
+              "title5", "title6", "text1", "text2", "text3", "text4", "text5", "text6", "user_position"]
