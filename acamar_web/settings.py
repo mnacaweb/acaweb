@@ -155,13 +155,15 @@ STATICFILES_FINDERS = (
     'acamar_web.finders.GruntDirectoriesFinder'
 )
 
+CMS_PERMISSION = True
 CMS_TEMPLATES = [
     ('basic.html', 'Basic page template'),
     ('we_are.html', 'We are'),
     ('contact.html', 'Contact'),
     ('for_candidates.html', 'For candidates'),
     ('for_companies.html', 'For companies'),
-    ('course.html', 'Courses')
+    ('course.html', 'Courses'),
+    ('a-card.html', 'A-card')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -319,6 +321,10 @@ CMS_PLACEHOLDER_CONF = {
     "course": {
         "plugins": ["CreateTeamPlugin", "CoursePanelPlugin", "CourseLectorPlugin", "AcaFriendPanelPlugin", "TimelinePlugin", "ContactPersonPlugin"],
         "name": "Content - course"
+    },
+    "a-card": {
+        "plugins": ["AcardBenefitsPlugin"],
+        "name": "Content A-card"
     }
 }
 

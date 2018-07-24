@@ -12,7 +12,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem, CourseLector
+    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem
 
 
 @plugin_pool.register_plugin
@@ -323,3 +323,21 @@ class CourseLectorPlugin(CMSPluginBase):
         (None, {"fields": ("title", "text")}),
         ("Person", {"fields": ("person_name", "person_title", "person_image")})
     ]
+
+
+@plugin_pool.register_plugin
+class AcardBenefitsPlugin(CMSPluginBase):
+    name = "A-card benefits"
+    model = AcardBenefits
+    render_template = "plugins/acard_benefits/acard_benefits.html"
+    allow_children = True
+    child_classes = ["AcardBenefitsItemPlugin"]
+
+
+@plugin_pool.register_plugin
+class AcardBenefitsItemPlugin(CMSPluginBase):
+    name = "A-card benefits - item"
+    model = AcardBenefitsItem
+    render_template = "plugins/acard_benefits/acard_benefits_item.html"
+    require_parent = True
+    parent_classes = ["AcardBenefitsPlugin"]

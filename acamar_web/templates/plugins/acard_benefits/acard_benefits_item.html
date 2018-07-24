@@ -1,0 +1,15 @@
+<div class="accordion-card">
+    <div class="accordion-header" id="heading{{ instance.id }}" data-toggle="collapse" data-target="#collapse{{ instance.id }}" aria-expanded="false" aria-controls="collapse{{ instance.id }}">
+        <div class="accordion-header-icon">
+            <img src="{{ instance.icon.url }}">
+        </div>
+        <div class="accordion-header-title">
+            <h3>{{ instance.title }}</h3>
+            <p>{{ instance.subtitle }}</p>
+        </div>
+    </div>
+
+    <div id="collapse{{ instance.id }}" class="collapse accordion-body" aria-labelledby="heading{{ instance.id }}" data-parent="#akarta-accordion{{ instance.parent.id }}">
+        {{ instance.text }}
+    </div>
+</div>

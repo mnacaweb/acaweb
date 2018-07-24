@@ -43,6 +43,7 @@ class MainBanner(CMSPlugin):
     COURSE = "course"
     CONTACT = "contact"
     DETAIL = "detail"
+    AKARTA = "a-card"
     _CHOICES = [
         (DEFAULT, "Default"),
         (FOR_CANDIDATES, "For candidates"),
@@ -50,7 +51,8 @@ class MainBanner(CMSPlugin):
         (WE_ARE, "We are"),
         (COURSE, "Course"),
         (CONTACT, "Contact"),
-        (DETAIL, "Detail")
+        (DETAIL, "Detail"),
+        (AKARTA, "A-card")
     ]
 
     template = models.CharField(verbose_name="Template", max_length=100, choices=_CHOICES, default=DEFAULT)
@@ -639,6 +641,27 @@ class CourseLector(CMSPlugin):
     person_name = models.CharField(verbose_name="Person name", max_length=254)
     person_title = models.CharField(verbose_name="Person title", max_length=254)
     person_image = FilerImageField(verbose_name="Person image", on_delete=models.PROTECT)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class AcardBenefits(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class AcardBenefitsItem(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    icon = FilerImageField(verbose_name="Icon", on_delete=models.PROTECT)
+    subtitle = models.TextField(verbose_name="Subtitle")
     text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
 
     def __str__(self):

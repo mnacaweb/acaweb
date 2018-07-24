@@ -21,7 +21,7 @@ class AcamarCourseManager:
     def all(cls, cached=True):
         cache_key = cls.cache_prefix.format("all")
         courses = cache.get(cache_key) if cached else None
-        if courses is None:
+        if not courses:
             courses = cls._all()
             cache.set(cache_key, courses, cls.cache_duration)
         return courses
@@ -40,6 +40,8 @@ class AcamarCourseManager:
             for id, course in json.iteritems():
                 courses[id] = cls.model(**course)
             return courses
+        else:
+            return {}
 
     @classmethod
     def get_by_id(cls, id, cached=True):

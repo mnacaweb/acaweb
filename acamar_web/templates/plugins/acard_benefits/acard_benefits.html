@@ -1,0 +1,17 @@
+{% load cms_tags %}
+
+<div class="container container-lg">
+    <div class="py-4 py-md-5 text-center">
+        <h2>
+            <span class="text-weight-bold">{{ instance.title }}</span><br>
+            <span class="text-weight-light">{{ instance.subtitle }}</span>
+        </h2>
+        <div class="mt-4">{{ instance.text }}</div>
+    </div>
+
+    <div id="akarta-accordion{{ instance.id }}" class="accordion">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </div>
+</div>
