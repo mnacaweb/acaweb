@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.utils import translation
 from django.utils.encoding import python_2_unicode_compatible
@@ -110,9 +110,12 @@ class Position(ModelMeta, models.Model):
     def get_absolute_url(self, language=translation.get_language()):
         with translation.override(language):
             if self.lang:
-                return reverse("position-detail", kwargs={"slug": self.slug})
+                try:
+                    return reverse("position-detail", kwargs={"slug": self.slug})
+                except NoReverseMatch:
+                    return "#"
             else:
-                "#"
+                return "#"
 
     @property
     def url(self):
