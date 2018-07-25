@@ -32,7 +32,7 @@
                                     </div>
                                     <p class="text-small">{{ object.user_position }}</p>
                                     <div><a class="message text-small"
-                                            href="mailto:{{ object.user_email }}">{{ instance.recruiter_email_text }}</a>
+                                            href="mailto:{{ object.user_email|email_link }}">{{ instance.recruiter_email_text }}</a>
                                     </div>
                                 </div>
                             </div>

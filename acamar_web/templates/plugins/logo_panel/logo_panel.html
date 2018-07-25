@@ -11,7 +11,9 @@
             {% endfor %}
         </div>
     </div>
+    {% if instance.button %}
     <div class="button-wrapper d-flex justify-content-center pt-md-5">
-        <a class="button button-secondary button-arrow-right button-arrow-white" href="{{ instance.button_link.get_absolute_url }}">{{ instance.button_text }}</a>
+        <a class="button button-secondary button-arrow-right button-arrow-white" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a>
     </div>
+    {% endif %}
 </div>

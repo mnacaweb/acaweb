@@ -10,10 +10,10 @@
                 {% include "plugins/course_panel/_course_card_alternative.html" with object=course %}
             {% endfor %}
         </div>
-        {% if instance.button_link and instance.button_text %}
+        {% if instance.button %}
             <div class="button-wrapper d-flex justify-content-center my-4 my-md-5">
                 <a class="button button-secondary button-arrow-right button-arrow-white"
-                   href="{{ instance.button_link }}">{{ instance.button_text }}</a>
+                   href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a>
             </div>
         {% endif %}
     </div>

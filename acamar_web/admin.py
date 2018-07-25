@@ -7,7 +7,7 @@ from django.contrib import admin
 from filer.admin import FileAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
 
-from models import FilerVideo, Review, TeamMember
+from models import FilerVideo, Review, TeamMember, Link
 
 
 @admin.register(FilerVideo)
@@ -23,3 +23,23 @@ class ReviewAdmin(TabbedTranslationAdmin):
 @admin.register(TeamMember)
 class TeamMemberAdmin(SortableAdmin, TabbedTranslationAdmin):
     pass
+
+
+@admin.register(Link)
+class LinkAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {
+            'fields': (
+                'name',
+                'text',
+                ('external_link', 'internal_link'),
+            )
+        }),
+        ('Link settings', {
+            'classes': ('collapse',),
+            'fields': (
+                ('mailto', 'phone'),
+                'target',
+            )
+        })
+    ]

@@ -2,16 +2,18 @@
 
 from __future__ import unicode_literals
 
+import base64
 import os
 import urllib
 
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
+from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatechars
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.functional import cached_property, lazy
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
@@ -29,6 +31,98 @@ class FilerVideo(File):
         filename_extensions = ['.mp4', '.webm', '.ogg']
         ext = os.path.splitext(name)[1].lower()
         return ext in filename_extensions
+
+
+@python_2_unicode_compatible
+class Link(models.Model):
+    TARGET_CHOICES = (
+        ('_blank', 'Open in new window'),
+        ('_self', 'Open in same window'),
+        ('_parent', 'Delegate to parent'),
+        ('_top', 'Delegate to top'),
+    )
+    name = models.CharField(verbose_name="Link name", max_length=255)
+    text = models.CharField(verbose_name='Link text', max_length=255)
+    external_link = models.URLField(verbose_name='External link', blank=True, max_length=2040,
+                                    help_text='Provide a valid URL to an external website.')
+    internal_link = PageField(verbose_name='Internal link', blank=True, null=True, on_delete=models.SET_NULL,
+                              help_text='If provided, overrides the external link.')
+    mailto = models.EmailField(verbose_name='Email address', blank=True, max_length=255)
+    phone = models.CharField(verbose_name='Phone', blank=True, max_length=255)
+    target = models.CharField(verbose_name='Target', choices=TARGET_CHOICES, blank=True, max_length=255)
+
+    def __str__(self):
+        return "{} - {}".format(self.text, self.get_link)
+
+    @cached_property
+    def mailto_safe(self):
+        mail = self.mailto.split("@")
+        return "aca{}mar@{}".format(base64.b64encode(mail[0]), mail[1])
+
+    @cached_property
+    def get_link(self):
+        if self.internal_link:
+            link = self.internal_link.get_absolute_url()
+        elif self.external_link:
+            link = self.external_link
+        elif self.phone:
+            link = 'tel:{}'.format(self.phone.replace(' ', ''))
+        elif self.mailto:
+            link = 'mailto:{}'.format(self.mailto)
+        else:
+            link = ''
+
+        return link
+
+    @cached_property
+    def get_link_safe(self):
+        if self.internal_link:
+            link = self.internal_link.get_absolute_url()
+        elif self.external_link:
+            link = self.external_link
+        elif self.phone:
+            link = 'tel:{}'.format(self.phone.replace(' ', ''))
+        elif self.mailto:
+            link = 'mailto:{}'.format(self.mailto_safe)
+        else:
+            link = ''
+
+        return link
+
+    def clean(self):
+        super(Link, self).clean()
+        field_names = (
+            'external_link',
+            'internal_link',
+            'mailto',
+            'phone',
+        )
+
+        link_fields = {
+            key: getattr(self, key)
+            for key in field_names
+        }
+        link_field_verbose_names = {
+            key: force_text(self._meta.get_field(key).verbose_name)
+            for key in link_fields.keys()
+        }
+        provided_link_fields = {
+            key: value
+            for key, value in link_fields.items()
+            if value
+        }
+
+        if len(provided_link_fields) > 1:
+            verbose_names = sorted(link_field_verbose_names.values())
+            error_msg = 'Only one of {0} or {1} may be given.'.format(
+                ', '.join(verbose_names[:-1]),
+                verbose_names[-1],
+            )
+            errors = {}.fromkeys(provided_link_fields.keys(), error_msg)
+            raise ValidationError(errors)
+
+        if len(provided_link_fields) == 0 and not self.anchor:
+            raise ValidationError('Please provide a link.')
 
 
 from .fields import FilerVideoField
@@ -72,8 +166,8 @@ class MainBanner(CMSPlugin):
 class MainBannerCard(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.TextField(verbose_name="Sub-title")
-    button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
-    button_text = models.CharField(max_length=254, verbose_name="Button text")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True)
     theme = models.CharField(choices=[("", "Black"), ("looking-for-gray", "Gray")], max_length=30, verbose_name="Theme",
                              blank=True)
 
@@ -141,8 +235,8 @@ class ReviewPanel(CMSPlugin):
 @python_2_unicode_compatible
 class LogoPanel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    button_link = PageField(verbose_name="Button link", on_delete=models.PROTECT)
-    button_text = models.CharField(verbose_name="Button text", max_length=254)
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True)
 
     def __str__(self):
         return self.title
@@ -167,31 +261,11 @@ class CoursePanel(CMSPlugin):
 
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
-    template = models.CharField(verbose_name="Template", max_length=20, choices=_TEMPLATE_OPTIONS, blank=True, default=DEFAULT)
+    template = models.CharField(verbose_name="Template", max_length=20, choices=_TEMPLATE_OPTIONS, blank=True,
+                                default=DEFAULT)
     text = models.TextField(verbose_name="Text")
-    button_text = models.CharField(verbose_name="Button text", max_length=254, blank=True)
-    button_link_external = models.URLField(
-        verbose_name='External link',
-        blank=True,
-        max_length=2040,
-        help_text='Provide a valid URL to an external website.',
-    )
-    button_link_internal = PageField(
-        verbose_name='Internal link',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='If provided, overrides the external link.',
-    )
-
-    @property
-    def button_link(self):
-        if self.button_link_internal:
-            return self.button_link_internal.get_absolute_url()
-        elif self.button_link_external:
-            return self.button_link_external
-        else:
-            return ""
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True)
 
     def __str__(self):
         return self.title
@@ -359,35 +433,10 @@ class ContactFormModel(CMSPlugin):
 @python_2_unicode_compatible
 class ContactUs(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    button_text = models.CharField(verbose_name="Button text", max_length=254)
-    link_text = models.CharField(verbose_name="Link text", max_length=254)
-    link_external = models.URLField(
-        verbose_name='External link',
-        blank=True,
-        max_length=2040,
-        help_text='Provide a valid URL to an external website.',
-    )
-    link_internal = PageField(
-        verbose_name='Internal link',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='If provided, overrides the external link.',
-    )
-
-    @property
-    def link_url(self):
-        if self.link_internal:
-            return self.link_internal.get_absolute_url()
-        elif self.link_external:
-            return self.link_external
-        else:
-            return ""
-
-    def clean(self):
-        super(ContactUs, self).clean()
-        if not self.link_external and not self.link_internal:
-            raise ValidationError("Please provide a link.")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True, related_name="contact_us_button_set")
+    additional_link = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Additional link",
+                                        blank=True, null=True, related_name="contact_us_additional_set")
 
     def __str__(self):
         return self.title
@@ -401,59 +450,10 @@ class ContactPerson(CMSPlugin):
     person_title = models.CharField(verbose_name="Person title", max_length=254)
     person_phone = models.CharField(verbose_name="Person phone", max_length=254, blank=True)
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
-    button_text = models.CharField(verbose_name="Button text", max_length=254)
-    button_link_external = models.URLField(
-        verbose_name='Button external link',
-        blank=True,
-        max_length=2040,
-        help_text='Provide a valid URL to an external website.',
-    )
-    button_link_internal = PageField(
-        verbose_name='Button internal link',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='If provided, overrides the external link.',
-        related_name="contact_people_button"
-    )
-    more_text = models.CharField(verbose_name="More link text", max_length=254, blank=True)
-    more_link_external = models.URLField(
-        verbose_name='More external link',
-        blank=True,
-        max_length=2040,
-        help_text='Provide a valid URL to an external website.',
-    )
-    more_link_internal = PageField(
-        verbose_name='More internal link',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='If provided, overrides the external link.',
-        related_name="contact_people_more"
-    )
-
-    @property
-    def button_link(self):
-        if self.button_link_internal:
-            return self.button_link_internal.get_absolute_url()
-        elif self.button_link_external:
-            return self.button_link_external
-        else:
-            return ""
-
-    @property
-    def more_link(self):
-        if self.more_link_internal:
-            return self.more_link_internal.get_absolute_url()
-        elif self.more_link_external:
-            return self.more_link_external
-        else:
-            return ""
-
-    def clean(self):
-        super(ContactPerson, self).clean()
-        if not self.button_link_external and not self.button_link_internal:
-            raise ValidationError("Please provide a link.")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True, related_name="contact_person_button_set")
+    more = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="More link", blank=True,
+                             null=True, related_name="contact_person_more_set")
 
     def __str__(self):
         return self.title
@@ -562,34 +562,8 @@ class AcaFriendCard(CMSPlugin):
 
 @python_2_unicode_compatible
 class GraphSection(CMSPlugin):
-    button_text = models.CharField(verbose_name="Button text", max_length=254)
-    button_link_external = models.URLField(
-        verbose_name='Button external link',
-        blank=True,
-        max_length=2040,
-        help_text='Provide a valid URL to an external website.',
-    )
-    button_link_internal = PageField(
-        verbose_name='Button internal link',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='If provided, overrides the external link.',
-    )
-
-    @property
-    def link_url(self):
-        if self.button_link_internal:
-            return self.button_link_internal.get_absolute_url()
-        elif self.button_link_external:
-            return self.button_link_external
-        else:
-            return ""
-
-    def clean(self):
-        super(GraphSection, self).clean()
-        if not self.button_link_external and not self.button_link_internal:
-            raise ValidationError("Please provide a link.")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
+                               null=True)
 
     def __str__(self):
         return self.button_text

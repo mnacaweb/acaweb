@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 
-{% load meta static i18n cms_tags %}
+{% load meta static i18n cms_tags utils %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -71,14 +71,14 @@
                                     <h3 class="person-title">{{ object.user_first_name }} {{ object.user_second_name }}</h3>
                                     <p>{{ object.user_position }}</p>
                                     <p class="mb-4 mt-4">{% trans "Máte další otázky k vypsané pozici? Napište mi, se vším poradím." %}</p>
-                                    <div><a href="mailto:{{ object.user_email }}" class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
+                                    <div><a href="mailto:{{ object.user_email|email_link }}" class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="px-3 py-5 interesting-wrapper">
                             <h3 class="title pb-3 text-center text-md-left">{% trans "Láká vás to? Ozvěte se!" %}<br /><span class="text-weight-light">{% trans "Odpovíme vždy a každému." %}</span></h3>
                             <div class="d-flex justify-content-center justify-content-md-start pb-4"><div><button type="button" class="button button-secondary subtitle-small">{% trans "ODPOVĚZTE NA POZICI" %}</button></div></div>
-                            <div class="d-flex justify-content-center justify-content-md-start"><a href="mailto:{{ object.user_email }}" class="mail text-small">{% trans "Napište mi e-mail" %}</a></div>
+                            <div class="d-flex justify-content-center justify-content-md-start"><a href="mailto:{{ object.user_email|email_link }}" class="mail text-small">{% trans "Napište mi e-mail" %}</a></div>
                         </div>
                     </div>
                 </div>

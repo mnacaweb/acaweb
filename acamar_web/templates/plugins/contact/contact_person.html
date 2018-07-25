@@ -18,12 +18,14 @@
                 {% endif %}
             </div>
         </div>
+        {% if instance.button %}
         <div class="col-12 d-flex justify-content-center pt-5">
-            <a class="button card-button button-secondary" href="{{ instance.button_link }}">{{ instance.button_text }}</a>
+            <a class="button card-button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a>
         </div>
-    {% if instance.more_text and instance.more_link %}
+        {% endif %}
+    {% if instance.more %}
         <div class="d-flex justify-content-center py-4">
-            <a href="{{ instance.more_link }}"><span class="contact-link text-small text-weight-light">{{ instance.more_text }}</span></a>
+            <a href="{{ instance.more.get_link_safe }}"><span class="contact-link text-small text-weight-light">{{ instance.more.text }}</span></a>
         </div>
     {% endif %}
     </div>

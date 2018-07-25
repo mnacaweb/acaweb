@@ -12,7 +12,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem
+    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, Link
 
 
 @plugin_pool.register_plugin
@@ -103,12 +103,6 @@ class CoursePanelPlugin(CMSPluginBase):
     model = CoursePanel
     inlines = [CoursePanelItemInline]
 
-    fieldsets = [
-        (None, {"fields": ("title", "subtitle", "template", "text")}),
-        ("Button",
-         {"fields": ("button_text", ("button_link_external", "button_link_internal")), "classes": ["collapse"]}),
-    ]
-
     def get_render_template(self, context, instance, placeholder):
         return "plugins/course_panel/course_panel{}.html".format(instance.template)
 
@@ -175,8 +169,6 @@ class ContactUsPlugin(CMSPluginBase):
     name = "Contact us"
     model = ContactUs
     render_template = "plugins/contact/contact_us.html"
-
-    fieldsets = [(None, {"fields": ("title", "button_text", "link_text", ("link_external", "link_internal"))})]
 
 
 @plugin_pool.register_plugin
