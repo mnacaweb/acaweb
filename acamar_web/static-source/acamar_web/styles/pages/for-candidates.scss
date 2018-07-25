@@ -162,6 +162,7 @@
 
         @include media-breakpoint-up(md) {
           font-size: 25px;
+          padding-right: 40px;
         }
       }
 
@@ -287,6 +288,7 @@
   padding-bottom: 0;
 
   .card {
+    height: 100%;
     margin: 0 -30px;
     padding-bottom: 25px;
     border: 0;
@@ -320,6 +322,8 @@
       }
     }
     .card-body {
+      max-width: unset;
+
       .friends-card-text {
         display: block;
         margin-top: 30px;
