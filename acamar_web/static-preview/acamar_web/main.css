@@ -12468,6 +12468,7 @@ input[type="text"]::placeholder {
 @media (min-width: 768px) {
   .section-family-background .benefits-main-banner .benefits-wrapper .benefits-title {
     font-size: 25px;
+    padding-right: 40px;
   }
 }
 
@@ -12601,6 +12602,7 @@ input[type="text"]::placeholder {
 }
 
 .section-acafriends .card {
+  height: 100%;
   margin: 0 -30px;
   padding-bottom: 25px;
   border: 0;
@@ -12638,6 +12640,10 @@ input[type="text"]::placeholder {
      object-fit: cover;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+.section-acafriends .card .card-body {
+  max-width: unset;
 }
 
 .section-acafriends .card .card-body .friends-card-text {
@@ -12787,10 +12793,12 @@ input[type="text"]::placeholder {
 
 .page-course .course-cards-section .card-wrapper {
   position: relative;
+  height: 100%;
 }
 
 .page-course .course-cards-section .card-wrapper .card {
   overflow: hidden;
+  height: 100%;
 }
 
 .page-course .course-cards-section .card-wrapper .card .card-top {
@@ -12802,7 +12810,25 @@ input[type="text"]::placeholder {
   z-index: 1;
 }
 
+.page-course .course-cards-section .card-wrapper .card .card-body::after {
+  content: "";
+  width: 670px;
+  height: 732px;
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50%);
+  top: 0;
+  bottom: auto;
+  -webkit-transform: translateX(-46%);
+          transform: translateX(-46%);
+  overflow: hidden;
+  background-color: #f3f3f3;
+  border: none;
+  z-index: -1;
+}
+
 .page-course .course-cards-section .card-wrapper .card .card-footer {
+  display: none;
   width: 350%;
   height: 225%;
   border-radius: 50%;
