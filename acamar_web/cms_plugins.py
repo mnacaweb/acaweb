@@ -12,7 +12,8 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard
+    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
+    CourseProgramItem
 
 
 @plugin_pool.register_plugin
@@ -351,3 +352,16 @@ class CourseBonusCardPlugin(CMSPluginBase):
     render_template = "plugins/course_bonus/course_bonus_card.html"
     require_parent = True
     parent_classes = ["CourseBonusPanelPlugin"]
+
+
+class CourseProgramItemInline(admin.TabularInline):
+    model = CourseProgramItem
+    min_num = 1
+
+
+@plugin_pool.register_plugin
+class CourseProgramPlugin(CMSPluginBase):
+    name = "Course program"
+    model = CourseProgram
+    render_template = "plugins/course_program/course_program.html"
+    inlines = [CourseProgramItemInline]

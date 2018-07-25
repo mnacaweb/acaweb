@@ -649,3 +649,28 @@ class CourseBonusCard(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class CourseProgram(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def copy_relations(self, old_instance):
+        self.items.all().delete()
+
+        for item in old_instance.items.all():
+            item.pk = None
+            item.parent = self
+            item.save()
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseProgramItem(models.Model):
+    parent = models.ForeignKey("acamar_web.CourseProgram", on_delete=models.CASCADE, related_name="items")
+    text = models.CharField(verbose_name="Text", max_length=254)
+
+    def __str__(self):
+        return self.text
