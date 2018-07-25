@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../node_modules/bootstrap/dist/js/bootstrap.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
-  \*******************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4024,9 +4024,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/popper.js/dist/esm/popper.js":
-/*!*****************************************************************************************!*\
-  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
-  \*****************************************************************************************/
+/*!************************************************************************************!*\
+  !*** C:/Projects/vagrant/web/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

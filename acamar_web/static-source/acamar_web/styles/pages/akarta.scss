@@ -19,6 +19,17 @@
       align-items: flex-end;
       background-position: top center;
     }
+
+    .main-title,
+    .subtitle {
+      max-width: 600px;
+
+      @include media-breakpoint-down(md) {
+        max-width: unset;
+      }
+
+    }
+
   }
 }
 

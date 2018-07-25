@@ -11122,7 +11122,7 @@ input[type="text"]::placeholder {
 }
 
 .project-list ul li:last-of-type.last {
-  padding-top: 40px;
+  padding-top: 0;
 }
 
 .project-list ul li:before {
@@ -13632,6 +13632,17 @@ body.thank-you {
   }
 }
 
+.page-for-firm .main-banner-for-firm .main-title {
+  display: block;
+  max-width: 600px;
+}
+
+@media (max-width: 991.98px) {
+  .page-for-firm .main-banner-for-firm .main-title {
+    max-width: unset;
+  }
+}
+
 @media (min-width: 992px) {
   .page-for-firm .section {
     padding: 80px 0 120px 0;
@@ -13820,6 +13831,18 @@ body.thank-you {
     min-height: 360px;
     align-items: flex-end;
     background-position: top center;
+  }
+}
+
+.page-akarta .main-banner-akarta .main-title,
+.page-akarta .main-banner-akarta .subtitle {
+  max-width: 600px;
+}
+
+@media (max-width: 991.98px) {
+  .page-akarta .main-banner-akarta .main-title,
+  .page-akarta .main-banner-akarta .subtitle {
+    max-width: unset;
   }
 }
 
