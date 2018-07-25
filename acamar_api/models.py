@@ -1,3 +1,6 @@
+import re
+
+from cms.models import PlaceholderField
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.utils import translation
@@ -10,7 +13,74 @@ from meta.models import ModelMeta
 
 
 @python_2_unicode_compatible
-class Course(object):
+class Course(ModelMeta, models.Model):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    slug = models.SlugField(verbose_name="Url-slug", unique=True)
+    short_description = models.TextField(verbose_name="Short description")
+    place = models.CharField(verbose_name="Place", max_length=254, blank=True)
+    price = models.PositiveIntegerField(verbose_name="Price", blank=True, null=True)
+    duration = models.CharField(verbose_name="Duration", max_length=254, blank=True)
+    meta_keywords = models.CharField(verbose_name="Meta keywords", max_length=254, blank=True)
+    main_banner = PlaceholderField("main_banner", related_name="course_main_banner")
+    content = PlaceholderField("course_content", related_name="course_content")
+
+    def __str__(self):
+        return self.title
+
+    _metadata = {
+        'title': 'title',
+        'description': 'short_description',
+        'keywords': 'meta_keywords_list'
+    }
+
+    @cached_property
+    def meta_keywords_list(self):
+        return re.findall(r"[\w']+", self.meta_keywords)
+
+    def get_absolute_url(self, language=translation.get_language()):
+        with translation.override(language):
+            try:
+                return reverse("course-detail", kwargs={"slug": self.slug})
+            except NoReverseMatch:
+                return "#"
+
+    class Meta:
+        verbose_name = "Course"
+        verbose_name_plural = "Courses"
+
+
+@python_2_unicode_compatible
+class CourseTerm(models.Model):
+    course = models.ForeignKey("acamar_api.Course", on_delete=models.CASCADE, verbose_name="Course")
+
+    def __str__(self):
+        return "{} - {}".format(self.course.title, getattr(self.items.first(), "date", "--"))
+
+    class Meta:
+        verbose_name = "Course term"
+        verbose_name_plural = "Course terms"
+
+
+@python_2_unicode_compatible
+class CourseTermItem(models.Model):
+    parent = models.ForeignKey("acamar_api.CourseTerm", on_delete=models.CASCADE, verbose_name="Course term",
+                               related_name="items")
+    date = models.DateField(verbose_name="Date")
+    start_time = models.TimeField(verbose_name="Start time")
+    end_time = models.TimeField(verbose_name="End time", null=True, blank=True)
+    address = models.CharField(verbose_name="Address", max_length=254, blank=True)
+    description = models.CharField(verbose_name="Description", max_length=254, blank=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.date, self.description)
+
+    class Meta:
+        verbose_name = "Course term - item"
+        verbose_name_plural = "Course term - items"
+
+
+@python_2_unicode_compatible
+class CourseCache(object):
     def __init__(self, **kwargs):
         for key, value in kwargs.iteritems():
             setattr(self, key, value)

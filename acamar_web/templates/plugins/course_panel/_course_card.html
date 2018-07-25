@@ -5,14 +5,14 @@
         <div class="card box-shadow-custom">
             <div class="card-top">
                 <h5 class="card-title">{{ object.title }}</h5>
-                <p class="training">{{ object.kratky_popis }}</p>
+                <p class="training">{{ object.short_description }}</p>
             </div>
             <div class="card-body py-3">
 {#                {{ object.content|safe }}#}
                 <ul class="pt-4">
-                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}"/><span class="card-li-text">{% trans "Cena: " %}<span>{# 3 000 Kč #}{{ object.cena }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}"/><span class="card-li-text">{% trans "Délka školení: " %}<span>{# 2 x 4hod #}{{ object.delka_skoleni }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}"/><span class="card-li-text">{% trans "Místo školení: " %}<span>{# Praha #}{{ object.misto_skoleni }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}"/><span class="card-li-text">{% trans "Cena: " %}<span>{# 3 000 Kč #}{{ object.price }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}"/><span class="card-li-text">{% trans "Délka školení: " %}<span>{# 2 x 4hod #}{{ object.duration }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}"/><span class="card-li-text">{% trans "Místo školení: " %}<span>{# Praha #}{{ object.place }}</span></span></li>
                 </ul>
             </div>
             <div class="card-footer">

@@ -2,23 +2,27 @@
 
 from __future__ import unicode_literals
 
+import warnings
+
 import requests
 from dateutil import parser as dateparser
 from django.conf import settings
 from django.core.cache import cache
 from django.core.management import call_command
 from django.utils import translation, timezone
+from django.utils.termcolors import colorize
 
-from .models import Course, PositionCategory, PositionPact, Position, PositionTechnology
+from .models import PositionCategory, PositionPact, Position, PositionTechnology, CourseCache
 
 
 class AcamarCourseManager:
-    model = Course
+    model = CourseCache
     cache_prefix = "acamar_course_{}"
     cache_duration = 300
 
     @classmethod
     def all(cls, cached=True):
+        warnings.warn(colorize("Deprecated", fg="red"), DeprecationWarning, stacklevel=2)
         cache_key = cls.cache_prefix.format("all")
         courses = cache.get(cache_key) if cached else None
         if not courses:

@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% load meta static i18n cms_tags utils %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block meta %}
+    {% include 'meta/meta.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-course">
+        {% render_placeholder object.main_banner %}
+        {% render_placeholder object.content %}
+    </div>
+{% endblock %}

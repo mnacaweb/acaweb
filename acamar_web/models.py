@@ -14,12 +14,12 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.utils.encoding import python_2_unicode_compatible, force_text
-from django.utils.functional import cached_property, lazy
+from django.utils.functional import cached_property
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
 
-from acamar_api.manager import AcamarCourseManager
+from acamar_api.models import Course
 
 
 class FilerVideo(File):
@@ -271,10 +271,10 @@ class CoursePanel(CMSPlugin):
         return self.title
 
     def courses(self):
-        items = self.items.all()
-        if items:
-            return [item.course for item in items]
-        return AcamarCourseManager.all_list()
+        items = Course.objects.filter(coursepanelitem__course_panel=self)
+        if items.exists():
+            return items
+        return Course.objects.all()
 
     def copy_relations(self, old_instance):
         self.items.all().delete()
@@ -288,15 +288,7 @@ class CoursePanel(CMSPlugin):
 @python_2_unicode_compatible
 class CoursePanelItem(models.Model):
     course_panel = models.ForeignKey("acamar_web.CoursePanel", on_delete=models.CASCADE, related_name="items")
-    _course = models.PositiveIntegerField(verbose_name="Course", choices=[])
-
-    def __init__(self, *args, **kwargs):
-        super(CoursePanelItem, self).__init__(*args, **kwargs)
-        self._meta.get_field_by_name('_course')[0]._choices = lazy(AcamarCourseManager.get_choices, list)()
-
-    @cached_property
-    def course(self):
-        return AcamarCourseManager.get_by_id(self._course)
+    course = models.ForeignKey("acamar_api.Course", verbose_name="Course", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.course.title
@@ -309,7 +301,7 @@ class CoursePanelItem(models.Model):
 @python_2_unicode_compatible
 class CreateTeam(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.TextField(verbose_name="Sub-title")
+    subtitle = models.TextField(verbose_name="Sub-title", blank=True)
 
     def __str__(self):
         return self.title
@@ -318,7 +310,7 @@ class CreateTeam(CMSPlugin):
 @python_2_unicode_compatible
 class CreateTeamCard(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
 
     def __str__(self):
@@ -636,6 +628,23 @@ class AcardBenefitsItem(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     icon = FilerImageField(verbose_name="Icon", on_delete=models.PROTECT)
     subtitle = models.TextField(verbose_name="Subtitle")
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseBonusPanel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseBonusCard(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
     text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
 
     def __str__(self):

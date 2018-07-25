@@ -12,7 +12,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, Link
+    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard
 
 
 @plugin_pool.register_plugin
@@ -333,3 +333,21 @@ class AcardBenefitsItemPlugin(CMSPluginBase):
     render_template = "plugins/acard_benefits/acard_benefits_item.html"
     require_parent = True
     parent_classes = ["AcardBenefitsPlugin"]
+
+
+@plugin_pool.register_plugin
+class CourseBonusPanelPlugin(CMSPluginBase):
+    name = "Course Bonus panel"
+    model = CourseBonusPanel
+    render_template = "plugins/course_bonus/course_bonus_panel.html"
+    allow_children = True
+    child_classes = ["CourseBonusCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class CourseBonusCardPlugin(CMSPluginBase):
+    name = "Course Bonus - card"
+    model = CourseBonusCard
+    render_template = "plugins/course_bonus/course_bonus_card.html"
+    require_parent = True
+    parent_classes = ["CourseBonusPanelPlugin"]
