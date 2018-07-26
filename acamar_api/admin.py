@@ -13,7 +13,7 @@ from acamar_api.models import Course, CourseTerm, CourseTermItem
 class CourseAdmin(PlaceholderAdminMixin, TabbedTranslationAdmin):
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = [
-        (None, {"fields": [("title", "slug"), ("place", "price", "duration"), "short_description"]}),
+        (None, {"fields": [("title", "slug", "main_banner_title"), ("place", "price", "duration"), "short_description"]}),
         ("Additional fields", {"fields": ["meta_keywords"], "classes": ["collapse"]})
     ]
 
