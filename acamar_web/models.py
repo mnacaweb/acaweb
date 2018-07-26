@@ -41,7 +41,6 @@ class Link(models.Model):
         ('_parent', 'Delegate to parent'),
         ('_top', 'Delegate to top'),
     )
-    name = models.CharField(verbose_name="Link name", max_length=255)
     text = models.CharField(verbose_name='Link text', max_length=255)
     external_link = models.URLField(verbose_name='External link', blank=True, max_length=2040,
                                     help_text='Provide a valid URL to an external website.')
