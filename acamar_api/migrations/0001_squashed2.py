@@ -9,8 +9,6 @@ import cms.models.fields
 
 class Migration(migrations.Migration):
 
-    replaces = [('acamar_api', '0001_squashed'), ('acamar_api', '0002_auto_20180724_1107'), ('acamar_api', '0003_course'), ('acamar_api', '0004_auto_20180725_1217'), ('acamar_api', '0005_auto_20180725_1225'), ('acamar_api', '0006_courseterm'), ('acamar_api', '0007_auto_20180725_1507'), ('acamar_api', '0008_coursetermitem_parent'), ('acamar_api', '0009_auto_20180725_1541'), ('acamar_api', '0010_auto_20180726_1103'), ('acamar_api', '0011_auto_20180726_1239'), ('acamar_api', '0012_course_main_banner_title'), ('acamar_api', '0013_auto_20180726_1444')]
-
     dependencies = [
         ('cms', '0020_old_tree_cleanup'),
     ]

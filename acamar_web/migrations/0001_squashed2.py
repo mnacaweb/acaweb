@@ -12,8 +12,6 @@ import cms.models.fields
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'acamar_web', '0001_squashed'), (b'acamar_web', '0002_quote'), (b'acamar_web', '0003_bubblecard_bubblepanel'), (b'acamar_web', '0004_timeline_timelineitem'), (b'acamar_web', '0005_acafriendcard_acafriendpanel'), (b'acamar_web', '0006_auto_20180720_1335'), (b'acamar_web', '0007_contactus'), (b'acamar_web', '0008_auto_20180720_1431'), (b'acamar_web', '0009_graphcard_graphcardtext_graphsection'), (b'acamar_web', '0010_partnersmodel'), (b'acamar_web', '0011_auto_20180723_1007'), (b'acamar_web', '0012_contactperson'), (b'acamar_web', '0013_auto_20180723_1135'), (b'acamar_web', '0014_coursepanel_template'), (b'acamar_web', '0015_coursepanelitem'), (b'acamar_web', '0016_courselector'), (b'acamar_web', '0017_timelineitem_title'), (b'acamar_web', '0018_auto_20180724_1440'), (b'acamar_web', '0019_auto_20180724_1746'), (b'acamar_web', '0020_auto_20180725_1111'), (b'acamar_web', '0021_auto_20180725_1419'), (b'acamar_web', '0022_auto_20180725_1637'), (b'acamar_web', '0023_courseprogram_courseprogramitem'), (b'acamar_web', '0024_auto_20180726_1010'), (b'acamar_web', '0025_auto_20180726_1103'), (b'acamar_web', '0026_auto_20180726_1154'), (b'acamar_web', '0027_remove_link_name'), (b'acamar_web', '0028_auto_20180726_1432'), (b'acamar_web', '0029_coursetermlist_additional_button'), (b'acamar_web', '0030_auto_20180726_1458')]
-
     dependencies = [
         ('filer', '0010_auto_20180414_2058'),
         ('cms', '0020_old_tree_cleanup'),
