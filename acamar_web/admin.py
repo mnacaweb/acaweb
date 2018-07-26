@@ -30,7 +30,6 @@ class LinkAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': (
-                'name',
                 'text',
                 ('external_link', 'internal_link'),
             )
