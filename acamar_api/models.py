@@ -21,6 +21,7 @@ from meta.models import ModelMeta
 class Course(ModelMeta, models.Model):
     title = models.CharField(verbose_name="Title", max_length=254)
     slug = models.SlugField(verbose_name="Url-slug")
+    main_banner_title = models.CharField(verbose_name="Main banner title", max_length=254)
     short_description = models.TextField(verbose_name="Short description")
     place = models.CharField(verbose_name="Place", max_length=254, blank=True)
     price = models.PositiveIntegerField(verbose_name="Price", blank=True, null=True)

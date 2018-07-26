@@ -9,8 +9,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="page-course">
-        {% render_placeholder object.main_banner %}
+    <div class="page">
+        <div class="main-banner-course-detail">
+            <div class="container container-lg">
+                <div class="text-center text-lg-left px-sm-5 px-xl-0">
+                    <h1 class="main-title title-course">{{ object.main_banner_title }}</h1>
+                </div>
+            </div>
+        </div>
         {% render_placeholder object.content %}
     </div>
 {% endblock %}

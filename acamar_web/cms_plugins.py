@@ -13,7 +13,8 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
-    CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration
+    CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
+    CourseBasicInfoCard
 
 
 @plugin_pool.register_plugin
@@ -308,7 +309,7 @@ class PartnersPlugin(CMSPluginBase):
 class CourseLectorPlugin(CMSPluginBase):
     name = "Course lector"
     model = CourseLector
-    render_template = "plugins/course_lector.html"
+    render_template = "plugins/course/course_lector.html"
 
     fieldsets = [
         (None, {"fields": ("title", "text")}),
@@ -338,7 +339,7 @@ class AcardBenefitsItemPlugin(CMSPluginBase):
 class CourseBonusPanelPlugin(CMSPluginBase):
     name = "Course Bonus panel"
     model = CourseBonusPanel
-    render_template = "plugins/course_bonus/course_bonus_panel.html"
+    render_template = "plugins/course/course_bonus_panel.html"
     allow_children = True
     child_classes = ["CourseBonusCardPlugin"]
 
@@ -347,7 +348,7 @@ class CourseBonusPanelPlugin(CMSPluginBase):
 class CourseBonusCardPlugin(CMSPluginBase):
     name = "Course Bonus - card"
     model = CourseBonusCard
-    render_template = "plugins/course_bonus/course_bonus_card.html"
+    render_template = "plugins/course/course_bonus_card.html"
     require_parent = True
     parent_classes = ["CourseBonusPanelPlugin"]
 
@@ -361,7 +362,7 @@ class CourseProgramItemInline(admin.TabularInline):
 class CourseProgramPlugin(CMSPluginBase):
     name = "Course program"
     model = CourseProgram
-    render_template = "plugins/course_program/course_program.html"
+    render_template = "plugins/course/course_program.html"
     inlines = [CourseProgramItemInline]
 
 
@@ -374,11 +375,12 @@ class CourseTermListAdditionalInline(admin.TabularInline):
 class CourseTermListPlugin(CMSPluginBase):
     name = "Course Term list"
     model = CourseTermList
-    render_template = "plugins/course_term_list/course_term_list.html"
+    render_template = "plugins/course/course_term_list.html"
     fieldsets = [
         (None, {"fields": ("title", "subtitle", "register_button_text")}),
         (
-        "Additional registration", {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
+            "Additional registration",
+            {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
     ]
     inlines = [CourseTermListAdditionalInline]
 
@@ -387,4 +389,22 @@ class CourseTermListPlugin(CMSPluginBase):
 class CourseGenericRegistrationPlugin(CMSPluginBase):
     name = "Course generic registration"
     model = CourseGenericRegistration
-    render_template = "plugins/course_generic_registration.html"
+    render_template = "plugins/course/course_generic_registration.html"
+
+
+@plugin_pool.register_plugin
+class CourseBasicInfoPlugin(CMSPluginBase):
+    name = "Course basic info"
+    model = CourseBasicInfo
+    render_template = "plugins/course/course_basic_info.html"
+    allow_children = True
+    child_classes = ["CourseBasicInfoCardPlugin"]
+
+
+@plugin_pool.register_plugin
+class CourseBasicInfoCardPlugin(CMSPluginBase):
+    name = "Course basic info - card"
+    model = CourseBasicInfoCard
+    render_template = "plugins/course/course_basic_info_card.html"
+    require_parent = True
+    parent_classes = ["CourseBasicInfoPlugin"]

@@ -653,6 +653,7 @@ class CourseBonusCard(CMSPlugin):
 @python_2_unicode_compatible
 class CourseProgram(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
 
     def copy_relations(self, old_instance):
         self.items.all().delete()
@@ -719,6 +720,23 @@ class CourseGenericRegistration(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
     button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseBasicInfo(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class CourseBasicInfoCard(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
