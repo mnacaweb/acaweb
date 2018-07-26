@@ -20,7 +20,7 @@ from meta.models import ModelMeta
 @python_2_unicode_compatible
 class Course(ModelMeta, models.Model):
     title = models.CharField(verbose_name="Title", max_length=254)
-    slug = models.SlugField(verbose_name="Url-slug", unique=True)
+    slug = models.SlugField(verbose_name="Url-slug")
     short_description = models.TextField(verbose_name="Short description")
     place = models.CharField(verbose_name="Place", max_length=254, blank=True)
     price = models.PositiveIntegerField(verbose_name="Price", blank=True, null=True)
