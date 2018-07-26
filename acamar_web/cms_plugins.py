@@ -380,7 +380,7 @@ class CourseTermListPlugin(CMSPluginBase):
         (None, {"fields": ("title", "subtitle", "register_button_text")}),
         (
             "Additional registration",
-            {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
+            {"fields": ("additional_registration", "additional_title", "additional_button"), "classes": ["collapse"]})
     ]
     inlines = [CourseTermListAdditionalInline]
 
