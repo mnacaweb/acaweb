@@ -260,10 +260,10 @@ class CoursePanel(CMSPlugin):
     ]
 
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
     template = models.CharField(verbose_name="Template", max_length=20, choices=_TEMPLATE_OPTIONS, blank=True,
                                 default=DEFAULT)
-    text = models.TextField(verbose_name="Text")
+    text = models.TextField(verbose_name="Text", blank=True)
     button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button", blank=True,
                                null=True)
 
@@ -558,7 +558,7 @@ class GraphSection(CMSPlugin):
                                null=True)
 
     def __str__(self):
-        return self.button_text
+        return self.button.text
 
 
 @python_2_unicode_compatible
@@ -674,3 +674,52 @@ class CourseProgramItem(models.Model):
 
     def __str__(self):
         return self.text
+
+
+@python_2_unicode_compatible
+class CourseTermList(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
+    register_button_text = models.CharField(verbose_name="Register button text", max_length=254, default="Přihlásit se")
+    additional_registration = models.BooleanField(verbose_name="Additional registration", default=False)
+    additional_title = models.CharField(verbose_name="Additional registration - title", max_length=254, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        super(CourseTermList, self).clean()
+        if self.additional_registration and not self.additional_title:
+            raise ValidationError("Provide Additional registration - title")
+
+    def copy_relations(self, old_instance):
+        self.additional_items.all().delete()
+
+        for item in old_instance.additional_items.all():
+            item.pk = None
+            item.parent = self
+            item.save()
+
+
+@python_2_unicode_compatible
+class CourseTermListAdditional(models.Model):
+    parent = models.ForeignKey("acamar_web.CourseTermList", on_delete=models.CASCADE, related_name="additional_items")
+    address = models.CharField(verbose_name="Address", max_length=254, blank=True)
+    description = models.CharField(verbose_name="Description", max_length=254, blank=True)
+
+    def __str__(self):
+        return self.description
+
+    class Meta:
+        verbose_name = "Additional registration - item"
+        verbose_name_plural = "Additional registration - items"
+
+
+@python_2_unicode_compatible
+class CourseGenericRegistration(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Button")
+
+    def __str__(self):
+        return self.title

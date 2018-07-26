@@ -327,7 +327,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content A-card"
     },
     "course_content": {
-        "plugins": ["CreateTeamPlugin", "CourseBonusPanelPlugin", "CourseProgramPlugin", "CoursePanelPlugin"],
+        "plugins": ["CreateTeamPlugin", "CourseBonusPanelPlugin", "CourseProgramPlugin", "CoursePanelPlugin", "CourseTermListPlugin", "CourseGenericRegistrationPlugin", "ContactPersonPlugin"],
         "name": "Course detail content"
     }
 }

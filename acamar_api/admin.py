@@ -32,6 +32,7 @@ class CourseTermAdmin(admin.ModelAdmin):
     inlines = [CourseTermItemInline]
     search_fields = ["course__title"]
     list_filter = ["course__title"]
+    save_as = True
 
     class Media:
         js = (

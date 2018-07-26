@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.test import TestCase
 
 from acamar_api.manager import AcamarCourseManager, AcamarPositionManager

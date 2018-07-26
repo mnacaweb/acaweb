@@ -13,7 +13,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
-    CourseProgramItem
+    CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration
 
 
 @plugin_pool.register_plugin
@@ -179,10 +179,10 @@ class ContactPersonPlugin(CMSPluginBase):
     render_template = "plugins/contact/contact_person.html"
 
     fieldsets = [
-        (None, {"fields": ("title", "subtitle", "button_text", ("button_link_external", "button_link_internal"))}),
+        (None, {"fields": ("title", "subtitle", "button")}),
         ("Person", {"fields": ("person_name", "person_title", "person_phone", "image"), "classes": ["wide"]}),
         ("Additional link",
-         {"fields": ("more_text", ("more_link_external", "more_link_internal")), "classes": ["collapse"]})
+         {"fields": ("more",), "classes": ["collapse"]})
     ]
 
 
@@ -280,8 +280,6 @@ class GraphSectionPlugin(CMSPluginBase):
     allow_children = True
     child_classes = ["GraphCardPlugin"]
 
-    fieldsets = [(None, {"fields": ("button_text", ("button_link_external", "button_link_internal"))})]
-
 
 class GraphCardTextInline(admin.TabularInline):
     model = GraphCardText
@@ -365,3 +363,28 @@ class CourseProgramPlugin(CMSPluginBase):
     model = CourseProgram
     render_template = "plugins/course_program/course_program.html"
     inlines = [CourseProgramItemInline]
+
+
+class CourseTermListAdditionalInline(admin.TabularInline):
+    model = CourseTermListAdditional
+    extra = 0
+
+
+@plugin_pool.register_plugin
+class CourseTermListPlugin(CMSPluginBase):
+    name = "Course Term list"
+    model = CourseTermList
+    render_template = "plugins/course_term_list/course_term_list.html"
+    fieldsets = [
+        (None, {"fields": ("title", "subtitle", "register_button_text")}),
+        (
+        "Additional registration", {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
+    ]
+    inlines = [CourseTermListAdditionalInline]
+
+
+@plugin_pool.register_plugin
+class CourseGenericRegistrationPlugin(CMSPluginBase):
+    name = "Course generic registration"
+    model = CourseGenericRegistration
+    render_template = "plugins/course_generic_registration.html"

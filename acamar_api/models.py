@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 import re
 
 from cms.models import PlaceholderField
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
-from django.utils import translation
+from django.template.defaultfilters import date as dateformat
+from django.utils import translation, timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.text import slugify
@@ -44,6 +49,10 @@ class Course(ModelMeta, models.Model):
             except NoReverseMatch:
                 return "#"
 
+    @cached_property
+    def terms_comming(self):
+        return self.terms.exclude(items__date__lt=timezone.now())
+
     class Meta:
         verbose_name = "Course"
         verbose_name_plural = "Courses"
@@ -51,7 +60,8 @@ class Course(ModelMeta, models.Model):
 
 @python_2_unicode_compatible
 class CourseTerm(models.Model):
-    course = models.ForeignKey("acamar_api.Course", on_delete=models.CASCADE, verbose_name="Course")
+    course = models.ForeignKey("acamar_api.Course", on_delete=models.CASCADE, verbose_name="Course",
+                               related_name="terms")
 
     def __str__(self):
         return "{} - {}".format(self.course.title, getattr(self.items.first(), "date", "--"))
@@ -70,6 +80,12 @@ class CourseTermItem(models.Model):
     end_time = models.TimeField(verbose_name="End time", null=True, blank=True)
     address = models.CharField(verbose_name="Address", max_length=254, blank=True)
     description = models.CharField(verbose_name="Description", max_length=254, blank=True)
+
+    @property
+    def time(self):
+        if self.end_time:
+            return "{}-{}".format(dateformat(self.start_time, "G.i"), dateformat(self.end_time, "G.i"))
+        return dateformat(self.start_time, "G.i")
 
     def __str__(self):
         return "{} - {}".format(self.date, self.description)
