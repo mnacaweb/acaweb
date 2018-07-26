@@ -14,7 +14,7 @@
                         <td class="font-weight-bold">{{ item.time }}</td>
                         <td class="font-weight-bold">{{ item.address }}</td>
                         <td class="font-weight-bold">{{ item.description }}</td>
-                        {% if forloop.first %}<td rowspan="{{ term.items.count }}" class="text-center align-middle"><a class="button button-secondary" href="#">Přihlásit se</a></td>{% endif %}
+                        {% if forloop.first %}<td rowspan="{{ term.items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
                     </tr>
                 {% endfor %}
             {% endfor %}
@@ -31,7 +31,7 @@
                     {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle">{{ object.title }}</td>{% endif %}
                     <td class="font-weight-bold">{{ item.address }}</td>
                     <td class="font-weight-bold">{{ item.description }}</td>
-                    {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.additional_button.get_link_safe }}">{{ instance.additional_button.text }}</a></td>{% endif %}
+                    {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
                 </tr>
                 {% endfor %}
                 </tbody>

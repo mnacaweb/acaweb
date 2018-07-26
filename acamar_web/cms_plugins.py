@@ -377,10 +377,10 @@ class CourseTermListPlugin(CMSPluginBase):
     model = CourseTermList
     render_template = "plugins/course/course_term_list.html"
     fieldsets = [
-        (None, {"fields": ("title", "subtitle", "register_button_text")}),
+        (None, {"fields": ("title", "subtitle", "button")}),
         (
             "Additional registration",
-            {"fields": ("additional_registration", "additional_title", "additional_button"), "classes": ["collapse"]})
+            {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
     ]
     inlines = [CourseTermListAdditionalInline]
 

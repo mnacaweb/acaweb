@@ -680,18 +680,17 @@ class CourseProgramItem(models.Model):
 class CourseTermList(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
-    register_button_text = models.CharField(verbose_name="Register button text", max_length=254, default="Přihlásit se")
+    button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Registration button")
     additional_registration = models.BooleanField(verbose_name="Additional registration", default=False)
     additional_title = models.CharField(verbose_name="Additional registration - title", max_length=254, blank=True)
-    additional_button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Additional registration - button", blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     def clean(self):
         super(CourseTermList, self).clean()
-        if self.additional_registration and (not self.additional_title or not self.additional_button):
-            raise ValidationError("Provide Additional registration - title and button")
+        if self.additional_registration and (not self.additional_title):
+            raise ValidationError("Provide Additional registration - title")
 
     def copy_relations(self, old_instance):
         self.additional_items.all().delete()
