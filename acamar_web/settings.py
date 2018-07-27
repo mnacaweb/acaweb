@@ -436,10 +436,12 @@ else:
         }
     }
 
+PROXIES = {"http": "http://localhost:8888", "https": "http://localhost:8888"} if DEV_PROFILE != "local" else {}
+
 if DEV_PROFILE != 'local':
     import urllib2
 
-    proxy_support = urllib2.ProxyHandler({"http": "http://localhost:8888", "https": "http://localhost:8888"})
+    proxy_support = urllib2.ProxyHandler(PROXIES)
     opener = urllib2.build_opener(proxy_support)
     urllib2.install_opener(opener)
 
@@ -450,7 +452,6 @@ if DEV_PROFILE != 'local':
         }
     }
     TEST_RUNNER = 'acamar_web.test.testrunner.NoDbTestRunner'
-
 
 
 if os.path.exists(os.path.join(BASE_DIR, 'settings.local.py')):
