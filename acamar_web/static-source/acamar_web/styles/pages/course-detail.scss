@@ -43,6 +43,11 @@
     }
 
     .card {
+      .card-img-top {
+        max-height: 122px;
+        width: auto;
+      }
+
       .card-body {
         max-width: 100%;
         text-align: center;

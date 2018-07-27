@@ -74,7 +74,7 @@ elif DEV_PROFILE == 'master':
 
 RAVEN_DSN = 'https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537'
 
-ALLOWED_HOSTS = ['p%s.django2.proboston.net' % hyphenate(PB_PROJECT), '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['%s.django2.proboston.net' % hyphenate(PB_PROJECT), '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
@@ -436,10 +436,12 @@ else:
         }
     }
 
+PROXIES = {"http": "http://localhost:8888", "https": "http://localhost:8888"} if DEV_PROFILE != "local" else {}
+
 if DEV_PROFILE != 'local':
     import urllib2
 
-    proxy_support = urllib2.ProxyHandler({"http": "http://localhost:8888", "https": "http://localhost:8888"})
+    proxy_support = urllib2.ProxyHandler(PROXIES)
     opener = urllib2.build_opener(proxy_support)
     urllib2.install_opener(opener)
 
@@ -450,7 +452,6 @@ if DEV_PROFILE != 'local':
         }
     }
     TEST_RUNNER = 'acamar_web.test.testrunner.NoDbTestRunner'
-
 
 
 if os.path.exists(os.path.join(BASE_DIR, 'settings.local.py')):
