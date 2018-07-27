@@ -65,7 +65,7 @@ elif DEV_PROFILE == 'master':
             'ENGINE':   'django.db.backends.mysql',
             'NAME':     PB_PROJECT,
             'USER':     PB_PROJECT,
-            'PASSWORD': '',
+            'PASSWORD': 'mxd33LHjoz',
         }
     }
     STATIC_GRUNT_DIR = 'static-master'

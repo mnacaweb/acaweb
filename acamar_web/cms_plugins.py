@@ -14,7 +14,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
     CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard
+    CourseBasicInfoCard, PartnersItem
 
 
 @plugin_pool.register_plugin
@@ -302,7 +302,18 @@ class GraphCardPlugin(CMSPluginBase):
 class PartnersPlugin(CMSPluginBase):
     name = "Partners"
     model = PartnersModel
-    render_template = "plugins/partners.html"
+    render_template = "plugins/partners/partners.html"
+    allow_children = True
+    child_classes = ["PartnersItemPlugin"]
+
+
+@plugin_pool.register_plugin
+class PartnersItemPlugin(CMSPluginBase):
+    name = "Partners - item"
+    model = PartnersItem
+    render_template = "plugins/partners/partners_item.html"
+    require_parent = True
+    parent_classes = ["PartnersPlugin"]
 
 
 @plugin_pool.register_plugin

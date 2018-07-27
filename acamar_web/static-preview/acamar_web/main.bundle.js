@@ -6614,6 +6614,8 @@ __webpack_require__(/*! ./plugins/map */ "./scripts/plugins/map.js");
 
 __webpack_require__(/*! ./plugins/position_search */ "./scripts/plugins/position_search.js");
 
+__webpack_require__(/*! ./plugins/partners */ "./scripts/plugins/partners.js");
+
 $(document).ready(function () {
 	$("body").on("click", function () {
 		$(".navbar-collapse").removeClass("show");
@@ -6792,6 +6794,30 @@ function initMap() {
 	});
 }
 window.initMap = initMap;
+
+/***/ }),
+
+/***/ "./scripts/plugins/partners.js":
+/*!*************************************!*\
+  !*** ./scripts/plugins/partners.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$(function () {
+	$(".partners-item a").click(function (event) {
+		event.preventDefault();
+		var $this = $(this);
+		var content = $($this.next(".partners-content").html()).hide();
+		$this.closest(".container").find(".partners-container").children().fadeOut("slow", function () {
+			$(this).replaceWith(content);
+			content.fadeIn("slow");
+		});
+	});
+});
 
 /***/ }),
 
