@@ -557,7 +557,7 @@ class GraphSection(CMSPlugin):
                                null=True)
 
     def __str__(self):
-        return self.button.text
+        return self.button.text if self.button else ""
 
 
 @python_2_unicode_compatible
@@ -593,8 +593,16 @@ class GraphCardText(models.Model):
 @python_2_unicode_compatible
 class PartnersModel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
-    subtitle = models.CharField(verbose_name="Sub-title", max_length=254)
-    text = models.TextField(verbose_name="Text")
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class PartnersItem(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title

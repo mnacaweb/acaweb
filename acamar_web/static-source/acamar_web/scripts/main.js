@@ -8,6 +8,7 @@ import "./plugins/review_panel";
 import "./plugins/team_grid";
 import "./plugins/map";
 import "./plugins/position_search";
+import "./plugins/partners";
 
 $(document).ready(function () {
 	$("body").on("click", function () {

@@ -1,0 +1,24 @@
+{% load cms_tags %}
+
+<div class="section">
+    <div class="container container-lg">
+        <div>
+            <h2 class="subtitle-large font-weight-bold text-center mb-4">{{ instance.title }}</h2>
+        </div>
+        <div class="row big-firm">
+            <div class="col-12 col-md-8">
+                <div class="hiring-team partners-container">
+                    <h3 class="subtitle-large text-center text-md-left mb-4">{{ instance.child_plugin_instances.0.title }}</h3>
+                    <div class="text-weight-light">{{ instance.child_plugin_instances.0.text }}</div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="row image-row partners-item">
+                    {% for plugin in instance.child_plugin_instances|slice:":4" %}
+                        {% render_plugin plugin %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
