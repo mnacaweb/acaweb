@@ -6,7 +6,6 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 from django.db.models.aggregates import Count
-from django.template.response import SimpleTemplateResponse
 
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
