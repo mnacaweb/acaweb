@@ -10540,6 +10540,7 @@ textarea {
 }
 
 .button.button-secondary {
+  display: inline-block;
   position: relative;
   overflow: hidden;
   padding: 10px 40px 10px 40px;
