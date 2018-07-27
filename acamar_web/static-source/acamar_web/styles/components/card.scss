@@ -40,7 +40,7 @@
     background-size: 100%;
     position: relative;
     z-index: 1;
-    max-width: 160px;
+    //max-width: 160px;
 
     ul {
       padding: 0;
@@ -85,8 +85,26 @@
     .card-body {
       position: relative;
       z-index: 1;
+
+      &::after {
+        content: "";
+        width: 670px;
+        height: 732px;
+        border-radius: 50%;
+        position: absolute;
+        left: calc(50%);
+        top: 0;
+        bottom: auto;
+        transform: translateX(-50%);
+        overflow: hidden;
+        background-color: #f3f3f3;
+        border: none;
+        z-index: -1;
+      }
+
     }
     .card-footer {
+      display: none;
       width: 350%;
       height: 225%;
       border-radius: 50%;

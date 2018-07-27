@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Course
+   ========================================================================== */
+.main-banner-course-detail {
+  position: relative;
+  background-image: url(../../images/banner/hp-banner-mobile.png);
+  background-repeat: no-repeat;
+  background-position: 100% 25px;
+  background-size: cover;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  padding-top: 110px;
+  padding-bottom: 50px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 0;
+    background-image: url(../../images/banner/banner-course-detail.jpg);
+    min-height: 360px;
+    align-items: flex-end;
+    background-position: top left;
+  }
+
+  .title-course {
+    max-width: 380px;
+
+    @include media-breakpoint-up(sm) {
+      max-width: none;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 380px;
+    }
+  }
+}
+
+.page-course-detail {
+
+  .course-basic-section {
+
+    .container {
+      background: #fff;
+      box-shadow: 0px 6px 10px 0px #d2d0d0;
+    }
+
+    .card {
+      .card-body {
+        max-width: 100%;
+        text-align: center;
+        font-family: montserrat_bold;
+        font-size: 22px;
+      }
+    }
+
+  }
+
+  .course-bonus-section {
+
+    .container {
+      background: #fff;
+      box-shadow: 0px 6px 10px 0px #d2d0d0;
+    }
+
+    .card {
+      .card-title {
+	      font-family: montserrat_bold;
+	      font-size: 1.3rem;
+      }
+      .card-body {
+        text-align: center;
+        padding: 0;
+      }
+    }
+
+  }
+
+  .course-program-section {
+    .container {
+      background: #fff;
+      box-shadow: 0px 6px 10px 0px #d2d0d0;
+    }
+  }
+
+}
