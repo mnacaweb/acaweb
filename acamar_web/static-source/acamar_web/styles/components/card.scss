@@ -72,8 +72,11 @@
 
 .card-wrapper {
   position: relative;
+  height: 100%;
+
   .card {
     overflow: hidden;
+    height: 100%;
 
     .card-top {
       padding: 25px 20px 0px 20px;

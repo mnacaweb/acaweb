@@ -11594,10 +11594,12 @@ input[type="text"]::placeholder {
 
 .card-wrapper {
   position: relative;
+  height: 100%;
 }
 
 .card-wrapper .card {
   overflow: hidden;
+  height: 100%;
 }
 
 .card-wrapper .card .card-top {
