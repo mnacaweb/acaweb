@@ -334,10 +334,11 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Course detail content"
     },
     "enroll_in_course": {
-        "plugins": ["CourseEnrollFormPlugin"],
+        "plugins": ["CourseEnrollFormPlugin", "TimelinePlugin"],
         "name": "Content - enroll in course",
         "limits": {
-            "global": 2
+            "CourseEnrollFormPlugin": 1,
+            "TimelinePlugin": 1
         }
     }
 }

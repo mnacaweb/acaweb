@@ -241,9 +241,13 @@ class BubbleCardPlugin(CMSPluginBase):
 class TimelinePlugin(CMSPluginBase):
     name = "Timeline"
     model = Timeline
-    render_template = "plugins/timeline/timeline.html"
     allow_children = True
     child_classes = ["TimelineItemPlugin"]
+
+    def get_render_template(self, context, instance, placeholder):
+        if placeholder.slot == "enroll_in_course":
+            return "plugins/timeline/timeline_enroll.html"
+        return "plugins/timeline/timeline.html"
 
 
 @plugin_pool.register_plugin
