@@ -13165,17 +13165,20 @@ input[type="text"]::placeholder {
   display: flex;
   align-self: stretch;
   overflow: hidden;
+  padding-right: 0;
 }
 
 .page-detail .recruitment .recruitment-wrapper .person-wrapper-image .person-image {
-  height: 140px;
-  position: absolute;
-  top: 0;
+  height: auto;
+  max-width: 100%;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  align-self: baseline;
 }
 
 @media (min-width: 768px) {
   .page-detail .recruitment .recruitment-wrapper .person-wrapper-image .person-image {
-    height: 170px;
+    height: auto;
     left: 0;
   }
 }

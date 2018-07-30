@@ -69,14 +69,19 @@
         display: flex;
         align-self: stretch;
         overflow: hidden;
+        padding-right: 0;
 
         .person-image {
-          height: 140px;
-          position: absolute;
-          top: 0;
+          height: auto;
+          //position: absolute;
+          //top: 0;
+          max-width: 100%;
+          -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+          align-self: baseline;
 
           @include media-breakpoint-up(md) {
-            height: 170px;
+            height: auto;
             left: 0;
           }
         }
