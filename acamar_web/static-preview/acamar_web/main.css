@@ -11347,6 +11347,7 @@ input[type="text"]::placeholder {
   color: white;
   margin: 0;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
@@ -11699,7 +11700,7 @@ input[type="text"]::placeholder {
 
 .main-banner {
   overflow: hidden;
-  min-height: 440px;
+  height: 360px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -11733,8 +11734,14 @@ input[type="text"]::placeholder {
 }
 
 .main-banner .title-wrapper {
-  padding: 170px 0 60px 0;
+  padding: 170px 25px 60px 25px;
   z-index: 99;
+}
+
+@media (max-width: 991.98px) {
+  .main-banner .title-wrapper {
+    padding-top: 110px;
+  }
 }
 
 .main-banner .title-wrapper span {
