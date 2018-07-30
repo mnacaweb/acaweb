@@ -2,7 +2,8 @@
 
 from __future__ import unicode_literals
 
-from functools import wraps
+import hashlib
+from functools import wraps, partial
 
 
 def memoize(func, cache, num_args):
@@ -16,3 +17,17 @@ def memoize(func, cache, num_args):
         return result
 
     return wrapper
+
+
+def hash_file(file, block_size=65536):
+    hasher = hashlib.md5()
+    for buf in iter(partial(file.read, block_size), b''):
+        hasher.update(buf)
+
+    return hasher.hexdigest()
+
+
+def cv_upload_to(instance, filename):
+    instance.cv.open()
+
+    return "cv/{}/{}".format(hash_file(instance.cv), filename)

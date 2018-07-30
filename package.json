@@ -48,7 +48,9 @@
   },
   "dependencies": {
     "bootstrap": "4.1.1",
+    "bootstrap-multiselect": "^0.9.13-1",
     "jquery-ui": "^1.12.1",
+    "jquery-validation": "^1.17.0",
     "owl.carousel": "^2.2.0",
     "popper.js": "^1.14.3"
   }

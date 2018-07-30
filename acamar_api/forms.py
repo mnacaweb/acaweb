@@ -2,9 +2,10 @@
 
 from __future__ import unicode_literals
 
+from django import forms
 from haystack.forms import SearchForm
 
-from .models import Position
+from .models import Position, CourseEnroll
 
 
 class PositionSearchForm(SearchForm):
@@ -18,3 +19,9 @@ class PositionSearchForm(SearchForm):
             sqs = sqs.load_all()
 
         return sqs.models(Position)
+
+
+class CourseEnrollForm(forms.ModelForm):
+    class Meta:
+        model = CourseEnroll
+        fields = ["name", "phone", "courses", "expectations", "cv"]

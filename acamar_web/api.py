@@ -6,7 +6,7 @@ from django.http.response import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 
-from acamar_api.forms import PositionSearchForm
+from acamar_api.forms import PositionSearchForm, CourseEnrollForm
 from acamar_api.models import Position
 from .models import Review, TeamGrid, PositionSearch
 
@@ -48,3 +48,13 @@ class PositionSearchAutocompleteApi(View):
         sqs = Position.autocomplete(request.GET.get("q", "")).load_all()[:5]
 
         return render(request, "plugins/position_search/autocomplete.html", {"objects": sqs})
+
+
+class CourseEnrollApi(View):
+    def post(self, request):
+        form = CourseEnrollForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": True, "redirrect": ""})
+
+        return JsonResponse({"success": False, "data": form.errors})

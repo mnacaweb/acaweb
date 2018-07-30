@@ -14,3 +14,4 @@ django-extensions
 python-dateutil
 whoosh
 django-haystack<2.8.0
+django-safedelete
