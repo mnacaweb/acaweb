@@ -7,7 +7,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
-from acamar_api.models import Course, CourseTerm, CourseTermItem
+from .models import Course, CourseTerm, CourseTermItem
 
 
 @admin.register(Course)

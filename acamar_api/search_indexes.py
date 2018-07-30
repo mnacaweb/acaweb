@@ -6,7 +6,7 @@ from django.utils import translation
 from django.utils.html_parser import HTMLParser
 from haystack import indexes
 
-from acamar_api.models import Position
+from .models import Position
 from acamar_web.haystack.utils import get_language_from_alias
 
 
@@ -33,4 +33,4 @@ class PositionIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         language = get_language_from_alias(using)
         self.language = language
-        return self.get_model().objects.filter(**{"lang_{}".format(language): True})
+        return self.get_model().objects_default.filter(**{"lang_{}".format(language): True})

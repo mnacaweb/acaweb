@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 
-from acamar_api.manager import AcamarCourseManager, AcamarPositionManager
+from .acamar_api import AcamarCourseManager, AcamarPositionManager
 
 
 class CourseTest(TestCase):

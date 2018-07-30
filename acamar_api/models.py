@@ -18,7 +18,8 @@ from meta.models import ModelMeta
 from safedelete import SOFT_DELETE
 from safedelete.models import SafeDeleteModel
 
-from acamar_api.utils import cv_upload_to
+from .manager import PositionManager
+from .utils import cv_upload_to
 
 
 @python_2_unicode_compatible
@@ -185,6 +186,9 @@ class Position(ModelMeta, models.Model):
     technologies = models.ManyToManyField("acamar_api.PositionTechnology", related_name="positions")
     pacts = models.ManyToManyField("acamar_api.PositionPact", related_name="positions")
 
+    objects = PositionManager()
+    objects_default = models.Manager()
+
     @classmethod
     def autocomplete(cls, term):
         return SearchQuerySet().autocomplete(autocomplete=term)
@@ -239,8 +243,10 @@ class Position(ModelMeta, models.Model):
         return unique_slug
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.lang:
             self.slug = self._get_unique_slug()
+        elif not self.lang:
+            self.slug = None
         super(Position, self).save(*args, **kwargs)
 
     _metadata = {

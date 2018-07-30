@@ -204,7 +204,8 @@ class PositionSearchPlugin(CMSPluginBase):
         context = super(PositionSearchPlugin, self).render(context, instance, placeholder)
         positions = Position.objects.all()
 
-        context["categories"] = PositionCategory.objects.annotate(num_positions=Count("positions"))
+        context["categories"] = PositionCategory.objects.filter(positions__lang=True).annotate(
+            num_positions=Count("positions"))
         context["pacts"] = PositionPact.objects.all()
         context["positions"] = positions
         context["limit"] = instance.limit

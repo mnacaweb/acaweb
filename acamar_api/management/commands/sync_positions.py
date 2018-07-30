@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from acamar_api.manager import AcamarPositionManager
+from acamar_api.acamar_api import AcamarPositionManager
 
 
 class Command(BaseCommand):
