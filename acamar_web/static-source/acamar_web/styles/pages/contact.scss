@@ -57,7 +57,7 @@
       z-index: 2;
       overflow: hidden;
       padding: 25px 20px;
-      min-height: 400px;
+      min-height: 410px;
 
       .card-top {
         padding: 25px 20px 25px 20px;
@@ -83,9 +83,9 @@
       .image-wrapper {
         position: absolute;
         width: 173px;
-        height: 234px;
-        bottom: 8%;
-        right: 4%;
+        //height: 234px;
+        bottom: 0;
+        right: 0;
       }
     }
   }

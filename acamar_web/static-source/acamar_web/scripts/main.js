@@ -34,6 +34,7 @@ import "./plugins/team_grid";
 import "./plugins/map";
 import "./plugins/position_search";
 import "./plugins/partners";
+import "./plugins/jquery.matchHeight-min";
 import "./plugins/course_enroll_form";
 
 $(document).ready(function () {
@@ -86,4 +87,13 @@ $(document).ready(function () {
 		},
 		100
 	);
+
+
+
+	if( $(".card").length ) {
+		$(".card-top").matchHeight();
+	}
+
+
+
 });
