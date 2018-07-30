@@ -25,6 +25,7 @@ $(function () {
 });
 import "popper.js";
 import "bootstrap";
+import "jquery-match-height/dist/jquery.matchHeight";
 import "../styles/main.scss";
 
 import "./vendor";
@@ -34,7 +35,6 @@ import "./plugins/team_grid";
 import "./plugins/map";
 import "./plugins/position_search";
 import "./plugins/partners";
-import "./plugins/jquery.matchHeight-min";
 import "./plugins/course_enroll_form";
 
 $(document).ready(function () {
