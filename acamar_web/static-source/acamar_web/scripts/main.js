@@ -9,6 +9,7 @@ import "./plugins/team_grid";
 import "./plugins/map";
 import "./plugins/position_search";
 import "./plugins/partners";
+import "./plugins/jquery.matchHeight-min";
 
 $(document).ready(function () {
 	$("body").on("click", function () {
@@ -60,4 +61,13 @@ $(document).ready(function () {
 		},
 		100
 	);
+
+
+
+	if( $(".card").length ) {
+		$(".card-top").matchHeight();
+	}
+
+
+
 });
