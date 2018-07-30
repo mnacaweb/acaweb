@@ -1,0 +1,19 @@
+
+{% load cms_tags %}
+<div class="col-12 col-lg-6 pl-lg-5">
+    <div class="section tester-position-way d-flex flex-column align-items-center align-items-lg-start">
+        <div>
+            <h2 class="subtitle-large text-center text-lg-left">{{ instance.title }}<br /><span class="subtitle-large text-weight-light">{{ instance.subtitle }}</span></h2>
+        </div>
+        <div class="project-list">
+            <ul class="left">
+                <li></li>
+                {% for plugin in instance.child_plugin_instances %}
+                    <li class="{% if forloop.last %}last{% endif %}">
+                        {% render_plugin plugin %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

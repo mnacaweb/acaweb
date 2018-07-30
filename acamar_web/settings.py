@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'adminsortable',
     'django_extensions',
     'haystack',
+    'safedelete',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -156,6 +157,7 @@ STATICFILES_FINDERS = (
 )
 
 CMS_PERMISSION = True
+CMS_TEMPLATE_INHERITANCE = False
 CMS_TEMPLATES = [
     ('basic.html', 'Basic page template'),
     ('we_are.html', 'We are'),
@@ -163,7 +165,8 @@ CMS_TEMPLATES = [
     ('for_candidates.html', 'For candidates'),
     ('for_companies.html', 'For companies'),
     ('course.html', 'Courses'),
-    ('a-card.html', 'A-card')
+    ('a-card.html', 'A-card'),
+    ('enroll_in_course.html', 'Enroll in course')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -329,6 +332,14 @@ CMS_PLACEHOLDER_CONF = {
     "course_content": {
         "plugins": ["CourseBasicInfoPlugin", "CourseBonusPanelPlugin", "CourseProgramPlugin", "CoursePanelPlugin", "CourseTermListPlugin", "CourseGenericRegistrationPlugin", "ContactPersonPlugin"],
         "name": "Course detail content"
+    },
+    "enroll_in_course": {
+        "plugins": ["CourseEnrollFormPlugin", "TimelinePlugin"],
+        "name": "Content - enroll in course",
+        "limits": {
+            "CourseEnrollFormPlugin": 1,
+            "TimelinePlugin": 1
+        }
     }
 }
 

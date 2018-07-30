@@ -14,7 +14,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
     CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard, PartnersItem
+    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel
 
 
 @plugin_pool.register_plugin
@@ -241,9 +241,13 @@ class BubbleCardPlugin(CMSPluginBase):
 class TimelinePlugin(CMSPluginBase):
     name = "Timeline"
     model = Timeline
-    render_template = "plugins/timeline/timeline.html"
     allow_children = True
     child_classes = ["TimelineItemPlugin"]
+
+    def get_render_template(self, context, instance, placeholder):
+        if placeholder.slot == "enroll_in_course":
+            return "plugins/timeline/timeline_enroll.html"
+        return "plugins/timeline/timeline.html"
 
 
 @plugin_pool.register_plugin
@@ -419,3 +423,16 @@ class CourseBasicInfoCardPlugin(CMSPluginBase):
     render_template = "plugins/course/course_basic_info_card.html"
     require_parent = True
     parent_classes = ["CourseBasicInfoPlugin"]
+
+
+@plugin_pool.register_plugin
+class CourseEnrollFormPlugin(CMSPluginBase):
+    name = "Course enroll form"
+    model = CourseEnrollFormModel
+    render_template = "plugins/course/course_enroll_form.html"
+    fieldsets = [
+        (None, {"fields": ("title", "submit_text")}),
+        ("Form labels", {
+            "fields": (
+                ("name_label", "phone_label"), ("course_label", "expectations_label"), ("cv_label",), "email_button")})
+    ]

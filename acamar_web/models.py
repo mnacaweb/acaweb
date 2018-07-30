@@ -13,6 +13,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import truncatechars
+from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.functional import cached_property
 from djangocms_text_ckeditor.fields import HTMLField
@@ -137,6 +138,7 @@ class MainBanner(CMSPlugin):
     CONTACT = "contact"
     DETAIL = "detail"
     AKARTA = "a-card"
+    ENROLL_IN_COURSE = "enroll_in_course"
     _CHOICES = [
         (DEFAULT, "Default"),
         (FOR_CANDIDATES, "For candidates"),
@@ -145,7 +147,8 @@ class MainBanner(CMSPlugin):
         (COURSE, "Course"),
         (CONTACT, "Contact"),
         (DETAIL, "Detail"),
-        (AKARTA, "A-card")
+        (AKARTA, "A-card"),
+        (ENROLL_IN_COURSE, "Enroll in course")
     ]
 
     template = models.CharField(verbose_name="Template", max_length=100, choices=_CHOICES, default=DEFAULT)
@@ -748,3 +751,26 @@ class CourseBasicInfoCard(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class CourseEnrollFormModel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    name_label = models.CharField(verbose_name="Name label", max_length=254)
+    phone_label = models.CharField(verbose_name="Phone label", max_length=254)
+    course_label = models.CharField(verbose_name="Course select label", max_length=254)
+    expectations_label = models.CharField(verbose_name="Expectations label", max_length=254)
+    cv_label = models.CharField(verbose_name="CV label", max_length=254)
+    email_button = models.ForeignKey("acamar_web.Link",
+                                     on_delete=models.PROTECT,
+                                     verbose_name="Email link",
+                                     blank=True,
+                                     null=True)
+    submit_text = models.CharField(verbose_name="Submit button text", max_length=254)
+    selected_text = models.CharField(verbose_name="Multi-select selected text", max_length=30, default="vybráno")
+
+    def __str__(self):
+        return self.title
+
+    def get_courses(self):
+        return Course.objects.prefetch_related("terms", "terms__items").exclude(terms__items__date__lt=timezone.now())

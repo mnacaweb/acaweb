@@ -5,15 +5,18 @@ from __future__ import unicode_literals
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
+from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
 from acamar_api.models import Course, CourseTerm, CourseTermItem
 
 
 @admin.register(Course)
-class CourseAdmin(PlaceholderAdminMixin, TabbedTranslationAdmin):
+class CourseAdmin(PlaceholderAdminMixin, SafeDeleteAdmin, TabbedTranslationAdmin):
+    list_display = (highlight_deleted,) + SafeDeleteAdmin.list_display
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = [
-        (None, {"fields": [("title", "slug", "main_banner_title"), ("place", "price", "duration"), "short_description"]}),
+        (None,
+         {"fields": [("title", "slug", "main_banner_title"), ("place", "price", "duration"), "short_description"]}),
         ("Additional fields", {"fields": ["meta_keywords"], "classes": ["collapse"]})
     ]
 
@@ -28,10 +31,11 @@ class CourseTermItemInline(TranslationStackedInline):
 
 
 @admin.register(CourseTerm)
-class CourseTermAdmin(admin.ModelAdmin):
+class CourseTermAdmin(SafeDeleteAdmin):
     inlines = [CourseTermItemInline]
     search_fields = ["course__title"]
-    list_filter = ["course__title"]
+    list_display = (highlight_deleted,) + SafeDeleteAdmin.list_display
+    list_filter = SafeDeleteAdmin.list_filter + ("course__title",)
     save_as = True
 
     class Media:

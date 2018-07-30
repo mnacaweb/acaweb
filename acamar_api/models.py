@@ -15,10 +15,16 @@ from django.utils.text import slugify
 from djangocms_text_ckeditor.fields import HTMLField
 from haystack.query import SearchQuerySet
 from meta.models import ModelMeta
+from safedelete import SOFT_DELETE
+from safedelete.models import SafeDeleteModel
+
+from acamar_api.utils import cv_upload_to
 
 
 @python_2_unicode_compatible
-class Course(ModelMeta, models.Model):
+class Course(ModelMeta, SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+
     title = models.CharField(verbose_name="Title", max_length=254)
     slug = models.SlugField(verbose_name="Url-slug")
     main_banner_title = models.CharField(verbose_name="Main banner title", max_length=254)
@@ -60,12 +66,17 @@ class Course(ModelMeta, models.Model):
 
 
 @python_2_unicode_compatible
-class CourseTerm(models.Model):
-    course = models.ForeignKey("acamar_api.Course", on_delete=models.CASCADE, verbose_name="Course",
+class CourseTerm(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+
+    course = models.ForeignKey("acamar_api.Course",
+                               on_delete=models.CASCADE,
+                               verbose_name="Course",
                                related_name="terms")
 
     def __str__(self):
-        return "{} - {}".format(self.course.title, getattr(self.items.first(), "date", "--"))
+        dates = map(lambda x: dateformat(x.date, "j.n.y"), self.items.all())
+        return "{} - {}".format(self.course.title, "+".join(dates) if dates else "--")
 
     class Meta:
         verbose_name = "Course term"
@@ -239,3 +250,19 @@ class Position(ModelMeta, models.Model):
     class Meta:
         verbose_name = "Position"
         verbose_name_plural = "Positions"
+
+
+@python_2_unicode_compatible
+class CourseEnroll(models.Model):
+    name = models.CharField(verbose_name="Name", max_length=254)
+    phone = models.CharField(verbose_name="Phone", max_length=20)
+    courses = models.ManyToManyField("acamar_api.CourseTerm", related_name="enrolled", verbose_name="Course terms")
+    expectations = models.TextField(verbose_name="Expectations", blank=True)
+    cv = models.FileField(verbose_name="CV", upload_to=cv_upload_to, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Course registration"
+        verbose_name_plural = "Course registrations"
