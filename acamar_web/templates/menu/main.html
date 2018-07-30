@@ -2,6 +2,6 @@
 
 {% for child in children %}
     <li class="nav-item{% if child.selected %} active{% endif %}">
-        <a class="nav-link{% if forloop.last %} border-right-custom{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
-    </li>
+        <a class="nav-link{% if forloop.last and request.user.is_superuser %} border-right-custom{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    </li> {# TODO:  aktivovat při zapnutí jazyků #}
 {% endfor %}
