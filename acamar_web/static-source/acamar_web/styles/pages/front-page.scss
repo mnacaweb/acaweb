@@ -11,7 +11,7 @@
 
 .main-banner {
   overflow: hidden;
-  min-height: 440px;
+  height: 360px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -40,8 +40,12 @@
   }
 
   .title-wrapper {
-    padding: 170px 0 60px 0;
+    padding: 170px 25px 60px 25px;
     z-index: 99;
+
+    @include media-breakpoint-down(md) {
+      padding-top: 110px;
+    }
 
     span {
       color: white;
