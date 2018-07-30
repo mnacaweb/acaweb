@@ -10064,6 +10064,8 @@ __webpack_require__(/*! ./plugins/partners */ "./scripts/plugins/partners.js");
 
 __webpack_require__(/*! ./plugins/course_enroll_form */ "./scripts/plugins/course_enroll_form.js");
 
+__webpack_require__(/*! ./plugins/login */ "./scripts/plugins/login.js");
+
 $(function () {
 	$.ajaxSetup({
 		beforeSend: function beforeSend(xhr, settings) {
@@ -10219,6 +10221,46 @@ $(function () {
 				cv: {
 					maxsize: 25 * 1024 * 1024
 				}
+			}
+		});
+	});
+});
+
+/***/ }),
+
+/***/ "./scripts/plugins/login.js":
+/*!**********************************!*\
+  !*** ./scripts/plugins/login.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! jquery-validation/dist/jquery.validate */ "../../../node_modules/jquery-validation/dist/jquery.validate.js");
+
+$(function () {
+	$(".login-form").each(function () {
+		var $this = $(this);
+
+		var validator = $this.validate({
+			submitHandler: function submitHandler(form) {
+				var data = new FormData(form);
+				$.ajax({
+					url: $this.attr("action"),
+					method: "POST",
+					data: data,
+					processData: false,
+					contentType: false,
+					success: function success(response) {
+						if (response.success) {
+							window.location.href = response.redirect;
+						} else {
+							validator.showErrors({ password: response.data["__all__"][0] });
+						}
+					}
+				});
 			}
 		});
 	});

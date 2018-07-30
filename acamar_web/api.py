@@ -2,8 +2,16 @@
 
 from __future__ import unicode_literals
 
-from django.http.response import HttpResponseNotAllowed, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from cms.models import Page
+from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, resolve_url
+from django.utils.http import is_safe_url
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import View
 
 from acamar_api.forms import PositionSearchForm, CourseEnrollForm
@@ -58,3 +66,37 @@ class CourseEnrollApi(View):
             return JsonResponse({"success": True, "redirrect": ""})
 
         return JsonResponse({"success": False, "data": form.errors})
+
+
+
+@sensitive_post_parameters()
+@csrf_protect
+@never_cache
+def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
+    redirect_to = request.POST.get(redirect_field_name,
+                                   request.GET.get(redirect_field_name, ''))
+    print(redirect_to)
+    if request.method == "POST":
+        print(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            if not is_safe_url(url=redirect_to, host=request.get_host()):
+                acard = Page.objects.published().filter(reverse_id="a-card").first()
+                redirect_to = acard.get_public_url() if acard else ""
+                if not redirect_to:
+                    redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+
+            # Okay, security check complete. Log the user in.
+            login(request, form.get_user())
+
+            return JsonResponse({"success": True, "redirect": redirect_to})
+        else:
+            return JsonResponse({"success": False, "data": form.errors})
+    else:
+        login_page = Page.objects.published().filter(reverse_id="login").first()
+        redirect = login.get_public_url() if login_page else ""
+        if not redirect:
+            redirect = "/login/"
+        return HttpResponseRedirect(redirect + "?" + request.META["QUERY_STRING"])
+
+

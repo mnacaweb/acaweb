@@ -156,6 +156,9 @@ STATICFILES_FINDERS = (
     'acamar_web.finders.GruntDirectoriesFinder'
 )
 
+LOGIN_URL = "api:login"
+LOGIN_REDIRECT_URL = "/"
+
 CMS_PERMISSION = True
 CMS_TEMPLATE_INHERITANCE = False
 CMS_TEMPLATES = [
@@ -326,7 +329,7 @@ CMS_PLACEHOLDER_CONF = {
         "name": "Content - course"
     },
     "a-card": {
-        "plugins": ["AcardBenefitsPlugin"],
+        "plugins": ["AcardBenefitsPlugin", "LoginPlugin"],
         "name": "Content A-card"
     },
     "course_content": {
