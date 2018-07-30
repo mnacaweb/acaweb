@@ -13327,7 +13327,7 @@ input[type="text"]::placeholder {
   z-index: 2;
   overflow: hidden;
   padding: 25px 20px;
-  min-height: 400px;
+  min-height: 410px;
 }
 
 .page-contact .section-be-heard .header-card .card-top {
@@ -13354,9 +13354,8 @@ input[type="text"]::placeholder {
 .page-contact .section-be-heard .header-card .image-wrapper {
   position: absolute;
   width: 173px;
-  height: 234px;
-  bottom: 8%;
-  right: 4%;
+  bottom: 0;
+  right: 0;
 }
 
 .page-contact .section-map {
