@@ -16,6 +16,7 @@ from django.views.generic import View
 
 from acamar_api.forms import PositionSearchForm, CourseEnrollForm
 from acamar_api.models import Position
+from .forms import ContactForm
 from .models import Review, TeamGrid, PositionSearch
 
 
@@ -68,7 +69,6 @@ class CourseEnrollApi(View):
         return JsonResponse({"success": False, "data": form.errors})
 
 
-
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
@@ -100,3 +100,12 @@ def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
         return HttpResponseRedirect(redirect + "?" + request.META["QUERY_STRING"])
 
 
+class ContactApi(View):
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return JsonResponse({"success": True})
+
+        return JsonResponse({"success": False, "data": form.errors})

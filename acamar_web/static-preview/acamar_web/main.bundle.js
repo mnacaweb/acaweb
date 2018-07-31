@@ -10066,6 +10066,8 @@ __webpack_require__(/*! ./plugins/course_enroll_form */ "./scripts/plugins/cours
 
 __webpack_require__(/*! ./plugins/login */ "./scripts/plugins/login.js");
 
+__webpack_require__(/*! ./plugins/contact_form */ "./scripts/plugins/contact_form.js");
+
 $(function () {
 	$.ajaxSetup({
 		beforeSend: function beforeSend(xhr, settings) {
@@ -10148,6 +10150,49 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./scripts/plugins/contact_form.js":
+/*!*****************************************!*\
+  !*** ./scripts/plugins/contact_form.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! jquery-validation/dist/jquery.validate */ "../../../node_modules/jquery-validation/dist/jquery.validate.js");
+
+$(function () {
+	$(".contact-form").each(function () {
+		var $this = $(this);
+
+		$this.validate({
+			submitHandler: function submitHandler(form) {
+				var formData = new FormData(form);
+				$.ajax({
+					url: $this.attr("action"),
+					method: $this.attr("method"),
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function success(response) {
+						if (response.success) {
+							var thanks = $this.next();
+							console.dir(thanks);
+							$this.fadeOut("slow", function () {
+								$this.remove();
+								thanks.fadeIn("slow");
+							});
+						}
+					}
+				});
+			}
+		});
+	});
+});
+
+/***/ }),
+
 /***/ "./scripts/plugins/course_enroll_form.js":
 /*!***********************************************!*\
   !*** ./scripts/plugins/course_enroll_form.js ***!
@@ -10201,7 +10246,6 @@ $(function () {
 		});
 
 		$this.validate({
-			debug: true,
 			submitHandler: function submitHandler(form) {
 				var formData = new FormData(form);
 				$.ajax({

@@ -9,6 +9,7 @@ import urllib
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -16,6 +17,7 @@ from django.template.defaultfilters import truncatechars
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.functional import cached_property
+from django.utils.translation import get_language
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
@@ -411,6 +413,7 @@ class ContactFormModel(CMSPlugin):
     purpose_label = models.CharField(verbose_name="Label - purpose", max_length=254)
     text_label = models.CharField(verbose_name="Label - text", max_length=254)
     button_text = models.CharField(verbose_name="Button text", max_length=254)
+    success_text = models.CharField(verbose_name="Success text", max_length=254)
 
     def copy_relations(self, old_instance):
         self.purpose_options.all().delete()
@@ -786,3 +789,20 @@ class LoginPluginModel(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+@python_2_unicode_compatible
+class Contact(models.Model):
+    name = models.CharField(verbose_name="Name", max_length=254)
+    email = models.EmailField(verbose_name="Email", max_length=254)
+    purpose = models.CharField(verbose_name="Purpose", max_length=254)
+    text = models.TextField(verbose_name="Text", blank=True)
+    language = models.CharField(verbose_name="Language", max_length=3, choices=settings.LANGUAGES, default=get_language)
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Contact"
+        verbose_name_plural = "Contacts"
