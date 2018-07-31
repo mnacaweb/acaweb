@@ -37,6 +37,7 @@ import "./plugins/position_search";
 import "./plugins/partners";
 import "./plugins/course_enroll_form";
 import "./plugins/login";
+import "./plugins/contact_form";
 
 $(document).ready(function () {
 	$("body").on("click", function () {

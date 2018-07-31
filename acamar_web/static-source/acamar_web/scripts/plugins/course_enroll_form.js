@@ -39,7 +39,6 @@ $(function () {
 		});
 
 		$this.validate({
-			debug: true,
 			submitHandler: function (form) {
 				const formData = new FormData(form);
 				$.ajax({

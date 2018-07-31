@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css":
-/*!****************************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css ***!
-  \****************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,9 +98,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":
-/*!**************************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js ***!
-  \**************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1525,9 +1525,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/bootstrap/dist/js/bootstrap.js":
-/*!**************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
-  \**************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5462,9 +5462,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/jquery-match-height/dist/jquery.matchHeight.js":
-/*!******************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/jquery-match-height/dist/jquery.matchHeight.js ***!
-  \******************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery-match-height/dist/jquery.matchHeight.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5858,9 +5858,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ }),
 
 /***/ "../../../node_modules/jquery-validation/dist/jquery.validate.js":
-/*!*************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/jquery-validation/dist/jquery.validate.js ***!
-  \*************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery-validation/dist/jquery.validate.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7468,9 +7468,9 @@ return $;
 /***/ }),
 
 /***/ "../../../node_modules/popper.js/dist/esm/popper.js":
-/*!************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
-  \************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10066,6 +10066,8 @@ __webpack_require__(/*! ./plugins/course_enroll_form */ "./scripts/plugins/cours
 
 __webpack_require__(/*! ./plugins/login */ "./scripts/plugins/login.js");
 
+__webpack_require__(/*! ./plugins/contact_form */ "./scripts/plugins/contact_form.js");
+
 $(function () {
 	$.ajaxSetup({
 		beforeSend: function beforeSend(xhr, settings) {
@@ -10148,6 +10150,49 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./scripts/plugins/contact_form.js":
+/*!*****************************************!*\
+  !*** ./scripts/plugins/contact_form.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! jquery-validation/dist/jquery.validate */ "../../../node_modules/jquery-validation/dist/jquery.validate.js");
+
+$(function () {
+	$(".contact-form").each(function () {
+		var $this = $(this);
+
+		$this.validate({
+			submitHandler: function submitHandler(form) {
+				var formData = new FormData(form);
+				$.ajax({
+					url: $this.attr("action"),
+					method: $this.attr("method"),
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function success(response) {
+						if (response.success) {
+							var thanks = $this.next();
+							console.dir(thanks);
+							$this.fadeOut("slow", function () {
+								$this.remove();
+								thanks.fadeIn("slow");
+							});
+						}
+					}
+				});
+			}
+		});
+	});
+});
+
+/***/ }),
+
 /***/ "./scripts/plugins/course_enroll_form.js":
 /*!***********************************************!*\
   !*** ./scripts/plugins/course_enroll_form.js ***!
@@ -10201,7 +10246,6 @@ $(function () {
 		});
 
 		$this.validate({
-			debug: true,
 			submitHandler: function submitHandler(form) {
 				var formData = new FormData(form);
 				$.ajax({
