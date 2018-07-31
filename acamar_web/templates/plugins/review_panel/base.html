@@ -22,7 +22,7 @@
             </div>
             <ul class="dots">
                 {% for review in review_ids %}
-                    <li class="{% if forloop.first %}active{% endif %}" data-id="{{ review }}"><button></button></li>
+                    <li class="{% if forloop.first %}active{% endif %}" data-id="{{ review }}"><button><span class="d-none">{{ forloop.counter }}</span></button></li>
                 {% endfor %}
             </ul>
         </div>

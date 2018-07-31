@@ -6,8 +6,8 @@
             </div>
             <form method="get" action="{% url "api:position-search" id=instance.id %}">
                 <div class="input-group col-sm-12 px-md-4 pt-4 pb-5">
-                    <input id="queryInput" type="text" name="q" class="form-control" aria-describedby="search"
-                           placeholder="{{ instance.search_placeholder }}" data-url="{% url "api:position-search-autocomplete" %}">
+                    <label class="d-none" for="queryInput">{{ instance.search_placeholder }}</label>
+                    <input id="queryInput" type="text" name="q" class="form-control" placeholder="{{ instance.search_placeholder }}" data-url="{% url "api:position-search-autocomplete" %}">
                     <div class="position-search-autocomplete position-absolute list-group mt-5 ml-5" style="z-index: 100000"></div>
                     <div class="input-group-append">
                         <button type="submit" class="input-group-text px-4">
