@@ -141,7 +141,7 @@ class AcamarPositionManager:
                     technologies = [key for key, value in position.get("__technologie", {}).iteritems() if value]
                     pacts = [key for key, value in position.get("__uvazek", {}).iteritems() if value]
                     obj, _ = Position.objects_default.update_or_create(id=position["id"], defaults={
-                        "lang": True if position["titulek1"] else False,
+                        "lang": True if position["nazev_acamar"] else False,
                         "date": dateparser.parse(position["date"]).replace(tzinfo=timezone.utc),
                         "category_id": position["kategorie"],
                         "place": position["misto_vykonu_prace"],
@@ -175,6 +175,17 @@ class AcamarPositionManager:
                     obj_ids.append(obj.id)
                 Position.objects_default.exclude(id__in=obj_ids).update(lang=False)
 
-        # cls._delete_old_positions()
+        cls._delete_old_positions()
 
         call_command('update_index', interactive=False)
+
+    @classmethod
+    def sync(cls):
+        start = timezone.now()
+        print("POSITION SYNC - START - {}".format(start.strftime("%d.%m.%Y %H:%M:%S")))
+        cls.sync_categories()
+        cls.sync_technologies()
+        cls.sync_pacts()
+        cls.sync_positions()
+        end = timezone.now()
+        print("POSITION SYNC - FINISH - {} - EST:{}".format(end.strftime("%d.%m.%Y %H:%M:%S"), end-start))

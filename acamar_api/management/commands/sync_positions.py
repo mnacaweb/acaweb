@@ -11,8 +11,4 @@ class Command(BaseCommand):
     help = "My shiny new management command."
 
     def handle(self, *args, **options):
-        AcamarPositionManager.sync_categories()
-        AcamarPositionManager.sync_technologies()
-        AcamarPositionManager.sync_pacts()
-        AcamarPositionManager.sync_positions()
-
+        AcamarPositionManager.sync()

@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'haystack',
     'safedelete',
+    'django_crontab',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -258,6 +259,10 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_ROUTERS = ['acamar_web.haystack.router.LanguageRouter']
 SEARCH_ENGINE = 'acamar_web.haystack.engine.FoldingWhooshEngine'
+
+CRONJOBS = [
+    ('0 * * * *', 'django.core.management.call_command', ['sync_positions'], {}, '>> {}'.format(os.path.join(BASE_DIR, "logs", "sync_positions.log"))),
+]
 
 EMAIL_SUBJECT_PREFIX = 'DJANGO [%s/%s] ' % (PB_PROJECT, DEV_PROFILE)
 
