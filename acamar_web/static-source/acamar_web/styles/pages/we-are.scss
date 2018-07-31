@@ -152,6 +152,7 @@
       }
 
       .card-body {
+	      max-width: 160px;
 
         p {
           font-size: 20px;
@@ -163,7 +164,9 @@
         .nickname {
           font-family: Arial, sans-serif;
           font-size: 12px;
+          line-height: 17px;
           font-weight: 400;
+          margin-top: 5px;
         }
       }
 
