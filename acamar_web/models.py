@@ -774,3 +774,15 @@ class CourseEnrollFormModel(CMSPlugin):
 
     def get_courses(self):
         return Course.objects.prefetch_related("terms", "terms__items").exclude(terms__items__date__lt=timezone.now())
+
+
+@python_2_unicode_compatible
+class LoginPluginModel(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    subtitle = models.CharField(verbose_name="Sub-title", max_length=254, blank=True)
+    username_label = models.CharField(verbose_name="Username label", max_length=254)
+    password_label = models.CharField(verbose_name="Password label", max_length=254)
+    button_text = models.CharField(verbose_name="Button text", max_length=254)
+
+    def __str__(self):
+        return self.title

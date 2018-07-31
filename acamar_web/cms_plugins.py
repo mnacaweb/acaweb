@@ -14,7 +14,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
     CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel
+    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel
 
 
 @plugin_pool.register_plugin
@@ -437,3 +437,17 @@ class CourseEnrollFormPlugin(CMSPluginBase):
             "fields": (
                 ("name_label", "phone_label"), ("course_label", "expectations_label"), ("cv_label",), "email_button")})
     ]
+
+
+@plugin_pool.register_plugin
+class LoginPlugin(CMSPluginBase):
+    name = "Login form"
+    model = LoginPluginModel
+    render_template = "plugins/login/login.html"
+    fieldsets = [
+        (None, {"fields": ("title", "subtitle")}),
+        ("Form labels", {
+            "fields": (
+                ("username_label", "password_label"), "button_text")})
+    ]
+    cache = False
