@@ -94,7 +94,7 @@ def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
             return JsonResponse({"success": False, "data": form.errors})
     else:
         login_page = Page.objects.published().filter(reverse_id="login").first()
-        redirect = login.get_public_url() if login_page else ""
+        redirect = login_page.get_public_url() if login_page else ""
         if not redirect:
             redirect = "/login/"
         return HttpResponseRedirect(redirect + "?" + request.META["QUERY_STRING"])
