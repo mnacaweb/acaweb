@@ -1,6 +1,6 @@
 <div class="row d-flex flex-nowrap align-items-center">
     {% if instance.image %}
-        <div><img src="{{ instance.image.url }}"/></div>
+        <div><img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:instance.title }}"/></div>
     {% endif %}
     <div class="text">
         {% if instance.title %}

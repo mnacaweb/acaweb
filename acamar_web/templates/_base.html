@@ -47,7 +47,7 @@
 <div class="site-header">
     <div class="d-flex justify-content-between px-md-4 py-3 position-relative">
         <div class="logo-background-wrapper pl-4 py-3">
-            <a href="/"><img class="main-logo" src="{% static "acamar_web/images/acamar-logo.svg" %}" /></a>
+            <a href="/"><img class="main-logo" src="{% static "acamar_web/images/acamar-logo.svg" %}" alt="Acamar logo" /></a>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light justify-content-end w-100">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
     {% block content %} {% endblock %}
     <footer>
         <div class="container p-4 text-center text-weight-light">
-            &copy; Acamar Outsourcing Services, s.r.o. | <a target="_blank" href="/media/pdf/podminky-ochrany-osobnich-udaju-acamar.pdf">Ochrana osobních údajů</a>
+            &copy; {% trans "Acamar Outsourcing Services, s.r.o." %} | <a target="_blank" href="/media/pdf/podminky-ochrany-osobnich-udaju-acamar.pdf">{% trans "Ochrana osobních údajů" %}</a>
         </div>
     </footer>
 </div>

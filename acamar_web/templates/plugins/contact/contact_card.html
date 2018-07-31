@@ -17,11 +17,11 @@
             {% endif %}
         </div>
         <div>
-            <h5 class="subtitle-normal">{{ instance.name }}</h5>
+            <span class="subtitle-normal">{{ instance.name }}</span>
             <p class="about">{{ instance.title }}</p>
         </div>
     </div>
     <div class="image-wrapper">
-        <img src="{{ instance.image.url }}" />
+        <img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:instance.name }}" />
     </div>
 </div>

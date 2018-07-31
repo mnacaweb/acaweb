@@ -23,30 +23,30 @@
                 <div class="row">
                     <div class="col-12 col-md-8 recruitment-text">
                         <div>
-                            <p>{{ object.introduction }}</p>
+                            <p>{{ object.introduction|safe }}</p>
                         </div>
                         <div class="row mt-4 mb-5">
                             {% if object.place %}
                             <div class="col-6 col-md-4 mt-3 mt-md-0">
                                 <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
-                                    <h3 class="subtitle ml-2">{{ object.place }}</h3>
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
+                                    <span class="subtitle ml-2">{{ object.place }}</span>
                                 </div>
                             </div>
                             {% endif %}
                             {% if object.pacts_text_array|length %}
                             <div class="col-6 col-md-4 mt-3 mt-md-0">
                                 <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
-                                    <h3 class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</h3>
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
+                                    <span class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</span>
                                 </div>
                             </div>
                             {% endif %}
                             {% if object.start %}
                             <div class="pl-md-0 col-12 col-md-4 mt-3 mt-md-0">
                                 <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" /></div>
-                                    <h3 class="subtitle ml-2">{{ object.start }}</h3>
+                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
+                                    <span class="subtitle ml-2">{{ object.start }}</span>
                                 </div>
                             </div>
                             {% endif %}
@@ -65,7 +65,7 @@
                             </div>
                             <div class="row d-flex align-items-center justify-content-center">
                                 <div class="col-4 person-wrapper-image">
-                                    <img class="person-image" src="{{ object.user_image_url }}" />
+                                    <img class="person-image" src="{{ object.user_image_url }}" alt="{{ object.user_first_name }} {{ object.user_second_name }}" />
                                 </div>
                                 <div class="col-8 pt-3">
                                     <h3 class="person-title">{{ object.user_first_name }} {{ object.user_second_name }}</h3>

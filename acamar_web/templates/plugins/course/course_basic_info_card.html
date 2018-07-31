@@ -2,7 +2,7 @@
 
 <div class="col-sm card">
     <div class="card-img-top text-center">
-        <img src="{{ instance.image.url }}">
+        <img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}">
     </div>
     <div class="card-body">
         <div class="card-text">{{ instance.title }}</div>

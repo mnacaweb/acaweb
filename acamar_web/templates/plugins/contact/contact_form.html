@@ -1,7 +1,7 @@
 <div class="section section-form">
     <div class="container">
         <div class="d-flex justify-content-center align-items-center pb-5 text-center">
-            <h3 class="subtitle-large">{{ instance.title }}<br /><span class="text-weight-light">{{ instance.subtitle }}</span></h3>
+            <h2 class="subtitle-large">{{ instance.title }}<br /><span class="text-weight-light">{{ instance.subtitle }}</span></h2>
         </div>
         <form class="d-flex flex-column align-items-center contact-form" method="post" action="{% url "api:contact" %}">
             {% csrf_token %}

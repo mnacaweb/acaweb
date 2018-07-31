@@ -4,18 +4,18 @@
     <div class="row" data-id="{{ object.id }}">
         <div class="col-12 col-md-6 left-side-review">
             <div class="d-flex justify-content-end"><img class="quotes mb-3 mb-md-5"
-                                                         src="{% static "acamar_web/images/quote-start.svg" %}"/></div>
+                                                         src="{% static "acamar_web/images/quote-start.svg" %}" alt="Quote start"/></div>
             <p class="description-review">{{ object.text|linebreaksbr }}</p>
             <span class="bos-proboston">{{ object.author }}</span>
             <div class="d-flex justify-content-start"><img class="quotes my-3 my-md-4"
-                                                           src="{% static "acamar_web/images/quote-end.svg" %}"/></div>
+                                                           src="{% static "acamar_web/images/quote-end.svg" %}" alt="Quote end"/></div>
         </div>
         <div class="col-12 col-md-6 position-relative pb-3 pb-md-0">
             <div class="d-md-flex justify-content-md-end">{% if object.logo %}<img class="img-logo"
-                                                                                   src="{{ object.logo.url }}"/>{% endif %}
+                                                                                   src="{{ object.logo.url }}" alt="{{ object.logo.default_alt_text|default_if_none:"" }}"/>{% endif %}
             </div>
             <div class="person-wrapper">{% if object.image %}
-                <img class="img-person" src="{{ object.image.url }}"/>{% endif %}</div>
+                <img class="img-person" src="{{ object.image.url }}" alt="{{ object.image.default_alt_text|default_if_none:"" }}"/>{% endif %}</div>
         </div>
     </div>
 {#{% endrender_model_block %}#}

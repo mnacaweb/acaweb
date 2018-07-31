@@ -7,7 +7,7 @@
                 <div class="col-sm-12">
                     <div class="row d-md-flex justify-content-md-center">
                         <div class="col-md-6 col-sm-12">
-                            <a href="{{ object.url }}"><h5>{{ object.title1 }}</h5></a>
+                            <a href="{{ object.url }}"><h3>{{ object.title1 }}</h3></a>
                             {% if object.technologies_text or object.pacts_text %}
                             <div class="row">
                                 {% if object.pacts_text %}<div class="employment"><p class="text-small pb-2">{{ object.pacts_text }}</p></div>{% endif %}
@@ -23,7 +23,7 @@
                         <div class="col-md-4 d-none d-md-flex">
                             <div class="row">
                                 <div class="col-5 face">
-                                    <img src="{{ object.user_image_url }}"/>
+                                    <img src="{{ object.user_image_url }}" alt="{{ object.user_first_name }} {{ object.user_second_name }}" />
                                 </div>
                                 <div class="col-7 d-md-flex flex-column justify-content-center">
                                     <strong>{{ instance.recruiter_text }}</strong>

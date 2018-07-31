@@ -1,7 +1,7 @@
 <div class="accordion-card">
     <div class="accordion-header" id="heading{{ instance.id }}" data-toggle="collapse" data-target="#collapse{{ instance.id }}" aria-expanded="false" aria-controls="collapse{{ instance.id }}">
         <div class="accordion-header-icon">
-            <img src="{{ instance.icon.url }}">
+            <img src="{{ instance.icon.url }}" alt="{{ instance.icon.default_alt_text|default_if_none:"" }}">
         </div>
         <div class="accordion-header-title">
             <h3>{{ instance.title }}</h3>

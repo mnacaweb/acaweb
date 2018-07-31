@@ -10,7 +10,7 @@
             <p>{{ object.name }}</p>
             <p class="nickname">{{ object.nickname }}</p>
         </div>
-        <div class="icon-wrapper"><img src="{{ object.image.url }}" /></div>
+        <div class="icon-wrapper"><img src="{{ object.image.url }}" alt="{{ object.image.default_alt_text|default_if_none:object.name }}" /></div>
     </div>
 </div>
 {#{% endrender_model_block %}#}

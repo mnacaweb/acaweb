@@ -10481,11 +10481,11 @@ $(function () {
 		var form = $this.find("form");
 		var url = form.attr("action");
 		var method = form.attr("method");
-		var queryInput = form.find("#queryInput");
-		var autocompleteUrl = queryInput.data("url");
+		// let queryInput = form.find("#queryInput");
+		// let autocompleteUrl = queryInput.data("url");
 		var resultContainer = $this.find(".position-search-results");
 		var limit = resultContainer.data("limit");
-		var autocompleteContainer = form.find(".position-search-autocomplete");
+		// let autocompleteContainer = form.find(".position-search-autocomplete");
 		var categories = form.find(".category");
 		var pacts = $this.find(".pacts .tab");
 
@@ -10568,27 +10568,28 @@ $(function () {
 			});
 		});
 
-		queryInput.on("keyup", function () {
-			var query = queryInput.val();
-			if (query.length < 3) {
-				return false;
-			}
-
-			$.ajax({
-				url: autocompleteUrl,
-				method: "GET",
-				data: form.serialize(),
-				success: function success(response) {
-					autocompleteContainer.html(response);
-				}
-			});
-		});
-		queryInput.focus(function () {
-			autocompleteContainer.show();
-		});
-		queryInput.blur(function () {
-			autocompleteContainer.hide();
-		});
+		// TODO: AUTOCOMPLETE
+		// queryInput.on("keyup", () => {
+		// 	const query = queryInput.val();
+		// 	if (query.length < 3) {
+		// 		return false;
+		// 	}
+		//
+		// 	$.ajax({
+		// 		url: autocompleteUrl,
+		// 		method: "GET",
+		// 		data: form.serialize(),
+		// 		success: response => {
+		// 			autocompleteContainer.html(response);
+		// 		}
+		// 	});
+		// });
+		// queryInput.focus(() => {
+		// 	autocompleteContainer.show();
+		// });
+		// queryInput.blur (() => {
+		// 	autocompleteContainer.hide();
+		// });
 
 		categories.each(function () {
 			var $this = $(this);

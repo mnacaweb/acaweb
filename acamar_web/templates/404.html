@@ -1,13 +1,13 @@
 {% extends "_base.html" %}
 
-{% load i18n %}
+{% load i18n static %}
 
 {% block body_attributes %}class="error404"{% endblock %}
 {% block title %}Acamar | Error 404{% endblock %}
 
-{% block meta %} {# TODO #}
-    <meta name="description" content="Acamar">
-    <meta name="keywords" content="starterpack starter pack">
+{% block meta %}
+    <meta name="description" content="Acamar 404 not found page">
+    <meta name="keywords" content="404 not found">
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
                 </h1>
             </div>
             <div class="error404-image">
-                <img src="static/images/404-planet.png" alt="Hvězda smrti 404">
+                <img src="{% static "acamar_web/images/404-planet.png" %}" alt="{% trans "Hvězda smrti 404" %}">
             </div>
             <div class="error404-back">
                 <span>{% trans "Ne?" %}</span><br>
