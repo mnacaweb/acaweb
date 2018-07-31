@@ -12,7 +12,19 @@ from acamar_web.haystack.utils import get_language_from_alias
 
 class PositionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    autocomplete = indexes.EdgeNgramField(model_attr="title1")
+    autocomplete = indexes.EdgeNgramField(model_attr="name")
+    category_id = indexes.IntegerField(model_attr="category_id", indexed=False)
+    pacts_json = indexes.CharField(model_attr="pacts_json", indexed=False)
+    url = indexes.CharField(model_attr="url", indexed=False)
+    name = indexes.CharField(model_attr="name", indexed=False)
+    technologies_text = indexes.CharField(model_attr="technologies_text", indexed=False)
+    pacts_text = indexes.CharField(model_attr="pacts_text", indexed=False)
+    place = indexes.CharField(model_attr="place", indexed=False)
+    user_image_url = indexes.CharField(model_attr="user_image_url", indexed=False)
+    user_first_name = indexes.CharField(model_attr="user_first_name", indexed=False)
+    user_second_name = indexes.CharField(model_attr="user_second_name", indexed=False)
+    user_position = indexes.CharField(model_attr="user_position", indexed=False)
+    user_email = indexes.CharField(model_attr="user_email", indexed=False)
 
     def __init__(self):
         super(PositionIndex, self).__init__()

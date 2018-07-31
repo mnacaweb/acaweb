@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+import json
 import re
 
 from cms.models import PlaceholderField
@@ -201,8 +202,16 @@ class Position(ModelMeta, models.Model):
         return list(self.pacts.values_list("id", flat=True))
 
     @cached_property
+    def pacts_json(self):
+        return json.dumps(self.pacts_array)
+
+    @cached_property
     def technologies_text(self):
         return ", ".join(self.technologies.values_list("name", flat=True))
+
+    @cached_property
+    def pacts_text(self):
+        return ", ".join(self.pacts_text_array)
 
     @property
     def title(self):

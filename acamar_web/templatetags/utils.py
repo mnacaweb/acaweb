@@ -18,7 +18,6 @@ def json_filter(value):
 
 
 @register.filter(name="email_link")
-@stringfilter
 def email_link(value):
     if value:
         mail = value.split("@")

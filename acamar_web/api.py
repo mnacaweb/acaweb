@@ -8,6 +8,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, resolve_url
+from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -38,15 +39,13 @@ class TeamGridApi(View):
 class PositionSearchApi(View):
     def get(self, request, id):
         instance = get_object_or_404(PositionSearch, pk=id)
-        form = PositionSearchForm(request.GET, load_all=True)
+        form = PositionSearchForm(request.GET)
         if form.is_valid():
             sqs = form.search()
             return render(request, "plugins/position_search/results.html", {
                 "instance": instance,
                 "objects": sqs,
-                "suggestion": form.get_suggestion(),
                 "limit": instance.limit,
-                "more": (sqs.count() > instance.limit) if instance.limit else False
             })
 
         return

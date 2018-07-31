@@ -2,47 +2,51 @@
 
 <div class="container container-lg">
     {% for object in objects %}
-        {% with object=object.object|default:object %}
-            <div class="row list-item py-4 position {% if limit and forloop.counter > limit %}more{% endif %}" data-category="{{ object.category_id }}" data-pact="{{ object.pacts_array|json }}">
-                <div class="col-sm-12">
-                    <div class="row d-md-flex justify-content-md-center">
-                        <div class="col-md-6 col-sm-12">
-                            <a href="{{ object.url }}"><h3>{{ object.title1 }}</h3></a>
-                            {% if object.technologies_text or object.pacts_text %}
+        <div class="row list-item py-4 position {% if limit and forloop.counter > limit %}more{% endif %}"
+             data-category="{{ object.category_id }}" data-pact="{{ object.pacts_json }}">
+            <div class="col-sm-12">
+                <div class="row d-md-flex justify-content-md-center">
+                    <div class="col-md-6 col-sm-12">
+                        <a href="{{ object.url }}"><h3>{{ object.name }}</h3></a>
+                        {% if object.technologies_text or object.pacts_text %}
                             <div class="row">
-                                {% if object.pacts_text %}<div class="employment"><p class="text-small pb-2">{{ object.pacts_text }}</p></div>{% endif %}
-                                {% if object.technologies_text %}<div class="settings"><p class="text-small pb-2">{{ object.technologies_text }}</p></div>{% endif %}
+                                {% if object.pacts_text %}
+                                    <div class="employment"><p class="text-small pb-2">{{ object.pacts_text }}</p>
+                                    </div>{% endif %}
+                                {% if object.technologies_text %}
+                                    <div class="settings"><p class="text-small pb-2">{{ object.technologies_text }}</p>
+                                    </div>{% endif %}
                             </div>
-                            {% endif %}
-                            {% if object.place %}
+                        {% endif %}
+                        {% if object.place %}
                             <div class="row">
                                 <div class="location"><p class="text-small">{{ object.place }}</p></div>
                             </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-4 d-none d-md-flex">
-                            <div class="row">
-                                <div class="col-5 face">
-                                    <img src="{{ object.user_image_url }}" alt="{{ object.user_first_name }} {{ object.user_second_name }}" />
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 d-none d-md-flex">
+                        <div class="row">
+                            <div class="col-5 face">
+                                <img src="{{ object.user_image_url }}"
+                                     alt="{{ object.user_first_name }} {{ object.user_second_name }}"/>
+                            </div>
+                            <div class="col-7 d-md-flex flex-column justify-content-center">
+                                <strong>{{ instance.recruiter_text }}</strong>
+                                <div>
+                                    <p class="text-small">{{ object.user_first_name }} {{ object.user_second_name }}</p>
                                 </div>
-                                <div class="col-7 d-md-flex flex-column justify-content-center">
-                                    <strong>{{ instance.recruiter_text }}</strong>
-                                    <div>
-                                        <p class="text-small">{{ object.user_first_name }} {{ object.user_second_name }}</p>
-                                    </div>
-                                    <p class="text-small">{{ object.user_position }}</p>
-                                    <div><a class="message text-small"
-                                            href="mailto:{{ object.user_email|email_link }}">{{ instance.recruiter_email_text }}</a>
-                                    </div>
+                                <p class="text-small">{{ object.user_position }}</p>
+                                <div><a class="message text-small"
+                                        href="mailto:{{ object.user_email|email_link }}">{{ instance.recruiter_email_text }}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endwith %}
+        </div>
     {% endfor %}
-    {% if more %}
+    {% if objects > limit %}
         <div class="row justify-content-center py-4">
             <button type="button" class="button button-secondary button-more">{{ instance.more_button_text }}</button>
         </div>
