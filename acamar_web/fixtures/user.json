@@ -1,0 +1,758 @@
+[
+  {
+    "fields": {
+      "username": "abdurahmanov@gmail.com",
+      "first_name": "Alisher",
+      "last_name": "Abdurahmanov",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$LZpp4NHRjm62$rj2ujBM2e3L/x02DTbpLJU4BbuV2OT1e7G660Ffas5g=",
+      "email": "abdurahmanov@gmail.com",
+      "date_joined": "2018-07-31T08:18:47Z"
+    },
+    "model": "auth.user",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "username": "Rudolf.Balada@gmail.com",
+      "first_name": "Rudolf",
+      "last_name": "Balada",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$hzbADFbsWjwZ$Ki33ohsmXdVjbZ3TQAD5BRMqqwRUtcMPF5Cz5XddGg0=",
+      "email": "Rudolf.Balada@gmail.com",
+      "date_joined": "2018-07-31T08:18:47Z"
+    },
+    "model": "auth.user",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "username": "petr@bohuslavek.com",
+      "first_name": "Petr",
+      "last_name": "Bohusl\u00e1vek",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$fw2HxW8SEMFm$fQVwi4I2V9ahKyQ2jFiNylOw6lwFWnptYdfS1ncDw3Q=",
+      "email": "petr@bohuslavek.com",
+      "date_joined": "2018-07-31T08:18:47Z"
+    },
+    "model": "auth.user",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "username": "eva.mullins@gmail.com",
+      "first_name": "Eva",
+      "last_name": "\u010cern\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$PPrO1JzZxDzL$3OPrZUylx9/pJBSgT+kXdrIJ2tZoIYUaRM6lm5p/W34=",
+      "email": "eva.mullins@gmail.com",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "username": "gothalgo@gmail.com",
+      "first_name": "Marko",
+      "last_name": "\u010cierny",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$SRHJj6SFYvhT$BEBXq3ppcLuMhiEGO/AMhlJPDq1bjKhbyZYWRgjVeoo=",
+      "email": "gothalgo@gmail.com",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "username": "diazlucido@gmail.com",
+      "first_name": "David",
+      "last_name": "Diaz",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$XRubSwFzImzv$GvdPiY3PnLZeYNc+psZbzcdz00XIa3lf3pSic+zdRd0=",
+      "email": "diazlucido@gmail.com",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "username": "miredolezal5@gmail.com",
+      "first_name": "Miroslav",
+      "last_name": "Dole\u017eal",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$D145qkRUsfuk$WABADcBc7sEKpyKgAWxAJVwKsB9EaJXLoD7ljAwFK2w=",
+      "email": "miredolezal5@gmail.com",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "username": "old@dosedel.cz",
+      "first_name": "Old\u0159ich",
+      "last_name": "Dosed\u011bl",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$Z9rIbPfoM3GY$Q04q3DyFMs8igtDVMrJnEEMv8f7+LyaSPJ0Sd/sP2jI=",
+      "email": "old@dosedel.cz",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "username": "jakub@esterka.cz",
+      "first_name": "Jakub",
+      "last_name": "Esterka",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$aXvzflKYgbrb$PLW4dks3mFpwFQOWwdMBy0HCQ77aJiUgOJZ8Nk07pxA=",
+      "email": "jakub@esterka.cz",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "username": "tomasgrosup@gmail.com",
+      "first_name": "Tom\u00e1\u0161",
+      "last_name": "Gro\u0161up",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$3TxCP8JugYbE$QOjhQgbyHFG/IC3nqA5hqJkPSk1zd/WeccD5kzTitTE=",
+      "email": "tomasgrosup@gmail.com",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "username": "halmil@seznam.cz",
+      "first_name": "Milo\u0161",
+      "last_name": "Hal\u010d\u00e1k",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$2Y5EnBq9fmL8$7ltKxso+R8FoVrHG6JLe0DcvezR4HI/f/mHFp7Phe1Y=",
+      "email": "halmil@seznam.cz",
+      "date_joined": "2018-07-31T08:18:48Z"
+    },
+    "model": "auth.user",
+    "pk": 58
+  },
+  {
+    "fields": {
+      "username": "hamendi@hotmail.co.uk",
+      "first_name": "Mohammed",
+      "last_name": "Hamendi",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$uy16BV4fUJHI$RcdAAT9tbhOU4UbxYxzpMhuiZyM3J8zsi6veG7VBuNk=",
+      "email": "hamendi@hotmail.co.uk",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 59
+  },
+  {
+    "fields": {
+      "username": "t.jura@volny.cz",
+      "first_name": "Tom\u00e1\u0161",
+      "last_name": "Jura",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$lvc0CxLX8rXP$0HfvBoAt73zgIr6UcIKQgqBymhurAzuZLlyRCoNCcqg=",
+      "email": "t.jura@volny.cz",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 60
+  },
+  {
+    "fields": {
+      "username": "ondrej.kavula@gmail.com",
+      "first_name": "Ond\u0159ej",
+      "last_name": "Kavula",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$zTKvlbEUsoGx$7mUlzHiMNyAH3zDCAZQsb1E7ieOr+3gvzsKy7kuvFDA=",
+      "email": "ondrej.kavula@gmail.com",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 61
+  },
+  {
+    "fields": {
+      "username": "ondrej.kmonicek@gmail.com",
+      "first_name": "Ond\u0159ej",
+      "last_name": "Kmon\u00ed\u010dek",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$M2V87mPCAfwV$OT2WIozHDFT5T55c4bn0KnOgPMSi/xKG/qj/dX5Qbd8=",
+      "email": "ondrej.kmonicek@gmail.com",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 62
+  },
+  {
+    "fields": {
+      "username": "lukas@komarek.me",
+      "first_name": "Luk\u00e1\u0161",
+      "last_name": "Kom\u00e1rek",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$Fm1SWiQkbbjz$tN+RRZmpZqtekhsnU0LwkjV5oxDQNIbl/+jkI2blf1c=",
+      "email": "lukas@komarek.me",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 63
+  },
+  {
+    "fields": {
+      "username": "vojtech@kotous.cz",
+      "first_name": "Vojt\u011bch",
+      "last_name": "Kotous",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$NljZ7MHziNU8$RE2Hz6q+4SJ3eGqBUsHZ9QbITxT9Xvh6x6GcxyncD0w=",
+      "email": "vojtech@kotous.cz",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 64
+  },
+  {
+    "fields": {
+      "username": "jirkakurka@seznam.cz",
+      "first_name": "Ji\u0159\u00ed",
+      "last_name": "K\u016frka",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$3KYuBCOexa1I$b68xfpeRmwasDpRDPA+eAzmyuF0kbkW0qUEOD7n05x0=",
+      "email": "jirkakurka@seznam.cz",
+      "date_joined": "2018-07-31T08:18:49Z"
+    },
+    "model": "auth.user",
+    "pk": 65
+  },
+  {
+    "fields": {
+      "username": "tomas.kuryl@gmail.com",
+      "first_name": "Tom\u00e1\u0161",
+      "last_name": "Kuryl",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$cqeUXeZlSl3I$cfPvxO8mIUmU8h9FmTYZLJDmdzALGbBEj5evsyk7GpY=",
+      "email": "tomas.kuryl@gmail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 66
+  },
+  {
+    "fields": {
+      "username": "jakubmares@ymail.com",
+      "first_name": "Jakub",
+      "last_name": "Mare\u0161",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$y9OKRtymMTqk$dEdJq77RIgBIMXu/netzMdmy2SRvbtfnXI1duVJqASA=",
+      "email": "jakubmares@ymail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 67
+  },
+  {
+    "fields": {
+      "username": "markvart12@gmail.com",
+      "first_name": "Petr",
+      "last_name": "Markvart",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$iQnGYA97PB4G$NimXYVzCFBBHIUQgG8PIK3yeWdIRbNN9dCU+vuZKjGg=",
+      "email": "markvart12@gmail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 68
+  },
+  {
+    "fields": {
+      "username": "honza.pikora@gmail.com",
+      "first_name": "Jan",
+      "last_name": "Pikora",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$zgdbsJdx0sBj$KFkFEeps0ODj++9C4ZOnU2pDeHBbxgCvXua0aO3gH3o=",
+      "email": "honza.pikora@gmail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 69
+  },
+  {
+    "fields": {
+      "username": "siro.david@gmail.com",
+      "first_name": "D\u00e1vid",
+      "last_name": "Siro",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$zU3yEhX2KPNA$uEuVVyVZX3+tWUM9Jrv1cqAStduEetn24BS7FZy0uqY=",
+      "email": "siro.david@gmail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 70
+  },
+  {
+    "fields": {
+      "username": "pavel@slavetinsky.cz",
+      "first_name": "Jan",
+      "last_name": "Slav\u011bt\u00ednsk\u00fd",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$qaASynZgabid$xpopqnxvjgH/5+SBBqgpOmvInNAtfqEwFe/MbUIUbpE=",
+      "email": "pavel@slavetinsky.cz",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 71
+  },
+  {
+    "fields": {
+      "username": "tomas1.suchy1@gmail.com",
+      "first_name": "Tom\u00e1\u0161",
+      "last_name": "Such\u00fd",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$ebPe2BZImCq0$WsWk7CqhHpGHN90sASbf8qCTeW4pQ8Kr+ZDhz9FmEqk=",
+      "email": "tomas1.suchy1@gmail.com",
+      "date_joined": "2018-07-31T08:18:50Z"
+    },
+    "model": "auth.user",
+    "pk": 72
+  },
+  {
+    "fields": {
+      "username": "tomas.toth@seznam.cz",
+      "first_name": "Tom\u00e1\u0161",
+      "last_name": "T\u00f3th",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$gostiHxg1OHl$2ZdzaNCLpYCVPp2YK9FsK9uIfOLwpBnSlJYeefFhAbo=",
+      "email": "tomas.toth@seznam.cz",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 73
+  },
+  {
+    "fields": {
+      "username": "lucie.tvrdikova@gmail.com",
+      "first_name": "Lucie",
+      "last_name": "Tvrd\u00edkov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$on14X8ASLxLk$2P/lylMeHzmVNHHWlp3VysUsJrAgQAK/yV0KPAfFaDQ=",
+      "email": "lucie.tvrdikova@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 74
+  },
+  {
+    "fields": {
+      "username": "vichmartin@gmail.com",
+      "first_name": "Martin",
+      "last_name": "V\u00edch",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$mP7e59IDDGNK$8tGidJ+tWynlApxt3DC0IEt1KwvLGfO2yoMEFOMwk84=",
+      "email": "vichmartin@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 75
+  },
+  {
+    "fields": {
+      "username": "brenerpetr@gmail.com",
+      "first_name": "Petr",
+      "last_name": "Brener",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$8iGtwg2GN2B4$ZPB2ECwykoZ4onkKL8SW+UwjSnobf1Z/uC2qsQkbcDA=",
+      "email": "brenerpetr@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 76
+  },
+  {
+    "fields": {
+      "username": "petr.kolarik@gmail.com",
+      "first_name": "Petr",
+      "last_name": "Kola\u0159\u00edk",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$BdSr8mZWZToJ$YrE4mPMD1LG1SyrUDMN3RFxQsUXyoQ2UGRQKIOuaUII=",
+      "email": "petr.kolarik@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 77
+  },
+  {
+    "fields": {
+      "username": "karel.nekolny@gmail.com",
+      "first_name": "Karel",
+      "last_name": "Nekoln\u00fd",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$iu1gi4rBgZ3K$2eaB4D6TmI9paeP1FfVQi3n1jv4n8M9SRsstxW5aMJg=",
+      "email": "karel.nekolny@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 78
+  },
+  {
+    "fields": {
+      "username": "ewgeniy.rybak@gmail.com",
+      "first_name": "Evgeniy",
+      "last_name": "Rybak",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$ZhduiPFTCp6Y$oATxkN6uZtAPoX/qHG0Agckbjrq36ossK9kpc2EgGx4=",
+      "email": "ewgeniy.rybak@gmail.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 79
+  },
+  {
+    "fields": {
+      "username": "mazek23@icloud.com",
+      "first_name": "Zden\u011bk",
+      "last_name": "Mac\u00ed\u010dek",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$e66ceVIpLKpW$q09Q5wMemy6UUTG5gVmHSQdtmRNcZ+bl/8L285bHvQM=",
+      "email": "mazek23@icloud.com",
+      "date_joined": "2018-07-31T08:18:51Z"
+    },
+    "model": "auth.user",
+    "pk": 80
+  },
+  {
+    "fields": {
+      "username": "zika.daniel@gmail.com",
+      "first_name": "Daniel",
+      "last_name": "Z\u00edka",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$ppb2tqGEnkKc$vi0tEI3t2QPmB+fcVaoIwE8bGzyoB7Stz4XJwP/pucM=",
+      "email": "zika.daniel@gmail.com",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 81
+  },
+  {
+    "fields": {
+      "username": "nikol.navratilova@acamar.cz",
+      "first_name": "Nikola",
+      "last_name": "Navr\u00e1tilov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$kEgbRJ7solYj$76X522ohUATUquGqlbcqvalZ8WNbjjk8ZvDBkR64NZA=",
+      "email": "nikol.navratilova@acamar.cz",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 82
+  },
+  {
+    "fields": {
+      "username": "michal.semelka@gmail.com",
+      "first_name": "Michal",
+      "last_name": "Semelka",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$Hct8aJzqxUob$a6Whyx6I3zBCn1vL7Ih9xoSC5gU8Owt8316kxP77YVs=",
+      "email": "michal.semelka@gmail.com",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 83
+  },
+  {
+    "fields": {
+      "username": "blanka.rubi\u0161ov\u00e1@acamar.cz",
+      "first_name": "Blanka",
+      "last_name": "Rubi\u0161ov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$u1dCu9f5tbFt$NT3IBzDrAnJ08EipSvTfF+yXDBsTIU5IIdF16ir4Q0A=",
+      "email": "blanka.rubi\u0161ov\u00e1@acamar.cz",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 84
+  },
+  {
+    "fields": {
+      "username": "anna.vac\u00edkov\u00e1@acamar.cz",
+      "first_name": "Anna",
+      "last_name": "Vac\u00edkov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$EO42P0e2zt6J$0jMhd5ax4RmCnUbncTFQAU5HOy91xTLe2G/Hz9/C3Pk=",
+      "email": "anna.vac\u00edkov\u00e1@acamar.cz",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 85
+  },
+  {
+    "fields": {
+      "username": "lucie.stankova@acamar.cz",
+      "first_name": "Lucie",
+      "last_name": "Sta\u0148kov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$qv59FdBxsiGu$L8OukAZJ4CShWBHdXpxRodX012OJSjlh6C9l0YfppnA=",
+      "email": "lucie.stankova@acamar.cz",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 86
+  },
+  {
+    "fields": {
+      "username": "sarka.blahovcov\u00e1@acamar.cz",
+      "first_name": "\u0160\u00e1rka",
+      "last_name": "Bl\u00e1hovcov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$FUNDR0Ax3dWO$tAPahkuXKwZSF4s/1Itg+QebhdNRPSNGwWisqDDxdUc=",
+      "email": "sarka.blahovcov\u00e1@acamar.cz",
+      "date_joined": "2018-07-31T08:18:52Z"
+    },
+    "model": "auth.user",
+    "pk": 87
+  },
+  {
+    "fields": {
+      "username": "tereza.jarolimova@acamar.cz",
+      "first_name": "Tereza",
+      "last_name": "Jarol\u00edmkov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$pFmizzriK9I2$3zFJeM0txHi5qwfqcZVrmvP31QVYxKMtGjj5yxsuzH0=",
+      "email": "tereza.jarolimova@acamar.cz",
+      "date_joined": "2018-07-31T08:18:53Z"
+    },
+    "model": "auth.user",
+    "pk": 88
+  },
+  {
+    "fields": {
+      "username": "jitka.klickova@acamar.cz",
+      "first_name": "Jitka",
+      "last_name": "Kli\u010dkov\u00e1",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$5cNGuEhIFFXx$JxQ8+KbRsjEMyQ48py6h1d5ME9bhoAV+4jrfszcCHW0=",
+      "email": "jitka.klickova@acamar.cz",
+      "date_joined": "2018-07-31T08:18:53Z"
+    },
+    "model": "auth.user",
+    "pk": 89
+  }
+]

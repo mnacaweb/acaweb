@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.core.management.base import BaseCommand
 
 from acamar_api.acamar_api import AcamarPositionManager
