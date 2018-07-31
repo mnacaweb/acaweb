@@ -16,7 +16,6 @@ $(function () {
 					success: response => {
 						if (response.success) {
 							let thanks = $this.next();
-							console.dir(thanks);
 							$this.fadeOut("slow", function () {
 								$this.remove();
 								thanks.fadeIn("slow");

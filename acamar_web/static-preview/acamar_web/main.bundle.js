@@ -10178,7 +10178,6 @@ $(function () {
 					success: function success(response) {
 						if (response.success) {
 							var thanks = $this.next();
-							console.dir(thanks);
 							$this.fadeOut("slow", function () {
 								$this.remove();
 								thanks.fadeIn("slow");
@@ -10636,10 +10635,17 @@ $(document).ready(function () {
 	$.fn.initReviewCycle = function () {
 		var $this = $(this);
 		var review_container = $this.find(".review-person");
+		var dots_container = $this.find(".dots");
 		var url = $this.data("url");
 		var reviews = $this.data("reviews");
+		var timeout = null;
+
+		dots_container.children().click(function () {
+			getIdReview($(this).data("id"));
+		});
 
 		function getNextReview() {
+			clearTimeout(timeout);
 			if ($this.length && Array.isArray(reviews)) {
 				var current_id = review_container.children().first().data("id");
 				var current_index = reviews.indexOf(current_id);
@@ -10653,8 +10659,10 @@ $(document).ready(function () {
 							html.ready(function () {
 								review_container.children().fadeOut("slow", function () {
 									$(this).replaceWith(html);
+									dots_container.find(".active").removeClass("active");
+									dots_container.find("[data-id=\"" + reviews[next_index] + "\"]").addClass("active");
 									html.fadeIn("slow");
-									setTimeout(getNextReview, review_refresh_rate);
+									timeout = setTimeout(getNextReview, review_refresh_rate);
 								});
 							});
 						}
@@ -10663,7 +10671,27 @@ $(document).ready(function () {
 			}
 		}
 
-		setTimeout(getNextReview, review_refresh_rate);
+		function getIdReview(id) {
+			clearTimeout(timeout);
+			$.ajax({
+				url: "" + url + id + "/",
+				method: "GET",
+				success: function success(response) {
+					var html = $(response).hide();
+					html.ready(function () {
+						review_container.children().fadeOut("slow", function () {
+							$(this).replaceWith(html);
+							dots_container.find(".active").removeClass("active");
+							dots_container.find("[data-id=\"" + id + "\"]").addClass("active");
+							html.fadeIn("slow");
+							timeout = setTimeout(getNextReview, review_refresh_rate);
+						});
+					});
+				}
+			});
+		}
+
+		timeout = setTimeout(getNextReview, review_refresh_rate);
 		return this;
 	};
 

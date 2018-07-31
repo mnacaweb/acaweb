@@ -21,9 +21,9 @@
                 {% include "plugins/review_panel/review.html" with object=review %}
             </div>
             <ul class="dots">
-                <li class="active"><button></button></li>
-                <li><button></button></li>
-                <li><button></button></li>
+                {% for review in review_ids %}
+                    <li class="{% if forloop.first %}active{% endif %}" data-id="{{ review }}"><button></button></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
