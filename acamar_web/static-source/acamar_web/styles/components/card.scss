@@ -25,7 +25,7 @@
       font-weight: 900;
     }
     .training {
-      display: none;
+      //display: none;
 
       @include media-breakpoint-up(md) {
         display: block;
@@ -103,6 +103,11 @@
         background-color: #f3f3f3;
         border: none;
         z-index: -1;
+
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+
       }
 
     }

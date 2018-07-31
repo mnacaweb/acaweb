@@ -11554,10 +11554,6 @@ input[type="text"]::placeholder {
   font-weight: 900;
 }
 
-.card .card-top .training {
-  display: none;
-}
-
 @media (min-width: 768px) {
   .card .card-top .training {
     display: block;
@@ -11640,6 +11636,12 @@ input[type="text"]::placeholder {
   background-color: #f3f3f3;
   border: none;
   z-index: -1;
+}
+
+@media (max-width: 991.98px) {
+  .card-wrapper .card .card-body::after {
+    display: none;
+  }
 }
 
 .card-wrapper .card .card-footer {
