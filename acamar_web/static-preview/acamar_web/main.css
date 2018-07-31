@@ -12333,6 +12333,10 @@ input[type="text"]::placeholder {
   font-size: 14px;
 }
 
+.together-section .card.person .card-body {
+  max-width: 160px;
+}
+
 .together-section .card.person .card-body p {
   font-size: 20px;
   font-weight: 700;
@@ -12343,7 +12347,9 @@ input[type="text"]::placeholder {
 .together-section .card.person .card-body .nickname {
   font-family: Arial, sans-serif;
   font-size: 12px;
+  line-height: 17px;
   font-weight: 400;
+  margin-top: 5px;
 }
 
 .together-section .card.person .icon-wrapper {
