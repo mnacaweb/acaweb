@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.core.management.base import BaseCommand
 
 from acamar_api.acamar_api import AcamarPositionManager
@@ -7,8 +11,4 @@ class Command(BaseCommand):
     help = "My shiny new management command."
 
     def handle(self, *args, **options):
-        AcamarPositionManager.sync_categories()
-        AcamarPositionManager.sync_technologies()
-        AcamarPositionManager.sync_pacts()
-        AcamarPositionManager.sync_positions()
-
+        AcamarPositionManager.sync()
