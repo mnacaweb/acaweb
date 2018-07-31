@@ -14,7 +14,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
     CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel
+    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel, ThanksBanner
 
 
 @plugin_pool.register_plugin
@@ -432,7 +432,7 @@ class CourseEnrollFormPlugin(CMSPluginBase):
     model = CourseEnrollFormModel
     render_template = "plugins/course/course_enroll_form.html"
     fieldsets = [
-        (None, {"fields": ("title", "submit_text")}),
+        (None, {"fields": ("title", ("submit_text", "thanks_page"))}),
         ("Form labels", {
             "fields": (
                 ("name_label", "phone_label"), ("course_label", "expectations_label"), ("cv_label",), "email_button")})
@@ -451,3 +451,10 @@ class LoginPlugin(CMSPluginBase):
                 ("username_label", "password_label"), "button_text")})
     ]
     cache = False
+
+
+@plugin_pool.register_plugin
+class ThanksBannerPlugin(CMSPluginBase):
+    name = "Thank you banner"
+    model = ThanksBanner
+    render_template = "plugins/thank_you/thanks_banner.html"

@@ -170,7 +170,8 @@ CMS_TEMPLATES = [
     ('for_companies.html', 'For companies'),
     ('course.html', 'Courses'),
     ('a-card.html', 'A-card'),
-    ('enroll_in_course.html', 'Enroll in course')
+    ('enroll_in_course.html', 'Enroll in course'),
+    ('thank_you.html', 'Thank you')
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT
@@ -347,6 +348,13 @@ CMS_PLACEHOLDER_CONF = {
         "limits": {
             "CourseEnrollFormPlugin": 1,
             "TimelinePlugin": 1
+        }
+    },
+    "thank_you": {
+        "plugins": ["ThanksBannerPlugin"],
+        "name": "Content - thank you",
+        "limits": {
+            "global": 1
         }
     }
 }

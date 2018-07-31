@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="thank-you-wrapper">
+    <div class="thank-you-image">
+        <div class="thank-you-image-wrapper">
+            <img src="{% static "acamar_web/images/checkmark.png" %}" alt="Checkmark" class="checkmark">
+            <h1>{{ instance.title }}</h1>
+            {{ instance.text }}
+        </div>
+    </div>
+</div>

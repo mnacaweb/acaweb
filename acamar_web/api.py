@@ -64,7 +64,7 @@ class CourseEnrollApi(View):
         form = CourseEnrollForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            return JsonResponse({"success": True, "redirrect": ""})
+            return JsonResponse({"success": True})
 
         return JsonResponse({"success": False, "data": form.errors})
 

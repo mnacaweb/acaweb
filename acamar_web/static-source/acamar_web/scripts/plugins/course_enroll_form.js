@@ -48,8 +48,8 @@ $(function () {
 					processData: false,
 					contentType: false,
 					success: response => {
-						if (response.success && response.redirect) {
-							window.location.href = response.redirect;
+						if (response.success) {
+							window.location.href = $this.data("redirect");
 						}
 					}
 				});

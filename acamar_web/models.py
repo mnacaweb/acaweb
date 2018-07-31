@@ -771,6 +771,7 @@ class CourseEnrollFormModel(CMSPlugin):
                                      null=True)
     submit_text = models.CharField(verbose_name="Submit button text", max_length=254)
     selected_text = models.CharField(verbose_name="Multi-select selected text", max_length=30, default="vybráno")
+    thanks_page = PageField(verbose_name="Thanks page", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
@@ -806,3 +807,12 @@ class Contact(models.Model):
     class Meta:
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"
+
+
+@python_2_unicode_compatible
+class ThanksBanner(CMSPlugin):
+    title = models.CharField(verbose_name="Title", max_length=254)
+    text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+
+    def __str__(self):
+        return self.title
