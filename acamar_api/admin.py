@@ -7,7 +7,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
-from .models import Course, CourseTerm, CourseTermItem
+from .models import Course, CourseTerm, CourseTermItem, CourseEnroll
 
 
 @admin.register(Course)
@@ -47,3 +47,19 @@ class CourseTermAdmin(SafeDeleteAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
+
+
+@admin.register(CourseEnroll)
+class CourseEnrollAdmin(admin.ModelAdmin):
+    list_display = ("name", "phone", "course_list")
+    readonly_fields = ["courses", "name", "phone", "cv", "created"]
+    date_hierarchy = "created"
+    fieldsets = [
+        (None, {"fields": (("name", "phone"), "courses", "expectations", "cv", "created")})
+    ]
+
+    def has_add_permission(self, request):
+        return False
+
+    def course_list(self, obj):
+        return ", ".join(Course.objects.filter(terms__in=obj.courses.all()).values_list("title", flat=True))

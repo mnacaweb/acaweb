@@ -265,6 +265,7 @@ class CourseEnroll(models.Model):
     courses = models.ManyToManyField("acamar_api.CourseTerm", related_name="enrolled", verbose_name="Course terms")
     expectations = models.TextField(verbose_name="Expectations", blank=True)
     cv = models.FileField(verbose_name="CV", upload_to=cv_upload_to, null=True, blank=True)
+    created = models.DateTimeField(verbose_name="Created", auto_now_add=True)
 
     def __str__(self):
         return self.name
