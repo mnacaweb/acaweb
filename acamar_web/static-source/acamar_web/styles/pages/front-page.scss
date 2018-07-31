@@ -249,6 +249,10 @@
       list-style: none;
       margin: 0 5px;
 
+      &.active button {
+        background: #ed002d;
+      }
+
       button {
         display: block;
         width: 12px;
@@ -258,12 +262,12 @@
         padding: 0;
         min-height: unset;
         border-radius: 100%;
-	      transition: all .2s linear;
+        transition: all .2s linear;
 
-        &.active,
         &:hover {
           background: #ed002d;
         }
+
       }
     }
 

@@ -11964,6 +11964,10 @@ input[type="text"]::placeholder {
   margin: 0 5px;
 }
 
+.reviews-section .dots li.active button {
+  background: #ed002d;
+}
+
 .reviews-section .dots li button {
   display: block;
   width: 12px;
@@ -11976,7 +11980,6 @@ input[type="text"]::placeholder {
   transition: all .2s linear;
 }
 
-.reviews-section .dots li button.active,
 .reviews-section .dots li button:hover {
   background: #ed002d;
 }
