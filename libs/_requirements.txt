@@ -16,3 +16,4 @@ whoosh
 django-haystack<2.8.0
 django-safedelete
 django-crontab
+django-rosetta

@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-31 15:01+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: templates/404.html:19
+msgid "Hledali jste pozici"
+msgstr ""
+
+#: templates/404.html:20
+msgid "Programátor hvězdy smrti?"
+msgstr ""
+
+#: templates/404.html:24
+msgid "Hvězda smrti 404"
+msgstr ""
+
+#: templates/404.html:27
+msgid "Ne?"
+msgstr ""
+
+#: templates/404.html:28
+msgid "Vrátit se zpět"
+msgstr ""
+
+#: templates/404.html:28
+msgid "Zkuste se vrátit zpět"
+msgstr ""
+
+#: templates/_base.html:72
+msgid "Acamar Outsourcing Services, s.r.o."
+msgstr ""
+
+#: templates/_base.html:72
+msgid "Ochrana osobních údajů"
+msgstr ""
+
+#: templates/apps/position_detail.html:64
+msgid "Provedu vás náborem"
+msgstr ""
+
+#: templates/apps/position_detail.html:73
+msgid "Máte další otázky k vypsané pozici? Napište mi, se vším poradím."
+msgstr ""
+
+#: templates/apps/position_detail.html:74
+#: templates/apps/position_detail.html:81
+msgid "Napište mi e-mail"
+msgstr ""
+
+#: templates/apps/position_detail.html:79
+msgid "Láká vás to? Ozvěte se!"
+msgstr ""
+
+#: templates/apps/position_detail.html:79
+msgid "Odpovíme vždy a každému."
+msgstr ""
+
+#: templates/apps/position_detail.html:80
+msgid "ODPOVĚZTE NA POZICI"
+msgstr ""
+
+#: templates/apps/position_detail.html:87
+msgid "Zpět na výpis pozic"
+msgstr ""
+
+#: templates/menu/language_chooser.html:10
+#: templates/menu/language_chooser.html:16
+msgid "Změnit na jazyk:"
+msgstr ""
+
+#: templates/plugins/course_panel/_course_card.html:13
+#: templates/plugins/course_panel/_course_card_alternative.html:13
+msgid "Cena: "
+msgstr ""
+
+#: templates/plugins/course_panel/_course_card.html:14
+#: templates/plugins/course_panel/_course_card_alternative.html:14
+msgid "Délka školení: "
+msgstr ""
+
+#: templates/plugins/course_panel/_course_card.html:15
+#: templates/plugins/course_panel/_course_card_alternative.html:15
+msgid "Místo školení: "
+msgstr ""
+
+#: templates/plugins/course_panel/_course_card.html:22
+msgid "Více o kurzu"
+msgstr ""

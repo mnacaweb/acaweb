@@ -104,6 +104,7 @@ INSTALLED_APPS = (
     'haystack',
     'safedelete',
     'django_crontab',
+    'rosetta',
 
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -282,6 +283,9 @@ LANGUAGES_VERBOSE = {
     "en": "EN",
     "ru": "RU"
 }
+ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = "cs"
+ROSETTA_SHOW_AT_ADMIN_PANEL = True
+
 TIME_ZONE = 'Europe/Prague'
 
 # uncomment to enable TZ support

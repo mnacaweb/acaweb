@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   url(r'^api/', include('acamar_web.urls_api', namespace="api")),
+                  url(r'^rosetta/', include('rosetta.urls'))
               ] \
               + \
               i18n_patterns(
