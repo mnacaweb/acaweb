@@ -10538,10 +10538,15 @@ $(function () {
 				var dataset = positions.filter(":not(.pfilter,.cfilter)");
 				dataset.slice(0, limit).removeClass("more");
 				dataset.slice(limit).addClass("more");
-				more_button.click(function () {
-					dataset.removeClass("more");
+				if (dataset.length > limit) {
+					more_button.show();
+					more_button.click(function () {
+						dataset.removeClass("more");
+						more_button.hide();
+					});
+				} else {
 					more_button.hide();
-				});
+				}
 			}
 		}
 
@@ -10559,9 +10564,9 @@ $(function () {
 							updateCategoryCount(positions);
 							applyCategoryFilter(positions);
 							applyPactFilter(positions);
-							updateMore(positions);
 							$(this).replaceWith(html);
 							html.fadeIn("slow");
+							updateMore(positions);
 						});
 					});
 				}
