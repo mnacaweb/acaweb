@@ -13127,6 +13127,20 @@ input[type="text"]::placeholder {
   }
 }
 
+@media (max-width: 767.98px) {
+  .main-banner-course-detail {
+    background-size: cover;
+    background-position: left top;
+  }
+}
+
+@media only screen and (min-width: 991px) and (max-width: 1400px) {
+  .main-banner-course-detail {
+    background-size: auto;
+    background-position: left -286px top;
+  }
+}
+
 .main-banner-course-detail .title-course {
   max-width: 380px;
 }

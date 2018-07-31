@@ -20,7 +20,5 @@
                 "publicPath": "/static/acamar_web/main.bundle.js.map"
             }
         ]
-    },
-    "error": "ModuleError",
-    "message": "Module Error (from /Users/jirimakarius/Projects/acamar_web/node_modules/eslint-loader/index.js):\n\n/Users/jirimakarius/Projects/acamar_web/acamar_web/static-source/acamar_web/scripts/plugins/position_search.js\n  7:7  error  'queryInput' is assigned a value but never used  no-unused-vars\n\n✖ 1 problem (1 error, 0 warnings)\n"
+    }
 }
