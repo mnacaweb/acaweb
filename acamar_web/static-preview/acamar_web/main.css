@@ -12119,18 +12119,18 @@ input[type="text"]::placeholder {
   display: none;
 }
 
-.page.homepage .main-banner {
+.page.homepage .main-banner.hp {
   height: 890px;
   display: block;
   background: url(/static/acamar_web/images/header.jpg) center top no-repeat;
   background-size: cover;
 }
 
-.page.homepage .main-banner .title-wrapper {
+.page.homepage .main-banner.hp .title-wrapper {
   padding-top: 500px;
 }
 
-.page.homepage .main-banner .bubble {
+.page.homepage .main-banner.hp .bubble {
   display: flex;
   align-items: center;
   width: 709px;
@@ -12142,17 +12142,17 @@ input[type="text"]::placeholder {
   margin-left: -354px;
 }
 
-.page.homepage .main-banner .bubble .content {
+.page.homepage .main-banner.hp .bubble .content {
   width: 100%;
   margin-top: -60px;
 }
 
-.page.homepage .main-banner .bubble .content h1 {
+.page.homepage .main-banner.hp .bubble .content h1 {
   max-width: 400px;
   margin: 0 auto;
 }
 
-.page.homepage .main-banner .subtitle-normal {
+.page.homepage .main-banner.hp .subtitle-normal {
   font-size: 22px;
   line-height: 29px;
 }
