@@ -146,7 +146,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'sekizai.context_processors.sekizai',
-                'cms.context_processors.cms_settings'
+                'cms.context_processors.cms_settings',
+                'acamar_web.context_processors.project_settings'
             ],
         },
     },
