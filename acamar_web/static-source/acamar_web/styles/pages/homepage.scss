@@ -1,0 +1,43 @@
+.page.homepage {
+
+  .main-banner {
+    height: 890px;
+    display: block;
+    background: url("../images/header.jpg") center top no-repeat;
+    background-size: cover;
+
+    .title-wrapper {
+      padding-top: 500px;
+    }
+
+    .bubble {
+      display: flex;
+      align-items: center;
+      width: 709px;
+      height: 650px;
+      background: url("../images/header-bubble.png") center top no-repeat;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      margin-left: -354px;
+
+      .content {
+	      width: 100%;
+	      margin-top: -60px;
+
+        h1 {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      }
+
+    }
+
+    .subtitle-normal {
+      font-size: 22px;
+      line-height: 29px;
+    }
+
+  }
+
+}

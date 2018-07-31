@@ -63,9 +63,9 @@
     display: flex;
     justify-content: center;
 
-
     @include media-breakpoint-up(lg) {
-      padding: 34px 24px;
+      padding: 55px 40px;
+      //padding: 34px 24px;
       justify-content: start;
     }
 
