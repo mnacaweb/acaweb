@@ -127,11 +127,12 @@
   }
 
   .img-logo {
-    width: 140px;
+    //width: 140px;
+    max-width: 180px;
 
-    @include media-breakpoint-up(md) {
+    /*@include media-breakpoint-up(md) {
       width: 180px;
-    }
+    }*/
   }
 
   .person-wrapper {
