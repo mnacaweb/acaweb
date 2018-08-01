@@ -69,12 +69,12 @@ elif DEV_PROFILE == 'master':
         }
     }
     STATIC_GRUNT_DIR = 'static-master'
-    BASE_URL = 'https://%s.django2.proboston.net' % hyphenate(PB_PROJECT)
+    BASE_URL = 'https://acamar.cz'
     RAVEN_ENABLED = True
 
 RAVEN_DSN = 'https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537'
 
-ALLOWED_HOSTS = ['%s.django2.proboston.net' % hyphenate(PB_PROJECT), '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['acamar.cz', '%s.django2.proboston.net' % hyphenate(PB_PROJECT), '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
