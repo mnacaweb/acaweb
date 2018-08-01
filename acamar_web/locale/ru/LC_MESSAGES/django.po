@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-01 11:23+0200\n"
+"POT-Creation-Date: 2018-08-01 16:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,33 +57,72 @@ msgstr ""
 msgid "Ochrana&nbsp;osobních&nbsp;údajů"
 msgstr ""
 
-#: templates/apps/position_detail.html:64
+#: templates/apps/position_detail.html:67
 msgid "Provedu vás náborem"
 msgstr ""
 
-#: templates/apps/position_detail.html:73
+#: templates/apps/position_detail.html:77
 msgid "Máte další otázky k vypsané pozici? Napište mi, se vším poradím."
 msgstr ""
 
-#: templates/apps/position_detail.html:74
-#: templates/apps/position_detail.html:81
+#: templates/apps/position_detail.html:79
 msgid "Napište mi e-mail"
 msgstr ""
 
-#: templates/apps/position_detail.html:79
+#: templates/apps/position_detail.html:84
 msgid "Láká vás to? Ozvěte se!"
 msgstr ""
 
-#: templates/apps/position_detail.html:79
+#: templates/apps/position_detail.html:85
 msgid "Odpovíme vždy a každému."
 msgstr ""
 
-#: templates/apps/position_detail.html:80
+#: templates/apps/position_detail.html:89
 msgid "ODPOVĚZTE NA POZICI"
 msgstr ""
 
-#: templates/apps/position_detail.html:87
+#: templates/apps/position_detail.html:98
 msgid "Zpět na výpis pozic"
+msgstr ""
+
+#: templates/apps/position_detail.html:111
+msgid "Odpovídáte na pozici"
+msgstr ""
+
+#: templates/apps/position_detail.html:115
+msgid "Jméno"
+msgstr ""
+
+#: templates/apps/position_detail.html:119
+msgid "Příjmení"
+msgstr ""
+
+#: templates/apps/position_detail.html:123
+msgid "E-mail"
+msgstr ""
+
+#: templates/apps/position_detail.html:127
+msgid "Telefon"
+msgstr ""
+
+#: templates/apps/position_detail.html:132
+msgid "Nahrajte Váš životopis"
+msgstr ""
+
+#: templates/apps/position_detail.html:139
+msgid "Odkaz na LinkedIn, pokud máte"
+msgstr ""
+
+#: templates/apps/position_detail.html:143
+msgid "Napište nám pár slov o tom, co vás láká do Adastry"
+msgstr ""
+
+#: templates/apps/position_detail.html:154
+msgid "Odeslat odpoveď"
+msgstr ""
+
+#: templates/apps/position_detail.html:169
+msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
 msgstr ""
 
 #: templates/menu/language_chooser.html:10
