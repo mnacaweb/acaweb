@@ -13508,6 +13508,12 @@ input[type="text"]::placeholder {
   right: 0;
 }
 
+@media only screen and (max-width: 450px) {
+  .page-contact .section-be-heard .header-card .image-wrapper {
+    display: none;
+  }
+}
+
 .page-contact .section-map {
   padding: 0;
 }
