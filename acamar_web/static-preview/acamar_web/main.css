@@ -11007,7 +11007,7 @@ input[type="text"]::placeholder {
 
 .project-list ul li {
   position: relative;
-  padding: 20px 0 20px 36px;
+  padding: 20px 20px 20px 36px;
 }
 
 @media (min-width: 576px) {
