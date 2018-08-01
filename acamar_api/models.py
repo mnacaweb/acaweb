@@ -33,6 +33,8 @@ class Course(ModelMeta, SafeDeleteModel):
     place = models.CharField(verbose_name="Place", max_length=254, blank=True)
     price = models.PositiveIntegerField(verbose_name="Price", blank=True, null=True)
     duration = models.CharField(verbose_name="Duration", max_length=254, blank=True)
+    meta_title = models.CharField(verbose_name="Meta title", max_length=254, blank=True)
+    meta_description = models.CharField(verbose_name="Meta description", max_length=254, blank=True)
     meta_keywords = models.CharField(verbose_name="Meta keywords", max_length=254, blank=True)
     main_banner = PlaceholderField("main_banner", related_name="course_main_banner")
     content = PlaceholderField("course_content", related_name="course_content")
@@ -41,10 +43,16 @@ class Course(ModelMeta, SafeDeleteModel):
         return self.title
 
     _metadata = {
-        'title': 'title',
-        'description': 'short_description',
+        'title': 'get_meta_title',
+        'description': 'get_meta_description',
         'keywords': 'meta_keywords_list'
     }
+
+    def get_meta_title(self):
+        return self.meta_title if self.meta_title else self.title
+
+    def get_meta_description(self):
+        return self.meta_description if self.meta_description else self.short_description
 
     @cached_property
     def meta_keywords_list(self):
