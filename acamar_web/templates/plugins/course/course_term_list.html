@@ -4,38 +4,42 @@
             <h2 class="subtitle-large">{{ instance.title }}</h2>
             <span class="subtitle-normal my-3 mb-md-4">{{ instance.subtitle }}</span>
         </div>
-        <table class="table table-bordered">
-            <tbody>
-            {% for term in object.terms_comming.all %}
-                {% cycle "" "table-secondary" as row_style silent %}
-                {% for item in term.items.all %}
-                    <tr class="{{ row_style }}">
-                        <td class="font-weight-bold">{{ item.date|date:"j. n. Y." }}</td>
-                        <td class="font-weight-bold">{{ item.time }}</td>
-                        <td class="font-weight-bold">{{ item.address }}</td>
-                        <td class="font-weight-bold">{{ item.description }}</td>
-                        {% if forloop.first %}<td rowspan="{{ term.items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
-                    </tr>
+        <div class="table-wrap">
+            <table class="table table-bordered">
+                <tbody>
+                {% for term in object.terms_comming.all %}
+                    {% cycle "" "table-secondary" as row_style silent %}
+                    {% for item in term.items.all %}
+                        <tr class="{{ row_style }}">
+                            <td class="font-weight-bold">{{ item.date|date:"j. n. Y." }}</td>
+                            <td class="font-weight-bold">{{ item.time }}</td>
+                            <td class="font-weight-bold">{{ item.address }}</td>
+                            <td class="font-weight-bold">{{ item.description }}</td>
+                            {% if forloop.first %}<td rowspan="{{ term.items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
+                        </tr>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         {% if instance.additional_registration %}
             <div class="d-flex align-items-center justify-content-center text-center flex-column mb-5">
                 <span class="subtitle-normal my-3 mb-md-4">{{ instance.additional_title }}</span>
             </div>
-            <table class="table table-bordered">
-                <tbody>
-                {% for item in instance.additional_items.all %}
-                <tr>
-                    {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle">{{ object.title }}</td>{% endif %}
-                    <td class="font-weight-bold">{{ item.address }}</td>
-                    <td class="font-weight-bold">{{ item.description }}</td>
-                    {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-wrap">
+                <table class="table table-bordered">
+                    <tbody>
+                    {% for item in instance.additional_items.all %}
+                    <tr>
+                        {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle">{{ object.title }}</td>{% endif %}
+                        <td class="font-weight-bold">{{ item.address }}</td>
+                        <td class="font-weight-bold">{{ item.description }}</td>
+                        {% if forloop.first %}<td rowspan="{{ instance.additional_items.count }}" class="text-center align-middle"><a class="button button-secondary" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a></td>{% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 </div>
