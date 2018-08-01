@@ -177,8 +177,6 @@ class AcamarPositionManager:
 
         cls._delete_old_positions()
 
-        call_command('update_index', interactive=False)
-
     @classmethod
     def sync(cls):
         start = timezone.now()

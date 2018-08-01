@@ -260,11 +260,13 @@ HAYSTACK_CONNECTIONS = {
         'BATCH_SIZE': 100,
     }
 }
-HAYSTACK_ROUTERS = ['acamar_web.haystack.router.LanguageRouter']
-SEARCH_ENGINE = 'acamar_web.haystack.engine.FoldingWhooshEngine'
+HAYSTACK_ROUTERS = ['acamar_web.search.router.LanguageRouter']
+SEARCH_ENGINE = 'acamar_web.search.engine.FoldingWhooshEngine'
+HAYSTACK_SIGNAL_PROCESSOR = 'acamar_web.search.signals.PositionRealtimeSignalProcessor'
 
 CRONJOBS = [
     ('0 * * * *', 'django.core.management.call_command', ['sync_positions'], {}, '>> {}'.format(os.path.join(BASE_DIR, "logs", "sync_positions.log"))),
+    ('30 0 * * *', 'django.core.management.call_command', ['rebuild_index', '--noinput'], {}, '>> {}'.format(os.path.join(BASE_DIR, "logs", "sync_positions.log"))),
 ]
 
 EMAIL_SUBJECT_PREFIX = 'DJANGO [%s/%s] ' % (PB_PROJECT, DEV_PROFILE)

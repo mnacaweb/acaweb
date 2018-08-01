@@ -8,7 +8,6 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, resolve_url
-from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
