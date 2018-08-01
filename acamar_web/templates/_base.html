@@ -30,7 +30,7 @@
     {% render_bundle 'main' "css" %}
     {% render_block "css" %}
 
-    <link href="{% static "acamar_web/images/favicon.ico" %}" rel="Shortcut Icon">
+    <link href="{% static "acamar_web/images/fav-icons/favicon.ico" %}" rel="Shortcut Icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-57x57.png" %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-114x114.png" %}" />
@@ -55,7 +55,7 @@
 </head>
 
 
-<body{% block body_attributes %}{% endblock %}>
+<body {% block body_attributes %}{% endblock %}>
 {% cms_toolbar %}
 
 <div class="site-header">

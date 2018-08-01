@@ -2,7 +2,7 @@
 
 {% load meta static i18n cms_tags utils %}
 
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ object.get_meta_title }}{% endblock %}
 
 {% block meta %}
     {% include 'meta/meta.html' %}
