@@ -12,7 +12,7 @@ urlpatterns = [
               ] \
               + \
               i18n_patterns(
-                  url(r'^404/$', handler404) if settings.DEBUG else None,
+                  url(r'^404/$', handler404) if settings.DEBUG else "",
                   url(r'^admin/', include(admin.site.urls)),
                   url(r'^', include('cms.urls')),
               ) \
