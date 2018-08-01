@@ -17,7 +17,7 @@ class CourseAdmin(PlaceholderAdminMixin, SafeDeleteAdmin, TabbedTranslationAdmin
     fieldsets = [
         (None,
          {"fields": [("title", "slug"), ("place", "price", "duration"), "short_description"]}),
-        ("Additional fields", {"fields": ["meta_keywords"], "classes": ["collapse"]})
+        ("Meta fields", {"fields": ["meta_title", "meta_description", "meta_keywords"], "classes": ["collapse"]})
     ]
 
 

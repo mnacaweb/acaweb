@@ -30,7 +30,8 @@ class PositionTranslationOptions(TranslationOptions):
 
 @register(Course)
 class CourseTranslationOptions(TranslationOptions):
-    fields = ["title", "slug", "short_description", "place", "duration", "price", "meta_keywords"]
+    fields = ["title", "slug", "short_description", "place", "duration", "price", "meta_title", "meta_description",
+              "meta_keywords"]
 
 
 @register(CourseTermItem)
