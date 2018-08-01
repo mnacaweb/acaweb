@@ -14,7 +14,7 @@
         <div class="main-banner main-banner-detail">
             <div class="container container-lg">
                 <div class="text-center text-lg-left px-sm-5 px-xl-0">
-                    <h1 class="main-title">{{ object.title }}</h1>
+                    <h1 class="main-title">{{ object.name }}</h1>
                 </div>
             </div>
         </div>
@@ -27,28 +27,31 @@
                         </div>
                         <div class="row mt-4 mb-5">
                             {% if object.place %}
-                            <div class="col-6 col-md-4 mt-3 mt-md-0">
-                                <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
-                                    <span class="subtitle ml-2">{{ object.place }}</span>
+                                <div class="col-6 col-md-4 mt-3 mt-md-0">
+                                    <div class="d-flex">
+                                        <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}"
+                                                  alt="Computer"/></div>
+                                        <span class="subtitle ml-2">{{ object.place }}</span>
+                                    </div>
                                 </div>
-                            </div>
                             {% endif %}
                             {% if object.pacts_text_array|length %}
-                            <div class="col-6 col-md-4 mt-3 mt-md-0">
-                                <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
-                                    <span class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</span>
+                                <div class="col-6 col-md-4 mt-3 mt-md-0">
+                                    <div class="d-flex">
+                                        <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}"
+                                                  alt="Computer"/></div>
+                                        <span class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</span>
+                                    </div>
                                 </div>
-                            </div>
                             {% endif %}
                             {% if object.start %}
-                            <div class="pl-md-0 col-12 col-md-4 mt-3 mt-md-0">
-                                <div class="d-flex">
-                                    <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}" alt="Computer" /></div>
-                                    <span class="subtitle ml-2">{{ object.start }}</span>
+                                <div class="pl-md-0 col-12 col-md-4 mt-3 mt-md-0">
+                                    <div class="d-flex">
+                                        <div><img src="{% static "acamar_web/images/small-icons/computer.png" %}"
+                                                  alt="Computer"/></div>
+                                        <span class="subtitle ml-2">{{ object.start }}</span>
+                                    </div>
                                 </div>
-                            </div>
                             {% endif %}
                         </div>
                         {% for content in object.content_iterator %}
@@ -65,26 +68,108 @@
                             </div>
                             <div class="row d-flex align-items-center justify-content-center">
                                 <div class="col-4 person-wrapper-image">
-                                    <img class="person-image" src="{{ object.user_image_url }}" alt="{{ object.user_first_name }} {{ object.user_second_name }}" />
+                                    <img class="person-image" src="{{ object.user_image_url }}"
+                                         alt="{{ object.user_first_name }} {{ object.user_second_name }}"/>
                                 </div>
                                 <div class="col-8 pt-3">
                                     <h3 class="person-title">{{ object.user_first_name }} {{ object.user_second_name }}</h3>
                                     <p>{{ object.user_position }}</p>
                                     <p class="mb-4 mt-4">{% trans "Máte další otázky k vypsané pozici? Napište mi, se vším poradím." %}</p>
-                                    <div><a href="mailto:{{ object.user_email|email_link }}" class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
+                                    <div><a href="mailto:{{ object.user_email|email_link }}"
+                                            class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="px-3 py-4 interesting-wrapper">
-                            <h3 class="title pb-3 text-center text-md-left">{% trans "Láká vás to? Ozvěte se!" %}<br /><span class="text-weight-light">{% trans "Odpovíme vždy a každému." %}</span></h3>
-                            <div class="d-flex justify-content-center justify-content-md-start"><div><button type="button" class="button button-secondary subtitle-small">{% trans "ODPOVĚZTE NA POZICI" %}</button></div></div>
-                            <!--<div class="d-flex justify-content-center justify-content-md-start"><a href="mailto:{{ object.user_email|email_link }}" class="mail text-small">{% trans "Napište mi e-mail" %}</a></div>-->
+                            <h3 class="title pb-3 text-center text-md-left">{% trans "Láká vás to? Ozvěte se!" %}<br/><span
+                                    class="text-weight-light">{% trans "Odpovíme vždy a každému." %}</span></h3>
+                            <div class="d-flex justify-content-center justify-content-md-start">
+                                <div>
+                                    <button data-toggle="modal" data-target="#contactModal" type="button"
+                                            class="button button-secondary subtitle-small">{% trans "ODPOVĚZTE NA POZICI" %}</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="container pt-4">
-                <a href="{{ request.current_page.get_absolute_url }}" class="back-position text-small">{% trans "Zpět na výpis pozic" %}</a>
+                <a href="{{ request.current_page.get_absolute_url }}"
+                   class="back-position text-small">{% trans "Zpět na výpis pozic" %}</a>
+            </div>
+        </div>
+        <div class="modal fade" id="contactModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="section-form">
+                            <div class="d-flex flex-column align-items-center">
+                                <form class="position-form" method="post" action="{% url "api:position" %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="position" value="{{ object.id }}">
+                                    <div class="text-center">
+                                        <h2 class="subtitle-large text-center">{% trans "Odpovídáte na pozici" %}</h2>
+                                        <span class="subtitle-normal text-center">{{ object.name }}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionFirstName">{% trans "Jméno" %}</label>
+                                        <input type="text" maxlength="120" class="form-control" name="first_name" id="positionFirstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionLastName">{% trans "Příjmení" %}</label>
+                                        <input type="text" maxlength="120" class="form-control" name="last_name" id="positionLastName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionEmail">{% trans "E-mail" %}</label>
+                                        <input type="email" maxlength="120" class="form-control" name="email" id="positionEmail" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionPhone">{% trans "Telefon" %}</label>
+                                        <input type="text" maxlength="20" class="form-control" name="phone" id="positionPhone" required>
+                                    </div>
+                                    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                                        <div class="form-group w-100">
+                                            <label class="label" for="positionCV">{% trans "Nahrajte Váš životopis" %}</label>
+                                            <input type="file" class="form-control form-control-small position-cv"
+                                                   name="cv" id="positionCV"
+                                                   accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,.doc,.docx,.pdf">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionLinkedIn">{% trans "Odkaz na LinkedIn, pokud máte" %}</label>
+                                        <input type="url" maxlength="120" class="form-control" name="linkedin" id="positionLinkedIn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="positionText">{% trans "Napište nám pár slov o tom, co vás láká do Adastry" %}</label>
+                                        <textarea class="form-control message-control" name="text" id="positionText"></textarea>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="positionAgreement" name="agreement" required>
+                                        <label class="form-check-label" for="positionAgreement">
+                                            <a href="#" target="_blank">{% trans "Souhlasím se zpracováním os. údajů" %}</a>
+                                        </label>
+                                    </div>
+                                    <div class="d-flex justify-content-center pt-3 pt-lg-5">
+                                        <div>
+                                            <button type="submit" class="button button-secondary">{% trans "Odeslat odpoveď" %}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="thanksModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container py-4">
+                            <p class="subtitle-normal">{% trans "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve." %}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

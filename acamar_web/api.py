@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import View
 
-from acamar_api.forms import PositionSearchForm, CourseEnrollForm
+from acamar_api.forms import PositionSearchForm, CourseEnrollForm, PositionApplyForm
 from acamar_api.models import Position
 from .forms import ContactForm
 from .models import Review, TeamGrid, PositionSearch
@@ -101,6 +101,17 @@ def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
 class ContactApi(View):
     def post(self, request):
         form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return JsonResponse({"success": True})
+
+        return JsonResponse({"success": False, "data": form.errors})
+
+
+class PositionApi(View):
+    def post(self, request):
+        form = PositionApplyForm(request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
 

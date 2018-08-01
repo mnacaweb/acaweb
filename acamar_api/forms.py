@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django import forms
 from haystack.forms import SearchForm
 
-from .models import Position, CourseEnroll
+from .models import Position, CourseEnroll, PositionApply
 
 
 class PositionSearchForm(SearchForm):
@@ -25,3 +25,9 @@ class CourseEnrollForm(forms.ModelForm):
     class Meta:
         model = CourseEnroll
         fields = ["name", "phone", "courses", "expectations", "cv"]
+
+
+class PositionApplyForm(forms.ModelForm):
+    class Meta:
+        model = PositionApply
+        fields = ["position", "first_name", "last_name", "email", "phone", "cv", "linkedin", "text"]

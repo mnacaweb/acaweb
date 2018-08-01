@@ -39,6 +39,8 @@ import "./plugins/course_enroll_form";
 import "./plugins/login";
 import "./plugins/contact_form";
 
+import "./apps/position_detail";
+
 $(document).ready(function () {
 	$("body").on("click", function () {
 		$(".navbar-collapse").removeClass("show");

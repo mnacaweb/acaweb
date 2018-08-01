@@ -3,6 +3,7 @@ const common = require("./webpack.common.js");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleTracker = require("./customBundleTracker");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 const path = require("path");
 const project_name = "acamar_web";
@@ -19,6 +20,10 @@ module.exports = merge(common, {
 	plugins: [
 		new CleanWebpackPlugin([project_name+"/static-preview"], {watch: false}),
 		new BundleTracker({filename: "./webpack-stats-preview.json", indent: 4}),
+		new MiniCssExtractPlugin({
+			filename: "[name].css",
+			chunkFilename: "[id].css"
+		}),
 		new BrowserSyncPlugin({
 			host: 'localhost',
 			port: 3000,

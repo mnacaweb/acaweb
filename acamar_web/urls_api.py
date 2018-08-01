@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf.urls import url
 
 from .api import ReviewApi, TeamGridApi, PositionSearchApi, PositionSearchAutocompleteApi, CourseEnrollApi, login_api, \
-    ContactApi
+    ContactApi, PositionApi
 
 urlpatterns = [
     url(r'^reviews/$', ReviewApi.as_view(), name="reviews"),
@@ -20,5 +20,7 @@ urlpatterns = [
 
     url(r'^login/$', login_api, name="login"),
 
-    url(r'^contact/$', ContactApi.as_view(), name="contact")
+    url(r'^contact/$', ContactApi.as_view(), name="contact"),
+
+    url(r'^position/$', PositionApi.as_view(), name="position")
 ]

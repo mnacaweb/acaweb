@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.template.defaultfilters import date as dateformat
 from django.utils import translation, timezone
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
@@ -291,9 +291,49 @@ class CourseEnroll(models.Model):
     cv = models.FileField(verbose_name="CV", upload_to=cv_upload_to, null=True, blank=True)
     created = models.DateTimeField(verbose_name="Created", auto_now_add=True)
 
+    @cached_property
+    def course_list(self):
+        return ",".join(Course.objects.filter(terms__in=self.courses.all()).values_list("title", flat=True))
+
+    @cached_property
+    def course_terms(self):
+        terms = [force_text(x) for x in self.courses.all()]
+        return ", ".join(terms)
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = "Course registration"
         verbose_name_plural = "Course registrations"
+
+
+@python_2_unicode_compatible
+class PositionApply(models.Model):
+    position = models.ForeignKey("acamar_api.Position", verbose_name="Position", blank=True, null=True, on_delete=models.SET_NULL)
+    position_name = models.CharField(verbose_name="Position - name", max_length=254)
+    position_user_name = models.CharField(verbose_name="Position - person", max_length=254)
+    position_user_email = models.EmailField(verbose_name="Position - person email", max_length=254)
+    first_name = models.CharField(verbose_name="First name", max_length=254)
+    last_name = models.CharField(verbose_name="Last name", max_length=254)
+    email = models.EmailField(verbose_name="Email", max_length=254)
+    phone = models.CharField(verbose_name="Phone", max_length=20)
+    cv = models.FileField(verbose_name="CV", upload_to=cv_upload_to, null=True, blank=True)
+    linkedin = models.URLField(verbose_name="LinkedIn", max_length=254, blank=True)
+    text = models.TextField(verbose_name="Text", blank=True)
+    created = models.DateTimeField(verbose_name="Created", auto_now_add=True)
+
+    def __str__(self):
+        return "{} {} - {}".format(self.first_name, self.last_name, self.position_name)
+
+    class Meta:
+        verbose_name = "Position application"
+        verbose_name_plural = "Position application"
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.position:
+            self.position_name = self.position.name
+            self.position_user_name = "{} {}".format(self.position.user_first_name, self.position.user_second_name)
+            self.position_user_email = self.position.user_email
+        super(PositionApply, self).save(force_insert, force_update, using, update_fields)

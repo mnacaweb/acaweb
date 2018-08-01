@@ -7,7 +7,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
-from .models import Course, CourseTerm, CourseTermItem, CourseEnroll
+from .models import Course, CourseTerm, CourseTermItem, CourseEnroll, PositionApply
 
 
 @admin.register(Course)
@@ -52,6 +52,7 @@ class CourseTermAdmin(SafeDeleteAdmin):
 @admin.register(CourseEnroll)
 class CourseEnrollAdmin(admin.ModelAdmin):
     list_display = ("name", "phone", "course_list")
+    list_filter = ("courses",)
     readonly_fields = ["courses", "name", "phone", "cv", "created"]
     date_hierarchy = "created"
     fieldsets = [
@@ -61,5 +62,17 @@ class CourseEnrollAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
-    def course_list(self, obj):
-        return ", ".join(Course.objects.filter(terms__in=obj.courses.all()).values_list("title", flat=True))
+
+@admin.register(PositionApply)
+class PositionApplyAdmin(admin.ModelAdmin):
+    list_display = ("position_name", "first_name", "last_name", "email", "phone")
+    list_filter = ("position_name",)
+    readonly_fields = ["position", "position_name", "position_user_name", "position_user_email", "created"]
+    date_hierarchy = "created"
+    fieldsets = [
+        ("Position", {"fields": ["position_name", ("position_user_name", "position_user_email")]}),
+        ("Application", {"fields": [("first_name", "last_name"), ("email", "phone"), ("linkedin",), "cv", "text"]})
+    ]
+
+    def has_add_permission(self, request):
+        return False
