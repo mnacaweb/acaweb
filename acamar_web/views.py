@@ -12,9 +12,9 @@ from acamar_api.models import Position, Course
 
 
 def handler404(request):
-    url = request.META.get("HTTP_REFERER")
+    url = request.META.get("HTTP_REFERER", "")
     link = "/"
-    if url and urlparse(url).netloc == urlparse(Site.objects.get_current(request).domain).netloc:
+    if url and urlparse(Site.objects.get_current(request).domain).netloc in url:
         link = url
     response = render(request, '404.html', {"link": link})
     response.status_code = 404
