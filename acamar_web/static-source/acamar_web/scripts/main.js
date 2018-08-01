@@ -72,19 +72,17 @@ $(document).ready(function () {
 	setTimeout(
 		() => {
 			$("a[href^='mailto']").click(function (event) {
-				event.preventDefault();
 				let $this = $(this);
 				const mail = $this.attr("href").slice(7);
 				const split = mail.split("@");
 				let base = (split.length > 2) ? split.slice(0, split.length-1).join("@") : split[0];
-				if (base.startsWith("aca")) {
+				if (base.startsWith("aca") && base.endsWith("mar")) {
+					event.preventDefault();
 					base = base.substring(3);
-				}
-				if (base.endsWith("mar")) {
 					base = base.substring(0, base.length - 3);
+					base = atob(base);
+					window.location.href = `mailto:${base}@${split[split.length-1]}`;
 				}
-				base = atob(base);
-				window.location.href = `mailto:${base}@${split[split.length-1]}`;
 			});
 		},
 		100
