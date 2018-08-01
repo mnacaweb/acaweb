@@ -10315,7 +10315,6 @@ textarea {
 
 .site-header.open-menu {
   background-color: white;
-  top: -13px;
 }
 
 .site-header .logo-background-wrapper {
@@ -11288,6 +11287,12 @@ input[type="text"]::placeholder {
   right: -10%;
 }
 
+@media (max-width: 767.98px) {
+  .review-person .person-wrapper {
+    right: -10px;
+  }
+}
+
 @media (min-width: 768px) {
   .review-person .person-wrapper {
     left: 10px;
@@ -11301,6 +11306,13 @@ input[type="text"]::placeholder {
 @media (min-width: 768px) {
   .review-person .person-wrapper img {
     height: 270px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .review-person .person-wrapper img {
+    height: auto;
+    max-width: 135px;
   }
 }
 
@@ -11936,6 +11948,12 @@ input[type="text"]::placeholder {
   }
 }
 
+@media (max-width: 767.98px) {
+  .reviews-section {
+    height: auto;
+  }
+}
+
 .reviews-section .title-reviews {
   max-width: 280px;
   margin-bottom: 0;
@@ -12126,8 +12144,20 @@ input[type="text"]::placeholder {
   background-size: cover;
 }
 
+@media (max-width: 767.98px) {
+  .page.homepage .main-banner.hp {
+    height: auto;
+  }
+}
+
 .page.homepage .main-banner.hp .title-wrapper {
   padding-top: 500px;
+}
+
+@media (max-width: 767.98px) {
+  .page.homepage .main-banner.hp .title-wrapper {
+    padding-top: 280px;
+  }
 }
 
 .page.homepage .main-banner.hp .bubble {
@@ -12142,9 +12172,21 @@ input[type="text"]::placeholder {
   margin-left: -354px;
 }
 
+@media (max-width: 767.98px) {
+  .page.homepage .main-banner.hp .bubble {
+    display: block;
+  }
+}
+
 .page.homepage .main-banner.hp .bubble .content {
   width: 100%;
   margin-top: -60px;
+}
+
+@media (max-width: 767.98px) {
+  .page.homepage .main-banner.hp .bubble .content {
+    margin-top: 80px;
+  }
 }
 
 .page.homepage .main-banner.hp .bubble .content h1 {

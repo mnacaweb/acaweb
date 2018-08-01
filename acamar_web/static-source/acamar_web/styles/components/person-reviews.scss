@@ -140,6 +140,10 @@
     bottom: 0;
     right: -10%;
 
+	  @include media-breakpoint-down(sm) {
+		  right: -10px;
+	  }
+
     @include media-breakpoint-up(md) {
       left: 10px;
     }
@@ -149,6 +153,12 @@
       @include media-breakpoint-up(md) {
         height: 270px;
       }
+
+      @media only screen and (max-width: 380px) {
+        height: auto;
+        max-width: 135px;
+      }
+
     }
   }
   .person-wrapper-without-text {

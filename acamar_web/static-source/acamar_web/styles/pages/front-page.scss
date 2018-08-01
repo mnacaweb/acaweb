@@ -225,6 +225,10 @@
     padding: 80px 0;
   }
 
+  @include media-breakpoint-down(sm) {
+    height: auto;
+  }
+
   .title-reviews {
     max-width: 280px;
     margin-bottom: 0;
