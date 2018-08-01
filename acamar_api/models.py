@@ -13,6 +13,7 @@ from django.utils import translation, timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.text import slugify
+from django.utils.translation import ugettext as _
 from djangocms_text_ckeditor.fields import HTMLField
 from haystack.query import SearchQuerySet
 from meta.models import ModelMeta
@@ -265,8 +266,15 @@ class Position(ModelMeta, models.Model):
             self.slug = None
         super(Position, self).save(*args, **kwargs)
 
+    def get_meta_title(self):
+        return "{} — Acamar".format(self.name)
+
+    def get_meta_description(self):
+        return _("Příjmi nový IT projekt jako svoji výzvu. Získej odměnu, zkušenosti a posuň se dál! Pracuj s českými i mezinárodními týmy.")
+
     _metadata = {
-        'description': 'title',
+        'title': 'get_meta_title',
+        'description': 'get_meta_description',
     }
 
     class Meta:
