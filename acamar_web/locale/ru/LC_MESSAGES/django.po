@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 15:01+0200\n"
+"POT-Creation-Date: 2018-08-01 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,36 +19,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: templates/404.html:19
+#: templates/404.html:9
+msgid ""
+"Hledali jste pozici Programátor Hvězdy smrti? Tu vám nedohodíme. Ale mnoho "
+"jiných lukrativních IT pozic ano!"
+msgstr ""
+
+#: templates/404.html:18
 msgid "Hledali jste pozici"
 msgstr ""
 
-#: templates/404.html:20
+#: templates/404.html:19
 msgid "Programátor hvězdy smrti?"
 msgstr ""
 
-#: templates/404.html:24
+#: templates/404.html:23
 msgid "Hvězda smrti 404"
 msgstr ""
 
-#: templates/404.html:27
+#: templates/404.html:26
 msgid "Ne?"
 msgstr ""
 
-#: templates/404.html:28
+#: templates/404.html:27
 msgid "Vrátit se zpět"
 msgstr ""
 
-#: templates/404.html:28
+#: templates/404.html:27
 msgid "Zkuste se vrátit zpět"
 msgstr ""
 
-#: templates/_base.html:72
+#: templates/_base.html:86
 msgid "Acamar Outsourcing Services, s.r.o."
 msgstr ""
 
-#: templates/_base.html:72
-msgid "Ochrana osobních údajů"
+#: templates/_base.html:86
+msgid "Ochrana&nbsp;osobních&nbsp;údajů"
 msgstr ""
 
 #: templates/apps/position_detail.html:64
