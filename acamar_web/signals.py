@@ -14,7 +14,7 @@ from acamar_web.models import Contact
 
 
 @receiver(post_save, sender=Contact, dispatch_uid="contact_email")
-def position_apply_email(instance, created, **kwargs):
+def contact_email(instance, created, **kwargs):
     if created:
         domain = Site.objects.get_current().domain
         mail = EmailMessage(

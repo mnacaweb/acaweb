@@ -270,7 +270,7 @@ CRONJOBS = [
 ]
 
 EMAIL_SUBJECT_PREFIX = 'DJANGO [%s/%s] ' % (PB_PROJECT, DEV_PROFILE)
-DEFAULT_FROM_EMAIL = "noreply@acamar.cz"
+DEFAULT_FROM_EMAIL = "no-reply@services.acamar.cz"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECRET_KEY = '*-lra2%t^2z^gs2fbf+&ij_vo2c4nx-v%!kg^f27a!g2l#(2bm'
