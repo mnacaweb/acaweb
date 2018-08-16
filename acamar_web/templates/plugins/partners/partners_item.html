@@ -1,7 +1,7 @@
 {% load thumbnail %}
 
 <div class="col-6 px-0">
-    <a href="javascript:void(0)" class="image-logo-wrapper"><img src="{% thumbnail instance.image 120x120 %}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}"></a>
+    <a href="javascript:void(0)" class="image-logo-wrapper {% if forloop.first %}active{% endif %}"><img src="{% thumbnail instance.image 120x120 %}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}"></a>
     <div class="d-none partners-content">
         <h3 class="subtitle-large text-center text-md-left mb-4">{{ instance.title }}</h3>
         <div class="text-weight-light">{{ instance.text }}</div>

@@ -764,11 +764,7 @@ class CourseEnrollFormModel(CMSPlugin):
     course_label = models.CharField(verbose_name="Course select label", max_length=254)
     expectations_label = models.CharField(verbose_name="Expectations label", max_length=254)
     cv_label = models.CharField(verbose_name="CV label", max_length=254)
-    email_button = models.ForeignKey("acamar_web.Link",
-                                     on_delete=models.PROTECT,
-                                     verbose_name="Email link",
-                                     blank=True,
-                                     null=True)
+    cv_picker_label = models.CharField(verbose_name="CV - choose file label", max_length=254)
     submit_text = models.CharField(verbose_name="Submit button text", max_length=254)
     selected_text = models.CharField(verbose_name="Multi-select selected text", max_length=30, default="vybráno")
     thanks_page = PageField(verbose_name="Thanks page", on_delete=models.PROTECT)

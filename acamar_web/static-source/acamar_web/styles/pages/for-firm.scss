@@ -155,8 +155,17 @@
           justify-content: center;
           padding: 60px;
           transition: 0.5s;
+          background-color: white;
 
-          &:hover {
+          &:hover {  // TODO
+            transition: 0.5s;
+            z-index: 2;
+            box-shadow: 0 7px 21px 1px rgba(0, 1, 36, 0.28);
+            transform: scale(1.1);
+            text-decoration: none;
+          }
+
+          &.active { // TODO
             transition: 0.5s;
             z-index: 2;
             box-shadow: 0 7px 21px 1px rgba(0, 1, 36, 0.28);

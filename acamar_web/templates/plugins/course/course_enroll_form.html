@@ -33,13 +33,12 @@
                     <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
                         <div class="form-group">
                             <label class="label" for="enrollForm{{ instance.id }}CV">{{ instance.cv_label }}</label>
+                            <div class="form-control form-control-small course-enroll-cv-text">&nbsp;</div>
                             <input type="file" class="form-control form-control-small course-enroll-cv" name="cv" id="enrollForm{{ instance.id }}CV" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,.doc,.docx,.pdf">
                         </div>
-                        {% if instance.email_button %}
-                            <div class="d-flex align-items-center justify-content-center pl-md-2">
-                                <a href="{{ instance.email_button.get_link_safe }}" class="icon-text icon-diplomatic text-small">{{ instance.email_button.text }}</a>
-                            </div>
-                            {% endif %}
+                        <div class="d-flex align-items-center justify-content-center pl-md-2">
+                            <button type="button" data-target="#enrollForm{{ instance.id }}CV" class="icon-text icon-diplomatic text-small course-enroll-cv-button">{{ instance.cv_picker_label }}</button>
+                        </div>
                     </div>
 {#                    <div class="form-check">#}
 {#                        <input class="form-check-input" type="checkbox" id="enrollForm{{ instance.id }}Agreement" name="agreement" required>#}

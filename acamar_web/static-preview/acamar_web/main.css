@@ -11023,6 +11023,7 @@ input[type="text"]::placeholder {
   }
 
   .project-list ul li.left-side .text {
+    direction: ltr;
     padding-left: 0;
     padding-right: 20px;
   }
@@ -12834,6 +12835,15 @@ input[type="text"]::placeholder {
 }
 
 /* ==========================================================================
+   Position search
+   ========================================================================== */
+
+.position-search .face img {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
+/* ==========================================================================
    Course
    ========================================================================== */
 
@@ -13873,6 +13883,10 @@ body.thank-you {
   z-index: 1;
 }
 
+.page-login-course .section-about-you .section-form .course-enroll-cv {
+  display: none;
+}
+
 .page-login-course .tester-position-way {
   padding-bottom: 80px;
 }
@@ -14058,9 +14072,19 @@ body.thank-you {
   justify-content: center;
   padding: 60px;
   transition: 0.5s;
+  background-color: white;
 }
 
 .page-for-firm .big-firm .image-row > div .image-logo-wrapper:hover {
+  transition: 0.5s;
+  z-index: 2;
+  box-shadow: 0 7px 21px 1px rgba(0, 1, 36, 0.28);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  text-decoration: none;
+}
+
+.page-for-firm .big-firm .image-row > div .image-logo-wrapper.active {
   transition: 0.5s;
   z-index: 2;
   box-shadow: 0 7px 21px 1px rgba(0, 1, 36, 0.28);

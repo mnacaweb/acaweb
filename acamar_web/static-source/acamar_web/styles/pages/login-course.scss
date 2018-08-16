@@ -32,6 +32,10 @@
     .section-form {
       position: relative;
       z-index: 1;
+
+      .course-enroll-cv {
+        display: none;
+      }
     }
   }
 

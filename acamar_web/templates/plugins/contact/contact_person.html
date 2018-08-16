@@ -1,6 +1,6 @@
 {% load thumbnail %}
 
-<div class="section more-information-section">
+<div class="section more-information-section {% if placeholder == "course_content" %}bg-white{% endif %}">
     <div class="container">
         <div class="text-center">
             <h2 class="subtitle-large mb-1">{{ instance.title }}</h2>

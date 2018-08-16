@@ -10278,9 +10278,6 @@ __webpack_require__(/*! bootstrap-multiselect/dist/js/bootstrap-multiselect */ "
 
 __webpack_require__(/*! bootstrap-multiselect/dist/css/bootstrap-multiselect.css */ "../../../node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css");
 
-// import "bootstrap-multiselect/dist/js/bootstrap-multiselect-collapsible-groups";
-
-
 $.validator.addMethod("maxsize", function (value, element, param) {
 	if (this.optional(element)) {
 		return true;
@@ -10299,10 +10296,17 @@ $.validator.addMethod("maxsize", function (value, element, param) {
 	return true;
 }, $.validator.format("File size must not exceed {0} bytes each."));
 
+function getFilename(str) {
+	return str.split(/([\\/])/g).pop();
+}
+
 $(function () {
 	$(".course-enroll-form").each(function () {
 		var $this = $(this);
 		var course_input = $this.find(".course-enroll-select");
+		var cv_button = $this.find(".course-enroll-cv-button");
+		var cv_text = $this.find(".course-enroll-cv-text");
+		var fileInput = $this.find("input[name='cv']");
 		course_input.multiselect({
 			// enableCollapsibleOptGroups: true,
 			numberDisplayed: 1,
@@ -10312,6 +10316,19 @@ $(function () {
 			nSelectedText: " " + course_input.data("selected-text")
 			// templates: {
 			// }
+		});
+
+		cv_button.add(cv_text).click(function () {
+			$this.find(cv_button.data("target")).click();
+		});
+
+		fileInput.change(function () {
+			var val = fileInput.val();
+			if (val) {
+				cv_text.text(getFilename(val));
+			} else {
+				cv_text.text("&nbsp;");
+			}
 		});
 
 		$this.validate({
