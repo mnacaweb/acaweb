@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import base64
 import os
 import urllib
+from random import shuffle
 
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
@@ -328,16 +329,11 @@ class TeamGrid(CMSPlugin):
     button_text = models.CharField(verbose_name="Button text", max_length=254)
     limit = models.PositiveSmallIntegerField(verbose_name="Limit count", null=True, blank=True)
 
-    def _members(self):
-        return TeamMember.objects.all()
-
     @cached_property
-    def members_limited(self):
-        return self._members()[:self.limit] if self.limit else self._members()
-
-    @cached_property
-    def members_lazy(self):
-        return self._members()[self.limit:] if self.limit else []
+    def members(self):
+        member_list = list(TeamMember.objects.all())
+        shuffle(member_list)
+        return member_list
 
     def __str__(self):
         return self.title

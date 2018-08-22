@@ -21,7 +21,7 @@ class ReviewAdmin(TabbedTranslationAdmin):
 
 
 @admin.register(TeamMember)
-class TeamMemberAdmin(SortableAdmin, TabbedTranslationAdmin):
+class TeamMemberAdmin(TabbedTranslationAdmin):
     pass
 
 

@@ -4,13 +4,13 @@
             <h2 class="subtitle-large creat-title">{{ instance.title }}<br /><span class="subtitle-large creat-title font-weight-light">{{ instance.subtitle }}</span></h2>
         </div>
         <div class="row team-grid">
-            {% for member in instance.members_limited %}
-                {% include "plugins/team_grid/team_grid_item.html" with object=member %}
+            {% for member in instance.members %}
+                {% include "plugins/team_grid/team_grid_item.html" with object=member number=forloop.counter limit=instance.limit %}
             {% endfor %}
         </div>
-        {% if instance.members_lazy|length %}
+        {% if instance.members|length > instance.limit %}
         <div class="d-flex justify-content-center pt-3 pt-md-5">
-            <button class="button button-secondary team-grid-button" data-href="{% url "api:team-grid" id=instance.id %}">{{ instance.button_text }}</button>
+            <button class="button button-secondary team-grid-button">{{ instance.button_text }}</button>
         </div>
         {% endif %}
     </div>

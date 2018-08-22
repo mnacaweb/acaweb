@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-01 16:31+0200\n"
+"POT-Creation-Date: 2018-08-22 10:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,47 +81,56 @@ msgstr ""
 msgid "ODPOVĚZTE NA POZICI"
 msgstr ""
 
-#: templates/apps/position_detail.html:98
+#: templates/apps/position_detail.html:93
+#, python-format
+msgid "Ahoj, mohla by tě zajímat tahle práce: '%(name)s'. %(url)s"
+msgstr ""
+
+#: templates/apps/position_detail.html:93
+msgid "Pošlete nabídku známému"
+msgstr ""
+
+#: templates/apps/position_detail.html:101
 msgid "Zpět na výpis pozic"
 msgstr ""
 
-#: templates/apps/position_detail.html:111
+#: templates/apps/position_detail.html:114
 msgid "Odpovídáte na pozici"
 msgstr ""
 
-#: templates/apps/position_detail.html:115
+#: templates/apps/position_detail.html:118
 msgid "Jméno"
 msgstr ""
 
-#: templates/apps/position_detail.html:119
+#: templates/apps/position_detail.html:122
 msgid "Příjmení"
 msgstr ""
 
-#: templates/apps/position_detail.html:123
+#: templates/apps/position_detail.html:126
 msgid "E-mail"
 msgstr ""
 
-#: templates/apps/position_detail.html:127
+#: templates/apps/position_detail.html:130
 msgid "Telefon"
 msgstr ""
 
-#: templates/apps/position_detail.html:132
+#: templates/apps/position_detail.html:135
 msgid "Nahrajte Váš životopis"
 msgstr ""
 
-#: templates/apps/position_detail.html:139
+#: templates/apps/position_detail.html:142
 msgid "Odkaz na LinkedIn, pokud máte"
 msgstr ""
 
-#: templates/apps/position_detail.html:143
+#: templates/apps/position_detail.html:146
 msgid "Napište nám pár slov o tom, co vás láká do Adastry"
 msgstr ""
 
-#: templates/apps/position_detail.html:154
+#: templates/apps/position_detail.html:157
 msgid "Odeslat odpoveď"
 msgstr ""
 
-#: templates/apps/position_detail.html:169
+#: templates/apps/position_detail.html:172
 msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
 msgstr ""
 

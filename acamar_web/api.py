@@ -29,12 +29,6 @@ class ReviewApi(View):
             return HttpResponseNotAllowed([])
 
 
-class TeamGridApi(View):
-    def get(self, request, id):
-        instance = get_object_or_404(TeamGrid, pk=id)
-        return render(request, "plugins/team_grid/team_grid_ajax.html", {"instance": instance})
-
-
 class PositionSearchApi(View):
     def get(self, request, id):
         instance = get_object_or_404(PositionSearch, pk=id)

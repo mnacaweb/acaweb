@@ -134,6 +134,10 @@
 .together-section {
   padding-bottom: 60px;
 
+  .member-hidden {
+    display: none !important;
+  }
+
   .card {
     &.person {
       min-height: 380px;
