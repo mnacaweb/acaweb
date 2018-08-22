@@ -80,6 +80,8 @@
           @include media-breakpoint-up(md) {
             height: auto;
             width: auto;
+            max-width: 100%;
+            align-self: baseline;
           }
         }
       }

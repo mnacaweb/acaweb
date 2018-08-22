@@ -13997,6 +13997,8 @@ body.thank-you {
   .page-for-firm .content-graf.third .graf-image-wrapper img {
     height: auto;
     width: auto;
+    max-width: 100%;
+    align-self: baseline;
   }
 }
 
