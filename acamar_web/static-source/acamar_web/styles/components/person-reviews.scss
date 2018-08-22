@@ -129,6 +129,7 @@
   .img-logo {
     //width: 140px;
     max-width: 180px;
+    align-self: baseline;
 
     /*@include media-breakpoint-up(md) {
       width: 180px;
