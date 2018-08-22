@@ -10959,6 +10959,9 @@ input[type="text"]::placeholder {
 }
 
 .project-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   position: relative;
   list-style-type: none;
   margin: 0;
@@ -11016,10 +11019,15 @@ input[type="text"]::placeholder {
   }
 
   .project-list ul li.left-side {
-    direction: rtl;
     padding: 20px 36px 20px 0;
-    float: left;
-    clear: right;
+    /* float: left;
+          clear: right;*/
+  }
+
+  .project-list ul li.left-side .row {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-left: 0;
   }
 
   .project-list ul li.left-side .text {
@@ -11043,8 +11051,9 @@ input[type="text"]::placeholder {
   }
 
   .project-list ul li.right-side {
-    float: right;
-    clear: left;
+    margin: 0 0 0 auto;
+    /*float: right;
+          clear: left;*/
   }
 }
 

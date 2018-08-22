@@ -81,6 +81,9 @@
 .project-list {
 
   ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     position: relative;
     list-style-type: none;
     margin: 0;
@@ -130,10 +133,16 @@
         width: 50%;
 
         &.left-side {
-          direction: rtl;
+          //direction: rtl;
           padding: 20px 36px 20px 0;
-          float: left;
-          clear: right;
+         /* float: left;
+          clear: right;*/
+
+          .row {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            margin-left: 0;
+          }
 
           .text {
             direction: ltr;
@@ -152,8 +161,9 @@
         }
 
         &.right-side {
-          float: right;
-          clear: left;
+          margin: 0 0 0 auto;
+          /*float: right;
+          clear: left;*/
 
         }
       }
