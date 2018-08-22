@@ -10541,6 +10541,9 @@ window.initMap = initMap;
 $(function () {
 	$(".partners-item a").click(function (event) {
 		event.preventDefault();
+		$(".partners-item a").removeClass("active");
+		$(this).addClass("active");
+
 		var $this = $(this);
 		var content = $($this.next(".partners-content").html()).hide();
 		$this.closest(".container").find(".partners-container").children().fadeOut("slow", function () {
