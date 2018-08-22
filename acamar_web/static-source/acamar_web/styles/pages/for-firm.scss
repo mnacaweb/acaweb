@@ -71,6 +71,20 @@
       padding-bottom: 30px;
     }
 
+    &.third {
+      .graf-image-wrapper {
+        img {
+          width: 240px;
+          height: 180px;
+
+          @include media-breakpoint-up(md) {
+            height: auto;
+            width: auto;
+          }
+        }
+      }
+    }
+
     .content-graf-list {
       height: 100%;
 

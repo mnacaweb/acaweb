@@ -13984,6 +13984,18 @@ body.thank-you {
   padding-bottom: 30px;
 }
 
+.page-for-firm .content-graf.third .graf-image-wrapper img {
+  width: 240px;
+  height: 180px;
+}
+
+@media (min-width: 768px) {
+  .page-for-firm .content-graf.third .graf-image-wrapper img {
+    height: auto;
+    width: auto;
+  }
+}
+
 .page-for-firm .content-graf .content-graf-list {
   height: 100%;
 }
