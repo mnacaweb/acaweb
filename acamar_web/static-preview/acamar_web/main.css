@@ -14000,7 +14000,7 @@ body.thank-you {
 @media (min-width: 768px) {
   .page-for-firm .content-graf.third .graf-image-wrapper img {
     height: auto;
-    width: auto;
+    width: 100%;
     max-width: 100%;
     align-self: baseline;
   }
