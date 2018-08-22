@@ -11829,7 +11829,7 @@ input[type="text"]::placeholder {
 
 .looking-wrapper .button {
   position: absolute;
-  bottom: 34px;
+  bottom: 55px;
 }
 
 @media (max-width: 991.98px) {
