@@ -12660,7 +12660,9 @@ input[type="text"]::placeholder {
 
 .section-family-background .benefits-main-banner .benefits-wrapper .benefits-text p {
   font-weight: 900;
-  line-height: 18px;
+  line-height: 25px;
+  text-align: left;
+  padding: 10px 25px;
 }
 
 .section-family-background .benefits-main-banner .benefits-wrapper .benefits-bubble-wrapper {
@@ -12817,6 +12819,12 @@ input[type="text"]::placeholder {
 
 .section-acafriends .card .card-body {
   max-width: unset;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-acafriends .card .card-body .author {
+  align-self: flex-end;
 }
 
 .section-acafriends .card .card-body .friends-card-text {

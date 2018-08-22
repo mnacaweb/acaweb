@@ -179,7 +179,9 @@
         }
         p {
           font-weight: 900;
-          line-height: 18px;
+          line-height: 25px;
+          text-align: left;
+          padding: 10px 25px;
         }
       }
 
@@ -323,6 +325,12 @@
     }
     .card-body {
       max-width: unset;
+      display: flex;
+      flex-wrap: wrap;
+
+      .author {
+        align-self: flex-end;
+      }
 
       .friends-card-text {
         display: block;
