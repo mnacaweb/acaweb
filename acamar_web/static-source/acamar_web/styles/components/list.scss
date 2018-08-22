@@ -146,7 +146,7 @@
 
           .text {
             direction: ltr;
-            padding-left: 0;
+            //padding-left: 0;
             padding-right: 20px;
 
             @include media-breakpoint-up(sm) {
