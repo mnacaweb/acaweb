@@ -93,8 +93,8 @@
       ul {
         height: 100%;
         display: flex;
+        justify-content: center;
         flex-direction: column;
-        justify-content: space-around;
         margin: 0;
         padding: 0;
         list-style-type: none;
@@ -137,6 +137,23 @@
 
   .button-wrapper {
     padding-top: 60px;
+
+    &.bubble-decor {
+      position: relative;
+
+      &::before {
+        content: "";
+        width: 1000px;
+        height: 1000px;
+        background: #dfdfdf;
+        position: absolute;
+        left: 50%;
+        bottom: -80px;
+        border-radius: 100%;
+        margin-left: -500px;
+      }
+    }
+
   }
 
   .big-firm {

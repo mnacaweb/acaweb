@@ -14009,8 +14009,8 @@ body.thank-you {
 .page-for-firm .content-graf .content-graf-list ul {
   height: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  justify-content: space-around;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -14053,6 +14053,22 @@ body.thank-you {
 
 .page-for-firm .button-wrapper {
   padding-top: 60px;
+}
+
+.page-for-firm .button-wrapper.bubble-decor {
+  position: relative;
+}
+
+.page-for-firm .button-wrapper.bubble-decor::before {
+  content: "";
+  width: 1000px;
+  height: 1000px;
+  background: #dfdfdf;
+  position: absolute;
+  left: 50%;
+  bottom: -80px;
+  border-radius: 100%;
+  margin-left: -500px;
 }
 
 .page-for-firm .big-firm {
