@@ -31,7 +31,7 @@
                                     <div class="d-flex">
                                         <div><img src="{% static "acamar_web/images/small-icons/location4.png" %}"
                                                   alt="Computer"/></div>
-                                        <span class="subtitle ml-2">{{ object.place }}</span>
+                                        <span class="subtitle subtitle-normal ml-2">{{ object.place }}</span>
                                     </div>
                                 </div>
                             {% endif %}
@@ -40,7 +40,7 @@
                                     <div class="d-flex">
                                         <div><img src="{% static "acamar_web/images/small-icons/write2.png" %}"
                                                   alt="Computer"/></div>
-                                        <span class="subtitle ml-2">{{ object.pacts_text_array|join:"/" }}</span>
+                                        <span class="subtitle subtitle-normal ml-2">{{ object.pacts_text_array|join:"/" }}</span>
                                     </div>
                                 </div>
                             {% endif %}
@@ -49,7 +49,7 @@
                                     <div class="d-flex">
                                         <div><img src="{% static "acamar_web/images/small-icons/calendar-check.png" %}"
                                                   alt="Computer"/></div>
-                                        <span class="subtitle ml-2">{{ object.start }}</span>
+                                        <span class="subtitle subtitle-normal ml-2">{{ object.start }}</span>
                                     </div>
                                 </div>
                             {% endif %}
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-3 py-4 interesting-wrapper">
+                        <div class="px-3 py-4 pb-5 interesting-wrapper">
                             <h3 class="title pb-3 text-center text-md-left">{% trans "Láká vás to? Ozvěte se!" %}<br/><span
                                     class="text-weight-light">{% trans "Odpovíme vždy a každému." %}</span></h3>
                             <div class="d-flex justify-content-center justify-content-md-start pb-4">

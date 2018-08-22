@@ -13333,8 +13333,8 @@ input[type="text"]::placeholder {
 
 .page-detail .recruitment-text ul li {
   position: relative;
-  font-weight: 300;
-  font-size: 14px;
+  /*font-weight: 300;
+        font-size: 14px;*/
 }
 
 .page-detail .recruitment .recruitment-wrapper {
@@ -13397,6 +13397,7 @@ input[type="text"]::placeholder {
 
 .page-detail .recruitment .interesting-wrapper {
   background-color: #dfdfdf;
+  border-radius: 0 0 161px 71px;
 }
 
 .page-detail .recruitment .interesting-wrapper .mail {

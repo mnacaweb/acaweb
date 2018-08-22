@@ -53,8 +53,8 @@
 
       li {
         position: relative;
-        font-weight: 300;
-        font-size: 14px;
+        /*font-weight: 300;
+        font-size: 14px;*/
       }
     }
   }
@@ -120,6 +120,7 @@
 
     .interesting-wrapper {
       background-color: #dfdfdf;
+      border-radius: 0 0 161px 71px;
 
       .mail {
         position: relative;
