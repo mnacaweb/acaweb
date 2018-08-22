@@ -1,7 +1,7 @@
 {% load cms_tags %}
 
-{#{% render_model_block object %}#}
-<div class="col-12 col-md-6 col-lg-4 mb-3 pr-0 pl-0 pl-md-3">
+{% render_model_block object %}
+<div class="col-12 col-md-6 col-lg-4 mb-3 pr-0 pl-0 pl-md-3 {% if number > limit %}member-hidden{% endif %}">
     <div class="card person box-shadow-custom">
         <div class="card-top">
             <p>{{ object.text|linebreaksbr }}</p>
@@ -13,4 +13,4 @@
         <div class="icon-wrapper"><img src="{{ object.image.url }}" alt="{{ object.image.default_alt_text|default_if_none:object.name }}" /></div>
     </div>
 </div>
-{#{% endrender_model_block %}#}
+{% endrender_model_block %}

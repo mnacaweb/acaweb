@@ -12363,6 +12363,10 @@ input[type="text"]::placeholder {
   padding-bottom: 60px;
 }
 
+.together-section .member-hidden {
+  display: none !important;
+}
+
 .together-section .card.person {
   min-height: 380px;
   position: relative;

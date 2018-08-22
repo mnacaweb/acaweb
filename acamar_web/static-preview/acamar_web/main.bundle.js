@@ -10810,22 +10810,12 @@ $(function () {
 	$(".team-grid-button").each(function () {
 		var $this = $(this);
 		var container = $this.parent().parent().children(".team-grid");
-		var url = $this.data("href");
 		$this.click(function (event) {
 			event.stopPropagation();
-			$.ajax({
-				url: url,
-				method: "GET",
-				success: function success(response) {
-					var html = $(response);
-					html.hide();
-					html.ready(function () {
-						container.append(html);
-						html.slideDown("slow");
-						$this.remove();
-					});
-				}
-			});
+			var hidden = container.children(".member-hidden");
+			hidden.removeClass("member-hidden");
+			hidden.find(".card-top").matchHeight();
+			$(this).hide();
 		});
 	});
 });
