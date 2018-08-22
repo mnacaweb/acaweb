@@ -11,8 +11,8 @@
                 <img class="footer-img" src="{% thumbnail instance.image 270x270 %}" alt="{{ instance.image.default_alt_text|default_if_none:instance.person_name }}">
             </div>
             <div class="col-12 col-sm-6 pt-5 d-flex flex-column footer-text-wrapper">
-                <span class="font-weight-bold mb-1">{{ instance.person_name }}</span>
-                <span class="font-weight-bold mb-1">{{ instance.person_title }}</span>
+                <h2 class="font-weight-bold mb-1">{{ instance.person_name }}</h2>
+                <span class="font-weight-bold mb-1 subtitle-normal">{{ instance.person_title }}</span>
                 {% if instance.person_phone %}
                     <div><a href="tel://{{ instance.person_phone }}" class="icon-text icon-phone text-normal text-underline-none"><strong class="pl-2">{{ instance.person_phone }}</strong></a></div>
                 {% endif %}
