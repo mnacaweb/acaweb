@@ -11444,6 +11444,10 @@ input[type="text"]::placeholder {
   font-weight: 700;
 }
 
+.text-underline {
+  text-decoration: underline;
+}
+
 .icon-text {
   position: relative;
   padding-left: 28px;
