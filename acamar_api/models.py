@@ -15,6 +15,7 @@ from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from djangocms_text_ckeditor.fields import HTMLField
+from filer.fields.image import FilerImageField
 from haystack.query import SearchQuerySet
 from meta.models import ModelMeta
 from safedelete import SOFT_DELETE
@@ -241,6 +242,15 @@ class Position(ModelMeta, models.Model):
     def url(self):
         return self.get_absolute_url()
 
+    @cached_property
+    def recruiter(self):
+        return Recruiter.objects.filter(first_name=self.user_first_name, second_name=self.user_second_name).first()
+
+    def get_recruiter_image_url(self):
+        if self.recruiter:
+            return self.recruiter.image.url
+        return self.user_image_url
+
     def content_iterator(self):
         for index in range(1, 7):
             title = getattr(self, "title{}".format(index), "")
@@ -338,3 +348,18 @@ class PositionApply(models.Model):
             self.position_user_name = "{} {}".format(self.position.user_first_name, self.position.user_second_name)
             self.position_user_email = self.position.user_email
         super(PositionApply, self).save(force_insert, force_update, using, update_fields)
+
+
+@python_2_unicode_compatible
+class Recruiter(models.Model):
+    first_name = models.CharField(verbose_name="First name", max_length=255)
+    second_name = models.CharField(verbose_name="Second name", max_length=255)
+    image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.second_name)
+
+    class Meta:
+        verbose_name = "Recruiter"
+        verbose_name_plural = "Recruiters"
+        unique_together = ("first_name", "second_name")

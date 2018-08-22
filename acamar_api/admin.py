@@ -7,7 +7,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
-from .models import Course, CourseTerm, CourseTermItem, CourseEnroll, PositionApply
+from .models import Course, CourseTerm, CourseTermItem, CourseEnroll, PositionApply, Recruiter
 
 
 @admin.register(Course)
@@ -76,3 +76,8 @@ class PositionApplyAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(Recruiter)
+class RecruiterAdmin(admin.ModelAdmin):
+    pass

@@ -68,7 +68,7 @@
                             </div>
                             <div class="row d-flex align-items-center justify-content-center">
                                 <div class="col-4 person-wrapper-image">
-                                    <img class="person-image" src="{{ object.user_image_url }}"
+                                    <img class="person-image" src="{{ object.get_recruiter_image_url }}"
                                          alt="{{ object.user_first_name }} {{ object.user_second_name }}"/>
                                 </div>
                                 <div class="col-8 pt-3">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center justify-content-md-start">
-                                <a href="mailto:?body=Ahoj, mohla by tě zajímat tahle práce: '{{ object.name }}'. {{ site.domain }}{{ object.get_absolute_url }}" class="mail text-small">{% trans "Pošlete nabídku známému" %}</a>
+                                <a href="mailto:?body={% blocktrans with name=object.name url=site.domain|add:object.get_absolute_url %}Ahoj, mohla by tě zajímat tahle práce: '{{ name }}'. {{ url }}{% endblocktrans %}" class="mail text-small">{% trans "Pošlete nabídku známému" %}</a>
                             </div>
                         </div>
                     </div>
