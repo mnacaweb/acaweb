@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center justify-content-md-start">
-                                <a href="mailto:" class="mail text-small">{% trans "Pošlete nabídku známému" %}</a>
+                                <a href="mailto:?body=Ahoj, mohla by tě zajímat tahle práce: '{{ object.name }}'. {{ site.domain }}{{ object.get_absolute_url }}" class="mail text-small">{% trans "Pošlete nabídku známému" %}</a>
                             </div>
                         </div>
                     </div>

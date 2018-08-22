@@ -226,7 +226,8 @@ class Position(ModelMeta, models.Model):
     def title(self):
         return self.name if self.name else self.title1 if self.title1 else "--"
 
-    def get_absolute_url(self, language=translation.get_language()):
+    def get_absolute_url(self, language=None):
+        language = language if language else translation.get_language()
         with translation.override(language):
             if self.lang:
                 try:
