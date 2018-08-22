@@ -30,7 +30,7 @@
 }
 
 .elipse-reviews-background {
-  width: 250px;
+  width: 269px;
   height: 125px;
   background-image: url(../../images/elipsa-reviews-small.svg);
   background-size: 100%;
@@ -129,6 +129,7 @@
   .img-logo {
     //width: 140px;
     max-width: 180px;
+    align-self: baseline;
 
     /*@include media-breakpoint-up(md) {
       width: 180px;
