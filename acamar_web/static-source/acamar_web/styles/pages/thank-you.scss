@@ -68,6 +68,13 @@ body.thank-you{
         @include r(desktop){
           max-width: 1050px;
         }
+
+        @include media-breakpoint-down(sm) {
+          top: 370px;
+          height: 588px;
+          width: 708px;
+        }
+
       }
 
       .thank-you-image-wrapper{
@@ -98,6 +105,12 @@ body.thank-you{
           font-size: 25px;
           font-weight: 300;
           line-height: 36px;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 27px;
+            line-height: 24px;
+          }
+
         }
       }
     }

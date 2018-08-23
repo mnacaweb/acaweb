@@ -13873,6 +13873,14 @@ body.thank-you {
   }
 }
 
+@media (max-width: 767.98px) {
+  .page-thank-you .thank-you-wrapper .thank-you-image:after {
+    top: 370px;
+    height: 588px;
+    width: 708px;
+  }
+}
+
 .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper {
   max-width: 544px;
   margin: 0 auto;
@@ -13903,6 +13911,13 @@ body.thank-you {
   font-size: 25px;
   font-weight: 300;
   line-height: 36px;
+}
+
+@media (max-width: 767.98px) {
+  .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper p {
+    font-size: 27px;
+    line-height: 24px;
+  }
 }
 
 .page-login-course .main-banner-course {
