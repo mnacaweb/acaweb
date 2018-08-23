@@ -13827,7 +13827,7 @@ body.thank-you {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 600px;
+    min-height: 700px;
   }
 }
 
@@ -13841,10 +13841,11 @@ body.thank-you {
   background: transparent url(/static/acamar_web/images/thank-you-image.png) center center no-repeat;
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: 640px;
   max-width: 800px;
   position: absolute;
-  top: 50%;
+  top: 340px;
+  margin-bottom: -170px;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
