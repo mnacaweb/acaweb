@@ -26,7 +26,17 @@ body.thank-you{
     box-sizing: border-box;
 
     .thank-you-image{
-      @include r(tablet){
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 700px;
+      padding: 0 30px;
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+      }
+
+     /* @include r(tablet){
         display: flex;
         align-items: center;
         justify-content: center;
@@ -34,8 +44,8 @@ body.thank-you{
       }
 
       @include r(tablet){
-        min-height: 800px;
-      }
+        min-height: 700px;
+      }*/
 
       &:after{
         background: transparent url('../../images/thank-you-image.png') center center no-repeat;
@@ -72,11 +82,16 @@ body.thank-you{
         }
 
         h1{
-          margin: 0px;
+          margin: 0;
           font-size: 45px;
           font-weight: 900;
           text-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
           margin-bottom: 20px;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 25px;
+          }
+
         }
 
         p{

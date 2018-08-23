@@ -13821,18 +13821,27 @@ body.thank-you {
   box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  .page-thank-you .thank-you-wrapper .thank-you-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 700px;
-  }
+.page-thank-you .thank-you-wrapper .thank-you-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 700px;
+  padding: 0 30px;
+  /* @include r(tablet){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 700px;
+      }
+
+      @include r(tablet){
+        min-height: 700px;
+      }*/
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767.98px) {
   .page-thank-you .thank-you-wrapper .thank-you-image {
-    min-height: 800px;
+    padding: 0;
   }
 }
 
@@ -13877,11 +13886,17 @@ body.thank-you {
 }
 
 .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper h1 {
-  margin: 0px;
+  margin: 0;
   font-size: 45px;
   font-weight: 900;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
+}
+
+@media (max-width: 767.98px) {
+  .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper h1 {
+    font-size: 25px;
+  }
 }
 
 .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper p {
