@@ -1,16 +1,16 @@
 {% load thumbnail %}
 
-<div class="section more-information-section {% if placeholder == "course_content" %}bg-white{% endif %}">
+<div class="section more-information-section bg-white {% if placeholder == "course_content" %}bg-white{% endif %}">
     <div class="container">
         <div class="text-center">
             <h2 class="subtitle-large mb-1">{{ instance.title }}</h2>
             <span class="subtitle-normal font-weight-light">{{ instance.subtitle }}</span>
         </div>
-        <div class="d-flex justify-content-center footer-wrapper">
+        <div class="d-flex justify-content-center footer-wrapper mt-4">
             <div class="col-12 col-sm-6 footer-image-wrapper">
                 <img class="footer-img" src="{% thumbnail instance.image 270x270 %}" alt="{{ instance.image.default_alt_text|default_if_none:instance.person_name }}">
             </div>
-            <div class="col-12 col-sm-6 pt-5 d-flex flex-column footer-text-wrapper">
+            <div class="col-12 col-sm-6 d-flex flex-column footer-text-wrapper">
                 <h2 class="font-weight-bold mb-1">{{ instance.person_name }}</h2>
                 <span class="font-weight-bold mb-1 subtitle-normal">{{ instance.person_title }}</span>
                 {% if instance.person_phone %}
