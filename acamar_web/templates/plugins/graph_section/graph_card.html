@@ -1,7 +1,7 @@
 {% load static %}
 
 {#<div class="ring">#}
-    <div class="content-graf box-shadow-custom mb-3 {% if forloop.counter == 3 %}third{% endif %}">
+    <div class="content-graf box-shadow-custom mb-3 {% if forloop.counter == 3 %}third{% endif %}" data-parallax='{"y" : -150, "smoothness": 20}'>
         <h2 class="subtitle-large font-weight-bold text-center mb-5">{{ instance.title }}</h2>
         <div class="row">
             <div class="col-12 col-md-5">
