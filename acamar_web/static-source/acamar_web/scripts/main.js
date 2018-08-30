@@ -38,7 +38,10 @@ import "./plugins/partners";
 import "./plugins/course_enroll_form";
 import "./plugins/login";
 import "./plugins/contact_form";
+
 import "./plugins/jquery.parallax-scroll";
+import "./plugins/jquery.waypoints";
+import "./plugins/jquery.counterup.min";
 
 import "./apps/position_detail";
 import { WOW } from "wowjs";
@@ -101,4 +104,8 @@ $(document).ready(function () {
 
 
 	new WOW().init();
+
+	$(".counter").counterUp({
+		time: 1000
+	});
 });
