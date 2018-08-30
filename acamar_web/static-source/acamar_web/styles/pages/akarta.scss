@@ -91,6 +91,7 @@
         background-size: contain;
         height: 13px;
         width: 15px;
+        transition: all .4s linear;
 
         @include media-breakpoint-up(md) {
           top: 50%;

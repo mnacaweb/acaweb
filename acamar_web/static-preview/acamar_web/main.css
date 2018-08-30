@@ -17016,6 +17016,7 @@ body.thank-you {
   background-size: contain;
   height: 13px;
   width: 15px;
+  transition: all .4s linear;
 }
 
 @media (min-width: 768px) {
