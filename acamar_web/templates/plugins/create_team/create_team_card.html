@@ -1,4 +1,8 @@
-<div class="col-6 col-md mb-3 mb-md-0 create-team-wrapper">
+<div class="col-6 col-md mb-3 mb-md-0 create-team-wrapper wow fadeIn" data-wow-offset="100"
+     {% if forloop.counter == 1 %}data-wow-delay=".8s"{% endif %}
+     {% if forloop.counter == 2 %}data-wow-delay=".6s"{% endif %}
+     {% if forloop.counter == 3 %}data-wow-delay=".4s"{% endif %}
+     {% if forloop.counter == 4 %}data-wow-delay=".2s"{% endif %}>
     <div class="img-wrapper"><img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}" /></div>
     <div>
         <span class="subtitle-normal">{{ instance.title }}</span>
