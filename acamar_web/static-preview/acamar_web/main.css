@@ -16493,6 +16493,15 @@ body.thank-you {
 .page-thank-you .thank-you-wrapper {
   text-align: center;
   box-sizing: border-box;
+  position: fixed;
+  width: 768px;
+}
+
+@media (max-width: 767.98px) {
+  .page-thank-you .thank-you-wrapper {
+    position: relative;
+    width: auto;
+  }
 }
 
 .page-thank-you .thank-you-wrapper .thank-you-image {

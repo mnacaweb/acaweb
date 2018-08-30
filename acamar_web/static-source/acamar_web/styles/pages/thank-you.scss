@@ -24,6 +24,13 @@ body.thank-you{
     //padding: 140px 0px;
     text-align: center;
     box-sizing: border-box;
+    position: fixed;
+    width: 768px;
+
+    @include media-breakpoint-down(sm) {
+      position: relative;
+      width: auto;
+    }
 
     .thank-you-image{
       display: flex;
