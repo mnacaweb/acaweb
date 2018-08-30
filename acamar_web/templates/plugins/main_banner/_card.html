@@ -2,10 +2,10 @@
     <div class="border-left-white pl-3">
         <div><span class="subtitle-normal title">{{ instance.title }}</span></div>
         <div><p class="font-weight-light title">{{ instance.subtitle }}</p></div>
-
+        {% if instance.button %}
         <div class="py-3 mb-3">
-            <a class="button button-primary button-arrow-right" href="{{ instance.button.get_link_safe }}">Poohlížím se po práci</a>
+            <a class="button button-primary button-arrow-right" href="{{ instance.button.get_link_safe }}">{{ instance.button.text }}</a>
         </div>
-
+        {% endif %}
     </div>
 </div>
