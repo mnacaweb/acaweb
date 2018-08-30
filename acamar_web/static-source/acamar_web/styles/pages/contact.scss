@@ -142,7 +142,7 @@
         @include media-breakpoint-up(md) {
           width: 400px !important;
           height: 400px !important;
-          transform: translate(-52%, -21%) !important;
+          transform: translate(-52%, -35%) !important;
 
           &::after {
             content: "";
@@ -169,6 +169,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          //visibility: visible!important;
 
           .circle-content {
             display: flex;
