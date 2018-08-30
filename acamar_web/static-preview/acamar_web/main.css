@@ -12973,6 +12973,11 @@ textarea {
   padding: 0 8px;
 }
 
+.site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item.active a::after,
+.site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item.active a::after {
+  width: 100%;
+}
+
 .site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link,
 .site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item .nav-link {
   font-size: 14px;
@@ -13005,6 +13010,22 @@ textarea {
     top: 8px;
     right: 0;
   }
+}
+
+.site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link:hover::after,
+.site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item .nav-link:hover::after {
+  width: 100%;
+}
+
+.site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link::after,
+.site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item .nav-link::after {
+  display: block;
+  content: "";
+  height: 2px;
+  background: #000;
+  width: 0;
+  margin: 0 auto;
+  transition: all .3s linear;
 }
 
 .site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link.border-right-custom,
@@ -13119,7 +13140,7 @@ textarea {
   }
 }
 
-.button::before {
+.button.button-primary::before {
   width: 30px;
   height: 30px;
   content: "";
@@ -13143,12 +13164,12 @@ textarea {
   opacity: 0;
 }
 
-.button:hover {
+.button.button-primary:hover {
   text-decoration: none;
   color: black !important;
 }
 
-.button:hover::before {
+.button.button-primary:hover::before {
   -webkit-transform: scale(15);
   transform: scale(15);
   opacity: 1;
@@ -13164,22 +13185,10 @@ textarea {
   overflow: hidden;
   padding: 10px 40px 10px 40px;
   background: linear-gradient(to right, #ed002d 0%, #a9172b 100%);
+  border: none;
   z-index: 2;
   border-radius: 30px;
-  border: 3px solid transparent;
-  /*&:before {
-      position: absolute;
-      content: "";
-      background: linear-gradient(to right, #a9172b 0%, $primary 100%);
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      right: 50%;
-      top: 0;
-      transform: translate(50%, 0);
-      z-index: -2;
-      transition: opacity 0.45s
-    }*/
+  transition: box-shadow 0.45s;
 }
 
 @media (min-width: 768px) {
@@ -13189,11 +13198,29 @@ textarea {
   }
 }
 
+.button.button-secondary:before {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #a9172b 0%, #ed002d 100%);
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  right: 50%;
+  top: 0;
+  -webkit-transform: translate(50%, 0);
+          transform: translate(50%, 0);
+  z-index: -2;
+  transition: opacity 0.45s;
+}
+
 .button.button-secondary:hover {
-  border: 3px solid black;
-  /*&:before {
-        opacity: 1;
-      }*/
+  color: white !important;
+  border-color: #a9172b;
+  box-shadow: 0px 2px 4px #4a4a4a;
+}
+
+.button.button-secondary:hover:before {
+  opacity: 1;
 }
 
 @media (min-width: 768px) {
@@ -14184,6 +14211,15 @@ input[type="text"]::placeholder {
           transform: scale(1.05);
 }
 
+.shadow-card {
+  transition: all 250ms ease-in;
+}
+
+.shadow-card:hover {
+  box-shadow: 0 0 25px black;
+  z-index: 1;
+}
+
 /* ==========================================================================
    Cards Course
    ========================================================================== */
@@ -14707,6 +14743,7 @@ input[type="text"]::placeholder {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   padding: 40px 0;
 }
 

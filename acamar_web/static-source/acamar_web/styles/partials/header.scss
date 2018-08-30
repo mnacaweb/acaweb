@@ -74,6 +74,14 @@
             border-top: transparent;
             padding: 0 8px;
 
+            &.active {
+
+              a::after {
+                width: 100%;
+              }
+
+            }
+
             .nav-link {
               font-size: 14px;
               color: $black;
@@ -99,6 +107,24 @@
                     right: 0;
                   }
                 }
+              }
+
+              &:hover {
+
+                &::after {
+                  width: 100%;
+                }
+
+              }
+
+              &::after {
+                display: block;
+                content: "";
+                height: 2px;
+                background: #000;
+                width: 0;
+                margin: 0 auto;
+                transition: all .3s linear;
               }
 
               &.border-right-custom {
