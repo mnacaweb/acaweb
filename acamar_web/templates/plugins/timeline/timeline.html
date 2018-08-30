@@ -6,10 +6,11 @@
             <h2 class="subtitle-large">{{ instance.title }}<br /><span class="subtitle-large text-weight-light">{{ instance.subtitle }}</span></h2>
         </div>
         <div class="project-list py-md-5">
-            <ul class="wow" data-wow-offset="500">
+            <ul>
+                <div class="line wow" data-wow-offset="200"></div>
                 <li class="right-side"></li>
                 {% for plugin in instance.child_plugin_instances %}
-                    <li class="{% cycle "left-side" "right-side" %} {% if forloop.last %}last{% endif %}">
+                    <li class="{% cycle "left-side" "right-side" %} {% if forloop.last %}last{% endif %} wow fadeIn" data-wow-offset="200">
                         {% render_plugin plugin %}
                     </li>
                 {% endfor %}

@@ -13640,7 +13640,7 @@ input[type="text"]::placeholder {
   width: 100%;
 }
 
-.project-list ul::before {
+.project-list ul .line {
   position: absolute;
   content: "";
   height: 0;
@@ -13651,9 +13651,13 @@ input[type="text"]::placeholder {
 }
 
 @media (min-width: 576px) {
-  .project-list ul::before {
+  .project-list ul .line {
     left: 50%;
   }
+}
+
+.project-list ul .line.animated {
+  height: 100%;
 }
 
 .project-list ul li {
