@@ -16,7 +16,7 @@
     </div>
     {% if instance.child_plugin_instances %}
     <div class="looking-wrapper container">
-        <div class="row box-shadow-custom wow bounce">
+        <div class="row box-shadow-custom" data-parallax='{"y" : -230, "smoothness": 20}'>
             {% for plugin in instance.child_plugin_instances %}
                 {% render_plugin plugin %}
             {% endfor %}

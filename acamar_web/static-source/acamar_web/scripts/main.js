@@ -38,6 +38,7 @@ import "./plugins/partners";
 import "./plugins/course_enroll_form";
 import "./plugins/login";
 import "./plugins/contact_form";
+import "./plugins/jquery.parallax-scroll";
 
 import "./apps/position_detail";
 import { WOW } from "wowjs";
