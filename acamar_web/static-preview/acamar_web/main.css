@@ -12185,7 +12185,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   animation-name: rollOut;
 }
 
-/* ============================ */
+/* GrowLeft ============================ */
 
 @-webkit-keyframes growLeft {
   0% {
@@ -13611,6 +13611,10 @@ input[type="text"]::placeholder {
   padding: 0;
 }
 
+.project-list ul.animated::before {
+  height: 100%;
+}
+
 .project-list ul::after {
   content: "";
   display: table;
@@ -13639,10 +13643,11 @@ input[type="text"]::placeholder {
 .project-list ul::before {
   position: absolute;
   content: "";
-  height: 100%;
+  height: 0;
   border-left: 1px solid #ed002d;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+  transition: 1s linear;
 }
 
 @media (min-width: 576px) {
@@ -15432,6 +15437,7 @@ input[type="text"]::placeholder {
   background-image: url(/static/acamar_web/images/process-bg.jpg);
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   background-size: cover;
 }
 

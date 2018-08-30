@@ -6,7 +6,7 @@
             <h2 class="subtitle-large">{{ instance.title }}<br /><span class="subtitle-large text-weight-light">{{ instance.subtitle }}</span></h2>
         </div>
         <div class="project-list py-md-5">
-            <ul>
+            <ul class="wow" data-wow-offset="500">
                 <li class="right-side"></li>
                 {% for plugin in instance.child_plugin_instances %}
                     <li class="{% cycle "left-side" "right-side" %} {% if forloop.last %}last{% endif %}">
