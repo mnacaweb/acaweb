@@ -16490,6 +16490,12 @@ body.thank-you {
   }
 }
 
+@media (max-width: 767.98px) {
+  .page-thank-you .container {
+    padding: 0;
+  }
+}
+
 .page-thank-you .thank-you-wrapper {
   text-align: center;
   box-sizing: border-box;
@@ -16501,6 +16507,7 @@ body.thank-you {
   .page-thank-you .thank-you-wrapper {
     position: relative;
     width: auto;
+    padding: 0 20px;
   }
 }
 

@@ -20,6 +20,14 @@ body.thank-you{
     background-size: 1055px auto;
   }
 
+  .container {
+
+    @include media-breakpoint-down(sm) {
+      padding: 0;
+    }
+
+  }
+
   .thank-you-wrapper{
     //padding: 140px 0px;
     text-align: center;
@@ -30,6 +38,7 @@ body.thank-you{
     @include media-breakpoint-down(sm) {
       position: relative;
       width: auto;
+      padding: 0 20px;
     }
 
     .thank-you-image{
