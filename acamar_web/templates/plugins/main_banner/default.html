@@ -16,7 +16,7 @@
     </div>
     {% if instance.child_plugin_instances %}
     <div class="looking-wrapper container">
-        <div class="row box-shadow-custom">
+        <div class="row box-shadow-custom wow bounce">
             {% for plugin in instance.child_plugin_instances %}
                 {% render_plugin plugin %}
             {% endfor %}

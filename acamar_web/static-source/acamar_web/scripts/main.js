@@ -40,6 +40,8 @@ import "./plugins/login";
 import "./plugins/contact_form";
 
 import "./apps/position_detail";
+import { WOW } from "wowjs";
+window.WOW = WOW;
 
 $(document).ready(function () {
 	$("body").on("click", function () {
@@ -97,5 +99,5 @@ $(document).ready(function () {
 	}
 
 
-
+	new WOW().init();
 });
