@@ -20,7 +20,5 @@
                 "publicPath": "/static/acamar_web/main.bundle.js.map"
             }
         ]
-    },
-    "error": "ModuleError",
-    "message": "Module Error (from C:/Projects/vagrant/web/acamar_web/node_modules/eslint-loader/index.js):\n\nC:\\Projects\\vagrant\\web\\acamar_web\\acamar_web\\static-source\\acamar_web\\scripts\\plugins\\partners.js\n  5:1  error  Expected indentation of 2 tabs but found 8 spaces  indent\n\n✖ 1 problem (1 error, 0 warnings)\n  1 error, 0 warnings potentially fixable with the `--fix` option.\n"
+    }
 }

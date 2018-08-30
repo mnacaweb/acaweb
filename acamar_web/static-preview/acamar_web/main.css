@@ -10510,6 +10510,14 @@ textarea {
   background-color: transparent;
   border: 3px solid white;
   text-transform: uppercase;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  transition-property: color;
+  transition-duration: 0.3s;
 }
 
 @media (min-width: 768px) {
@@ -10526,12 +10534,39 @@ textarea {
   }
 }
 
+.button::before {
+  width: 30px;
+  height: 30px;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+  opacity: 0;
+}
+
 .button:hover {
-  transition: 0.25s;
   text-decoration: none;
-  background-color: white;
   color: black !important;
-  border-color: transparent;
+}
+
+.button:hover::before {
+  -webkit-transform: scale(15);
+  transform: scale(15);
+  opacity: 1;
 }
 
 .button:focus {
@@ -10544,9 +10579,22 @@ textarea {
   overflow: hidden;
   padding: 10px 40px 10px 40px;
   background: linear-gradient(to right, #ed002d 0%, #a9172b 100%);
-  border: none;
   z-index: 2;
   border-radius: 30px;
+  border: 3px solid transparent;
+  /*&:before {
+      position: absolute;
+      content: "";
+      background: linear-gradient(to right, #a9172b 0%, $primary 100%);
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      right: 50%;
+      top: 0;
+      transform: translate(50%, 0);
+      z-index: -2;
+      transition: opacity 0.45s
+    }*/
 }
 
 @media (min-width: 768px) {
@@ -10556,28 +10604,11 @@ textarea {
   }
 }
 
-.button.button-secondary:before {
-  position: absolute;
-  content: "";
-  background: linear-gradient(to right, #a9172b 0%, #ed002d 100%);
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  right: 50%;
-  top: 0;
-  -webkit-transform: translate(50%, 0);
-          transform: translate(50%, 0);
-  z-index: -2;
-  transition: opacity 0.45s;
-}
-
 .button.button-secondary:hover {
-  color: white !important;
-  border-color: #a9172b;
-}
-
-.button.button-secondary:hover:before {
-  opacity: 1;
+  border: 3px solid black;
+  /*&:before {
+        opacity: 1;
+      }*/
 }
 
 @media (min-width: 768px) {
