@@ -105,6 +105,7 @@ $(document).ready(function () {
 
 	new WOW().init();
 
+
 	$(".counter").counterUp({
 		time: 1000
 	});

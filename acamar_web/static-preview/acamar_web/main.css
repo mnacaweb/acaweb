@@ -15303,7 +15303,6 @@ input[type="text"]::placeholder {
   position: relative;
   font-size: 20px;
   font-weight: 700;
-  border-bottom: 2px solid black;
 }
 
 @media (min-width: 768px) {
@@ -15311,6 +15310,12 @@ input[type="text"]::placeholder {
     font-size: 25px;
     padding-right: 40px;
   }
+}
+
+.section-family-background .benefits-main-banner .benefits-wrapper .line {
+  width: 100%;
+  height: 2px;
+  background: #000;
 }
 
 .section-family-background .benefits-main-banner .benefits-wrapper .benefits-text {
