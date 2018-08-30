@@ -18,10 +18,10 @@
                     </div>
                 </div>
             </div>
-            <div class="box-shadow-custom col-12 col-md-9 review-person">
+            <div class="box-shadow-custom col-12 col-md-9 review-person" data-parallax='{"y" : 100, "smoothness": 10}'>
                 {% include "plugins/review_panel/review.html" with object=review %}
             </div>
-            <ul class="dots">
+            <ul class="dots" data-parallax='{"y" : 100, "smoothness": 10}'>
                 {% for review in review_ids %}
                     <li class="{% if forloop.first %}active{% endif %}" data-id="{{ review }}"><button><span class="d-none">{{ forloop.counter }}</span></button></li>
                 {% endfor %}

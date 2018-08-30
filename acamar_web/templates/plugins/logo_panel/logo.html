@@ -1,1 +1,9 @@
-<div class="col-6 col-md-4 col-lg py-3"><img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}" /></div>
+<div class="col-6 col-md-4 col-lg py-3 wow fadeIn" data-wow-offset="100"
+     {% if forloop.counter == 1 %}data-wow-delay="1.2s"{% endif %}
+     {% if forloop.counter == 2 %}data-wow-delay="1s"{% endif %}
+     {% if forloop.counter == 3 %}data-wow-delay=".8s"{% endif %}
+    {% if forloop.counter == 4 %}data-wow-delay=".6s"{% endif %}
+    {% if forloop.counter == 5 %}data-wow-delay=".4s"{% endif %}
+    {% if forloop.counter == 6 %}data-wow-delay=".2s"{% endif %}>
+    <img src="{{ instance.image.url }}" alt="{{ instance.image.default_alt_text|default_if_none:"" }}" />
+</div>
