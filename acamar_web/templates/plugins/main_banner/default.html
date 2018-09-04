@@ -1,11 +1,11 @@
-{% load cms_tags %}
+{% load cms_tags static %}
 
 <div class="main-banner hp">
-    <!--<video poster="{{ instance.background_image.url }}" id="bgvid" playsinline autoplay muted {# loop #}>
-{#      - Video needs to be muted, since Chrome 66+ will not autoplay video with sound.#}
-{#      WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button#}
-        <source src="{{ instance.background_video.url }}" type="video/{{ instance.background_video.extension }}">
-    </video>-->
+    {% if instance.background_video %}
+        <video poster="{% static "acamar_web/images/header.jpg" %}" id="bgvid" playsinline autoplay muted loop>
+            <source src="{{ instance.background_video.url }}" type="video/{{ instance.background_video.extension }}">
+        </video>
+    {% endif %}
     <div class="title-wrapper text-center container">
         <div class="bubble">
             <div class="content">

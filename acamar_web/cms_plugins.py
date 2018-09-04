@@ -23,6 +23,7 @@ class MainBannerPlugin(CMSPluginBase):
     model = MainBanner
     child_classes = ["MainBannerCardPlugin"]
     allow_children = True
+    exclude = ["background_image"]
 
     @classmethod
     def get_child_classes(cls, slot, page, instance=None):
