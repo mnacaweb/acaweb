@@ -9289,7 +9289,7 @@ button.bg-dark:focus {
 }
 
 .font-weight-light {
-  font-weight: 300 !important;
+  font-weight: normal !important;
 }
 
 .font-weight-normal {
