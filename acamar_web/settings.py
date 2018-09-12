@@ -492,6 +492,5 @@ if DEV_PROFILE != 'local':
     }
     TEST_RUNNER = 'acamar_web.test.testrunner.NoDbTestRunner'
 
-
-if os.path.exists(os.path.join(BASE_DIR, 'settings.local.py')):
-    from settings.local import *
+if os.path.exists(os.path.join(BASE_DIR, 'acamar_web', 'settings_local.py')):
+    from settings_local import *

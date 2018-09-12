@@ -1,6 +1,6 @@
 $(function () {
 	$.ajaxSetup({
-		beforeSend: function(xhr, settings) {
+		beforeSend: function (xhr, settings) {
 			function getCookie(name) {
 				let cookieValue = null;
 				if (document.cookie && document.cookie !== "") {
@@ -16,6 +16,7 @@ $(function () {
 				}
 				return cookieValue;
 			}
+
 			if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
 				// Only send the token to relative URLs i.e. locally.
 				xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
@@ -26,7 +27,13 @@ $(function () {
 import "popper.js";
 import "bootstrap";
 import "jquery-match-height/dist/jquery.matchHeight";
+import "waypoints/lib/jquery.waypoints";
+import "jquery.counterup";
+import "jquery.parallax-scroll/js/jquery.parallax-scroll";
 import "../styles/main.scss";
+import {WOW} from "wowjs";
+
+window.WOW = WOW;
 
 import "./vendor";
 
@@ -39,13 +46,7 @@ import "./plugins/course_enroll_form";
 import "./plugins/login";
 import "./plugins/contact_form";
 
-import "./plugins/jquery.parallax-scroll";
-import "./plugins/jquery.waypoints";
-import "./plugins/jquery.counterup.min";
-
 import "./apps/position_detail";
-import { WOW } from "wowjs";
-window.WOW = WOW;
 
 $(document).ready(function () {
 	$("body").on("click", function () {
@@ -77,36 +78,26 @@ $(document).ready(function () {
 	});
 
 	// Email protection
-	setTimeout(
-		() => {
-			$("a[href^='mailto']").click(function (event) {
-				let $this = $(this);
-				const mail = $this.attr("href").slice(7);
-				const split = mail.split("@");
-				let base = (split.length > 2) ? split.slice(0, split.length-1).join("@") : split[0];
-				if (base.startsWith("aca") && base.endsWith("mar")) {
-					event.preventDefault();
-					base = base.substring(3);
-					base = base.substring(0, base.length - 3);
-					base = atob(base);
-					window.location.href = `mailto:${base}@${split[split.length-1]}`;
-				}
-			});
-		},
-		100
-	);
+
+	$("a[href^='mailto']").click(function (event) {
+		let $this = $(this);
+		const mail = $this.attr("href").slice(7);
+		const split = mail.split("@");
+		let base = (split.length > 2) ? split.slice(0, split.length - 1).join("@") : split[0];
+		if (base.startsWith("aca") && base.endsWith("mar")) {
+			event.preventDefault();
+			base = base.substring(3);
+			base = base.substring(0, base.length - 3);
+			base = atob(base);
+			window.location.href = `mailto:${base}@${split[split.length - 1]}`;
+		}
+	});
 
 
-
-	if( $(".card").length ) {
+	if ($(".card").length) {
 		$(".card-top").matchHeight();
 	}
 
 
 	new WOW().init();
-
-
-	$(".counter").counterUp({
-		time: 1000
-	});
 });

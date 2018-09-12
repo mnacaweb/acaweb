@@ -297,6 +297,7 @@ class Position(ModelMeta, models.Model):
 class CourseEnroll(models.Model):
     name = models.CharField(verbose_name="Name", max_length=254)
     phone = models.CharField(verbose_name="Phone", max_length=20)
+    email = models.EmailField(verbose_name="Email", max_length=254)
     courses = models.ManyToManyField("acamar_api.CourseTerm", related_name="enrolled", verbose_name="Course terms")
     expectations = models.TextField(verbose_name="Expectations", blank=True)
     cv = models.FileField(verbose_name="CV", upload_to=cv_upload_to, null=True, blank=True)

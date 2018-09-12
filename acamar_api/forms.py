@@ -24,7 +24,7 @@ class PositionSearchForm(SearchForm):
 class CourseEnrollForm(forms.ModelForm):
     class Meta:
         model = CourseEnroll
-        fields = ["name", "phone", "courses", "expectations", "cv"]
+        fields = ["name", "phone", "email", "courses", "expectations", "cv"]
 
 
 class PositionApplyForm(forms.ModelForm):

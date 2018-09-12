@@ -16,3 +16,4 @@
 /whoosh_index
 /import
 /logs
+settings_local.py

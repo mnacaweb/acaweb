@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from urlparse import urljoin
+from urlparse import urljoin, unquote
 
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
@@ -30,9 +30,11 @@ def position_apply_email(instance, created, **kwargs):
                  "LinkedIn: {}\n"
                  "Text: {}".format(
                 urljoin(domain, reverse("admin:acamar_api_positionapply_change",
-                                        args=(instance.id,))), instance.position.name, instance.first_name,
+                                        args=(instance.id,))),
+                instance.position.name,
+                instance.first_name,
                 instance.last_name,
-                instance.email, instance.phone, urljoin(domain, instance.cv.url) if instance.cv else "--",
+                instance.email, instance.phone, urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
                 instance.linkedin,
                 instance.text),
             to=[instance.position_user_email]
@@ -50,11 +52,16 @@ def course_enroll_email(instance, action, **kwargs):
                  "\n"
                  "Jméno: {}\n"
                  "Telefon: {}\n"
+                 "E-mail: {}\n"
                  "Kurzy: {}\n"
                  "CV: {}\n"
                  "Očekávání: {}".format(
-                urljoin(domain, reverse("admin:acamar_api_courseenroll_change", args=(instance.id,))), instance.name,
-                instance.phone, instance.course_terms, urljoin(domain, instance.cv.url) if instance.cv else "--",
+                urljoin(domain, reverse("admin:acamar_api_courseenroll_change", args=(instance.id,))),
+                instance.name,
+                instance.phone,
+                instance.email,
+                instance.course_terms,
+                urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
                 instance.expectations),
             to=["lucie.stankova@acamar.cz"]
         )

@@ -53,6 +53,9 @@ class Link(models.Model):
     mailto = models.EmailField(verbose_name='Email address', blank=True, max_length=255)
     phone = models.CharField(verbose_name='Phone', blank=True, max_length=255)
     target = models.CharField(verbose_name='Target', choices=TARGET_CHOICES, blank=True, max_length=255)
+    anchor = models.CharField(verbose_name='Anchor', blank=True, max_length=255,
+                              help_text='Appends the value only after the internal or external link. '
+                                        'Do <em>not</em> include a preceding "#" symbol.')
 
     def __str__(self):
         return "{} - {}".format(self.text, self.get_link)
@@ -75,6 +78,9 @@ class Link(models.Model):
         else:
             link = ''
 
+        if (not self.phone and not self.mailto) and self.anchor:
+            link += '#{}'.format(self.anchor)
+
         return link
 
     @cached_property
@@ -89,6 +95,9 @@ class Link(models.Model):
             link = 'mailto:{}'.format(self.mailto_safe)
         else:
             link = ''
+
+        if (not self.phone and not self.mailto) and self.anchor:
+            link += '#{}'.format(self.anchor)
 
         return link
 
@@ -327,6 +336,8 @@ class TeamGrid(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.TextField(verbose_name="Sub-title")
     button_text = models.CharField(verbose_name="Button text", max_length=254)
+    more_button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="More button",
+                                    blank=True, null=True)
     limit = models.PositiveSmallIntegerField(verbose_name="Limit count", null=True, blank=True)
 
     @cached_property
@@ -757,6 +768,7 @@ class CourseEnrollFormModel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     name_label = models.CharField(verbose_name="Name label", max_length=254)
     phone_label = models.CharField(verbose_name="Phone label", max_length=254)
+    email_label = models.CharField(verbose_name="Email label", max_length=254)
     course_label = models.CharField(verbose_name="Course select label", max_length=254)
     expectations_label = models.CharField(verbose_name="Expectations label", max_length=254)
     cv_label = models.CharField(verbose_name="CV label", max_length=254)
