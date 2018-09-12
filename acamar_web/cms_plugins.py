@@ -436,7 +436,7 @@ class CourseEnrollFormPlugin(CMSPluginBase):
         (None, {"fields": ("title", ("submit_text", "thanks_page"))}),
         ("Form labels", {
             "fields": (
-                ("name_label", "phone_label"), ("course_label", "expectations_label"), ("cv_label",), "email_button")})
+                ("name_label", "phone_label"), ("email_label", "course_label"), ("expectations_label", "cv_label"), ("cv_picker_label", "selected_text"))})
     ]
 
 

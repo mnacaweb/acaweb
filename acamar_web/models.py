@@ -78,6 +78,9 @@ class Link(models.Model):
         else:
             link = ''
 
+        if (not self.phone and not self.mailto) and self.anchor:
+            link += '#{}'.format(self.anchor)
+
         return link
 
     @cached_property
@@ -333,6 +336,8 @@ class TeamGrid(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.TextField(verbose_name="Sub-title")
     button_text = models.CharField(verbose_name="Button text", max_length=254)
+    more_button = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="More button",
+                                    blank=True, null=True)
     limit = models.PositiveSmallIntegerField(verbose_name="Limit count", null=True, blank=True)
 
     @cached_property
@@ -763,6 +768,7 @@ class CourseEnrollFormModel(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     name_label = models.CharField(verbose_name="Name label", max_length=254)
     phone_label = models.CharField(verbose_name="Phone label", max_length=254)
+    email_label = models.CharField(verbose_name="Email label", max_length=254)
     course_label = models.CharField(verbose_name="Course select label", max_length=254)
     expectations_label = models.CharField(verbose_name="Expectations label", max_length=254)
     cv_label = models.CharField(verbose_name="CV label", max_length=254)

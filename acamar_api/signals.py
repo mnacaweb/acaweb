@@ -52,11 +52,16 @@ def course_enroll_email(instance, action, **kwargs):
                  "\n"
                  "Jméno: {}\n"
                  "Telefon: {}\n"
+                 "E-mail: {}\n"
                  "Kurzy: {}\n"
                  "CV: {}\n"
                  "Očekávání: {}".format(
-                urljoin(domain, reverse("admin:acamar_api_courseenroll_change", args=(instance.id,))), instance.name,
-                instance.phone, instance.course_terms, urljoin(domain, instance.cv.url) if instance.cv else "--",
+                urljoin(domain, reverse("admin:acamar_api_courseenroll_change", args=(instance.id,))),
+                instance.name,
+                instance.phone,
+                instance.email,
+                instance.course_terms,
+                urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
                 instance.expectations),
             to=["lucie.stankova@acamar.cz"]
         )
