@@ -53,6 +53,9 @@ class Link(models.Model):
     mailto = models.EmailField(verbose_name='Email address', blank=True, max_length=255)
     phone = models.CharField(verbose_name='Phone', blank=True, max_length=255)
     target = models.CharField(verbose_name='Target', choices=TARGET_CHOICES, blank=True, max_length=255)
+    anchor = models.CharField(verbose_name='Anchor', blank=True, max_length=255,
+                              help_text='Appends the value only after the internal or external link. '
+                                        'Do <em>not</em> include a preceding "#" symbol.')
 
     def __str__(self):
         return "{} - {}".format(self.text, self.get_link)
@@ -89,6 +92,9 @@ class Link(models.Model):
             link = 'mailto:{}'.format(self.mailto_safe)
         else:
             link = ''
+
+        if (not self.phone and not self.mailto) and self.anchor:
+            link += '#{}'.format(self.anchor)
 
         return link
 

@@ -38,7 +38,7 @@ class LinkAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
             'fields': (
                 ('mailto', 'phone'),
-                'target',
+                ('target', 'anchor')
             )
         })
     ]
