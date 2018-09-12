@@ -9289,7 +9289,7 @@ button.bg-dark:focus {
 }
 
 .font-weight-light {
-  font-weight: normal !important;
+  font-weight: 300 !important;
 }
 
 .font-weight-normal {
@@ -12239,6 +12239,9 @@ html {
 
 body {
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
 }
 
 /* HTML5 display definitions
