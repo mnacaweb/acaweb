@@ -10568,8 +10568,6 @@ module.exports = g;
 
 __webpack_require__(/*! jquery-validation/dist/jquery.validate */ "../../../node_modules/jquery-validation/dist/jquery.validate.js");
 
-var thanksModalTimeout = 3000;
-
 $.validator.addMethod("maxsize", function (value, element, param) {
 	if (this.optional(element)) {
 		return true;
@@ -10608,9 +10606,6 @@ $(function () {
 						if (response.success) {
 							contactModal.modal("hide");
 							thanksModal.modal("show");
-							setTimeout(function () {
-								thanksModal.modal("hide");
-							}, thanksModalTimeout);
 						}
 					}
 				});

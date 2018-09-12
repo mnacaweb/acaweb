@@ -1,6 +1,5 @@
 import "jquery-validation/dist/jquery.validate";
 
-const thanksModalTimeout = 3000;
 
 $.validator.addMethod( "maxsize", function( value, element, param ) {
 	if ( this.optional( element ) ) {
@@ -40,9 +39,6 @@ $(function () {
 						if (response.success) {
 							contactModal.modal("hide");
 							thanksModal.modal("show");
-							setTimeout(() => {
-								thanksModal.modal("hide");
-							}, thanksModalTimeout);
 						}
 					}
 				});

@@ -105,6 +105,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <div class="section-form">
                             <div class="d-flex flex-column align-items-center">
                                 <form class="position-form" method="post" action="{% url "api:position" %}" enctype="multipart/form-data">
@@ -168,8 +169,9 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <div class="container py-4">
-                            <p class="subtitle-normal">{% trans "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve." %}</p>
+                            <p class="subtitle-normal">{% trans "Děkujeme za zprávu! Odpovíme vám do 2&nbsp;pracovních dnů, spíš ale dřív." %}</p>
                         </div>
                     </div>
                 </div>
