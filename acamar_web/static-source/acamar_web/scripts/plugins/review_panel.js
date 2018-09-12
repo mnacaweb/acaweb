@@ -67,5 +67,8 @@ $(document).ready(function () {
 	let reviews_section = $(".reviews-section");
 	if (reviews_section.length) {
 		reviews_section.initReviewCycle();
+		reviews_section.find(".counter").counterUp({
+			time: 1000
+		});
 	}
 });

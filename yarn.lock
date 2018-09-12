@@ -3132,13 +3132,6 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-exports-loader@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/exports-loader/-/exports-loader-0.7.0.tgz#84881c784dea6036b8e1cd1dac3da9b6409e21a5"
-  dependencies:
-    loader-utils "^1.1.0"
-    source-map "0.5.0"
-
 extend-shallow@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/extend-shallow/-/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
@@ -4508,7 +4501,18 @@ jquery-validation@^1.17.0:
   dependencies:
     jquery "^1.7 || ^2.0 || ^3.1"
 
-jquery@>=1.8.3, "jquery@^1.7 || ^2.0 || ^3.1":
+jquery.counterup@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/jquery.counterup/-/jquery.counterup-2.1.0.tgz#96665d01460322d6d2320fa9dde3013cc7d12f60"
+  dependencies:
+    jquery ">=1.5.0"
+    waypoints ">=3.0"
+
+"jquery.parallax-scroll@https://github.com/alumbo/jquery.parallax-scroll":
+  version "0.0.0"
+  resolved "https://github.com/alumbo/jquery.parallax-scroll#a9450a16d93590fb15b5aa5cc1bd5694864bf8a8"
+
+jquery@>=1.5.0, jquery@>=1.8.3, "jquery@^1.7 || ^2.0 || ^3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
@@ -8009,10 +8013,6 @@ source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
 
-source-map@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.0.tgz#0fe96503ac86a5adb5de63f4e412ae4872cdbe86"
-
 source-map@0.5.x, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.1:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
@@ -8840,6 +8840,10 @@ watchpack@^1.5.0:
     chokidar "^2.0.2"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+waypoints@>=3.0, waypoints@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/waypoints/-/waypoints-4.0.1.tgz#09979a0573810b29627cba4366a284a062ec69c8"
 
 webpack-addons@^1.1.5:
   version "1.1.5"

@@ -26,7 +26,12 @@ $(function () {
 import "popper.js";
 import "bootstrap";
 import "jquery-match-height/dist/jquery.matchHeight";
+import "waypoints/lib/jquery.waypoints";
+import "jquery.counterup";
+import "jquery.parallax-scroll/js/jquery.parallax-scroll";
 import "../styles/main.scss";
+import { WOW } from "wowjs";
+window.WOW = WOW;
 
 import "./vendor";
 
@@ -39,13 +44,7 @@ import "./plugins/course_enroll_form";
 import "./plugins/login";
 import "./plugins/contact_form";
 
-import "./plugins/jquery.parallax-scroll";
-import "./plugins/jquery.waypoints";
-import "./plugins/jquery.counterup.min";
-
 import "./apps/position_detail";
-import { WOW } from "wowjs";
-window.WOW = WOW;
 
 $(document).ready(function () {
 	$("body").on("click", function () {
@@ -104,9 +103,4 @@ $(document).ready(function () {
 
 
 	new WOW().init();
-
-
-	$(".counter").counterUp({
-		time: 1000
-	});
 });
