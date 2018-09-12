@@ -15,6 +15,10 @@
                         <input type="text" maxlength="20" class="form-control" name="phone" id="enrollForm{{ instance.id }}Phone" required>
                     </div>
                     <div class="form-group">
+                        <label class="label" for="enrollForm{{ instance.id }}Phone">{{ instance.email_label }}</label>
+                        <input type="text" maxlength="20" class="form-control" name="phone" id="enrollForm{{ instance.id }}Phone" required>
+                    </div>
+                    <div class="form-group">
                         <label class="label" for="enrollForm{{ instance.id }}Course">{{ instance.course_label }}</label>
                         <select class="form-control course-enroll-select" name="courses" id="enrollForm{{ instance.id }}Course" data-selected-text="{{ instance.selected_text }}" multiple required>
                             {% for course in instance.get_courses %}
