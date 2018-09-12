@@ -11569,8 +11569,6 @@ module.exports = g;
 
 __webpack_require__(/*! jquery-validation/dist/jquery.validate */ "../../../node_modules/jquery-validation/dist/jquery.validate.js");
 
-var thanksModalTimeout = 3000;
-
 $.validator.addMethod("maxsize", function (value, element, param) {
 	if (this.optional(element)) {
 		return true;
@@ -11589,12 +11587,32 @@ $.validator.addMethod("maxsize", function (value, element, param) {
 	return true;
 }, $.validator.format("File size must not exceed {0} bytes each."));
 
+function getFilename(str) {
+	return str.split(/([\\/])/g).pop();
+}
+
 $(function () {
 	var contactModal = $("#contactModal");
 
 	if (contactModal.length) {
 		var thanksModal = $("#thanksModal");
 		var positionForm = contactModal.find(".position-form");
+		var cv_button = contactModal.find(".position-cv-button");
+		var cv_text = contactModal.find(".position-cv-text");
+		var fileInput = contactModal.find("input[name='cv']");
+
+		cv_button.add(cv_text).click(function () {
+			contactModal.find(cv_button.data("target")).click();
+		});
+
+		fileInput.change(function () {
+			var val = fileInput.val();
+			if (val) {
+				cv_text.text(getFilename(val));
+			} else {
+				cv_text.text("&nbsp;");
+			}
+		});
 
 		positionForm.validate({
 			submitHandler: function submitHandler(form) {
@@ -11609,9 +11627,6 @@ $(function () {
 						if (response.success) {
 							contactModal.modal("hide");
 							thanksModal.modal("show");
-							setTimeout(function () {
-								thanksModal.modal("hide");
-							}, thanksModalTimeout);
 						}
 					}
 				});
@@ -11691,6 +11706,7 @@ $(function () {
 				}
 				return cookieValue;
 			}
+
 			if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
 				// Only send the token to relative URLs i.e. locally.
 				xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
@@ -11698,6 +11714,7 @@ $(function () {
 		}
 	});
 });
+
 
 window.WOW = _wowjs.WOW;
 
@@ -11731,21 +11748,20 @@ $(document).ready(function () {
 	});
 
 	// Email protection
-	setTimeout(function () {
-		$("a[href^='mailto']").click(function (event) {
-			var $this = $(this);
-			var mail = $this.attr("href").slice(7);
-			var split = mail.split("@");
-			var base = split.length > 2 ? split.slice(0, split.length - 1).join("@") : split[0];
-			if (base.startsWith("aca") && base.endsWith("mar")) {
-				event.preventDefault();
-				base = base.substring(3);
-				base = base.substring(0, base.length - 3);
-				base = atob(base);
-				window.location.href = "mailto:" + base + "@" + split[split.length - 1];
-			}
-		});
-	}, 100);
+
+	$("a[href^='mailto']").click(function (event) {
+		var $this = $(this);
+		var mail = $this.attr("href").slice(7);
+		var split = mail.split("@");
+		var base = split.length > 2 ? split.slice(0, split.length - 1).join("@") : split[0];
+		if (base.startsWith("aca") && base.endsWith("mar")) {
+			event.preventDefault();
+			base = base.substring(3);
+			base = base.substring(0, base.length - 3);
+			base = atob(base);
+			window.location.href = "mailto:" + base + "@" + split[split.length - 1];
+		}
+	});
 
 	if ($(".card").length) {
 		$(".card-top").matchHeight();
