@@ -16060,6 +16060,7 @@ input[type="text"]::placeholder {
   .page-detail .recruitment .recruitment-wrapper .person-wrapper-image .person-image {
     height: auto;
     left: 0;
+    width: 100%;
   }
 }
 
