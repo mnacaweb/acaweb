@@ -6,8 +6,9 @@ from cms.models import Page
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect
+from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, resolve_url
+from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -30,6 +31,10 @@ class ReviewApi(View):
 
 
 class PositionSearchApi(View):
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(PositionSearchApi, self).dispatch(*args, **kwargs)
+
     def get(self, request, id):
         instance = get_object_or_404(PositionSearch, pk=id)
         form = PositionSearchForm(request.GET)
@@ -41,7 +46,7 @@ class PositionSearchApi(View):
                 "limit": instance.limit,
             })
 
-        return
+        return HttpResponseBadRequest()
 
 
 class PositionSearchAutocompleteApi(View):

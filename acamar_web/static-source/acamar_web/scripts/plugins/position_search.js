@@ -77,6 +77,9 @@ $(function () {
 				url: url,
 				method: method,
 				data: form.serialize(),
+				tryCount : 0,
+				retryLimit : 2,
+				cache: false,
 				success: response => {
 					let html = $(response).hide();
 					html.ready(() => {
@@ -90,6 +93,14 @@ $(function () {
 							updateMore(positions);
 						});
 					});
+				},
+				error : function(xhr, textStatus ) {
+					if (textStatus == "timeout" || xhr.status == 500 || xhr.status == 502) {
+						this.tryCount++;
+						if (this.tryCount <= this.retryLimit) {
+							$.ajax(this);
+						}
+					}
 				}
 			});
 		});

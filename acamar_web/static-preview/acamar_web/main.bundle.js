@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css":
-/*!****************************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css ***!
-  \****************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect.css ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,9 +98,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js":
-/*!**************************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js ***!
-  \**************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap-multiselect/dist/js/bootstrap-multiselect.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1525,9 +1525,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/bootstrap/dist/js/bootstrap.js":
-/*!**************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
-  \**************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/bootstrap/dist/js/bootstrap.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5462,9 +5462,9 @@
 /***/ }),
 
 /***/ "../../../node_modules/jquery-match-height/dist/jquery.matchHeight.js":
-/*!******************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/jquery-match-height/dist/jquery.matchHeight.js ***!
-  \******************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery-match-height/dist/jquery.matchHeight.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5858,9 +5858,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ }),
 
 /***/ "../../../node_modules/jquery-validation/dist/jquery.validate.js":
-/*!*************************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/jquery-validation/dist/jquery.validate.js ***!
-  \*************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery-validation/dist/jquery.validate.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7467,10 +7467,339 @@ return $;
 
 /***/ }),
 
+/***/ "../../../node_modules/jquery.counterup/jquery.counterup.js":
+/*!*************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery.counterup/jquery.counterup.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * jquery.counterup.js 2.1.0
+ *
+ * Copyright 2013, Benjamin Intal http://gambit.ph @bfintal
+ * Released under the GPL v2 License
+ *
+ * Amended by Jeremy Paris, Ciro Mattia Gonano and others
+ *
+ * Date: Feb 24, 2017
+ */
+(function ($) {
+    "use strict";
+
+    $.fn.counterUp = function (options) {
+
+        // Defaults
+        var settings = $.extend({
+                'time': 400,
+                'delay': 10,
+                'offset': 100,
+                'beginAt': 0,
+                'formatter': false,
+                'context': 'window',
+                callback: function () {
+                }
+            }, options),
+            s;
+
+        return this.each(function () {
+
+            // Store the object
+            var $this = $(this),
+                counter = {
+                    time: $(this).data('counterup-time') || settings.time,
+                    delay: $(this).data('counterup-delay') || settings.delay,
+                    offset: $(this).data('counterup-offset') || settings.offset,
+                    beginAt: $(this).data('counterup-beginat') || settings.beginAt,
+                    context: $(this).data('counterup-context') || settings.context
+                };
+
+            var counterUpper = function () {
+                var nums = [];
+                var divisions = counter.time / counter.delay;
+                var num = $(this).attr('data-num') ? $(this).attr('data-num') : $this.text();
+                var isComma = /[0-9]+,[0-9]+/.test(num);
+                num = num.replace(/,/g, '');
+                var decimalPlaces = (num.split('.')[1] || []).length;
+                if (counter.beginAt > num)
+                    counter.beginAt = num;
+
+                var isTime = /[0-9]+:[0-9]+:[0-9]+/.test(num);
+
+                // Convert time to total seconds
+                if (isTime) {
+                    var times = num.split(':'),
+                        m = 1;
+                    s = 0;
+                    while (times.length > 0) {
+                        s += m * parseInt(times.pop(), 10);
+                        m *= 60;
+                    }
+                }
+
+                // Generate list of incremental numbers to display
+                for (var i = divisions; i >= counter.beginAt / num * divisions; i--) {
+
+                    var newNum = parseFloat(num / divisions * i).toFixed(decimalPlaces);
+
+                    // Add incremental seconds and convert back to time
+                    if (isTime) {
+                        newNum = parseInt(s / divisions * i);
+                        var hours = parseInt(newNum / 3600) % 24;
+                        var minutes = parseInt(newNum / 60) % 60;
+                        var seconds = parseInt(newNum % 60, 10);
+                        newNum = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                    }
+
+                    // Preserve commas if input had commas
+                    if (isComma) {
+                        while (/(\d+)(\d{3})/.test(newNum.toString())) {
+                            newNum = newNum.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+                        }
+                    }
+                    if (settings.formatter) {
+                        newNum = settings.formatter.call(this, newNum);
+                    }
+                    nums.unshift(newNum);
+                }
+
+                $this.data('counterup-nums', nums);
+                $this.text(counter.beginAt);
+
+                // Updates the number until we're done
+                var f = function () {
+                    if (!$this.data('counterup-nums')) {
+                        settings.callback.call(this);
+                        return;
+                    }
+                    $this.html($this.data('counterup-nums').shift());
+                    if ($this.data('counterup-nums').length) {
+                        setTimeout($this.data('counterup-func'), counter.delay);
+                    } else {
+                        $this.data('counterup-nums', null);
+                        $this.data('counterup-func', null);
+                        settings.callback.call(this);
+                    }
+                };
+                $this.data('counterup-func', f);
+
+                // Start the count up
+                setTimeout($this.data('counterup-func'), counter.delay);
+            };
+
+            // Perform counts when the element gets into view
+            $this.waypoint(function (direction) {
+                counterUpper();
+                this.destroy(); //-- Waypoint 3.0 version of triggerOnce
+            }, {offset: counter.offset + "%", context: counter.context});
+        });
+
+    };
+
+})(jQuery);
+
+
+/***/ }),
+
+/***/ "../../../node_modules/jquery.parallax-scroll/js/jquery.parallax-scroll.js":
+/*!****************************************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/jquery.parallax-scroll/js/jquery.parallax-scroll.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function() {
+    ParallaxScroll.init();
+});
+
+var ParallaxScroll = {
+    /* PUBLIC VARIABLES */
+    showLogs: false,
+    round: 1000,
+
+    /* PUBLIC FUNCTIONS */
+    init: function() {
+        this._log("init");
+        if (this._inited) {
+            this._log("Already Inited");
+            this._inited = true;
+            return;
+        }
+        this._requestAnimationFrame = (function(){
+          return  window.requestAnimationFrame       || 
+                  window.webkitRequestAnimationFrame || 
+                  window.mozRequestAnimationFrame    || 
+                  window.oRequestAnimationFrame      || 
+                  window.msRequestAnimationFrame     || 
+                  function(/* function */ callback, /* DOMElement */ element){
+                      window.setTimeout(callback, 1000 / 60);
+                  };
+        })();
+        this._onScroll(true);
+    },
+
+    /* PRIVATE VARIABLES */
+    _inited: false,
+    _properties: ['x', 'y', 'z', 'rotateX', 'rotateY', 'rotateZ', 'scaleX', 'scaleY', 'scaleZ', 'scale'],
+    _requestAnimationFrame:null,
+
+    /* PRIVATE FUNCTIONS */
+    _log: function(message) {
+        if (this.showLogs) console.log("Parallax Scroll / " + message);
+    },
+    _onScroll: function(noSmooth) {
+        var scroll = $(document).scrollTop();
+        var windowHeight = $(window).height();
+        this._log("onScroll " + scroll);
+        $("[data-parallax]").each($.proxy(function(index, el) {
+            var $el = $(el);
+            var properties = [];
+            var applyProperties = false;
+            var style = $el.data("style");
+            if (style == undefined) {
+                style = $el.attr("style") || "";
+                $el.data("style", style);
+            }
+            var datas = [$el.data("parallax")];
+            var iData;
+            for(iData = 2; ; iData++) {
+                if($el.data("parallax"+iData)) {
+                    datas.push($el.data("parallax-"+iData));
+                }
+                else {
+                    break;
+                }
+            }
+            var datasLength = datas.length;
+            for(iData = 0; iData < datasLength; iData ++) {
+                var data = datas[iData];
+                var scrollFrom = data["from-scroll"];
+                if (scrollFrom == undefined) scrollFrom = Math.max(0, $(el).offset().top - windowHeight);
+                scrollFrom = scrollFrom | 0;
+                var scrollDistance = data["distance"];
+                var scrollTo = data["to-scroll"];
+                if (scrollDistance == undefined && scrollTo == undefined) scrollDistance = windowHeight;
+                scrollDistance = Math.max(scrollDistance | 0, 1);
+                var easing = data["easing"];
+                var easingReturn = data["easing-return"];
+                if (easing == undefined || !$.easing|| !$.easing[easing]) easing = null;
+                if (easingReturn == undefined || !$.easing|| !$.easing[easingReturn]) easingReturn = easing;
+                if (easing) {
+                    var totalTime = data["duration"];
+                    if (totalTime == undefined) totalTime = scrollDistance;
+                    totalTime = Math.max(totalTime | 0, 1);
+                    var totalTimeReturn = data["duration-return"];
+                    if (totalTimeReturn == undefined) totalTimeReturn = totalTime;
+                    scrollDistance = 1;
+                    var currentTime = $el.data("current-time");
+                    if(currentTime == undefined) currentTime = 0;
+                }
+                if (scrollTo == undefined) scrollTo = scrollFrom + scrollDistance;
+                scrollTo = scrollTo | 0;
+                var smoothness = data["smoothness"];
+                if (smoothness == undefined) smoothness = 30;
+                smoothness = smoothness | 0;
+                if (noSmooth || smoothness == 0) smoothness = 1;
+                smoothness = smoothness | 0;
+                var scrollCurrent = scroll;
+                scrollCurrent = Math.max(scrollCurrent, scrollFrom);
+                scrollCurrent = Math.min(scrollCurrent, scrollTo);
+                if(easing) {
+                    if($el.data("sens") == undefined) $el.data("sens", "back");
+                    if(scrollCurrent>scrollFrom) {
+                        if($el.data("sens") == "back") {
+                            currentTime = 1;
+                            $el.data("sens", "go");
+                        }
+                        else {
+                            currentTime++;
+                        }
+                    }
+                    if(scrollCurrent<scrollTo) {
+                        if($el.data("sens") == "go") {
+                            currentTime = 1;
+                            $el.data("sens", "back");
+                        }
+                        else {
+                            currentTime++;
+                        }
+                    }
+                    if(noSmooth) currentTime = totalTime;
+                    $el.data("current-time", currentTime);
+                }
+                this._properties.map($.proxy(function(prop) {
+                    var defaultProp = 0;
+                    var to = data[prop];
+                    if (to == undefined) return;
+                    if(prop=="scale" || prop=="scaleX" || prop=="scaleY" || prop=="scaleZ" ) {
+                        defaultProp = 1;
+                    }
+                    else {
+                        to = to | 0;
+                    }
+                    var prev = $el.data("_" + prop);
+                    if (prev == undefined) prev = defaultProp;
+                    var next = ((to-defaultProp) * ((scrollCurrent - scrollFrom) / (scrollTo - scrollFrom))) + defaultProp;
+                    var val = prev + (next - prev) / smoothness;
+                    if(easing && currentTime>0 && currentTime<=totalTime) {
+                        var from = defaultProp;
+                        if($el.data("sens") == "back") {
+                            from = to;
+                            to = -to;
+                            easing = easingReturn;
+                            totalTime = totalTimeReturn;
+                        }
+                        val = $.easing[easing](null, currentTime, from, to, totalTime);
+                    }
+                    val = Math.ceil(val * this.round) / this.round;
+                    if(val==prev&&next==to) val = to;
+                    if(!properties[prop]) properties[prop] = 0;
+                    properties[prop] += val;
+                    if (prev != properties[prop]) {
+                        $el.data("_" + prop, properties[prop]);
+                        applyProperties = true;
+                    }
+                }, this));
+            }
+            if (applyProperties) {
+                if (properties["z"] != undefined) {
+                    var perspective = data["perspective"];
+                    if (perspective == undefined) perspective = 800;
+                    var $parent = $el.parent();
+                    if(!$parent.data("style")) $parent.data("style", $parent.attr("style") || "");
+                    $parent.attr("style", "perspective:" + perspective + "px; -webkit-perspective:" + perspective + "px; "+ $parent.data("style"));
+                }
+                if(properties["scaleX"] == undefined) properties["scaleX"] = 1;
+                if(properties["scaleY"] == undefined) properties["scaleY"] = 1;
+                if(properties["scaleZ"] == undefined) properties["scaleZ"] = 1;
+                if (properties["scale"] != undefined) {
+                    properties["scaleX"] *= properties["scale"];
+                    properties["scaleY"] *= properties["scale"];
+                    properties["scaleZ"] *= properties["scale"];
+                }
+                var translate3d = "translate3d(" + (properties["x"] ? properties["x"] : 0) + "px, " + (properties["y"] ? properties["y"] : 0) + "px, " + (properties["z"] ? properties["z"] : 0) + "px)";
+                var rotate3d = "rotateX(" + (properties["rotateX"] ? properties["rotateX"] : 0) + "deg) rotateY(" + (properties["rotateY"] ? properties["rotateY"] : 0) + "deg) rotateZ(" + (properties["rotateZ"] ? properties["rotateZ"] : 0) + "deg)";
+                var scale3d = "scaleX(" + properties["scaleX"] + ") scaleY(" + properties["scaleY"] + ") scaleZ(" + properties["scaleZ"] + ")";
+                var cssTransform = translate3d + " " + rotate3d + " " + scale3d + ";";
+                this._log(cssTransform);
+                $el.attr("style", "transform:" + cssTransform + " -webkit-transform:" + cssTransform + " " + style);
+            }
+        }, this));
+        if(window.requestAnimationFrame) {
+            window.requestAnimationFrame($.proxy(this._onScroll, this, false));
+        }
+        else {
+            this._requestAnimationFrame($.proxy(this._onScroll, this, false));
+        }
+    }
+};
+
+/***/ }),
+
 /***/ "../../../node_modules/popper.js/dist/esm/popper.js":
-/*!************************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
-  \************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/popper.js/dist/esm/popper.js ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10001,6 +10330,678 @@ Popper.Defaults = Defaults;
 
 /***/ }),
 
+/***/ "../../../node_modules/waypoints/lib/jquery.waypoints.js":
+/*!**********************************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/waypoints/lib/jquery.waypoints.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+Waypoints - 4.0.1
+Copyright © 2011-2016 Caleb Troughton
+Licensed under the MIT license.
+https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
+*/
+(function() {
+  'use strict'
+
+  var keyCounter = 0
+  var allWaypoints = {}
+
+  /* http://imakewebthings.com/waypoints/api/waypoint */
+  function Waypoint(options) {
+    if (!options) {
+      throw new Error('No options passed to Waypoint constructor')
+    }
+    if (!options.element) {
+      throw new Error('No element option passed to Waypoint constructor')
+    }
+    if (!options.handler) {
+      throw new Error('No handler option passed to Waypoint constructor')
+    }
+
+    this.key = 'waypoint-' + keyCounter
+    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)
+    this.element = this.options.element
+    this.adapter = new Waypoint.Adapter(this.element)
+    this.callback = options.handler
+    this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
+    this.enabled = this.options.enabled
+    this.triggerPoint = null
+    this.group = Waypoint.Group.findOrCreate({
+      name: this.options.group,
+      axis: this.axis
+    })
+    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
+
+    if (Waypoint.offsetAliases[this.options.offset]) {
+      this.options.offset = Waypoint.offsetAliases[this.options.offset]
+    }
+    this.group.add(this)
+    this.context.add(this)
+    allWaypoints[this.key] = this
+    keyCounter += 1
+  }
+
+  /* Private */
+  Waypoint.prototype.queueTrigger = function(direction) {
+    this.group.queueTrigger(this, direction)
+  }
+
+  /* Private */
+  Waypoint.prototype.trigger = function(args) {
+    if (!this.enabled) {
+      return
+    }
+    if (this.callback) {
+      this.callback.apply(this, args)
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy */
+  Waypoint.prototype.destroy = function() {
+    this.context.remove(this)
+    this.group.remove(this)
+    delete allWaypoints[this.key]
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable */
+  Waypoint.prototype.disable = function() {
+    this.enabled = false
+    return this
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable */
+  Waypoint.prototype.enable = function() {
+    this.context.refresh()
+    this.enabled = true
+    return this
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/next */
+  Waypoint.prototype.next = function() {
+    return this.group.next(this)
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/previous */
+  Waypoint.prototype.previous = function() {
+    return this.group.previous(this)
+  }
+
+  /* Private */
+  Waypoint.invokeAll = function(method) {
+    var allWaypointsArray = []
+    for (var waypointKey in allWaypoints) {
+      allWaypointsArray.push(allWaypoints[waypointKey])
+    }
+    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
+      allWaypointsArray[i][method]()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy-all */
+  Waypoint.destroyAll = function() {
+    Waypoint.invokeAll('destroy')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable-all */
+  Waypoint.disableAll = function() {
+    Waypoint.invokeAll('disable')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable-all */
+  Waypoint.enableAll = function() {
+    Waypoint.Context.refreshAll()
+    for (var waypointKey in allWaypoints) {
+      allWaypoints[waypointKey].enabled = true
+    }
+    return this
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/refresh-all */
+  Waypoint.refreshAll = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-height */
+  Waypoint.viewportHeight = function() {
+    return window.innerHeight || document.documentElement.clientHeight
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-width */
+  Waypoint.viewportWidth = function() {
+    return document.documentElement.clientWidth
+  }
+
+  Waypoint.adapters = []
+
+  Waypoint.defaults = {
+    context: window,
+    continuous: true,
+    enabled: true,
+    group: 'default',
+    horizontal: false,
+    offset: 0
+  }
+
+  Waypoint.offsetAliases = {
+    'bottom-in-view': function() {
+      return this.context.innerHeight() - this.adapter.outerHeight()
+    },
+    'right-in-view': function() {
+      return this.context.innerWidth() - this.adapter.outerWidth()
+    }
+  }
+
+  window.Waypoint = Waypoint
+}())
+;(function() {
+  'use strict'
+
+  function requestAnimationFrameShim(callback) {
+    window.setTimeout(callback, 1000 / 60)
+  }
+
+  var keyCounter = 0
+  var contexts = {}
+  var Waypoint = window.Waypoint
+  var oldWindowLoad = window.onload
+
+  /* http://imakewebthings.com/waypoints/api/context */
+  function Context(element) {
+    this.element = element
+    this.Adapter = Waypoint.Adapter
+    this.adapter = new this.Adapter(element)
+    this.key = 'waypoint-context-' + keyCounter
+    this.didScroll = false
+    this.didResize = false
+    this.oldScroll = {
+      x: this.adapter.scrollLeft(),
+      y: this.adapter.scrollTop()
+    }
+    this.waypoints = {
+      vertical: {},
+      horizontal: {}
+    }
+
+    element.waypointContextKey = this.key
+    contexts[element.waypointContextKey] = this
+    keyCounter += 1
+    if (!Waypoint.windowContext) {
+      Waypoint.windowContext = true
+      Waypoint.windowContext = new Context(window)
+    }
+
+    this.createThrottledScrollHandler()
+    this.createThrottledResizeHandler()
+  }
+
+  /* Private */
+  Context.prototype.add = function(waypoint) {
+    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
+    this.waypoints[axis][waypoint.key] = waypoint
+    this.refresh()
+  }
+
+  /* Private */
+  Context.prototype.checkEmpty = function() {
+    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
+    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
+    var isWindow = this.element == this.element.window
+    if (horizontalEmpty && verticalEmpty && !isWindow) {
+      this.adapter.off('.waypoints')
+      delete contexts[this.key]
+    }
+  }
+
+  /* Private */
+  Context.prototype.createThrottledResizeHandler = function() {
+    var self = this
+
+    function resizeHandler() {
+      self.handleResize()
+      self.didResize = false
+    }
+
+    this.adapter.on('resize.waypoints', function() {
+      if (!self.didResize) {
+        self.didResize = true
+        Waypoint.requestAnimationFrame(resizeHandler)
+      }
+    })
+  }
+
+  /* Private */
+  Context.prototype.createThrottledScrollHandler = function() {
+    var self = this
+    function scrollHandler() {
+      self.handleScroll()
+      self.didScroll = false
+    }
+
+    this.adapter.on('scroll.waypoints', function() {
+      if (!self.didScroll || Waypoint.isTouch) {
+        self.didScroll = true
+        Waypoint.requestAnimationFrame(scrollHandler)
+      }
+    })
+  }
+
+  /* Private */
+  Context.prototype.handleResize = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Private */
+  Context.prototype.handleScroll = function() {
+    var triggeredGroups = {}
+    var axes = {
+      horizontal: {
+        newScroll: this.adapter.scrollLeft(),
+        oldScroll: this.oldScroll.x,
+        forward: 'right',
+        backward: 'left'
+      },
+      vertical: {
+        newScroll: this.adapter.scrollTop(),
+        oldScroll: this.oldScroll.y,
+        forward: 'down',
+        backward: 'up'
+      }
+    }
+
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
+      var isForward = axis.newScroll > axis.oldScroll
+      var direction = isForward ? axis.forward : axis.backward
+
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
+        if (waypoint.triggerPoint === null) {
+          continue
+        }
+        var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint
+        var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint
+        var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
+        var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint
+        if (crossedForward || crossedBackward) {
+          waypoint.queueTrigger(direction)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+      }
+    }
+
+    for (var groupKey in triggeredGroups) {
+      triggeredGroups[groupKey].flushTriggers()
+    }
+
+    this.oldScroll = {
+      x: axes.horizontal.newScroll,
+      y: axes.vertical.newScroll
+    }
+  }
+
+  /* Private */
+  Context.prototype.innerHeight = function() {
+    /*eslint-disable eqeqeq */
+    if (this.element == this.element.window) {
+      return Waypoint.viewportHeight()
+    }
+    /*eslint-enable eqeqeq */
+    return this.adapter.innerHeight()
+  }
+
+  /* Private */
+  Context.prototype.remove = function(waypoint) {
+    delete this.waypoints[waypoint.axis][waypoint.key]
+    this.checkEmpty()
+  }
+
+  /* Private */
+  Context.prototype.innerWidth = function() {
+    /*eslint-disable eqeqeq */
+    if (this.element == this.element.window) {
+      return Waypoint.viewportWidth()
+    }
+    /*eslint-enable eqeqeq */
+    return this.adapter.innerWidth()
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-destroy */
+  Context.prototype.destroy = function() {
+    var allWaypoints = []
+    for (var axis in this.waypoints) {
+      for (var waypointKey in this.waypoints[axis]) {
+        allWaypoints.push(this.waypoints[axis][waypointKey])
+      }
+    }
+    for (var i = 0, end = allWaypoints.length; i < end; i++) {
+      allWaypoints[i].destroy()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-refresh */
+  Context.prototype.refresh = function() {
+    /*eslint-disable eqeqeq */
+    var isWindow = this.element == this.element.window
+    /*eslint-enable eqeqeq */
+    var contextOffset = isWindow ? undefined : this.adapter.offset()
+    var triggeredGroups = {}
+    var axes
+
+    this.handleScroll()
+    axes = {
+      horizontal: {
+        contextOffset: isWindow ? 0 : contextOffset.left,
+        contextScroll: isWindow ? 0 : this.oldScroll.x,
+        contextDimension: this.innerWidth(),
+        oldScroll: this.oldScroll.x,
+        forward: 'right',
+        backward: 'left',
+        offsetProp: 'left'
+      },
+      vertical: {
+        contextOffset: isWindow ? 0 : contextOffset.top,
+        contextScroll: isWindow ? 0 : this.oldScroll.y,
+        contextDimension: this.innerHeight(),
+        oldScroll: this.oldScroll.y,
+        forward: 'down',
+        backward: 'up',
+        offsetProp: 'top'
+      }
+    }
+
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
+        var adjustment = waypoint.options.offset
+        var oldTriggerPoint = waypoint.triggerPoint
+        var elementOffset = 0
+        var freshWaypoint = oldTriggerPoint == null
+        var contextModifier, wasBeforeScroll, nowAfterScroll
+        var triggeredBackward, triggeredForward
+
+        if (waypoint.element !== waypoint.element.window) {
+          elementOffset = waypoint.adapter.offset()[axis.offsetProp]
+        }
+
+        if (typeof adjustment === 'function') {
+          adjustment = adjustment.apply(waypoint)
+        }
+        else if (typeof adjustment === 'string') {
+          adjustment = parseFloat(adjustment)
+          if (waypoint.options.offset.indexOf('%') > - 1) {
+            adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
+          }
+        }
+
+        contextModifier = axis.contextScroll - axis.contextOffset
+        waypoint.triggerPoint = Math.floor(elementOffset + contextModifier - adjustment)
+        wasBeforeScroll = oldTriggerPoint < axis.oldScroll
+        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
+        triggeredBackward = wasBeforeScroll && nowAfterScroll
+        triggeredForward = !wasBeforeScroll && !nowAfterScroll
+
+        if (!freshWaypoint && triggeredBackward) {
+          waypoint.queueTrigger(axis.backward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+        else if (!freshWaypoint && triggeredForward) {
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+      }
+    }
+
+    Waypoint.requestAnimationFrame(function() {
+      for (var groupKey in triggeredGroups) {
+        triggeredGroups[groupKey].flushTriggers()
+      }
+    })
+
+    return this
+  }
+
+  /* Private */
+  Context.findOrCreateByElement = function(element) {
+    return Context.findByElement(element) || new Context(element)
+  }
+
+  /* Private */
+  Context.refreshAll = function() {
+    for (var contextId in contexts) {
+      contexts[contextId].refresh()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
+  Context.findByElement = function(element) {
+    return contexts[element.waypointContextKey]
+  }
+
+  window.onload = function() {
+    if (oldWindowLoad) {
+      oldWindowLoad()
+    }
+    Context.refreshAll()
+  }
+
+
+  Waypoint.requestAnimationFrame = function(callback) {
+    var requestFn = window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      requestAnimationFrameShim
+    requestFn.call(window, callback)
+  }
+  Waypoint.Context = Context
+}())
+;(function() {
+  'use strict'
+
+  function byTriggerPoint(a, b) {
+    return a.triggerPoint - b.triggerPoint
+  }
+
+  function byReverseTriggerPoint(a, b) {
+    return b.triggerPoint - a.triggerPoint
+  }
+
+  var groups = {
+    vertical: {},
+    horizontal: {}
+  }
+  var Waypoint = window.Waypoint
+
+  /* http://imakewebthings.com/waypoints/api/group */
+  function Group(options) {
+    this.name = options.name
+    this.axis = options.axis
+    this.id = this.name + '-' + this.axis
+    this.waypoints = []
+    this.clearTriggerQueues()
+    groups[this.axis][this.name] = this
+  }
+
+  /* Private */
+  Group.prototype.add = function(waypoint) {
+    this.waypoints.push(waypoint)
+  }
+
+  /* Private */
+  Group.prototype.clearTriggerQueues = function() {
+    this.triggerQueues = {
+      up: [],
+      down: [],
+      left: [],
+      right: []
+    }
+  }
+
+  /* Private */
+  Group.prototype.flushTriggers = function() {
+    for (var direction in this.triggerQueues) {
+      var waypoints = this.triggerQueues[direction]
+      var reverse = direction === 'up' || direction === 'left'
+      waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint)
+      for (var i = 0, end = waypoints.length; i < end; i += 1) {
+        var waypoint = waypoints[i]
+        if (waypoint.options.continuous || i === waypoints.length - 1) {
+          waypoint.trigger([direction])
+        }
+      }
+    }
+    this.clearTriggerQueues()
+  }
+
+  /* Private */
+  Group.prototype.next = function(waypoint) {
+    this.waypoints.sort(byTriggerPoint)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var isLast = index === this.waypoints.length - 1
+    return isLast ? null : this.waypoints[index + 1]
+  }
+
+  /* Private */
+  Group.prototype.previous = function(waypoint) {
+    this.waypoints.sort(byTriggerPoint)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    return index ? this.waypoints[index - 1] : null
+  }
+
+  /* Private */
+  Group.prototype.queueTrigger = function(waypoint, direction) {
+    this.triggerQueues[direction].push(waypoint)
+  }
+
+  /* Private */
+  Group.prototype.remove = function(waypoint) {
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    if (index > -1) {
+      this.waypoints.splice(index, 1)
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/first */
+  Group.prototype.first = function() {
+    return this.waypoints[0]
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/last */
+  Group.prototype.last = function() {
+    return this.waypoints[this.waypoints.length - 1]
+  }
+
+  /* Private */
+  Group.findOrCreate = function(options) {
+    return groups[options.axis][options.name] || new Group(options)
+  }
+
+  Waypoint.Group = Group
+}())
+;(function() {
+  'use strict'
+
+  var $ = window.jQuery
+  var Waypoint = window.Waypoint
+
+  function JQueryAdapter(element) {
+    this.$element = $(element)
+  }
+
+  $.each([
+    'innerHeight',
+    'innerWidth',
+    'off',
+    'offset',
+    'on',
+    'outerHeight',
+    'outerWidth',
+    'scrollLeft',
+    'scrollTop'
+  ], function(i, method) {
+    JQueryAdapter.prototype[method] = function() {
+      var args = Array.prototype.slice.call(arguments)
+      return this.$element[method].apply(this.$element, args)
+    }
+  })
+
+  $.each([
+    'extend',
+    'inArray',
+    'isEmptyObject'
+  ], function(i, method) {
+    JQueryAdapter[method] = $[method]
+  })
+
+  Waypoint.adapters.push({
+    name: 'jquery',
+    Adapter: JQueryAdapter
+  })
+  Waypoint.Adapter = JQueryAdapter
+}())
+;(function() {
+  'use strict'
+
+  var Waypoint = window.Waypoint
+
+  function createExtension(framework) {
+    return function() {
+      var waypoints = []
+      var overrides = arguments[0]
+
+      if (framework.isFunction(arguments[0])) {
+        overrides = framework.extend({}, arguments[1])
+        overrides.handler = arguments[0]
+      }
+
+      this.each(function() {
+        var options = framework.extend({}, overrides, {
+          element: this
+        })
+        if (typeof options.context === 'string') {
+          options.context = framework(this).closest(options.context)[0]
+        }
+        waypoints.push(new Waypoint(options))
+      })
+
+      return waypoints
+    }
+  }
+
+  if (window.jQuery) {
+    window.jQuery.fn.waypoint = createExtension(window.jQuery)
+  }
+  if (window.Zepto) {
+    window.Zepto.fn.waypoint = createExtension(window.Zepto)
+  }
+}())
+;
+
+/***/ }),
+
 /***/ "../../../node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -10033,9 +11034,9 @@ module.exports = g;
 /***/ }),
 
 /***/ "../../../node_modules/wowjs/dist/wow.js":
-/*!*************************************************************************!*\
-  !*** C:/Projects/vagrant/web/acamar_web/node_modules/wowjs/dist/wow.js ***!
-  \*************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/jirimakarius/Projects/acamar_web/node_modules/wowjs/dist/wow.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10642,7 +11643,15 @@ __webpack_require__(/*! bootstrap */ "../../../node_modules/bootstrap/dist/js/bo
 
 __webpack_require__(/*! jquery-match-height/dist/jquery.matchHeight */ "../../../node_modules/jquery-match-height/dist/jquery.matchHeight.js");
 
+__webpack_require__(/*! waypoints/lib/jquery.waypoints */ "../../../node_modules/waypoints/lib/jquery.waypoints.js");
+
+__webpack_require__(/*! jquery.counterup */ "../../../node_modules/jquery.counterup/jquery.counterup.js");
+
+__webpack_require__(/*! jquery.parallax-scroll/js/jquery.parallax-scroll */ "../../../node_modules/jquery.parallax-scroll/js/jquery.parallax-scroll.js");
+
 __webpack_require__(/*! ../styles/main.scss */ "./styles/main.scss");
+
+var _wowjs = __webpack_require__(/*! wowjs */ "../../../node_modules/wowjs/dist/wow.js");
 
 __webpack_require__(/*! ./vendor */ "./scripts/vendor.js");
 
@@ -10662,15 +11671,7 @@ __webpack_require__(/*! ./plugins/login */ "./scripts/plugins/login.js");
 
 __webpack_require__(/*! ./plugins/contact_form */ "./scripts/plugins/contact_form.js");
 
-__webpack_require__(/*! ./plugins/jquery.parallax-scroll */ "./scripts/plugins/jquery.parallax-scroll.js");
-
-__webpack_require__(/*! ./plugins/jquery.waypoints */ "./scripts/plugins/jquery.waypoints.js");
-
-__webpack_require__(/*! ./plugins/jquery.counterup.min */ "./scripts/plugins/jquery.counterup.min.js");
-
 __webpack_require__(/*! ./apps/position_detail */ "./scripts/apps/position_detail.js");
-
-var _wowjs = __webpack_require__(/*! wowjs */ "../../../node_modules/wowjs/dist/wow.js");
 
 $(function () {
 	$.ajaxSetup({
@@ -10751,10 +11752,6 @@ $(document).ready(function () {
 	}
 
 	new _wowjs.WOW().init();
-
-	$(".counter").counterUp({
-		time: 1000
-	});
 });
 
 /***/ }),
@@ -10894,891 +11891,6 @@ $(function () {
 		});
 	});
 });
-
-/***/ }),
-
-/***/ "./scripts/plugins/jquery.counterup.min.js":
-/*!*************************************************!*\
-  !*** ./scripts/plugins/jquery.counterup.min.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable */
-/*!
-* jquery.counterup.js 1.0
-*
-* Copyright 2013, Benjamin Intal http://gambit.ph @bfintal
-* Released under the GPL v2 License
-*
-* Date: Nov 26, 2013
-*/(function (e) {
-  "use strict";
-  e.fn.counterUp = function (t) {
-    var n = e.extend({ time: 400, delay: 10 }, t);return this.each(function () {
-      var t = e(this),
-          r = n,
-          i = function i() {
-        var e = [],
-            n = r.time / r.delay,
-            i = t.text(),
-            s = /[0-9]+,[0-9]+/.test(i);i = i.replace(/,/g, "");var o = /^[0-9]+$/.test(i),
-            u = /^[0-9]+\.[0-9]+$/.test(i),
-            a = u ? (i.split(".")[1] || []).length : 0;for (var f = n; f >= 1; f--) {
-          var l = parseInt(i / n * f);u && (l = parseFloat(i / n * f).toFixed(a));if (s) while (/(\d+)(\d{3})/.test(l.toString())) {
-            l = l.toString().replace(/(\d+)(\d{3})/, "$1,$2");
-          }e.unshift(l);
-        }t.data("counterup-nums", e);t.text("0");var c = function c() {
-          t.text(t.data("counterup-nums").shift());if (t.data("counterup-nums").length) setTimeout(t.data("counterup-func"), r.delay);else {
-            delete t.data("counterup-nums");t.data("counterup-nums", null);t.data("counterup-func", null);
-          }
-        };t.data("counterup-func", c);setTimeout(t.data("counterup-func"), r.delay);
-      };t.waypoint(i, { offset: "100%", triggerOnce: !0 });
-    });
-  };
-})(jQuery);
-
-/***/ }),
-
-/***/ "./scripts/plugins/jquery.parallax-scroll.js":
-/*!***************************************************!*\
-  !*** ./scripts/plugins/jquery.parallax-scroll.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable */
-$(function () {
-    ParallaxScroll.init();
-});
-
-var ParallaxScroll = {
-    /* PUBLIC VARIABLES */
-    showLogs: false,
-    round: 1000,
-
-    /* PUBLIC FUNCTIONS */
-    init: function init() {
-        this._log("init");
-        if (this._inited) {
-            this._log("Already Inited");
-            this._inited = true;
-            return;
-        }
-        this._requestAnimationFrame = function () {
-            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function ( /* function */callback, /* DOMElement */element) {
-                window.setTimeout(callback, 1000 / 60);
-            };
-        }();
-        this._onScroll(true);
-    },
-
-    /* PRIVATE VARIABLES */
-    _inited: false,
-    _properties: ['x', 'y', 'z', 'rotateX', 'rotateY', 'rotateZ', 'scaleX', 'scaleY', 'scaleZ', 'scale'],
-    _requestAnimationFrame: null,
-
-    /* PRIVATE FUNCTIONS */
-    _log: function _log(message) {
-        if (this.showLogs) console.log("Parallax Scroll / " + message);
-    },
-    _onScroll: function _onScroll(noSmooth) {
-        var scroll = $(document).scrollTop();
-        var windowHeight = $(window).height();
-        this._log("onScroll " + scroll);
-        $("[data-parallax]").each($.proxy(function (index, el) {
-            var $el = $(el);
-            var properties = [];
-            var applyProperties = false;
-            var style = $el.data("style");
-            if (style == undefined) {
-                style = $el.attr("style") || "";
-                $el.data("style", style);
-            }
-            var datas = [$el.data("parallax")];
-            var iData;
-            for (iData = 2;; iData++) {
-                if ($el.data("parallax" + iData)) {
-                    datas.push($el.data("parallax-" + iData));
-                } else {
-                    break;
-                }
-            }
-            var datasLength = datas.length;
-            for (iData = 0; iData < datasLength; iData++) {
-                var data = datas[iData];
-                var scrollFrom = data["from-scroll"];
-                if (scrollFrom == undefined) scrollFrom = Math.max(0, $(el).offset().top - windowHeight);
-                scrollFrom = scrollFrom | 0;
-                var scrollDistance = data["distance"];
-                var scrollTo = data["to-scroll"];
-                if (scrollDistance == undefined && scrollTo == undefined) scrollDistance = windowHeight;
-                scrollDistance = Math.max(scrollDistance | 0, 1);
-                var easing = data["easing"];
-                var easingReturn = data["easing-return"];
-                if (easing == undefined || !$.easing || !$.easing[easing]) easing = null;
-                if (easingReturn == undefined || !$.easing || !$.easing[easingReturn]) easingReturn = easing;
-                if (easing) {
-                    var totalTime = data["duration"];
-                    if (totalTime == undefined) totalTime = scrollDistance;
-                    totalTime = Math.max(totalTime | 0, 1);
-                    var totalTimeReturn = data["duration-return"];
-                    if (totalTimeReturn == undefined) totalTimeReturn = totalTime;
-                    scrollDistance = 1;
-                    var currentTime = $el.data("current-time");
-                    if (currentTime == undefined) currentTime = 0;
-                }
-                if (scrollTo == undefined) scrollTo = scrollFrom + scrollDistance;
-                scrollTo = scrollTo | 0;
-                var smoothness = data["smoothness"];
-                if (smoothness == undefined) smoothness = 30;
-                smoothness = smoothness | 0;
-                if (noSmooth || smoothness == 0) smoothness = 1;
-                smoothness = smoothness | 0;
-                var scrollCurrent = scroll;
-                scrollCurrent = Math.max(scrollCurrent, scrollFrom);
-                scrollCurrent = Math.min(scrollCurrent, scrollTo);
-                if (easing) {
-                    if ($el.data("sens") == undefined) $el.data("sens", "back");
-                    if (scrollCurrent > scrollFrom) {
-                        if ($el.data("sens") == "back") {
-                            currentTime = 1;
-                            $el.data("sens", "go");
-                        } else {
-                            currentTime++;
-                        }
-                    }
-                    if (scrollCurrent < scrollTo) {
-                        if ($el.data("sens") == "go") {
-                            currentTime = 1;
-                            $el.data("sens", "back");
-                        } else {
-                            currentTime++;
-                        }
-                    }
-                    if (noSmooth) currentTime = totalTime;
-                    $el.data("current-time", currentTime);
-                }
-                this._properties.map($.proxy(function (prop) {
-                    var defaultProp = 0;
-                    var to = data[prop];
-                    if (to == undefined) return;
-                    if (prop == "scale" || prop == "scaleX" || prop == "scaleY" || prop == "scaleZ") {
-                        defaultProp = 1;
-                    } else {
-                        to = to | 0;
-                    }
-                    var prev = $el.data("_" + prop);
-                    if (prev == undefined) prev = defaultProp;
-                    var next = (to - defaultProp) * ((scrollCurrent - scrollFrom) / (scrollTo - scrollFrom)) + defaultProp;
-                    var val = prev + (next - prev) / smoothness;
-                    if (easing && currentTime > 0 && currentTime <= totalTime) {
-                        var from = defaultProp;
-                        if ($el.data("sens") == "back") {
-                            from = to;
-                            to = -to;
-                            easing = easingReturn;
-                            totalTime = totalTimeReturn;
-                        }
-                        val = $.easing[easing](null, currentTime, from, to, totalTime);
-                    }
-                    val = Math.ceil(val * this.round) / this.round;
-                    if (val == prev && next == to) val = to;
-                    if (!properties[prop]) properties[prop] = 0;
-                    properties[prop] += val;
-                    if (prev != properties[prop]) {
-                        $el.data("_" + prop, properties[prop]);
-                        applyProperties = true;
-                    }
-                }, this));
-            }
-            if (applyProperties) {
-                if (properties["z"] != undefined) {
-                    var perspective = data["perspective"];
-                    if (perspective == undefined) perspective = 800;
-                    var $parent = $el.parent();
-                    if (!$parent.data("style")) $parent.data("style", $parent.attr("style") || "");
-                    $parent.attr("style", "perspective:" + perspective + "px; -webkit-perspective:" + perspective + "px; " + $parent.data("style"));
-                }
-                if (properties["scaleX"] == undefined) properties["scaleX"] = 1;
-                if (properties["scaleY"] == undefined) properties["scaleY"] = 1;
-                if (properties["scaleZ"] == undefined) properties["scaleZ"] = 1;
-                if (properties["scale"] != undefined) {
-                    properties["scaleX"] *= properties["scale"];
-                    properties["scaleY"] *= properties["scale"];
-                    properties["scaleZ"] *= properties["scale"];
-                }
-                var translate3d = "translate3d(" + (properties["x"] ? properties["x"] : 0) + "px, " + (properties["y"] ? properties["y"] : 0) + "px, " + (properties["z"] ? properties["z"] : 0) + "px)";
-                var rotate3d = "rotateX(" + (properties["rotateX"] ? properties["rotateX"] : 0) + "deg) rotateY(" + (properties["rotateY"] ? properties["rotateY"] : 0) + "deg) rotateZ(" + (properties["rotateZ"] ? properties["rotateZ"] : 0) + "deg)";
-                var scale3d = "scaleX(" + properties["scaleX"] + ") scaleY(" + properties["scaleY"] + ") scaleZ(" + properties["scaleZ"] + ")";
-                var cssTransform = translate3d + " " + rotate3d + " " + scale3d + ";";
-                this._log(cssTransform);
-                $el.attr("style", "transform:" + cssTransform + " -webkit-transform:" + cssTransform + " " + style);
-            }
-        }, this));
-        if (window.requestAnimationFrame) {
-            window.requestAnimationFrame($.proxy(this._onScroll, this, false));
-        } else {
-            this._requestAnimationFrame($.proxy(this._onScroll, this, false));
-        }
-    }
-};
-
-/***/ }),
-
-/***/ "./scripts/plugins/jquery.waypoints.js":
-/*!*********************************************!*\
-  !*** ./scripts/plugins/jquery.waypoints.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable */
-/*!
-Waypoints - 4.0.1
-Copyright © 2011-2016 Caleb Troughton
-Licensed under the MIT license.
-https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
-*/
-(function () {
-  'use strict';
-
-  var keyCounter = 0;
-  var allWaypoints = {};
-
-  /* http://imakewebthings.com/waypoints/api/waypoint */
-  function Waypoint(options) {
-    if (!options) {
-      throw new Error('No options passed to Waypoint constructor');
-    }
-    if (!options.element) {
-      throw new Error('No element option passed to Waypoint constructor');
-    }
-    if (!options.handler) {
-      throw new Error('No handler option passed to Waypoint constructor');
-    }
-
-    this.key = 'waypoint-' + keyCounter;
-    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options);
-    this.element = this.options.element;
-    this.adapter = new Waypoint.Adapter(this.element);
-    this.callback = options.handler;
-    this.axis = this.options.horizontal ? 'horizontal' : 'vertical';
-    this.enabled = this.options.enabled;
-    this.triggerPoint = null;
-    this.group = Waypoint.Group.findOrCreate({
-      name: this.options.group,
-      axis: this.axis
-    });
-    this.context = Waypoint.Context.findOrCreateByElement(this.options.context);
-
-    if (Waypoint.offsetAliases[this.options.offset]) {
-      this.options.offset = Waypoint.offsetAliases[this.options.offset];
-    }
-    this.group.add(this);
-    this.context.add(this);
-    allWaypoints[this.key] = this;
-    keyCounter += 1;
-  }
-
-  /* Private */
-  Waypoint.prototype.queueTrigger = function (direction) {
-    this.group.queueTrigger(this, direction);
-  };
-
-  /* Private */
-  Waypoint.prototype.trigger = function (args) {
-    if (!this.enabled) {
-      return;
-    }
-    if (this.callback) {
-      this.callback.apply(this, args);
-    }
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/destroy */
-  Waypoint.prototype.destroy = function () {
-    this.context.remove(this);
-    this.group.remove(this);
-    delete allWaypoints[this.key];
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/disable */
-  Waypoint.prototype.disable = function () {
-    this.enabled = false;
-    return this;
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/enable */
-  Waypoint.prototype.enable = function () {
-    this.context.refresh();
-    this.enabled = true;
-    return this;
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/next */
-  Waypoint.prototype.next = function () {
-    return this.group.next(this);
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/previous */
-  Waypoint.prototype.previous = function () {
-    return this.group.previous(this);
-  };
-
-  /* Private */
-  Waypoint.invokeAll = function (method) {
-    var allWaypointsArray = [];
-    for (var waypointKey in allWaypoints) {
-      allWaypointsArray.push(allWaypoints[waypointKey]);
-    }
-    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
-      allWaypointsArray[i][method]();
-    }
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/destroy-all */
-  Waypoint.destroyAll = function () {
-    Waypoint.invokeAll('destroy');
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/disable-all */
-  Waypoint.disableAll = function () {
-    Waypoint.invokeAll('disable');
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/enable-all */
-  Waypoint.enableAll = function () {
-    Waypoint.Context.refreshAll();
-    for (var waypointKey in allWaypoints) {
-      allWaypoints[waypointKey].enabled = true;
-    }
-    return this;
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/refresh-all */
-  Waypoint.refreshAll = function () {
-    Waypoint.Context.refreshAll();
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/viewport-height */
-  Waypoint.viewportHeight = function () {
-    return window.innerHeight || document.documentElement.clientHeight;
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/viewport-width */
-  Waypoint.viewportWidth = function () {
-    return document.documentElement.clientWidth;
-  };
-
-  Waypoint.adapters = [];
-
-  Waypoint.defaults = {
-    context: window,
-    continuous: true,
-    enabled: true,
-    group: 'default',
-    horizontal: false,
-    offset: 0
-  };
-
-  Waypoint.offsetAliases = {
-    'bottom-in-view': function bottomInView() {
-      return this.context.innerHeight() - this.adapter.outerHeight();
-    },
-    'right-in-view': function rightInView() {
-      return this.context.innerWidth() - this.adapter.outerWidth();
-    }
-  };
-
-  window.Waypoint = Waypoint;
-})();(function () {
-  'use strict';
-
-  function requestAnimationFrameShim(callback) {
-    window.setTimeout(callback, 1000 / 60);
-  }
-
-  var keyCounter = 0;
-  var contexts = {};
-  var Waypoint = window.Waypoint;
-  var oldWindowLoad = window.onload;
-
-  /* http://imakewebthings.com/waypoints/api/context */
-  function Context(element) {
-    this.element = element;
-    this.Adapter = Waypoint.Adapter;
-    this.adapter = new this.Adapter(element);
-    this.key = 'waypoint-context-' + keyCounter;
-    this.didScroll = false;
-    this.didResize = false;
-    this.oldScroll = {
-      x: this.adapter.scrollLeft(),
-      y: this.adapter.scrollTop()
-    };
-    this.waypoints = {
-      vertical: {},
-      horizontal: {}
-    };
-
-    element.waypointContextKey = this.key;
-    contexts[element.waypointContextKey] = this;
-    keyCounter += 1;
-    if (!Waypoint.windowContext) {
-      Waypoint.windowContext = true;
-      Waypoint.windowContext = new Context(window);
-    }
-
-    this.createThrottledScrollHandler();
-    this.createThrottledResizeHandler();
-  }
-
-  /* Private */
-  Context.prototype.add = function (waypoint) {
-    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical';
-    this.waypoints[axis][waypoint.key] = waypoint;
-    this.refresh();
-  };
-
-  /* Private */
-  Context.prototype.checkEmpty = function () {
-    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal);
-    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical);
-    var isWindow = this.element == this.element.window;
-    if (horizontalEmpty && verticalEmpty && !isWindow) {
-      this.adapter.off('.waypoints');
-      delete contexts[this.key];
-    }
-  };
-
-  /* Private */
-  Context.prototype.createThrottledResizeHandler = function () {
-    var self = this;
-
-    function resizeHandler() {
-      self.handleResize();
-      self.didResize = false;
-    }
-
-    this.adapter.on('resize.waypoints', function () {
-      if (!self.didResize) {
-        self.didResize = true;
-        Waypoint.requestAnimationFrame(resizeHandler);
-      }
-    });
-  };
-
-  /* Private */
-  Context.prototype.createThrottledScrollHandler = function () {
-    var self = this;
-    function scrollHandler() {
-      self.handleScroll();
-      self.didScroll = false;
-    }
-
-    this.adapter.on('scroll.waypoints', function () {
-      if (!self.didScroll || Waypoint.isTouch) {
-        self.didScroll = true;
-        Waypoint.requestAnimationFrame(scrollHandler);
-      }
-    });
-  };
-
-  /* Private */
-  Context.prototype.handleResize = function () {
-    Waypoint.Context.refreshAll();
-  };
-
-  /* Private */
-  Context.prototype.handleScroll = function () {
-    var triggeredGroups = {};
-    var axes = {
-      horizontal: {
-        newScroll: this.adapter.scrollLeft(),
-        oldScroll: this.oldScroll.x,
-        forward: 'right',
-        backward: 'left'
-      },
-      vertical: {
-        newScroll: this.adapter.scrollTop(),
-        oldScroll: this.oldScroll.y,
-        forward: 'down',
-        backward: 'up'
-      }
-    };
-
-    for (var axisKey in axes) {
-      var axis = axes[axisKey];
-      var isForward = axis.newScroll > axis.oldScroll;
-      var direction = isForward ? axis.forward : axis.backward;
-
-      for (var waypointKey in this.waypoints[axisKey]) {
-        var waypoint = this.waypoints[axisKey][waypointKey];
-        if (waypoint.triggerPoint === null) {
-          continue;
-        }
-        var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint;
-        var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint;
-        var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint;
-        var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint;
-        if (crossedForward || crossedBackward) {
-          waypoint.queueTrigger(direction);
-          triggeredGroups[waypoint.group.id] = waypoint.group;
-        }
-      }
-    }
-
-    for (var groupKey in triggeredGroups) {
-      triggeredGroups[groupKey].flushTriggers();
-    }
-
-    this.oldScroll = {
-      x: axes.horizontal.newScroll,
-      y: axes.vertical.newScroll
-    };
-  };
-
-  /* Private */
-  Context.prototype.innerHeight = function () {
-    /*eslint-disable eqeqeq */
-    if (this.element == this.element.window) {
-      return Waypoint.viewportHeight();
-    }
-    /*eslint-enable eqeqeq */
-    return this.adapter.innerHeight();
-  };
-
-  /* Private */
-  Context.prototype.remove = function (waypoint) {
-    delete this.waypoints[waypoint.axis][waypoint.key];
-    this.checkEmpty();
-  };
-
-  /* Private */
-  Context.prototype.innerWidth = function () {
-    /*eslint-disable eqeqeq */
-    if (this.element == this.element.window) {
-      return Waypoint.viewportWidth();
-    }
-    /*eslint-enable eqeqeq */
-    return this.adapter.innerWidth();
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/context-destroy */
-  Context.prototype.destroy = function () {
-    var allWaypoints = [];
-    for (var axis in this.waypoints) {
-      for (var waypointKey in this.waypoints[axis]) {
-        allWaypoints.push(this.waypoints[axis][waypointKey]);
-      }
-    }
-    for (var i = 0, end = allWaypoints.length; i < end; i++) {
-      allWaypoints[i].destroy();
-    }
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/context-refresh */
-  Context.prototype.refresh = function () {
-    /*eslint-disable eqeqeq */
-    var isWindow = this.element == this.element.window;
-    /*eslint-enable eqeqeq */
-    var contextOffset = isWindow ? undefined : this.adapter.offset();
-    var triggeredGroups = {};
-    var axes;
-
-    this.handleScroll();
-    axes = {
-      horizontal: {
-        contextOffset: isWindow ? 0 : contextOffset.left,
-        contextScroll: isWindow ? 0 : this.oldScroll.x,
-        contextDimension: this.innerWidth(),
-        oldScroll: this.oldScroll.x,
-        forward: 'right',
-        backward: 'left',
-        offsetProp: 'left'
-      },
-      vertical: {
-        contextOffset: isWindow ? 0 : contextOffset.top,
-        contextScroll: isWindow ? 0 : this.oldScroll.y,
-        contextDimension: this.innerHeight(),
-        oldScroll: this.oldScroll.y,
-        forward: 'down',
-        backward: 'up',
-        offsetProp: 'top'
-      }
-    };
-
-    for (var axisKey in axes) {
-      var axis = axes[axisKey];
-      for (var waypointKey in this.waypoints[axisKey]) {
-        var waypoint = this.waypoints[axisKey][waypointKey];
-        var adjustment = waypoint.options.offset;
-        var oldTriggerPoint = waypoint.triggerPoint;
-        var elementOffset = 0;
-        var freshWaypoint = oldTriggerPoint == null;
-        var contextModifier, wasBeforeScroll, nowAfterScroll;
-        var triggeredBackward, triggeredForward;
-
-        if (waypoint.element !== waypoint.element.window) {
-          elementOffset = waypoint.adapter.offset()[axis.offsetProp];
-        }
-
-        if (typeof adjustment === 'function') {
-          adjustment = adjustment.apply(waypoint);
-        } else if (typeof adjustment === 'string') {
-          adjustment = parseFloat(adjustment);
-          if (waypoint.options.offset.indexOf('%') > -1) {
-            adjustment = Math.ceil(axis.contextDimension * adjustment / 100);
-          }
-        }
-
-        contextModifier = axis.contextScroll - axis.contextOffset;
-        waypoint.triggerPoint = Math.floor(elementOffset + contextModifier - adjustment);
-        wasBeforeScroll = oldTriggerPoint < axis.oldScroll;
-        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll;
-        triggeredBackward = wasBeforeScroll && nowAfterScroll;
-        triggeredForward = !wasBeforeScroll && !nowAfterScroll;
-
-        if (!freshWaypoint && triggeredBackward) {
-          waypoint.queueTrigger(axis.backward);
-          triggeredGroups[waypoint.group.id] = waypoint.group;
-        } else if (!freshWaypoint && triggeredForward) {
-          waypoint.queueTrigger(axis.forward);
-          triggeredGroups[waypoint.group.id] = waypoint.group;
-        } else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
-          waypoint.queueTrigger(axis.forward);
-          triggeredGroups[waypoint.group.id] = waypoint.group;
-        }
-      }
-    }
-
-    Waypoint.requestAnimationFrame(function () {
-      for (var groupKey in triggeredGroups) {
-        triggeredGroups[groupKey].flushTriggers();
-      }
-    });
-
-    return this;
-  };
-
-  /* Private */
-  Context.findOrCreateByElement = function (element) {
-    return Context.findByElement(element) || new Context(element);
-  };
-
-  /* Private */
-  Context.refreshAll = function () {
-    for (var contextId in contexts) {
-      contexts[contextId].refresh();
-    }
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
-  Context.findByElement = function (element) {
-    return contexts[element.waypointContextKey];
-  };
-
-  window.onload = function () {
-    if (oldWindowLoad) {
-      oldWindowLoad();
-    }
-    Context.refreshAll();
-  };
-
-  Waypoint.requestAnimationFrame = function (callback) {
-    var requestFn = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || requestAnimationFrameShim;
-    requestFn.call(window, callback);
-  };
-  Waypoint.Context = Context;
-})();(function () {
-  'use strict';
-
-  function byTriggerPoint(a, b) {
-    return a.triggerPoint - b.triggerPoint;
-  }
-
-  function byReverseTriggerPoint(a, b) {
-    return b.triggerPoint - a.triggerPoint;
-  }
-
-  var groups = {
-    vertical: {},
-    horizontal: {}
-  };
-  var Waypoint = window.Waypoint;
-
-  /* http://imakewebthings.com/waypoints/api/group */
-  function Group(options) {
-    this.name = options.name;
-    this.axis = options.axis;
-    this.id = this.name + '-' + this.axis;
-    this.waypoints = [];
-    this.clearTriggerQueues();
-    groups[this.axis][this.name] = this;
-  }
-
-  /* Private */
-  Group.prototype.add = function (waypoint) {
-    this.waypoints.push(waypoint);
-  };
-
-  /* Private */
-  Group.prototype.clearTriggerQueues = function () {
-    this.triggerQueues = {
-      up: [],
-      down: [],
-      left: [],
-      right: []
-    };
-  };
-
-  /* Private */
-  Group.prototype.flushTriggers = function () {
-    for (var direction in this.triggerQueues) {
-      var waypoints = this.triggerQueues[direction];
-      var reverse = direction === 'up' || direction === 'left';
-      waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint);
-      for (var i = 0, end = waypoints.length; i < end; i += 1) {
-        var waypoint = waypoints[i];
-        if (waypoint.options.continuous || i === waypoints.length - 1) {
-          waypoint.trigger([direction]);
-        }
-      }
-    }
-    this.clearTriggerQueues();
-  };
-
-  /* Private */
-  Group.prototype.next = function (waypoint) {
-    this.waypoints.sort(byTriggerPoint);
-    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints);
-    var isLast = index === this.waypoints.length - 1;
-    return isLast ? null : this.waypoints[index + 1];
-  };
-
-  /* Private */
-  Group.prototype.previous = function (waypoint) {
-    this.waypoints.sort(byTriggerPoint);
-    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints);
-    return index ? this.waypoints[index - 1] : null;
-  };
-
-  /* Private */
-  Group.prototype.queueTrigger = function (waypoint, direction) {
-    this.triggerQueues[direction].push(waypoint);
-  };
-
-  /* Private */
-  Group.prototype.remove = function (waypoint) {
-    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints);
-    if (index > -1) {
-      this.waypoints.splice(index, 1);
-    }
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/first */
-  Group.prototype.first = function () {
-    return this.waypoints[0];
-  };
-
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/last */
-  Group.prototype.last = function () {
-    return this.waypoints[this.waypoints.length - 1];
-  };
-
-  /* Private */
-  Group.findOrCreate = function (options) {
-    return groups[options.axis][options.name] || new Group(options);
-  };
-
-  Waypoint.Group = Group;
-})();(function () {
-  'use strict';
-
-  var $ = window.jQuery;
-  var Waypoint = window.Waypoint;
-
-  function JQueryAdapter(element) {
-    this.$element = $(element);
-  }
-
-  $.each(['innerHeight', 'innerWidth', 'off', 'offset', 'on', 'outerHeight', 'outerWidth', 'scrollLeft', 'scrollTop'], function (i, method) {
-    JQueryAdapter.prototype[method] = function () {
-      var args = Array.prototype.slice.call(arguments);
-      return this.$element[method].apply(this.$element, args);
-    };
-  });
-
-  $.each(['extend', 'inArray', 'isEmptyObject'], function (i, method) {
-    JQueryAdapter[method] = $[method];
-  });
-
-  Waypoint.adapters.push({
-    name: 'jquery',
-    Adapter: JQueryAdapter
-  });
-  Waypoint.Adapter = JQueryAdapter;
-})();(function () {
-  'use strict';
-
-  var Waypoint = window.Waypoint;
-
-  function createExtension(framework) {
-    return function () {
-      var waypoints = [];
-      var overrides = arguments[0];
-
-      if (framework.isFunction(arguments[0])) {
-        overrides = framework.extend({}, arguments[1]);
-        overrides.handler = arguments[0];
-      }
-
-      this.each(function () {
-        var options = framework.extend({}, overrides, {
-          element: this
-        });
-        if (typeof options.context === 'string') {
-          options.context = framework(this).closest(options.context)[0];
-        }
-        waypoints.push(new Waypoint(options));
-      });
-
-      return waypoints;
-    };
-  }
-
-  if (window.jQuery) {
-    window.jQuery.fn.waypoint = createExtension(window.jQuery);
-  }
-  if (window.Zepto) {
-    window.Zepto.fn.waypoint = createExtension(window.Zepto);
-  }
-})();
 
 /***/ }),
 
@@ -12070,6 +12182,9 @@ $(function () {
 				url: url,
 				method: method,
 				data: form.serialize(),
+				tryCount: 0,
+				retryLimit: 2,
+				cache: false,
 				success: function success(response) {
 					var html = $(response).hide();
 					html.ready(function () {
@@ -12083,6 +12198,14 @@ $(function () {
 							updateMore(positions);
 						});
 					});
+				},
+				error: function error(xhr, textStatus) {
+					if (textStatus == "timeout" || xhr.status == 500 || xhr.status == 502) {
+						this.tryCount++;
+						if (this.tryCount <= this.retryLimit) {
+							$.ajax(this);
+						}
+					}
 				}
 			});
 		});
@@ -12218,6 +12341,9 @@ $(document).ready(function () {
 	var reviews_section = $(".reviews-section");
 	if (reviews_section.length) {
 		reviews_section.initReviewCycle();
+		reviews_section.find(".counter").counterUp({
+			time: 1000
+		});
 	}
 });
 
