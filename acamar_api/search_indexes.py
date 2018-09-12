@@ -42,7 +42,15 @@ class PositionIndex(indexes.SearchIndex, indexes.Indexable):
         parser = HTMLParser()
         return parser.unescape(self.prepared_data["text"])
 
+    def prepare_url(self, obj):
+        return obj.get_absolute_url(self.language)
+
     def index_queryset(self, using=None):
         language = get_language_from_alias(using)
         self.language = language
         return self.get_model().objects_default.filter(**{"lang_{}".format(language): True})
+
+    def update_object(self, instance, using=None, **kwargs):
+        language = get_language_from_alias(using)
+        self.language = language
+        return super(PositionIndex, self).update_object(instance, using, **kwargs)
