@@ -11652,6 +11652,8 @@ $(function () {
 "use strict";
 
 
+__webpack_require__(/*! ./polyfill */ "./scripts/polyfill.js");
+
 __webpack_require__(/*! popper.js */ "../../../node_modules/popper.js/dist/esm/popper.js");
 
 __webpack_require__(/*! bootstrap */ "../../../node_modules/bootstrap/dist/js/bootstrap.js");
@@ -11755,7 +11757,7 @@ $(document).ready(function () {
 		var split = mail.split("@");
 		var base = split.length > 2 ? split.slice(0, split.length - 1).join("@") : split[0];
 		if (base.startsWith("aca") && base.endsWith("mar")) {
-			event.preventDefault();
+			event.preventDefault ? event.preventDefault() : event.returnValue = false;
 			base = base.substring(3);
 			base = base.substring(0, base.length - 3);
 			base = atob(base);
@@ -12391,6 +12393,33 @@ $(function () {
 		});
 	});
 });
+
+/***/ }),
+
+/***/ "./scripts/polyfill.js":
+/*!*****************************!*\
+  !*** ./scripts/polyfill.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (!String.prototype.startsWith) {
+	String.prototype.startsWith = function (search, pos) {
+		return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+	};
+}
+
+if (!String.prototype.endsWith) {
+	String.prototype.endsWith = function (search, this_len) {
+		if (this_len === undefined || this_len > this.length) {
+			this_len = this.length;
+		}
+		return this.substring(this_len - search.length, this_len) === search;
+	};
+}
 
 /***/ }),
 

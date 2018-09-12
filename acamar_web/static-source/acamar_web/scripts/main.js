@@ -1,3 +1,5 @@
+import "./polyfill";
+
 $(function () {
 	$.ajaxSetup({
 		beforeSend: function (xhr, settings) {
@@ -85,7 +87,7 @@ $(document).ready(function () {
 		const split = mail.split("@");
 		let base = (split.length > 2) ? split.slice(0, split.length - 1).join("@") : split[0];
 		if (base.startsWith("aca") && base.endsWith("mar")) {
-			event.preventDefault();
+			event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 			base = base.substring(3);
 			base = base.substring(0, base.length - 3);
 			base = atob(base);
