@@ -5,9 +5,13 @@ $(function () {
 		$this.click(function (event) {
 			event.stopPropagation();
 			let hidden = container.children(".member-hidden");
+			let buttonHidden = $(".button-hidden");
 			hidden.removeClass("member-hidden");
 			hidden.find(".card-top").matchHeight();
-			$(this).hide();
+			buttonHidden.removeClass("button-hidden");
+
+			$(".team-grid-button").hide();
+
 		});
 	});
 });

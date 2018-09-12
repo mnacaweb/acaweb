@@ -13272,6 +13272,10 @@ textarea {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjQ5IDMxLjQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMS40OSAzMS40OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIGQ9Ik0yMS4yMDUsNS4wMDdjLTAuNDI5LTAuNDQ0LTEuMTQzLTAuNDQ0LTEuNTg3LDBjLTAuNDI5LDAuNDI5LTAuNDI5LDEuMTQzLDAsMS41NzFsOC4wNDcsOC4wNDdIMS4xMTEgIEMwLjQ5MiwxNC42MjYsMCwxNS4xMTgsMCwxNS43MzdjMCwwLjYxOSwwLjQ5MiwxLjEyNywxLjExMSwxLjEyN2gyNi41NTRsLTguMDQ3LDguMDMyYy0wLjQyOSwwLjQ0NC0wLjQyOSwxLjE1OSwwLDEuNTg3ICBjMC40NDQsMC40NDQsMS4xNTksMC40NDQsMS41ODcsMGw5Ljk1Mi05Ljk1MmMwLjQ0NC0wLjQyOSwwLjQ0NC0xLjE0MywwLTEuNTcxTDIxLjIwNSw1LjAwN3oiIGZpbGw9IiNGRkZGRkYiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
 }
 
+.button.button-hidden {
+  display: none;
+}
+
 /* ==========================================================================
    ICONS
    ========================================================================== */
@@ -14069,7 +14073,7 @@ input[type="text"]::placeholder {
   font-size: 25px;
   font-weight: 700;
   margin-bottom: 0;
-  line-height: 20px;
+  line-height: 30px;
 }
 
 .subtitle-normal {
@@ -14560,7 +14564,7 @@ input[type="text"]::placeholder {
     min-height: 530px;
     background-repeat: no-repeat;
     background-position: center center;
-    display: flex;
+    padding-top: 87px;
     align-items: center;
     justify-content: center;
   }
@@ -14987,7 +14991,6 @@ input[type="text"]::placeholder {
 
 .creat-team-section .create-team-wrapper {
   min-height: 160px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -15485,9 +15488,8 @@ input[type="text"]::placeholder {
 
 .section-acafriends .card .acafriends-image .rounded-image {
   position: absolute;
-  bottom: 0;
+  bottom: -25px;
   width: 50%;
-  height: 170px;
   left: calc(50% + 25px);
   -o-object-fit: cover;
      object-fit: cover;
@@ -15541,9 +15543,8 @@ input[type="text"]::placeholder {
    Position search
    ========================================================================== */
 
-.position-search .face img {
-  -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
+.position-search .face img.grayscale:hover {
+  filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale");
 }
 
 /* ==========================================================================
@@ -16061,6 +16062,7 @@ input[type="text"]::placeholder {
   .page-detail .recruitment .recruitment-wrapper .person-wrapper-image .person-image {
     height: auto;
     left: 0;
+    width: 100%;
   }
 }
 
@@ -16523,7 +16525,7 @@ body.thank-you {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 700px;
+  height: 700px;
   padding: 0 30px;
   /* @include r(tablet){
         display: flex;
@@ -16580,7 +16582,6 @@ body.thank-you {
 
 .page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper {
   max-width: 544px;
-  margin: 0 auto;
   position: relative;
   z-index: 2;
   color: #ffffff;

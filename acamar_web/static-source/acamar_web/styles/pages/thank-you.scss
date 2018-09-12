@@ -45,7 +45,7 @@ body.thank-you{
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 700px;
+      height: 700px;
       padding: 0 30px;
 
       @include media-breakpoint-down(sm) {
@@ -94,7 +94,7 @@ body.thank-you{
 
       .thank-you-image-wrapper{
         max-width: 544px;
-        margin: 0 auto;
+        //margin: 0 auto;
         position: relative;
         z-index: 2;
         color: #ffffff;

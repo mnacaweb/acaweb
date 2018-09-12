@@ -1,5 +1,6 @@
 import "jquery-validation/dist/jquery.validate";
 
+
 $.validator.addMethod( "maxsize", function( value, element, param ) {
 	if ( this.optional( element ) ) {
 		return true;

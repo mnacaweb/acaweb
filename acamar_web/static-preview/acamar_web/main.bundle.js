@@ -12382,9 +12382,12 @@ $(function () {
 		$this.click(function (event) {
 			event.stopPropagation();
 			var hidden = container.children(".member-hidden");
+			var buttonHidden = $(".button-hidden");
 			hidden.removeClass("member-hidden");
 			hidden.find(".card-top").matchHeight();
-			$(this).hide();
+			buttonHidden.removeClass("button-hidden");
+
+			$(".team-grid-button").hide();
 		});
 	});
 });
