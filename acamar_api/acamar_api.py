@@ -173,7 +173,7 @@ class AcamarPositionManager:
                     obj.technologies.clear()
                     obj.technologies.add(*technologies)
                     obj_ids.append(obj.id)
-                Position.objects_default.exclude(id__in=obj_ids).update(lang=False)
+                Position.objects_default.exclude(id__in=obj_ids).update(lang=False, slug=None)
 
         cls._delete_old_positions()
 

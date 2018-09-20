@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from filer.admin import FileAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -26,7 +25,7 @@ class TeamMemberAdmin(TabbedTranslationAdmin):
 
 
 @admin.register(Link)
-class LinkAdmin(admin.ModelAdmin):
+class LinkAdmin(TabbedTranslationAdmin):
     fieldsets = [
         (None, {
             'fields': (

@@ -271,9 +271,10 @@ class Position(ModelMeta, models.Model):
         return unique_slug
 
     def save(self, *args, **kwargs):
-        if not self.slug and self.lang:
+        language = translation.get_language()
+        if not getattr(self, "slug_{}".format(language)) and getattr(self, "lang_{}".format(language)):
             self.slug = self._get_unique_slug()
-        elif not self.lang:
+        elif not getattr(self, "lang_{}".format(language)):
             self.slug = None
         super(Position, self).save(*args, **kwargs)
 
