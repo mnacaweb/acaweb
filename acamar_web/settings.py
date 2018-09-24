@@ -433,7 +433,7 @@ if RAVEN_ENABLED:
                 'propagate': False,
             },
             'raven': {
-                'level': 'DEBUG',
+                'level': 'INFO',
                 'handlers': ['console'],
                 'propagate': False,
             },
