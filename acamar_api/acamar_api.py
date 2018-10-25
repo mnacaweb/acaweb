@@ -36,7 +36,7 @@ class AcamarCourseManager:
 
     @classmethod
     def _all(cls):
-        resp = requests.get(url="https://www.acamar.cz/api_kurzy.php",
+        resp = requests.get(url="https://old.acamar.cz/api_kurzy.php",
                             params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"},
                             proxies=settings.PROXIES)
         if resp.status_code == 200:
@@ -60,7 +60,7 @@ class AcamarCourseManager:
 
 
 class AcamarPositionManager:
-    url = "https://www.acamar.cz/api_pozice.php"
+    url = "https://old.acamar.cz/api_pozice.php"
     cache_prefix = "acamar_position_{}"
     cache_duration = 300
 

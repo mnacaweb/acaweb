@@ -70,9 +70,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     {% show_menu 1 2 100 100 "menu/main.html" %}
-                    {% if request.user.is_superuser %}
-                        {% language_chooser "menu/language_chooser.html" "native" %} {# TODO: aktivovat při přidání jazyků #}
-                    {% endif %}
+                    {% language_chooser "menu/language_chooser.html" "native" %}
                 </ul>
             </div>
         </nav>
