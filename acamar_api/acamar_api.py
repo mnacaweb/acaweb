@@ -36,9 +36,9 @@ class AcamarCourseManager:
 
     @classmethod
     def _all(cls):
-        resp = requests.get(url="https://old.acamar.cz/api_kurzy.php",
+        resp = requests.get(url="https://old2018.acamar.cz/api_kurzy.php",
                             params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"},
-                            proxies=settings.PROXIES)
+                            proxies=settings.PROXIES, verify=False)
         if resp.status_code == 200:
             json = resp.json()
             courses = {}
@@ -60,7 +60,7 @@ class AcamarCourseManager:
 
 
 class AcamarPositionManager:
-    url = "https://old.acamar.cz/api_pozice.php"
+    url = "https://old2018.acamar.cz/api_pozice.php"
     cache_prefix = "acamar_position_{}"
     cache_duration = 300
 
@@ -68,7 +68,7 @@ class AcamarPositionManager:
     def _request(cls, lng):
         resp = requests.get(url=cls.url,
                             params={"token": "ace247464bfa9076dada655abea751c6", "lng": lng},
-                            proxies=settings.PROXIES)
+                            proxies=settings.PROXIES, verify=False)
         if resp.status_code == 200:
             return resp.json()
 
