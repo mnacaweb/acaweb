@@ -251,6 +251,9 @@ class Position(ModelMeta, models.Model):
             return self.recruiter.image.url
         return self.user_image_url
 
+    def get_user_image_url(self):
+        return self.user_image_url.replace("www", "old2018")
+
     def content_iterator(self):
         for index in range(1, 7):
             title = getattr(self, "title{}".format(index), "")

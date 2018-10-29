@@ -35,10 +35,10 @@
                                             <feColorMatrix id="filter_38" type="saturate" values="0" data-filterid="38" />
                                         </filter>
                                     </defs>
-                                    <image filter="url(&quot;#filtersPicture&quot;)" x="0" y="0" width="400" height="377" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ object.user_image_url }}" />
+                                    <image filter="url(&quot;#filtersPicture&quot;)" x="0" y="0" width="400" height="377" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ object.get_user_image_url }}" />
                                 </svg>
 
-                                <!--<img src="{{ object.user_image_url }}"
+                                <!--<img src="{{ object.get_user_image_url }}"
                                      alt="{{ object.user_first_name }} {{ object.user_second_name }}"/>-->
                             </div>
                             <div class="col-7 d-md-flex flex-column justify-content-center">
