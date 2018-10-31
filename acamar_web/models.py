@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Prefetch
 from django.template.defaultfilters import truncatechars
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible, force_text
@@ -23,7 +24,7 @@ from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 from filer.models import File
 
-from acamar_api.models import Course
+from acamar_api.models import Course, CourseTerm
 
 
 class FilerVideo(File):
@@ -781,7 +782,7 @@ class CourseEnrollFormModel(CMSPlugin):
         return self.title
 
     def get_courses(self):
-        return Course.objects.prefetch_related("terms", "terms__items").exclude(terms__items__date__lt=timezone.now())
+        return Course.objects.prefetch_related(Prefetch("terms", CourseTerm.objects.all().exclude(items__date__lt=timezone.now()), to_attr="terms_upcoming"))
 
 
 @python_2_unicode_compatible

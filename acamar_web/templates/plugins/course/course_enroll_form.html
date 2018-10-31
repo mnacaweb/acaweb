@@ -22,11 +22,13 @@
                         <label class="label" for="enrollForm{{ instance.id }}Course">{{ instance.course_label }}</label>
                         <select class="form-control course-enroll-select" name="courses" id="enrollForm{{ instance.id }}Course" data-selected-text="{{ instance.selected_text }}" multiple required>
                             {% for course in instance.get_courses %}
-                                <optgroup label="{{ course.title }}">
-                                    {% for term in course.terms.all %}
-                                        <option value="{{ term.id }}">{{ term }}</option>
-                                    {% endfor %}
-                                </optgroup>
+                                {% if course.terms_upcoming|length > 0 %}
+                                    <optgroup label="{{ course.title }}">
+                                        {% for term in course.terms_upcoming %}
+                                            <option value="{{ term.id }}">{{ term }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>

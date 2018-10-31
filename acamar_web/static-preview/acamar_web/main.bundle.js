@@ -11886,6 +11886,14 @@ $(function () {
 		});
 
 		$this.validate({
+			ignore: ":hidden:not(\".course-enroll-select\")",
+			errorPlacement: function errorPlacement(error, element) {
+				if ($(element).hasClass("course-enroll-select")) {
+					error.insertAfter(element.siblings("div.form-control"));
+				} else {
+					error.insertAfter(element);
+				}
+			},
 			submitHandler: function submitHandler(form) {
 				var formData = new FormData(form);
 				$.ajax({
