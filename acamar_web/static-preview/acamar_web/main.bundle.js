@@ -11625,6 +11625,7 @@ $(function () {
 					contentType: false,
 					success: function success(response) {
 						if (response.success) {
+							dataLayer.push({ "form-nazev": "OdpovedNaPozici", event: "formSent" });
 							contactModal.modal("hide");
 							thanksModal.modal("show");
 						}
@@ -11801,6 +11802,7 @@ $(function () {
 					contentType: false,
 					success: function success(response) {
 						if (response.success) {
+							dataLayer.push({ "form-nazev": "Kontakt", event: "formSent" });
 							var thanks = $this.next();
 							$this.fadeOut("slow", function () {
 								$this.remove();
@@ -11904,6 +11906,7 @@ $(function () {
 					contentType: false,
 					success: function success(response) {
 						if (response.success) {
+							dataLayer.push({ "form-nazev": "PrihlaskaKurz", event: "formSent" });
 							window.location.href = $this.data("redirect");
 						}
 					}

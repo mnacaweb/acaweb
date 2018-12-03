@@ -15,6 +15,7 @@ $(function () {
 					contentType: false,
 					success: response => {
 						if (response.success) {
+							dataLayer.push({"form-nazev": "Kontakt", event: "formSent"});
 							let thanks = $this.next();
 							$this.fadeOut("slow", function () {
 								$this.remove();

@@ -3,15 +3,15 @@ import "bootstrap-multiselect/dist/js/bootstrap-multiselect";
 import "bootstrap-multiselect/dist/css/bootstrap-multiselect.css";
 
 
-$.validator.addMethod( "maxsize", function( value, element, param ) {
-	if ( this.optional( element ) ) {
+$.validator.addMethod("maxsize", function (value, element, param) {
+	if (this.optional(element)) {
 		return true;
 	}
 
-	if ( $( element ).attr( "type" ) === "file" ) {
-		if ( element.files && element.files.length ) {
-			for ( let i = 0; i < element.files.length; i++ ) {
-				if ( element.files[ i ].size > param ) {
+	if ($(element).attr("type") === "file") {
+		if (element.files && element.files.length) {
+			for (let i = 0; i < element.files.length; i++) {
+				if (element.files[i].size > param) {
 					return false;
 				}
 			}
@@ -19,7 +19,7 @@ $.validator.addMethod( "maxsize", function( value, element, param ) {
 	}
 
 	return true;
-}, $.validator.format( "File size must not exceed {0} bytes each." ) );
+}, $.validator.format("File size must not exceed {0} bytes each."));
 
 function getFilename(str) {
 	return str.split(/([\\/])/g).pop();
@@ -49,7 +49,7 @@ $(function () {
 
 		fileInput.change(() => {
 			const val = fileInput.val();
-			if (val){
+			if (val) {
 				cv_text.text(getFilename(val));
 			} else {
 				cv_text.text("&nbsp;");
@@ -58,8 +58,8 @@ $(function () {
 
 		$this.validate({
 			ignore: ":hidden:not(\".course-enroll-select\")",
-			errorPlacement: function(error, element) {
-				if($(element).hasClass("course-enroll-select")) {
+			errorPlacement: function (error, element) {
+				if ($(element).hasClass("course-enroll-select")) {
 					error.insertAfter(element.siblings("div.form-control"));
 				}
 				else {
@@ -76,6 +76,7 @@ $(function () {
 					contentType: false,
 					success: response => {
 						if (response.success) {
+							dataLayer.push({"form-nazev": "PrihlaskaKurz", event: "formSent"});
 							window.location.href = $this.data("redirect");
 						}
 					}

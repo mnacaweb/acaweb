@@ -57,6 +57,7 @@ $(function () {
 					contentType: false,
 					success: response => {
 						if (response.success) {
+							dataLayer.push({"form-nazev": "OdpovedNaPozici", event: "formSent"});
 							contactModal.modal("hide");
 							thanksModal.modal("show");
 						}
