@@ -9,151 +9,153 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-22 10:03+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2018-09-24 16:03+0200\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Translated-Using: django-rosetta 0.8.1\n"
 
 #: templates/404.html:9
 msgid ""
 "Hledali jste pozici Programátor Hvězdy smrti? Tu vám nedohodíme. Ale mnoho "
 "jiných lukrativních IT pozic ano!"
 msgstr ""
+"Вы искали вакансию «программист Звезды Смерти»? Мы не можем это устроить. Но"
+" мы можем вам найти много других прибыльных IT вакансий!"
 
 #: templates/404.html:18
 msgid "Hledali jste pozici"
-msgstr ""
+msgstr "Вы искали вакансию"
 
 #: templates/404.html:19
 msgid "Programátor hvězdy smrti?"
-msgstr ""
+msgstr "программист Звесды Смерти"
 
 #: templates/404.html:23
 msgid "Hvězda smrti 404"
-msgstr ""
+msgstr "Звесда Смерти 404"
 
 #: templates/404.html:26
 msgid "Ne?"
-msgstr ""
+msgstr "Нет?"
 
 #: templates/404.html:27
 msgid "Vrátit se zpět"
-msgstr ""
+msgstr "Возвращаться"
 
 #: templates/404.html:27
 msgid "Zkuste se vrátit zpět"
-msgstr ""
+msgstr "Попытаться вернуться"
 
 #: templates/_base.html:86
 msgid "Acamar Outsourcing Services, s.r.o."
-msgstr ""
+msgstr "Acamar Outsourcing Services, s.r.o."
 
 #: templates/_base.html:86
 msgid "Ochrana&nbsp;osobních&nbsp;údajů"
-msgstr ""
+msgstr "Политика конфиденциальности"
 
 #: templates/apps/position_detail.html:67
 msgid "Provedu vás náborem"
-msgstr ""
+msgstr "Я буду вашим справочником по набору"
 
 #: templates/apps/position_detail.html:77
 msgid "Máte další otázky k vypsané pozici? Napište mi, se vším poradím."
-msgstr ""
+msgstr "У вас дальнейшие вопросы о вакансии? Напишите мне, и я помогу вам."
 
 #: templates/apps/position_detail.html:79
 msgid "Napište mi e-mail"
-msgstr ""
+msgstr "Напишите мне е-мейл"
 
 #: templates/apps/position_detail.html:84
 msgid "Láká vás to? Ozvěte se!"
-msgstr ""
+msgstr "Интересно ли вам, свяжитесь с нами:"
 
 #: templates/apps/position_detail.html:85
 msgid "Odpovíme vždy a každému."
-msgstr ""
+msgstr "Мы ответим всегда и всём."
 
 #: templates/apps/position_detail.html:89
 msgid "ODPOVĚZTE NA POZICI"
-msgstr ""
+msgstr "Ответить на вакансию"
 
 #: templates/apps/position_detail.html:93
 #, python-format
 msgid "Ahoj, mohla by tě zajímat tahle práce: '%(name)s'. %(url)s"
-msgstr ""
+msgstr "Привет, возможно эта вакансия тебе интересна: '%(name)s'. %(url)s"
 
 #: templates/apps/position_detail.html:93
 msgid "Pošlete nabídku známému"
-msgstr ""
+msgstr "Отправлять это предложение знакомым"
 
 #: templates/apps/position_detail.html:101
 msgid "Zpět na výpis pozic"
-msgstr ""
+msgstr "Вернуться к списку вакансий"
 
 #: templates/apps/position_detail.html:114
 msgid "Odpovídáte na pozici"
-msgstr ""
+msgstr "Вы отвечаете на вакансию"
 
 #: templates/apps/position_detail.html:118
 msgid "Jméno"
-msgstr ""
+msgstr "Имя"
 
 #: templates/apps/position_detail.html:122
 msgid "Příjmení"
-msgstr ""
+msgstr "Фамилия"
 
 #: templates/apps/position_detail.html:126
 msgid "E-mail"
-msgstr ""
+msgstr "Е-мейл"
 
 #: templates/apps/position_detail.html:130
 msgid "Telefon"
-msgstr ""
+msgstr "Телефон"
 
 #: templates/apps/position_detail.html:135
 msgid "Nahrajte Váš životopis"
-msgstr ""
+msgstr "Загружить резюме"
 
 #: templates/apps/position_detail.html:142
 msgid "Odkaz na LinkedIn, pokud máte"
-msgstr ""
+msgstr "Ссылка на ваш LinkedIn аккаунт"
 
 #: templates/apps/position_detail.html:146
 msgid "Napište nám pár slov o tom, co vás láká do Adastry"
-msgstr ""
+msgstr "Вкратце, почему вас интересует Adastra?"
 
 #: templates/apps/position_detail.html:157
 msgid "Odeslat odpoveď"
-msgstr ""
+msgstr "Отправить ответ"
 
 #: templates/apps/position_detail.html:172
 msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
-msgstr ""
+msgstr "Спасиво за ваш ответ. Мы скоро свяжемся."
 
 #: templates/menu/language_chooser.html:10
 #: templates/menu/language_chooser.html:16
 msgid "Změnit na jazyk:"
-msgstr ""
+msgstr "Изменение языка"
 
 #: templates/plugins/course_panel/_course_card.html:13
 #: templates/plugins/course_panel/_course_card_alternative.html:13
 msgid "Cena: "
-msgstr ""
+msgstr "Цена"
 
 #: templates/plugins/course_panel/_course_card.html:14
 #: templates/plugins/course_panel/_course_card_alternative.html:14
 msgid "Délka školení: "
-msgstr ""
+msgstr "Длительность курса"
 
 #: templates/plugins/course_panel/_course_card.html:15
 #: templates/plugins/course_panel/_course_card_alternative.html:15
 msgid "Místo školení: "
-msgstr ""
+msgstr "местоположение курса"
 
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"
-msgstr ""
+msgstr "Больше о курсу"

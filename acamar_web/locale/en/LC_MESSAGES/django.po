@@ -9,149 +9,155 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-22 10:03+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2018-09-24 15:27+0200\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.8.1\n"
 
 #: templates/404.html:9
 msgid ""
 "Hledali jste pozici Programátor Hvězdy smrti? Tu vám nedohodíme. Ale mnoho "
 "jiných lukrativních IT pozic ano!"
 msgstr ""
+"Did you look for a Death Star Programmer job? We cannot arrange that, but "
+"there are many lucrative IT jobs we can!"
 
 #: templates/404.html:18
 msgid "Hledali jste pozici"
-msgstr ""
+msgstr "Did you look for "
 
 #: templates/404.html:19
 msgid "Programátor hvězdy smrti?"
-msgstr ""
+msgstr "a Death Star Programmer"
 
 #: templates/404.html:23
 msgid "Hvězda smrti 404"
-msgstr ""
+msgstr "Death Star 404"
 
 #: templates/404.html:26
 msgid "Ne?"
-msgstr ""
+msgstr "No?"
 
 #: templates/404.html:27
 msgid "Vrátit se zpět"
-msgstr ""
+msgstr "Go back"
 
 #: templates/404.html:27
 msgid "Zkuste se vrátit zpět"
-msgstr ""
+msgstr "Try going back"
 
 #: templates/_base.html:86
 msgid "Acamar Outsourcing Services, s.r.o."
-msgstr ""
+msgstr "Acamar Outsourcing Services, s.r.o."
 
 #: templates/_base.html:86
 msgid "Ochrana&nbsp;osobních&nbsp;údajů"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: templates/apps/position_detail.html:67
 msgid "Provedu vás náborem"
-msgstr ""
+msgstr "I'll be your recruitment guide"
 
 #: templates/apps/position_detail.html:77
 msgid "Máte další otázky k vypsané pozici? Napište mi, se vším poradím."
 msgstr ""
+"Do you have any further queries related to the job? Write me and I will give"
+" you the answers."
 
 #: templates/apps/position_detail.html:79
 msgid "Napište mi e-mail"
-msgstr ""
+msgstr "Write me an e-mail"
 
 #: templates/apps/position_detail.html:84
 msgid "Láká vás to? Ozvěte se!"
-msgstr ""
+msgstr "Are you intrigued? Contact us!"
 
 #: templates/apps/position_detail.html:85
 msgid "Odpovíme vždy a každému."
-msgstr ""
+msgstr "We write back to everyone, always."
 
 #: templates/apps/position_detail.html:89
 msgid "ODPOVĚZTE NA POZICI"
-msgstr ""
+msgstr "RESPOND TO POSITION"
 
 #: templates/apps/position_detail.html:93
 #, python-format
 msgid "Ahoj, mohla by tě zajímat tahle práce: '%(name)s'. %(url)s"
-msgstr ""
+msgstr "Hello, you might be interested in this job: '%(name)s'. %(url)s"
 
 #: templates/apps/position_detail.html:93
 msgid "Pošlete nabídku známému"
-msgstr ""
+msgstr "Send this offer to a friend"
 
 #: templates/apps/position_detail.html:101
 msgid "Zpět na výpis pozic"
-msgstr ""
+msgstr "Back to the list of positions"
 
 #: templates/apps/position_detail.html:114
 msgid "Odpovídáte na pozici"
-msgstr ""
+msgstr "You are responding to position"
 
 #: templates/apps/position_detail.html:118
 msgid "Jméno"
-msgstr ""
+msgstr "Name"
 
 #: templates/apps/position_detail.html:122
 msgid "Příjmení"
-msgstr ""
+msgstr "Surname"
 
 #: templates/apps/position_detail.html:126
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/apps/position_detail.html:130
 msgid "Telefon"
-msgstr ""
+msgstr "Phone"
 
 #: templates/apps/position_detail.html:135
 msgid "Nahrajte Váš životopis"
-msgstr ""
+msgstr "Upload your resume"
 
 #: templates/apps/position_detail.html:142
 msgid "Odkaz na LinkedIn, pokud máte"
-msgstr ""
+msgstr "A link to your LinkedIn account"
 
 #: templates/apps/position_detail.html:146
 msgid "Napište nám pár slov o tom, co vás láká do Adastry"
-msgstr ""
+msgstr "Write us a few words about what intrigues you about Adastra"
 
 #: templates/apps/position_detail.html:157
 msgid "Odeslat odpoveď"
-msgstr ""
+msgstr "Submit answer"
 
 #: templates/apps/position_detail.html:172
 msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
 msgstr ""
+"Thank you for responding. We'll get in touch with you as soon as possible."
 
 #: templates/menu/language_chooser.html:10
 #: templates/menu/language_chooser.html:16
 msgid "Změnit na jazyk:"
-msgstr ""
+msgstr "Change the language to:"
 
 #: templates/plugins/course_panel/_course_card.html:13
 #: templates/plugins/course_panel/_course_card_alternative.html:13
 msgid "Cena: "
-msgstr ""
+msgstr "Price:"
 
 #: templates/plugins/course_panel/_course_card.html:14
 #: templates/plugins/course_panel/_course_card_alternative.html:14
 msgid "Délka školení: "
-msgstr ""
+msgstr "Course duration:"
 
 #: templates/plugins/course_panel/_course_card.html:15
 #: templates/plugins/course_panel/_course_card_alternative.html:15
 msgid "Místo školení: "
-msgstr ""
+msgstr "Course location:"
 
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"
-msgstr ""
+msgstr "More about the course"
