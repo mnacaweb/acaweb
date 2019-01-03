@@ -8,9 +8,9 @@
             <table class="table table-bordered">
                 <tbody>
                 {% for term in object.terms_comming.all %}
-                    {% cycle "" "table-secondary" as row_style silent %}
+{#                    {% cycle "" "table-secondary" as row_style silent %}#}
                     {% for item in term.items.all %}
-                        <tr class="{{ row_style }}">
+                        <tr>
                             <td class="font-weight-bold">{{ item.date|date:"j. n. Y." }}</td>
                             <td class="font-weight-bold">{{ item.time }}</td>
                             <td class="font-weight-bold">{{ item.address }}</td>

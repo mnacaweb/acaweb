@@ -13600,6 +13600,21 @@ input[type="text"]::placeholder {
   left: 0;
 }
 
+.list-item .phone {
+  position: relative;
+  padding-left: 25px;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.list-item .phone::before {
+  position: absolute;
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAABRElEQVQ4jZXTvyvFURjH8Zfrx2pWUkqx3JlMomykSMrgL1CUuiadTHex+wfuYhGREmU1SCxSMskixcxg+J6ve+/Xxbmf5ZzO8/TuOc/zfDrUtY4KnjGLJwkKIXzfS/GsYAnD2ME5+lNgjerCTARN4B21GDvHVGqFOSxgJYJyNQLH8ZoCK6EPty1iNRxjPrWyEjrR0yI2hDlctgO7wEIL0CnWcNMOLKCqeXpn2MJhKiiH3WFD8zrsYhW97cC64rmHbvV1qMb3U0xrnvS/MH7u11/AQYzhBG/5Y0mzathW/3IV+xGYf3k0xidwGUL41ynLuFfv4aZsRabxgHIxr9GjqcCXBtBvecnA7mJCrGgZ18WeFVXs4ccveUcyWyYpr3CgRaxX1s/1VBgs4jGCcy+XcYVKCEFHOzSMyGw2iU/ZQEII4QC+AJPOTjdiIougAAAAAElFTkSuQmCC);
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+
 .list-item .face {
   width: 100%;
 }
@@ -14299,6 +14314,10 @@ input[type="text"]::placeholder {
 .card-wrapper {
   position: relative;
   height: 100%;
+}
+
+.card-wrapper > a.card {
+  text-decoration: none;
 }
 
 .card-wrapper .card {
@@ -15092,6 +15111,18 @@ input[type="text"]::placeholder {
   line-height: 17px;
   font-weight: 400;
   margin-top: 5px;
+}
+
+.together-section .card.person .card-body .icon-in {
+  font-size: 12px;
+  padding-left: 20px;
+  line-height: 17px;
+}
+
+.together-section .card.person .card-body .icon-in:before {
+  top: 0px;
+  width: 14px;
+  height: 14px;
 }
 
 .together-section .card.person .icon-wrapper {
@@ -16099,6 +16130,25 @@ input[type="text"]::placeholder {
   left: 0;
 }
 
+.page-detail .recruitment .recruitment-wrapper .phone {
+  position: relative;
+  padding-left: 35px;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.page-detail .recruitment .recruitment-wrapper .phone::before {
+  content: '';
+  position: absolute;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAAAAXNSR0IB2cksfwAAAMlQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqjwnTgAAAEN0Uk5TACR3tuH8/z260IhZOjA8DaD9LCLZ2DTktAsDEFcVHNzzBM++skf1EgbbAVvecfYf/kJojOstzdIKpUntyoDRdhS/96oDJgoAAAExSURBVHichZPreoIwDIYDlA4oyEEQFBWdurmTjqk7b267/4taKW21bA/mB02ftyH50hRAmKYbyMQmMnQNmnZmYdshrucSx8ZWR2F+EAaR3EV05x9gN056yuleEnclTLN+I1E/Szn242zwp45BFtc/D5JmJItOgmrphHXOfDhSc4dV5RY7A+NikqpCA4s2ATMp0/NZPldxhDXQbeYuLi5hOb+6Psa2DobDvJtb+rlbLY+pYwAizFvfl/BgEiUxQWC6tbvZ7h6fnhXqmoA9Lv9l+1rMFOxhGStw+ZZoh1gkczH8vvqQwmheXrPAn3sqLB2JmrlegXd0ySdDoZf3SuISvr6LXPRK9JnjTYh+7DHzqz7LO+K2Jospc+o7ar/fE7PRPlcnZvLEPFeVt7yFyv57R78U5RoofAxVUwAAAABJRU5ErkJggg==);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 28px;
+  height: 28px;
+  bottom: 1%;
+  left: 0;
+}
+
 .page-detail .recruitment .interesting-wrapper {
   background-color: #dfdfdf;
   border-radius: 0 0 161px 71px;
@@ -16619,6 +16669,10 @@ body.thank-you {
     font-size: 17px;
     line-height: 24px;
   }
+}
+
+.page-thank-you .thank-you-wrapper .thank-you-image .thank-you-image-wrapper a {
+  color: inherit;
 }
 
 .page-login-course .main-banner-course {

@@ -6,6 +6,9 @@
             <img src="{% static "acamar_web/images/checkmark.png" %}" alt="Checkmark" class="checkmark">
             <h1>{{ instance.title }}</h1>
             {{ instance.text }}
+            {% if instance.link %}
+                <a class="text-normal text-underline" href="{{ instance.link.get_link_safe }}">{{ instance.link.text }}</a>
+            {% endif %}
         </div>
     </div>
 </div>

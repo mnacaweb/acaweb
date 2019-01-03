@@ -75,6 +75,9 @@
                                     <h3 class="person-title">{{ object.user_first_name }} {{ object.user_second_name }}</h3>
                                     <p>{{ object.user_position }}</p>
                                     <p class="mb-4 mt-4">{% trans "Máte další otázky k vypsané pozici? Napište mi, se vším poradím." %}</p>
+                                    <div>
+                                        <a class="phone text-small" href="tel:{{ object.user_phone }}">{{ object.user_phone }}</a>
+                                    </div>
                                     <div><a href="mailto:{{ object.user_email|email_link }}"
                                             class="message text-small">{% trans "Napište mi e-mail" %}</a></div>
                                 </div>

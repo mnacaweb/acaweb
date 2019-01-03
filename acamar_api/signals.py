@@ -63,7 +63,7 @@ def course_enroll_email(instance, action, **kwargs):
                 instance.course_terms,
                 urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
                 instance.expectations),
-            to=["lucie.stankova@acamar.cz"]
+            to=["kurzy@acamar.cz"]
         )
         mail.send()
 

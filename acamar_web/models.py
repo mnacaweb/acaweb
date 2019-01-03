@@ -357,8 +357,16 @@ class TeamMember(SortableMixin):
     nickname = models.CharField(verbose_name="Position / Nickname", max_length=254)
     text = models.TextField(verbose_name="Text")
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
+    linkedin = models.URLField(verbose_name="LinkedIn link", blank=True)
 
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    @property
+    def linkedin_formatted(self):
+        link = urllib.unquote_plus(self.linkedin.encode("utf-8")).decode("utf-8").split("://", 1)[1]
+        if link.startswith("www."):
+            return link[4:]
+        return link
 
     def __str__(self):
         return self.name
@@ -818,6 +826,7 @@ class Contact(models.Model):
 class ThanksBanner(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     text = HTMLField(verbose_name="Text", configuration="CKEDITOR_SETTINGS_TEXT")
+    link = models.ForeignKey("acamar_web.Link", on_delete=models.PROTECT, verbose_name="Link", null=True, blank=True)
 
     def __str__(self):
         return self.title

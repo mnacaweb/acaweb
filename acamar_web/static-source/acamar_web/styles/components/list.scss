@@ -69,6 +69,21 @@
     }
   }
 
+  .phone {
+    position: relative;
+    padding-left: 25px;
+    text-decoration: underline !important;
+    cursor: pointer;
+
+    &::before {
+      position: absolute;
+      content: url("../../images/small-icons/phone-no-ring.png");
+      width: 15px;
+      height: 15px;
+      left: 0;
+    }
+  }
+
   .face {
     width: 100%;
 

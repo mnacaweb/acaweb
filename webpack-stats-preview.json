@@ -20,5 +20,7 @@
                 "publicPath": "/static/acamar_web/main.bundle.js.map"
             }
         ]
-    }
+    },
+    "error": "ModuleBuildError",
+    "message": "Module build failed (from /Users/jirimakarius/Projects/acamar_web/node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from /Users/jirimakarius/Projects/acamar_web/node_modules/sass-loader/lib/loader.js):\n\n        }\n        ^\n      Invalid CSS after \"        }\": expected \"}\", was \"/net_folders/Sdílen\"\n      in /Users/jirimakarius/Projects/acamar_web/acamar_web/static-source/acamar_web/styles/pages/thank-you.scss (line 129, column 10)\n    at runLoaders (/Users/jirimakarius/Projects/acamar_web/node_modules/webpack/lib/NormalModule.js:286:20)\n    at /Users/jirimakarius/Projects/acamar_web/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /Users/jirimakarius/Projects/acamar_web/node_modules/loader-runner/lib/LoaderRunner.js:230:18\n    at context.callback (/Users/jirimakarius/Projects/acamar_web/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (/Users/jirimakarius/Projects/acamar_web/node_modules/sass-loader/lib/loader.js:67:13)\n    at Object.done [as callback] (/Users/jirimakarius/Projects/acamar_web/node_modules/neo-async/async.js:7974:18)\n    at options.error (/Users/jirimakarius/Projects/acamar_web/node_modules/node-sass/lib/index.js:294:32)"
 }

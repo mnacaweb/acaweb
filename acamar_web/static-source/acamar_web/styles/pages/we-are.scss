@@ -172,6 +172,19 @@
           font-weight: 400;
           margin-top: 5px;
         }
+
+        .icon-in {
+          font-size: 12px;
+          padding-left: 20px;
+          line-height: 17px;
+          //font-weight: 400;
+
+          &:before {
+            top: 0px;
+            width: 14px;
+            height: 14px;
+          }
+        }
       }
 
       .icon-wrapper {

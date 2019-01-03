@@ -117,6 +117,25 @@
           left: 0;
         }
       }
+
+      .phone {
+        position: relative;
+        padding-left: 35px;
+        text-decoration: underline !important;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          background-image: url("../../images/small-icons/phone.png");
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 28px;
+          height: 28px;
+          bottom: 1%;
+          left: 0;
+        }
+      }
     }
 
     .interesting-wrapper {

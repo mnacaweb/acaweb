@@ -7,8 +7,11 @@
             <p>{{ object.text|linebreaksbr }}</p>
         </div>
         <div class="card-body">
-            <p>{{ object.name }}</p>
+            <p>{{ object.name.split|join:"<br>" }}</p>
             <p class="nickname">{{ object.nickname }}</p>
+            {% if object.linkedin %}
+            <a  target="_blank" class="icon-text icon-in" href="{{ object.linkedin }}">LinkedIn</a>
+            {% endif %}
         </div>
         <div class="icon-wrapper"><img src="{{ object.image.url }}" alt="{{ object.image.default_alt_text|default_if_none:object.name }}" /></div>
     </div>

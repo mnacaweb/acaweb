@@ -47,6 +47,9 @@
                                     <p class="text-small">{{ object.user_first_name }} {{ object.user_second_name }}</p>
                                 </div>
                                 <p class="text-small">{{ object.user_position }}</p>
+                                <div>
+                                    <a class="phone text-small" href="tel:{{ object.user_phone }}">{{ object.user_phone }}</a>
+                                </div>
                                 <div><a class="message text-small"
                                         href="mailto:{{ object.user_email|email_link }}">{{ instance.recruiter_email_text }}</a>
                                 </div>
