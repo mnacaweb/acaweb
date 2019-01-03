@@ -4,12 +4,12 @@
     "chunks": {
         "main": [
             {
-                "name": "main-ccf7069a5badf3fa5942.css",
-                "publicPath": "/static/acamar_web/main-ccf7069a5badf3fa5942.css"
+                "name": "main-b6d3b4cf63914170c758.css",
+                "publicPath": "/static/acamar_web/main-b6d3b4cf63914170c758.css"
             },
             {
-                "name": "main-ccf7069a5badf3fa5942.bundle.js",
-                "publicPath": "/static/acamar_web/main-ccf7069a5badf3fa5942.bundle.js"
+                "name": "main-b6d3b4cf63914170c758.bundle.js",
+                "publicPath": "/static/acamar_web/main-b6d3b4cf63914170c758.bundle.js"
             }
         ]
     }
