@@ -16176,7 +16176,8 @@ input[type="text"]::placeholder {
 
 .page-detail .recruitment .interesting-wrapper {
   background-color: #dfdfdf;
-  border-radius: 0 0 161px 71px;
+  position: relative;
+  z-index: 2;
 }
 
 .page-detail .recruitment .interesting-wrapper .mail {
@@ -16201,6 +16202,16 @@ input[type="text"]::placeholder {
 .page-detail .recruitment .interesting-wrapper .button-secondary {
   padding: 12px 27px 12px 27px;
   font-size: 16px;
+}
+
+.page-detail .recruitment .interesting-wrapper.after {
+  position: relative;
+  margin-top: -40%;
+  background-color: #dfdfdf;
+  display: block;
+  z-index: 1;
+  padding-bottom: 80%;
+  border-radius: 0 0 50% 50%;
 }
 
 .page-detail .back-position {
