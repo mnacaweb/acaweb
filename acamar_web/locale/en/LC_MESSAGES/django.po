@@ -145,18 +145,18 @@ msgstr "Change the language to:"
 
 #: templates/plugins/course_panel/_course_card.html:13
 #: templates/plugins/course_panel/_course_card_alternative.html:13
-msgid "Cena: "
-msgstr "Price:"
+msgid "Cena"
+msgstr "Price"
 
 #: templates/plugins/course_panel/_course_card.html:14
 #: templates/plugins/course_panel/_course_card_alternative.html:14
-msgid "Délka školení: "
-msgstr "Course duration:"
+msgid "Délka školení"
+msgstr "Course duration"
 
 #: templates/plugins/course_panel/_course_card.html:15
 #: templates/plugins/course_panel/_course_card_alternative.html:15
-msgid "Místo školení: "
-msgstr "Course location:"
+msgid "Místo školení"
+msgstr "Course location"
 
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"

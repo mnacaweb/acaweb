@@ -140,17 +140,17 @@ msgstr ""
 
 #: templates/plugins/course_panel/_course_card.html:13
 #: templates/plugins/course_panel/_course_card_alternative.html:13
-msgid "Cena: "
+msgid "Cena"
 msgstr ""
 
 #: templates/plugins/course_panel/_course_card.html:14
 #: templates/plugins/course_panel/_course_card_alternative.html:14
-msgid "Délka školení: "
+msgid "Délka školení"
 msgstr ""
 
 #: templates/plugins/course_panel/_course_card.html:15
 #: templates/plugins/course_panel/_course_card_alternative.html:15
-msgid "Místo školení: "
+msgid "Místo školení"
 msgstr ""
 
 #: templates/plugins/course_panel/_course_card.html:22

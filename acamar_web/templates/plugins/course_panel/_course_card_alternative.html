@@ -10,9 +10,9 @@
             <div class="card-body p-3">
 {#                {{ object.content|safe }}#}
                 <ul class="pt-lg-4">
-                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}" alt="Pricetag"/><span class="card-li-text">{% trans "Cena: " %}<span>{{ object.price|money }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}" alt="Timer"/><span class="card-li-text">{% trans "Délka školení: " %}<span>{{ object.duration }}</span></span></li>
-                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}" alt="Location"/><span class="card-li-text">{% trans "Místo školení: " %}<span>{{ object.place }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/tag.png" %}" alt="Pricetag"/><span class="card-li-text">{% trans "Cena" %}: <span>{{ object.price|money }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/timer.png" %}" alt="Timer"/><span class="card-li-text">{% trans "Délka školení" %}: <span>{{ object.duration }}</span></span></li>
+                    <li><img src="{% static "acamar_web/images/small-icons/location.png" %}" alt="Location"/><span class="card-li-text">{% trans "Místo školení" %}: <span>{{ object.place }}</span></span></li>
                 </ul>
             </div>
             <div class="card-footer">

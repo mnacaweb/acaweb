@@ -1,4 +1,4 @@
-{% load cms_tags %}
+{% load cms_tags i18n %}
 
 {% render_model_block object %}
 <div class="col-12 col-md-6 col-lg-4 mb-3 pr-0 pl-0 pl-md-3 {% if number > limit %}member-hidden{% endif %}">
@@ -10,7 +10,7 @@
             <p>{{ object.name.split|join:"<br>" }}</p>
             <p class="nickname">{{ object.nickname }}</p>
             {% if object.linkedin %}
-            <a  target="_blank" class="icon-text icon-in" href="{{ object.linkedin }}">LinkedIn</a>
+            <a target="_blank" title="{{ object.linkedin }}" href="{{ object.linkedin }}"><span class="nickname font-weight-bold">{% trans "LinkedIn" %}</span></a>
             {% endif %}
         </div>
         <div class="icon-wrapper"><img src="{{ object.image.url }}" alt="{{ object.image.default_alt_text|default_if_none:object.name }}" /></div>
