@@ -13279,6 +13279,31 @@ textarea {
   display: none;
 }
 
+#scroll-totop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  outline: none;
+  color: white;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 40px;
+}
+
+#scroll-totop:after {
+  content: '';
+  position: absolute;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJhcnJvdy11cCIgY2xhc3M9InN2Zy1pbmxpbmUtLWZhIGZhLWFycm93LXVwIGZhLXctMTQiIHJvbGU9ImltZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNDQ4IDUxMiI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMzQuOSAyODkuNWwtMjIuMi0yMi4yYy05LjQtOS40LTkuNC0yNC42IDAtMzMuOUwyMDcgMzljOS40LTkuNCAyNC42LTkuNCAzMy45IDBsMTk0LjMgMTk0LjNjOS40IDkuNCA5LjQgMjQuNiAwIDMzLjlMNDEzIDI4OS40Yy05LjUgOS41LTI1IDkuMy0zNC4zLS40TDI2NCAxNjguNlY0NTZjMCAxMy4zLTEwLjcgMjQtMjQgMjRoLTMyYy0xMy4zIDAtMjQtMTAuNy0yNC0yNFYxNjguNkw2OS4yIDI4OS4xYy05LjMgOS44LTI0LjggMTAtMzQuMy40eiI+PC9wYXRoPjwvc3ZnPg==);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+  left: 7px;
+  top: 7px;
+}
+
 /* ==========================================================================
    ICONS
    ========================================================================== */

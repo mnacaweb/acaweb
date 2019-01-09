@@ -177,3 +177,30 @@
     display: none;
   }
 }
+
+#scroll-totop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  outline: none;
+  //background-color: red;
+  color: white;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 40px;
+  //font-size: 18px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    background-image: url("../../images/arrow-up-solid.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 26px;
+    height: 26px;
+    left: 7px;
+    top: 7px;
+  }
+}
