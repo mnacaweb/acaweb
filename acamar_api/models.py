@@ -6,6 +6,7 @@ import json
 import re
 
 from cms.models import PlaceholderField
+from django.conf import settings
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.template.defaultfilters import date as dateformat
@@ -21,7 +22,6 @@ from meta.models import ModelMeta
 from safedelete import SOFT_DELETE
 from safedelete.models import SafeDeleteModel
 
-from .manager import PositionManager
 from .utils import cv_upload_to
 
 
@@ -167,7 +167,8 @@ class PositionTechnology(models.Model):
 
 @python_2_unicode_compatible
 class Position(ModelMeta, models.Model):
-    lang = models.BooleanField(default=False, db_index=True)
+    internal_id = models.PositiveIntegerField(db_index=True)
+    lang = models.CharField(max_length=3, choices=settings.LANGUAGES, db_index=True)
     date = models.DateTimeField()
     category = models.ForeignKey("acamar_api.PositionCategory", on_delete=models.CASCADE, related_name="positions")
     place = models.CharField(max_length=254, blank=True)
@@ -191,14 +192,12 @@ class Position(ModelMeta, models.Model):
     user_first_name = models.CharField(max_length=254, blank=True)
     user_second_name = models.CharField(max_length=254, blank=True)
     user_image = models.CharField(max_length=254, blank=True)
-    user_image_url = models.URLField(max_length=254, blank=True)
+    _user_image_url = models.URLField(max_length=254, blank=True, db_column="user_image_url")
     user_phone = models.CharField(max_length=254, blank=True)
     user_position = models.CharField(max_length=254, blank=True)
-    technologies = models.ManyToManyField("acamar_api.PositionTechnology", related_name="positions")
-    pacts = models.ManyToManyField("acamar_api.PositionPact", related_name="positions")
+    technologies = models.ManyToManyField("acamar_api.PositionTechnology", related_name="positions", blank=True)
+    pacts = models.ManyToManyField("acamar_api.PositionPact", related_name="positions", blank=True)
 
-    objects = PositionManager()
-    objects_default = models.Manager()
 
     @classmethod
     def autocomplete(cls, term):
@@ -226,18 +225,19 @@ class Position(ModelMeta, models.Model):
 
     @property
     def title(self):
-        return self.name if self.name else self.title1 if self.title1 else "--"
+        return self.name if self.name else self.title1 if self.title1 else ""
 
     def get_absolute_url(self, language=None):
         language = language if language else translation.get_language()
-        with translation.override(language):
-            if self.lang:
-                try:
-                    return reverse("position-detail", kwargs={"slug": self.slug})
-                except NoReverseMatch:
-                    return "#"
-            else:
-                return "#"
+        if language != self.lang:
+            translated = Position.objects.filter(internal_id=self.internal_id, lang=language).first()
+            if translated:
+                return translated.get_absolute_url(language)
+            return "#"
+        try:
+            return reverse("position-detail", kwargs={"slug": self.slug})
+        except NoReverseMatch:
+            return "#"
 
     @property
     def url(self):
@@ -252,8 +252,9 @@ class Position(ModelMeta, models.Model):
             return self.recruiter.image.url
         return self.user_image_url
 
-    def get_user_image_url(self):
-        return self.user_image_url.replace("www", "old2018")
+    @property
+    def user_image_url(self):
+        return self._user_image_url.replace("www", "old2018")
 
     def content_iterator(self):
         for index in range(1, 7):
@@ -266,20 +267,20 @@ class Position(ModelMeta, models.Model):
         return self.name if self.name else self.title1
 
     def _get_unique_slug(self):
-        slug = slugify(self.title)
-        unique_slug = slug
-        num = 1
-        while Position.objects.filter(slug=unique_slug).exclude(id=self.id).exists():
-            unique_slug = '{}-{}'.format(slug, num)
-            num += 1
-        return unique_slug
+        if self.title:
+            slug = slugify(self.title)
+            unique_slug = slug
+            num = 1
+            while Position.objects.filter(lang=self.lang, slug=unique_slug).exclude(id=self.id).exists():
+                unique_slug = '{}-{}'.format(slug, num)
+                num += 1
+            return unique_slug
+        return ""
 
     def save(self, *args, **kwargs):
-        language = translation.get_language()
-        if not getattr(self, "slug_{}".format(language)) and getattr(self, "lang_{}".format(language)):
+        if not self.slug:
             self.slug = self._get_unique_slug()
-        elif not getattr(self, "lang_{}".format(language)):
-            self.slug = None
+
         super(Position, self).save(*args, **kwargs)
 
     def get_meta_title(self):
@@ -296,6 +297,7 @@ class Position(ModelMeta, models.Model):
     class Meta:
         verbose_name = "Position"
         verbose_name_plural = "Positions"
+        unique_together = ("lang", "internal_id")
 
 
 @python_2_unicode_compatible

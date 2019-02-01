@@ -125,23 +125,16 @@ class AcamarPositionManager:
         return data.get("inzerat", [])
 
     @classmethod
-    def _delete_old_positions(cls):
-        delete_filter = {}
-        for language, _ in settings.LANGUAGES:
-            delete_filter["lang_{}".format(language)] = False
-        return Position.objects_default.filter(**delete_filter).delete()
-
-    @classmethod
     def sync_positions(cls):
+        obj_ids = []
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
-                obj_ids = []
                 for position in cls.get_positions(language):
                     user = position.get("__user", {})
                     technologies = [key for key, value in position.get("__technologie", {}).iteritems() if value]
                     pacts = [key for key, value in position.get("__uvazek", {}).iteritems() if value]
-                    obj, _ = Position.objects_default.update_or_create(id=position["id"], defaults={
-                        "lang": True if position["nazev_acamar"] else False,
+                    obj, _ = Position.objects.update_or_create(internal_id=position["id"], lang=language,
+                                                               defaults={
                         "date": dateparser.parse(position["date"]).replace(tzinfo=timezone.utc),
                         "category_id": position["kategorie"],
                         "place": position["misto_vykonu_prace"],
@@ -164,7 +157,7 @@ class AcamarPositionManager:
                         "user_first_name": user["firstName"],
                         "user_second_name": user["secondName"],
                         "user_image": user["image"],
-                        "user_image_url": user["image_url"],
+                        "_user_image_url": user["image_url"],
                         "user_phone": user["telefon"],
                         "user_position": user["pozice"],
                     })
@@ -173,9 +166,8 @@ class AcamarPositionManager:
                     obj.technologies.clear()
                     obj.technologies.add(*technologies)
                     obj_ids.append(obj.id)
-                Position.objects_default.exclude(id__in=obj_ids).update(lang=False, slug=None)
 
-        cls._delete_old_positions()
+        return Position.objects.all().exclude(id__in=obj_ids).delete()
 
     @classmethod
     def sync(cls):

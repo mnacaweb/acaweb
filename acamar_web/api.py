@@ -10,6 +10,7 @@ from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpRespo
 from django.shortcuts import render, get_object_or_404, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
+from django.utils.translation import get_language
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
