@@ -25,6 +25,7 @@ class PositionIndex(indexes.SearchIndex, indexes.Indexable):
     user_second_name = indexes.CharField(model_attr="user_second_name", indexed=False)
     user_position = indexes.CharField(model_attr="user_position", indexed=False)
     user_email = indexes.CharField(model_attr="user_email", indexed=False)
+    user_phone = indexes.CharField(model_attr="user_phone", indexed=False)
 
     def __init__(self):
         super(PositionIndex, self).__init__()
@@ -48,7 +49,7 @@ class PositionIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         language = get_language_from_alias(using)
         self.language = language
-        return self.get_model().objects_default.filter(**{"lang_{}".format(language): True})
+        return self.get_model().objects.filter(lang=self.language).exclude(slug="")
 
     def update_object(self, instance, using=None, **kwargs):
         language = get_language_from_alias(using)

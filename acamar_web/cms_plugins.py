@@ -6,6 +6,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 from django.db.models.aggregates import Count
+from django.utils.translation import get_language
 
 from acamar_api.models import PositionCategory, PositionPact, Position
 from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
@@ -203,9 +204,10 @@ class PositionSearchPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(PositionSearchPlugin, self).render(context, instance, placeholder)
-        positions = Position.objects.all()
+        language = get_language()
+        positions = Position.objects.filter(lang=language).exclude(slug="")
 
-        context["categories"] = PositionCategory.objects.filter(positions__lang=True).annotate(
+        context["categories"] = PositionCategory.objects.filter(positions__in=positions).annotate(
             num_positions=Count("positions"))
         context["pacts"] = PositionPact.objects.all()
         context["positions"] = positions

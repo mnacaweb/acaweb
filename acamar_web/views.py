@@ -6,6 +6,7 @@ from urlparse import urlparse
 
 from django.contrib.sites.models import Site
 from django.shortcuts import render
+from django.utils.translation import get_language
 from django.views.generic import DetailView
 
 from acamar_api.models import Position, Course
@@ -29,6 +30,12 @@ class PositionDetailView(DetailView):
         context = super(PositionDetailView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
         return context
+
+    def get_queryset(self):
+        qs = super(PositionDetailView, self).get_queryset()
+        language = get_language()
+        qs = qs.filter(lang=language).exclude(slug="")
+        return qs
 
 
 class CourseDetailView(DetailView):
