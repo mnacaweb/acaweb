@@ -5,6 +5,7 @@
         <div class="section-form">
             <div class="d-flex flex-column align-items-center">
                 <form class="course-enroll-form" method="post" action="{% url "api:course-enroll" %}" enctype="multipart/form-data" data-redirect="{{ instance.thanks_page.get_public_url }}">
+                    {% csrf_token %}
                     <h2 class="subtitle-large text-center text-md-left">{{ instance.title }}</h2>
                     <div class="form-group">
                         <label class="label" for="enrollForm{{ instance.id }}Name">{{ instance.name_label }}</label>

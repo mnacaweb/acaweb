@@ -33,14 +33,11 @@ $(function () {
 		let cv_text = $this.find(".course-enroll-cv-text");
 		let fileInput = $this.find("input[name='cv']");
 		course_input.multiselect({
-			// enableCollapsibleOptGroups: true,
-			numberDisplayed: 1,
+			numberDisplayed: 0,
 			buttonContainer: "<div class='form-control'></div>",
 			buttonClass: "d-flex justify-content-between align-items-center",
 			nonSelectedText: "",
-			nSelectedText: ` ${course_input.data("selected-text")}`
-			// templates: {
-			// }
+			nSelectedText: ` ${course_input.data("selected-text")}`,
 		});
 
 		cv_button.add(cv_text).click(() => {
