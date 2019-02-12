@@ -87,7 +87,7 @@ class CourseTerm(SafeDeleteModel):
 
     def __str__(self):
         dates = map(lambda x: dateformat(x.date, "j.n.y"), self.items.all())
-        return "{} - {}".format(self.course.title, "+".join(dates) if dates else "--")
+        return "{} - {}".format(self.course.title, " + ".join(dates) if dates else "--")
 
     class Meta:
         verbose_name = "Course term"
