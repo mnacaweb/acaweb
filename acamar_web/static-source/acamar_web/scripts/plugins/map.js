@@ -74,19 +74,16 @@
 
 function myLatLng() {
 	if (screen.width <= 768) {
-		return { lat: 50.094340, lng: 14.445151 };
+		return {lat: 50.094340, lng: 14.445151};
 	} else {
-		return { lat: 50.093933, lng: 14.442251 };
+		return {lat: 50.093933, lng: 14.442251};
 	}
 }
 
 function initMap() {
 	$(function () {
-		$(".map").each(function() {
+		$(".map").each(function () {
 			let $this = $(this);
-			const content = $this.next().html();
-			// const lat = $this.data("lat");
-			// const lon = $this.data("lon");
 			const icon = $this.data("icon");
 			let map = new google.maps.Map(this, {
 				center: myLatLng(),
@@ -96,21 +93,11 @@ function initMap() {
 
 			});
 
-			let marker = new google.maps.Marker({
+			new google.maps.Marker({
 				position: {lat: 50.094120, lng: 14.445091},
 				map: map,
 				icon: icon
 			});
-
-			let infowindow = new google.maps.InfoWindow({
-				content: content,
-				maxWidth: "auto",
-				pixelOffset: {
-					width: 200,
-					height: 200
-				}
-			});
-			infowindow.open(map, marker);
 		});
 	});
 }

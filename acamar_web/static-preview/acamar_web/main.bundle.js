@@ -12069,9 +12069,6 @@ function initMap() {
 	$(function () {
 		$(".map").each(function () {
 			var $this = $(this);
-			var content = $this.next().html();
-			// const lat = $this.data("lat");
-			// const lon = $this.data("lon");
 			var icon = $this.data("icon");
 			var map = new google.maps.Map(this, {
 				center: myLatLng(),
@@ -12081,21 +12078,11 @@ function initMap() {
 
 			});
 
-			var marker = new google.maps.Marker({
+			new google.maps.Marker({
 				position: { lat: 50.094120, lng: 14.445091 },
 				map: map,
 				icon: icon
 			});
-
-			var infowindow = new google.maps.InfoWindow({
-				content: content,
-				maxWidth: "auto",
-				pixelOffset: {
-					width: 200,
-					height: 200
-				}
-			});
-			infowindow.open(map, marker);
 		});
 	});
 }
