@@ -14,7 +14,7 @@ class ReviewTranslationOptions(TranslationOptions):
 
 @register(TeamMember)
 class TeamMemberTranslationOptions(TranslationOptions):
-    fields = ["nickname", "text"]
+    fields = ["name", "nickname", "text"]
 
 
 @register(Link)
