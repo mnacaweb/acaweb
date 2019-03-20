@@ -11771,6 +11771,19 @@ $(document).ready(function () {
 	}
 
 	new _wowjs.WOW().init();
+
+	window.onscroll = function () {
+		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+			document.getElementById("scroll-totop").style.display = "block";
+		} else {
+			document.getElementById("scroll-totop").style.display = "none";
+		}
+	};
+
+	$("#scroll-totop").click(function topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	});
 });
 
 /***/ }),

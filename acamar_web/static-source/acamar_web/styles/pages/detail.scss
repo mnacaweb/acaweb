@@ -140,7 +140,8 @@
 
     .interesting-wrapper {
       background-color: #dfdfdf;
-      border-radius: 0 0 161px 71px;
+      position: relative;
+      z-index: 2;
 
       .mail {
         position: relative;
@@ -164,6 +165,17 @@
       .button-secondary {
         padding: 12px 27px 12px 27px;
         font-size: 16px;
+      }
+
+      &.after {
+        position: relative;
+        margin-top: -40%;
+        background-color: #dfdfdf;
+        //background-color: red;
+        display: block;
+        z-index: 1;
+        padding-bottom: 80%;
+        border-radius: 0 0 50% 50%;
       }
     }
   }

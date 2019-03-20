@@ -60,7 +60,8 @@ class Course(ModelMeta, SafeDeleteModel):
     def meta_keywords_list(self):
         return re.findall(r"[\w']+", self.meta_keywords)
 
-    def get_absolute_url(self, language=translation.get_language()):
+    def get_absolute_url(self, language=None):
+        language = language if language else translation.get_language()
         with translation.override(language):
             try:
                 return reverse("course-detail", kwargs={"slug": self.slug})

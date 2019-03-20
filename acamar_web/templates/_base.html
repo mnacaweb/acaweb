@@ -38,7 +38,7 @@
     {% render_block "css" %}
 
     <link href="{% static "acamar_web/images/fav-icons/favicon.ico" %}" rel="Shortcut Icon">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-57x57.png" %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-114x114.png" %}" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "acamar_web/images/fav-icons/apple-touch-icon-72x72.png" %}" />
@@ -70,7 +70,7 @@
 {% cms_toolbar %}
 
 <div class="site-header">
-    <div class="d-flex justify-content-between px-md-4 py-3 position-relative">
+    <div class="d-flex justify-content-between px-md-4 py-3 position-fixed w-100">
         <div class="logo-background-wrapper pl-4 py-3">
             <a href="/"><img class="main-logo" src="{% static "acamar_web/images/acamar-logo.svg" %}" alt="Acamar logo" /></a>
         </div>
@@ -96,6 +96,7 @@
         </div>
     </footer>
 </div>
+<button id="scroll-totop" title="{% trans "Vrátit na začátek" %}"></button>
 </body>
 
 {% render_bundle 'main' "js" %}

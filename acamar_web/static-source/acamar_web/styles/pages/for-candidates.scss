@@ -208,7 +208,7 @@
           background-size: 160px;
           width: 160px;
           height: 250px;
-          top: -25%;
+          top: -40px;
           right: 0;
 
           @include media-breakpoint-up(sm) {
@@ -225,7 +225,7 @@
             background-size: 300px;
             width: 300px;
             height: 300px;
-            top: -45%;
+            top: -80px;
             right: 25px;
           }
         }
