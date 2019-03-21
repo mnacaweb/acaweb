@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 from urllib.parse import urljoin, unquote
 
 from django.contrib.sites.models import Site
@@ -20,50 +19,65 @@ def position_apply_email(instance, created, **kwargs):
         mail = EmailMessage(
             subject="Nový uchazeč - {}".format(instance.position.name),
             body="Odkaz do adminu: {}\n"
-                 "\n"
-                 "Pozice: {}\n"
-                 "Jméno: {}\n"
-                 "Příjmení: {}\n"
-                 "E-mail: {}\n"
-                 "Telefon: {}\n"
-                 "CV: {}\n"
-                 "LinkedIn: {}\n"
-                 "Text: {}".format(
-                urljoin(domain, reverse("admin:acamar_api_positionapply_change",
-                                        args=(instance.id,))),
+            "\n"
+            "Pozice: {}\n"
+            "Jméno: {}\n"
+            "Příjmení: {}\n"
+            "E-mail: {}\n"
+            "Telefon: {}\n"
+            "CV: {}\n"
+            "LinkedIn: {}\n"
+            "Text: {}".format(
+                urljoin(
+                    domain,
+                    reverse(
+                        "admin:acamar_api_positionapply_change", args=(instance.id,)
+                    ),
+                ),
                 instance.position.name,
                 instance.first_name,
                 instance.last_name,
-                instance.email, instance.phone, urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
+                instance.email,
+                instance.phone,
+                urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
                 instance.linkedin,
-                instance.text),
-            to=[instance.position_user_email]
+                instance.text,
+            ),
+            to=[instance.position_user_email],
         )
         mail.send()
 
 
-@receiver(m2m_changed, sender=CourseEnroll.courses.through, dispatch_uid="course_enroll_email")
+@receiver(
+    m2m_changed, sender=CourseEnroll.courses.through, dispatch_uid="course_enroll_email"
+)
 def course_enroll_email(instance, action, **kwargs):
     if action == "post_add":
         domain = Site.objects.get_current().domain
         mail = EmailMessage(
             subject="Nová přihláška ke kurzům",
             body="Odkaz do adminu: {}\n"
-                 "\n"
-                 "Jméno: {}\n"
-                 "Telefon: {}\n"
-                 "E-mail: {}\n"
-                 "Kurzy: {}\n"
-                 "CV: {}\n"
-                 "Očekávání: {}".format(
-                urljoin(domain, reverse("admin:acamar_api_courseenroll_change", args=(instance.id,))),
+            "\n"
+            "Jméno: {}\n"
+            "Telefon: {}\n"
+            "E-mail: {}\n"
+            "Kurzy: {}\n"
+            "CV: {}\n"
+            "Očekávání: {}".format(
+                urljoin(
+                    domain,
+                    reverse(
+                        "admin:acamar_api_courseenroll_change", args=(instance.id,)
+                    ),
+                ),
                 instance.name,
                 instance.phone,
                 instance.email,
                 instance.course_terms,
                 urljoin(domain, unquote(instance.cv.url)) if instance.cv else "--",
-                instance.expectations),
-            to=["kurzy@acamar.cz"]
+                instance.expectations,
+            ),
+            to=["kurzy@acamar.cz"],
         )
         mail.send()
 

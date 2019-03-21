@@ -12,25 +12,23 @@ def populate(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('acamar_web', '0011_courseenrollformmodel_email_label'),
-    ]
+    dependencies = [("acamar_web", "0011_courseenrollformmodel_email_label")]
 
     operations = [
         migrations.AddField(
-            model_name='link',
-            name='text_cs',
-            field=models.CharField(max_length=255, null=True, verbose_name='Link text'),
+            model_name="link",
+            name="text_cs",
+            field=models.CharField(max_length=255, null=True, verbose_name="Link text"),
         ),
         migrations.AddField(
-            model_name='link',
-            name='text_en',
-            field=models.CharField(max_length=255, null=True, verbose_name='Link text'),
+            model_name="link",
+            name="text_en",
+            field=models.CharField(max_length=255, null=True, verbose_name="Link text"),
         ),
         migrations.AddField(
-            model_name='link',
-            name='text_ru',
-            field=models.CharField(max_length=255, null=True, verbose_name='Link text'),
+            model_name="link",
+            name="text_ru",
+            field=models.CharField(max_length=255, null=True, verbose_name="Link text"),
         ),
-        migrations.RunPython(populate)
+        migrations.RunPython(populate),
     ]

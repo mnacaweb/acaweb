@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 import base64
 import json
 import re
@@ -21,14 +20,16 @@ def json_filter(value):
 def email_link(value):
     if value:
         mail = value.split("@")
-        return "aca{}mar@{}".format(base64.b64encode(mail[0].encode()).decode(), mail[1])
+        return "aca{}mar@{}".format(
+            base64.b64encode(mail[0].encode()).decode(), mail[1]
+        )
     return value
 
 
 @register.filter(name="money")
 @stringfilter
 def money(value):
-    new = re.sub("^(-?\d+)(\d{3})", '\g<1> \g<2>', value)
+    new = re.sub("^(-?\d+)(\d{3})", "\g<1> \g<2>", value)
     if value == new:
         return "{} Kč".format(value)
     else:

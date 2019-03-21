@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 from filer.fields.file import FilerFileField
 
 from .models import FilerVideo

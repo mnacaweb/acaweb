@@ -1,7 +1,6 @@
 # coding: utf-8
 
 
-
 from django.contrib import admin
 from filer.admin import FileAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -27,19 +26,14 @@ class TeamMemberAdmin(TabbedTranslationAdmin):
 @admin.register(Link)
 class LinkAdmin(TabbedTranslationAdmin):
     fieldsets = [
-        (None, {
-            'fields': (
-                'text',
-                ('external_link', 'internal_link'),
-            )
-        }),
-        ('Link settings', {
-            'classes': ('collapse',),
-            'fields': (
-                ('mailto', 'phone'),
-                ('target', 'anchor')
-            )
-        })
+        (None, {"fields": ("text", ("external_link", "internal_link"))}),
+        (
+            "Link settings",
+            {
+                "classes": ("collapse",),
+                "fields": (("mailto", "phone"), ("target", "anchor")),
+            },
+        ),
     ]
 
 
@@ -49,10 +43,10 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ("text", "email", "name")
     list_filter = ("language", "purpose")
     list_display = ("name", "email", "purpose", "language")
-    date_hierarchy = 'created'
+    date_hierarchy = "created"
     fieldsets = [
         (None, {"fields": (("name", "email"), "text")}),
-        ("Meta", {"fields": (("language", "created"),)})
+        ("Meta", {"fields": (("language", "created"),)}),
     ]
 
     def has_add_permission(self, request):

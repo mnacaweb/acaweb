@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 from modeltranslation.translator import TranslationOptions, register
 
 from acamar_web.models import Review, TeamMember, Link

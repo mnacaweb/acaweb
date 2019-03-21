@@ -6,15 +6,12 @@ from django.urls import path, include
 
 handler404 = "acamar_web.views.handler404"
 
-urlpatterns = [
-                  path('api/', include('acamar_web.urls_api', namespace="api")),
-                  path('rosetta/', include('rosetta.urls'))
-              ] \
-              + \
-              i18n_patterns(
-                  path('admin/', admin.site.urls),
-                  path('', include('cms.urls')),
-              ) \
-              + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-              + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+urlpatterns = (
+    [
+        path("api/", include("acamar_web.urls_api", namespace="api")),
+        path("rosetta/", include("rosetta.urls")),
+    ]
+    + i18n_patterns(path("admin/", admin.site.urls), path("", include("cms.urls")))
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)

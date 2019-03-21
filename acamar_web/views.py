@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 
-
 from urllib.parse import urlparse
 
 from django.contrib.sites.models import Site
@@ -17,7 +16,7 @@ def handler404(request):
     link = "/"
     if url and urlparse(Site.objects.get_current(request).domain).netloc in url:
         link = url
-    response = render(request, '404.html', {"link": link})
+    response = render(request, "404.html", {"link": link})
     response.status_code = 404
     return response
 
@@ -28,7 +27,7 @@ class PositionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PositionDetailView, self).get_context_data(**kwargs)
-        context['meta'] = self.get_object().as_meta(self.request)
+        context["meta"] = self.get_object().as_meta(self.request)
         return context
 
     def get_queryset(self):
@@ -44,5 +43,5 @@ class CourseDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CourseDetailView, self).get_context_data(**kwargs)
-        context['meta'] = self.get_object().as_meta(self.request)
+        context["meta"] = self.get_object().as_meta(self.request)
         return context

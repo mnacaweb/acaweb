@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
 
-
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import PositionCategory, PositionPact, PositionTechnology, Position, Course, CourseTermItem
+from .models import (
+    PositionCategory,
+    PositionPact,
+    PositionTechnology,
+    Position,
+    Course,
+    CourseTermItem,
+)
 
 
 @register(PositionCategory)
@@ -24,8 +30,17 @@ class PositionTechnologyTranslationOptions(TranslationOptions):
 
 @register(Course)
 class CourseTranslationOptions(TranslationOptions):
-    fields = ["title", "slug", "short_description", "place", "duration", "price", "meta_title", "meta_description",
-              "meta_keywords"]
+    fields = [
+        "title",
+        "slug",
+        "short_description",
+        "place",
+        "duration",
+        "price",
+        "meta_title",
+        "meta_description",
+        "meta_keywords",
+    ]
 
 
 @register(CourseTermItem)

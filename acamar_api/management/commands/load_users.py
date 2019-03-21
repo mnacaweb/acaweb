@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 import csv
 import os
 
@@ -23,5 +22,5 @@ class Command(BaseCommand):
                     last_name=name[1],
                     password=row[1].decode("utf-8").strip(),
                     email=row[2].decode("utf-8").strip(),
-                    username=row[2].decode("utf-8").strip()
+                    username=row[2].decode("utf-8").strip(),
                 )

@@ -1,23 +1,43 @@
 # -*- coding: utf-8 -*-
 
 
-
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from safedelete.admin import SafeDeleteAdmin, highlight_deleted
 
-from .models import Course, CourseTerm, CourseTermItem, CourseEnroll, PositionApply, Recruiter
+from .models import (
+    Course,
+    CourseTerm,
+    CourseTermItem,
+    CourseEnroll,
+    PositionApply,
+    Recruiter,
+)
 
 
 @admin.register(Course)
 class CourseAdmin(PlaceholderAdminMixin, SafeDeleteAdmin, TabbedTranslationAdmin):
     list_display = (highlight_deleted,) + SafeDeleteAdmin.list_display
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
-        (None,
-         {"fields": [("title", "slug"), ("place", "price", "duration"), "short_description"]}),
-        ("Meta fields", {"fields": ["meta_title", "meta_description", "meta_keywords"], "classes": ["collapse"]})
+        (
+            None,
+            {
+                "fields": [
+                    ("title", "slug"),
+                    ("place", "price", "duration"),
+                    "short_description",
+                ]
+            },
+        ),
+        (
+            "Meta fields",
+            {
+                "fields": ["meta_title", "meta_description", "meta_keywords"],
+                "classes": ["collapse"],
+            },
+        ),
     ]
 
 
@@ -26,7 +46,10 @@ class CourseTermItemInline(TranslationStackedInline):
     min_num = 1
     extra = 1
     fieldsets = (
-        (None, {"fields": (("date", "start_time", "end_time"), "address", "description")}),
+        (
+            None,
+            {"fields": (("date", "start_time", "end_time"), "address", "description")},
+        ),
     )
 
 
@@ -40,14 +63,12 @@ class CourseTermAdmin(SafeDeleteAdmin):
 
     class Media:
         js = (
-            'modeltranslation/js/force_jquery.js',
-            '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js',
-            '//cdn.jsdelivr.net/jquery.mb.browser/0.1/jquery.mb.browser.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
+            "modeltranslation/js/force_jquery.js",
+            "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js",
+            "//cdn.jsdelivr.net/jquery.mb.browser/0.1/jquery.mb.browser.min.js",
+            "modeltranslation/js/tabbed_translation_fields.js",
         )
-        css = {
-            'all': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
+        css = {"all": ("modeltranslation/css/tabbed_translation_fields.css",)}
 
 
 @admin.register(CourseEnroll)
@@ -57,7 +78,10 @@ class CourseEnrollAdmin(admin.ModelAdmin):
     readonly_fields = ["courses", "name", "phone", "cv", "created"]
     date_hierarchy = "created"
     fieldsets = [
-        (None, {"fields": (("name", "phone"), "courses", "expectations", "cv", "created")})
+        (
+            None,
+            {"fields": (("name", "phone"), "courses", "expectations", "cv", "created")},
+        )
     ]
 
     def has_add_permission(self, request):
@@ -68,11 +92,36 @@ class CourseEnrollAdmin(admin.ModelAdmin):
 class PositionApplyAdmin(admin.ModelAdmin):
     list_display = ("position_name", "first_name", "last_name", "email", "phone")
     list_filter = ("position_name",)
-    readonly_fields = ["position", "position_name", "position_user_name", "position_user_email", "created"]
+    readonly_fields = [
+        "position",
+        "position_name",
+        "position_user_name",
+        "position_user_email",
+        "created",
+    ]
     date_hierarchy = "created"
     fieldsets = [
-        ("Position", {"fields": ["position_name", ("position_user_name", "position_user_email")]}),
-        ("Application", {"fields": [("first_name", "last_name"), ("email", "phone"), ("linkedin",), "cv", "text"]})
+        (
+            "Position",
+            {
+                "fields": [
+                    "position_name",
+                    ("position_user_name", "position_user_email"),
+                ]
+            },
+        ),
+        (
+            "Application",
+            {
+                "fields": [
+                    ("first_name", "last_name"),
+                    ("email", "phone"),
+                    ("linkedin",),
+                    "cv",
+                    "text",
+                ]
+            },
+        ),
     ]
 
     def has_add_permission(self, request):

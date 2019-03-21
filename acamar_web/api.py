@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
 
-
 from cms.models import Page
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.http.response import HttpResponseNotAllowed, JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http.response import (
+    HttpResponseNotAllowed,
+    JsonResponse,
+    HttpResponseRedirect,
+    HttpResponseBadRequest,
+)
 from django.shortcuts import render, get_object_or_404, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
@@ -26,7 +30,9 @@ class ReviewApi(View):
     def get(self, request, id=None):
         if id:
             object = get_object_or_404(Review, pk=id, show=True)
-            return render(request, "plugins/review_panel/review.html", {"object": object})
+            return render(
+                request, "plugins/review_panel/review.html", {"object": object}
+            )
         else:
             return HttpResponseNotAllowed([])
 
@@ -41,11 +47,11 @@ class PositionSearchApi(View):
         form = PositionSearchForm(request.GET)
         if form.is_valid():
             sqs = form.search()
-            return render(request, "plugins/position_search/results.html", {
-                "instance": instance,
-                "objects": sqs,
-                "limit": instance.limit,
-            })
+            return render(
+                request,
+                "plugins/position_search/results.html",
+                {"instance": instance, "objects": sqs, "limit": instance.limit},
+            )
 
         return HttpResponseBadRequest()
 
@@ -54,7 +60,9 @@ class PositionSearchAutocompleteApi(View):
     def get(self, request):
         sqs = Position.autocomplete(request.GET.get("q", "")).load_all()[:5]
 
-        return render(request, "plugins/position_search/autocomplete.html", {"objects": sqs})
+        return render(
+            request, "plugins/position_search/autocomplete.html", {"objects": sqs}
+        )
 
 
 class CourseEnrollApi(View):
@@ -71,8 +79,9 @@ class CourseEnrollApi(View):
 @csrf_protect
 @never_cache
 def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
-    redirect_to = request.POST.get(redirect_field_name,
-                                   request.GET.get(redirect_field_name, ''))
+    redirect_to = request.POST.get(
+        redirect_field_name, request.GET.get(redirect_field_name, "")
+    )
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():

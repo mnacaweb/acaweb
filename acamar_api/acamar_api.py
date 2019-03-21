@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 import warnings
 
 import requests
@@ -12,7 +11,13 @@ from django.core.management import call_command
 from django.utils import translation, timezone
 from django.utils.termcolors import colorize
 
-from .models import PositionCategory, PositionPact, Position, PositionTechnology, CourseCache
+from .models import (
+    PositionCategory,
+    PositionPact,
+    Position,
+    PositionTechnology,
+    CourseCache,
+)
 
 
 class AcamarCourseManager:
@@ -22,7 +27,9 @@ class AcamarCourseManager:
 
     @classmethod
     def all(cls, cached=True):
-        warnings.warn(colorize("Deprecated", fg="red"), DeprecationWarning, stacklevel=2)
+        warnings.warn(
+            colorize("Deprecated", fg="red"), DeprecationWarning, stacklevel=2
+        )
         cache_key = cls.cache_prefix.format("all")
         courses = cache.get(cache_key) if cached else None
         if not courses:
@@ -36,9 +43,12 @@ class AcamarCourseManager:
 
     @classmethod
     def _all(cls):
-        resp = requests.get(url="https://old2018.acamar.cz/api_kurzy.php",
-                            params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"},
-                            proxies=settings.PROXIES, verify=False)
+        resp = requests.get(
+            url="https://old2018.acamar.cz/api_kurzy.php",
+            params={"token": "ad9078ccdc3ac86598a770b2e6fb7ca6"},
+            proxies=settings.PROXIES,
+            verify=False,
+        )
         if resp.status_code == 200:
             json = resp.json()
             courses = {}
@@ -66,9 +76,12 @@ class AcamarPositionManager:
 
     @classmethod
     def _request(cls, lng):
-        resp = requests.get(url=cls.url,
-                            params={"token": "ace247464bfa9076dada655abea751c6", "lng": lng},
-                            proxies=settings.PROXIES, verify=False)
+        resp = requests.get(
+            url=cls.url,
+            params={"token": "ace247464bfa9076dada655abea751c6", "lng": lng},
+            proxies=settings.PROXIES,
+            verify=False,
+        )
         if resp.status_code == 200:
             return resp.json()
 
@@ -91,8 +104,9 @@ class AcamarPositionManager:
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
                 for category in cls.get_categories(language):
-                    PositionCategory.objects.update_or_create(id=category["id"],
-                                                              defaults={"name": category["category"]})
+                    PositionCategory.objects.update_or_create(
+                        id=category["id"], defaults={"name": category["category"]}
+                    )
 
     @classmethod
     def get_pacts(cls, lng):
@@ -104,7 +118,9 @@ class AcamarPositionManager:
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
                 for pact in cls.get_pacts(language):
-                    PositionPact.objects.update_or_create(id=pact["id"], defaults={"name": pact["short"]})
+                    PositionPact.objects.update_or_create(
+                        id=pact["id"], defaults={"name": pact["short"]}
+                    )
 
     @classmethod
     def get_technologies(cls, lng):
@@ -116,8 +132,9 @@ class AcamarPositionManager:
         for language, _ in settings.LANGUAGES:
             with translation.override(language):
                 for technology in cls.get_technologies(language):
-                    PositionTechnology.objects.update_or_create(id=technology["id"],
-                                                                defaults={"name": technology["short"]})
+                    PositionTechnology.objects.update_or_create(
+                        id=technology["id"], defaults={"name": technology["short"]}
+                    )
 
     @classmethod
     def get_positions(cls, lng):
@@ -131,36 +148,49 @@ class AcamarPositionManager:
             with translation.override(language):
                 for position in cls.get_positions(language):
                     user = position.get("__user", {})
-                    technologies = [key for key, value in position.get("__technologie", {}).items() if value]
-                    pacts = [key for key, value in position.get("__uvazek", {}).items() if value]
-                    obj, _ = Position.objects.update_or_create(internal_id=position["id"], lang=language,
-                                                               defaults={
-                        "date": dateparser.parse(position["date"]).replace(tzinfo=timezone.utc),
-                        "category_id": position["kategorie"],
-                        "place": position["misto_vykonu_prace"],
-                        "start": position["nastup"],
-                        "name": position["nazev_acamar"],
-                        "introduction": position["uvod_acamar"],
-                        "title1": position["titulek1"],
-                        "text1": position["text1"],
-                        "title2": position["titulek2"],
-                        "text2": position["text2"],
-                        "title3": position["titulek3"],
-                        "text3": position["text3"],
-                        "title4": position["titulek4"],
-                        "text4": position["text4"],
-                        "title5": position["titulek5"],
-                        "text5": position["text5"],
-                        "title6": position["titulek6"],
-                        "text6": position["text6"],
-                        "user_email": user["email"],
-                        "user_first_name": user["firstName"],
-                        "user_second_name": user["secondName"],
-                        "user_image": user["image"],
-                        "_user_image_url": user["image_url"],
-                        "user_phone": user["telefon"],
-                        "user_position": user["pozice"],
-                    })
+                    technologies = [
+                        key
+                        for key, value in position.get("__technologie", {}).items()
+                        if value
+                    ]
+                    pacts = [
+                        key
+                        for key, value in position.get("__uvazek", {}).items()
+                        if value
+                    ]
+                    obj, _ = Position.objects.update_or_create(
+                        internal_id=position["id"],
+                        lang=language,
+                        defaults={
+                            "date": dateparser.parse(position["date"]).replace(
+                                tzinfo=timezone.utc
+                            ),
+                            "category_id": position["kategorie"],
+                            "place": position["misto_vykonu_prace"],
+                            "start": position["nastup"],
+                            "name": position["nazev_acamar"],
+                            "introduction": position["uvod_acamar"],
+                            "title1": position["titulek1"],
+                            "text1": position["text1"],
+                            "title2": position["titulek2"],
+                            "text2": position["text2"],
+                            "title3": position["titulek3"],
+                            "text3": position["text3"],
+                            "title4": position["titulek4"],
+                            "text4": position["text4"],
+                            "title5": position["titulek5"],
+                            "text5": position["text5"],
+                            "title6": position["titulek6"],
+                            "text6": position["text6"],
+                            "user_email": user["email"],
+                            "user_first_name": user["firstName"],
+                            "user_second_name": user["secondName"],
+                            "user_image": user["image"],
+                            "_user_image_url": user["image_url"],
+                            "user_phone": user["telefon"],
+                            "user_position": user["pozice"],
+                        },
+                    )
                     obj.pacts.clear()
                     obj.pacts.add(*pacts)
                     obj.technologies.clear()
@@ -172,10 +202,18 @@ class AcamarPositionManager:
     @classmethod
     def sync(cls):
         start = timezone.now()
-        print(("POSITION SYNC - START - {}".format(start.strftime("%d.%m.%Y %H:%M:%S"))))
+        print(
+            ("POSITION SYNC - START - {}".format(start.strftime("%d.%m.%Y %H:%M:%S")))
+        )
         cls.sync_categories()
         cls.sync_technologies()
         cls.sync_pacts()
         cls.sync_positions()
         end = timezone.now()
-        print(("POSITION SYNC - FINISH - {} - EST:{}".format(end.strftime("%d.%m.%Y %H:%M:%S"), end-start)))
+        print(
+            (
+                "POSITION SYNC - FINISH - {} - EST:{}".format(
+                    end.strftime("%d.%m.%Y %H:%M:%S"), end - start
+                )
+            )
+        )

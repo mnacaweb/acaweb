@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.contrib import admin
@@ -9,13 +8,56 @@ from django.db.models.aggregates import Count
 from django.utils.translation import get_language
 
 from acamar_api.models import PositionCategory, PositionPact, Position
-from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, ReviewPanel, Review, CoursePanel, \
-    CreateTeam, CreateTeamCard, TeamGrid, Logo, LogoPanel, ContactGrid, ContactCard, ContactFormModel, \
-    ContactFormPurposeOption, Map, PositionSearch, Quote, BubblePanel, BubbleCard, Timeline, TimelineItem, \
-    AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
-    CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
-    CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel, ThanksBanner
+from .models import (
+    MainBanner,
+    MainBannerCard,
+    WorkElipse,
+    WorkElipseColumn,
+    ReviewPanel,
+    Review,
+    CoursePanel,
+    CreateTeam,
+    CreateTeamCard,
+    TeamGrid,
+    Logo,
+    LogoPanel,
+    ContactGrid,
+    ContactCard,
+    ContactFormModel,
+    ContactFormPurposeOption,
+    Map,
+    PositionSearch,
+    Quote,
+    BubblePanel,
+    BubbleCard,
+    Timeline,
+    TimelineItem,
+    AcaFriendPanel,
+    AcaFriendCard,
+    ContactUs,
+    GraphSection,
+    GraphCard,
+    GraphCardText,
+    PartnersModel,
+    ContactPerson,
+    CoursePanelItem,
+    CourseLector,
+    AcardBenefits,
+    AcardBenefitsItem,
+    CourseBonusPanel,
+    CourseBonusCard,
+    CourseProgram,
+    CourseProgramItem,
+    CourseTermList,
+    CourseTermListAdditional,
+    CourseGenericRegistration,
+    CourseBasicInfo,
+    CourseBasicInfoCard,
+    PartnersItem,
+    CourseEnrollFormModel,
+    LoginPluginModel,
+    ThanksBanner,
+)
 
 
 @plugin_pool.register_plugin
@@ -183,9 +225,14 @@ class ContactPersonPlugin(CMSPluginBase):
 
     fieldsets = [
         (None, {"fields": ("title", "subtitle", "button")}),
-        ("Person", {"fields": ("person_name", "person_title", "person_phone", "image"), "classes": ["wide"]}),
-        ("Additional link",
-         {"fields": ("more",), "classes": ["collapse"]})
+        (
+            "Person",
+            {
+                "fields": ("person_name", "person_title", "person_phone", "image"),
+                "classes": ["wide"],
+            },
+        ),
+        ("Additional link", {"fields": ("more",), "classes": ["collapse"]}),
     ]
 
 
@@ -203,16 +250,21 @@ class PositionSearchPlugin(CMSPluginBase):
     render_template = "plugins/position_search/position_search.html"
 
     def render(self, context, instance, placeholder):
-        context = super(PositionSearchPlugin, self).render(context, instance, placeholder)
+        context = super(PositionSearchPlugin, self).render(
+            context, instance, placeholder
+        )
         language = get_language()
         positions = Position.objects.filter(lang=language).exclude(slug="")
 
-        context["categories"] = PositionCategory.objects.filter(positions__in=positions).annotate(
-            num_positions=Count("positions"))
+        context["categories"] = PositionCategory.objects.filter(
+            positions__in=positions
+        ).annotate(num_positions=Count("positions"))
         context["pacts"] = PositionPact.objects.all()
         context["positions"] = positions
         context["limit"] = instance.limit
-        context["more"] = (positions.count() > instance.limit) if instance.limit else False
+        context["more"] = (
+            (positions.count() > instance.limit) if instance.limit else False
+        )
         return context
 
 
@@ -332,7 +384,7 @@ class CourseLectorPlugin(CMSPluginBase):
 
     fieldsets = [
         (None, {"fields": ("title", "text")}),
-        ("Person", {"fields": ("person_name", "person_title", "person_image")})
+        ("Person", {"fields": ("person_name", "person_title", "person_image")}),
     ]
 
 
@@ -399,7 +451,11 @@ class CourseTermListPlugin(CMSPluginBase):
         (None, {"fields": ("title", "subtitle", "button")}),
         (
             "Additional registration",
-            {"fields": ("additional_registration", "additional_title"), "classes": ["collapse"]})
+            {
+                "fields": ("additional_registration", "additional_title"),
+                "classes": ["collapse"],
+            },
+        ),
     ]
     inlines = [CourseTermListAdditionalInline]
 
@@ -436,9 +492,17 @@ class CourseEnrollFormPlugin(CMSPluginBase):
     render_template = "plugins/course/course_enroll_form.html"
     fieldsets = [
         (None, {"fields": ("title", ("submit_text", "thanks_page"))}),
-        ("Form labels", {
-            "fields": (
-                ("name_label", "phone_label"), ("email_label", "course_label"), ("expectations_label", "cv_label"), ("cv_picker_label", "selected_text"))})
+        (
+            "Form labels",
+            {
+                "fields": (
+                    ("name_label", "phone_label"),
+                    ("email_label", "course_label"),
+                    ("expectations_label", "cv_label"),
+                    ("cv_picker_label", "selected_text"),
+                )
+            },
+        ),
     ]
 
 
@@ -449,9 +513,10 @@ class LoginPlugin(CMSPluginBase):
     render_template = "plugins/login/login.html"
     fieldsets = [
         (None, {"fields": ("title", "subtitle")}),
-        ("Form labels", {
-            "fields": (
-                ("username_label", "password_label"), "button_text")})
+        (
+            "Form labels",
+            {"fields": (("username_label", "password_label"), "button_text")},
+        ),
     ]
     cache = False
 

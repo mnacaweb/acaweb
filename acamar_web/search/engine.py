@@ -16,22 +16,42 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                     "ngram_analyzer": {
                         "type": "custom",
                         "tokenizer": "standard",
-                        "filter": ["cs_stopwords", "cs_hunspell", "lowercase", "cs_stopwords", "icu_folding",
-                                   "remove_duplicates", "haystack_ngram"]
+                        "filter": [
+                            "cs_stopwords",
+                            "cs_hunspell",
+                            "lowercase",
+                            "cs_stopwords",
+                            "icu_folding",
+                            "remove_duplicates",
+                            "haystack_ngram",
+                        ],
                     },
                     "edgengram_analyzer": {
                         "type": "custom",
                         "tokenizer": "standard",
-                        "filter": ["cs_stopwords", "cs_hunspell", "lowercase", "cs_stopwords", "icu_folding",
-                                   "remove_duplicates", "haystack_edgengram"]
+                        "filter": [
+                            "cs_stopwords",
+                            "cs_hunspell",
+                            "lowercase",
+                            "cs_stopwords",
+                            "icu_folding",
+                            "remove_duplicates",
+                            "haystack_edgengram",
+                        ],
                     },
                     "pb_analyzer": {
                         "type": "custom",
                         "tokenizer": "standard",
-                        "filter": ["cs_stopwords", "cs_hunspell", "lowercase", "cs_stopwords", "icu_folding",
-                                   "remove_duplicates"],
+                        "filter": [
+                            "cs_stopwords",
+                            "cs_hunspell",
+                            "lowercase",
+                            "cs_stopwords",
+                            "icu_folding",
+                            "remove_duplicates",
+                        ],
                         # "char_filter": ["html_strip"]
-                    }
+                    },
                 },
                 "tokenizer": {
                     "haystack_ngram_tokenizer": {
@@ -43,8 +63,8 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                         "type": "edgeNGram",
                         "min_gram": 2,
                         "max_gram": 15,
-                        "side": "front"
-                    }
+                        "side": "front",
+                    },
                 },
                 # "char_filter": {
                 #     "my_html_strip": {
@@ -53,36 +73,29 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                 #     }
                 # },
                 "filter": {
-                    "haystack_ngram": {
-                        "type": "nGram",
-                        "min_gram": 3,
-                        "max_gram": 15
-                    },
+                    "haystack_ngram": {"type": "nGram", "min_gram": 3, "max_gram": 15},
                     "haystack_edgengram": {
                         "type": "edgeNGram",
                         "min_gram": 2,
-                        "max_gram": 15
+                        "max_gram": 15,
                     },
                     "cs_stopwords": {
                         "type": "stop",
                         "stopwords": "_czech_",
-                        "ignore_case": True
+                        "ignore_case": True,
                     },
                     "cs_hunspell": {
                         "type": "hunspell",
                         "locale": "cs_CZ",
                         "dedup": True,
-                        "recursion_level": 2
+                        "recursion_level": 2,
                     },
-                    "cs_stemmer": {
-                        "type": "stemmer",
-                        "language": "czech"
-                    },
+                    "cs_stemmer": {"type": "stemmer", "language": "czech"},
                     "remove_duplicates": {
                         "type": "unique",
-                        "only_on_same_position": True
-                    }
-                }
+                        "only_on_same_position": True,
+                    },
+                },
             }
         }
     }
