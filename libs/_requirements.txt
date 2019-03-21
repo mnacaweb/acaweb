@@ -12,7 +12,8 @@ django-admin-sortable
 django-modeltranslation
 django-extensions
 python-dateutil
-django-haystack
+git+https://github.com/django-haystack/django-haystack@master#egg=django-haystack
+elasticsearch>=5,<6
 django-safedelete
 django-crontab
 django-rosetta

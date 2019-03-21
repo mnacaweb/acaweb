@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from django.contrib import admin

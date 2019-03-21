@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
+import html
 
 from django.utils import translation
-from django.utils.html_parser import HTMLParser
 from haystack import indexes
 
 from .models import Position
@@ -40,8 +38,7 @@ class PositionIndex(indexes.SearchIndex, indexes.Indexable):
             return data
 
     def prepare_text(self, obj):
-        parser = HTMLParser()
-        return parser.unescape(self.prepared_data["text"])
+        return html.unescape(self.prepared_data["text"])
 
     def prepare_url(self, obj):
         return obj.get_absolute_url(self.language)

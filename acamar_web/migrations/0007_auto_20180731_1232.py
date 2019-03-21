@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from cms.models import Page
 from django.db import migrations, models
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ThanksBanner',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_thanksbanner', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_thanksbanner', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
             ],

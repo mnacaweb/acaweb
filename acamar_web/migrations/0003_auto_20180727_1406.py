@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.db import migrations, models
 import django.db.models.deletion
@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseEnrollFormModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courseenrollformmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courseenrollformmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('name_label', models.CharField(max_length=254, verbose_name='Name label')),
                 ('phone_label', models.CharField(max_length=254, verbose_name='Phone label')),

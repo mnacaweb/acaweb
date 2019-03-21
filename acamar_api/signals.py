@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
 
-from urlparse import urljoin, unquote
+
+from urllib.parse import urljoin, unquote
 
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
-from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
+from django.urls import reverse
 
 from .models import PositionApply, CourseEnroll
 

@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-from raven.contrib.django.middleware.wsgi import Sentry
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "acamar_web.settings")
 
@@ -26,5 +25,3 @@ application = get_wsgi_application()
 #         'REMOTE_ADDR': '127.0.0.1',
 #         'wsgi.input': sys.stdin,
 #     }, lambda x, y: None)
-
-application = Sentry(application)

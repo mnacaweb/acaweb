@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from __future__ import unicode_literals
+
 
 import os
 import socket
@@ -43,7 +43,7 @@ if DEV_PROFILE == 'local':
     }
     STATIC_GRUNT_DIR = 'static-preview'
     BASE_URL = 'http://127.0.0.1:8000'
-    RAVEN_ENABLED = False
+    RAVEN_ENABLED = True
 
 elif DEV_PROFILE == 'preview':
     FILER_DEBUG = True
@@ -110,20 +110,18 @@ INSTALLED_APPS = (
     'rosetta',
 
     'webpack_loader',
-    'raven.contrib.django.raven_compat',
 
     'acamar_api',
     'acamar_web'
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.cache.UpdateCacheMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -238,34 +236,26 @@ META_USE_OG_PROPERTIES = False
 META_USE_TWITTER_PROPERTIES = False
 META_USE_GOOGLEPLUS_PROPERTIES = False
 
+ELASTIC_URL = "http://localhost:9200/"
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'cs'),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
+        'ENGINE': 'acamar_web.search.engine.Elasticsearch5SearchEngineCz',
+        'URL': ELASTIC_URL,
+        'INDEX_NAME': '{}_{}_haystack'.format(PB_PROJECT, "cz"),
     },
     'default_en': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'en'),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
+        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
+        'URL': ELASTIC_URL,
+        'INDEX_NAME': '{}_{}_haystack'.format(PB_PROJECT, "en"),
     },
     'default_ru': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index', 'ru'),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
+        'ENGINE': 'acamar_web.search.engine.Elasticsearch5SearchEngineRu',
+        'URL': ELASTIC_URL,
+        'INDEX_NAME': '{}_{}_haystack'.format(PB_PROJECT, "ru"),
     }
 }
+
 HAYSTACK_ROUTERS = ['acamar_web.search.router.LanguageRouter']
-SEARCH_ENGINE = 'acamar_web.search.engine.FoldingWhooshEngine'
 HAYSTACK_SIGNAL_PROCESSOR = 'acamar_web.search.signals.PositionRealtimeSignalProcessor'
 
 CRONJOBS = [
@@ -385,70 +375,13 @@ WEBPACK_LOADER = {
 }
 
 if RAVEN_ENABLED:
-    import raven
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
 
-    release = 'development'
-    try:
-        release = raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__)))
-    except raven.exceptions.InvalidGitRepository:
-        pass
-
-    RAVEN_CONFIG = {
-        'dsn': RAVEN_DSN,
-        'release': release,
-    }
-
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'root': {
-            'level': 'WARNING',
-            'handlers': ['sentry'],
-        },
-        'formatters': {
-            'verbose': {
-                'format': '%(levelname)s %(asctime)s %(module)s '
-                          '%(process)d %(thread)d %(message)s'
-            },
-        },
-        'handlers': {
-            'sentry': {
-                'level': 'ERROR',  # To capture more than ERROR, change to WARNING, INFO, etc.
-                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            },
-            'sentry_exception': {
-                'level': 'DEBUG',
-                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            },
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'verbose'
-            }
-        },
-        'loggers': {
-            'django.db.backends': {
-                'level': 'ERROR',
-                'handlers': ['console'],
-                'propagate': False,
-            },
-            'raven': {
-                'level': 'INFO',
-                'handlers': ['console'],
-                'propagate': False,
-            },
-            'sentry.errors': {
-                'level': 'DEBUG',
-                'handlers': ['console'],
-                'propagate': False,
-            },
-            'sentry.exception': {
-                'level': 'DEBUG',
-                'handlers': ['sentry_exception'],
-                'propagate': False,
-            },
-        },
-    }
+    sentry_sdk.init(
+        dsn=RAVEN_DSN,
+        integrations=[DjangoIntegration()],
+    )
 else:
     LOGGING = {
         'version': 1,
@@ -461,7 +394,7 @@ else:
         'handlers': {
             'mail_admins': {
                 'level': 'ERROR',
-                'filters': (),
+                'filters': ("require_debug_false",),
                 'class': 'django.utils.log.AdminEmailHandler',
                 'include_html': True
             }
@@ -478,11 +411,11 @@ else:
 PROXIES = {"http": "http://localhost:8888", "https": "http://localhost:8888"} if DEV_PROFILE != "local" else {}
 
 if DEV_PROFILE != 'local':
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
 
-    proxy_support = urllib2.ProxyHandler(PROXIES)
-    opener = urllib2.build_opener(proxy_support)
-    urllib2.install_opener(opener)
+    proxy_support = urllib.request.ProxyHandler(PROXIES)
+    opener = urllib.request.build_opener(proxy_support)
+    urllib.request.install_opener(opener)
 
     CACHES = {
         'default': {
@@ -493,4 +426,4 @@ if DEV_PROFILE != 'local':
     TEST_RUNNER = 'acamar_web.test.testrunner.NoDbTestRunner'
 
 if os.path.exists(os.path.join(BASE_DIR, 'acamar_web', 'settings_local.py')):
-    from settings_local import *
+    from .settings_local import *

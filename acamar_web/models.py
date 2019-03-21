@@ -1,11 +1,9 @@
 # coding: utf-8
 
-from __future__ import unicode_literals
-
 import base64
 import os
-import urllib
 from random import shuffle
+from urllib import parse
 
 from adminsortable.models import SortableMixin
 from cms.models import CMSPlugin
@@ -25,6 +23,7 @@ from filer.fields.image import FilerImageField
 from filer.models import File
 
 from acamar_api.models import Course, CourseTerm
+from acamar_web.templatetags.utils import email_link
 
 
 class FilerVideo(File):
@@ -63,8 +62,7 @@ class Link(models.Model):
 
     @cached_property
     def mailto_safe(self):
-        mail = self.mailto.split("@")
-        return "aca{}mar@{}".format(base64.b64encode(mail[0]), mail[1])
+        return email_link(self.mailto)
 
     @cached_property
     def get_link(self):
@@ -117,11 +115,11 @@ class Link(models.Model):
         }
         link_field_verbose_names = {
             key: force_text(self._meta.get_field(key).verbose_name)
-            for key in link_fields.keys()
+            for key in list(link_fields.keys())
         }
         provided_link_fields = {
             key: value
-            for key, value in link_fields.items()
+            for key, value in list(link_fields.items())
             if value
         }
 
@@ -131,7 +129,7 @@ class Link(models.Model):
                 ', '.join(verbose_names[:-1]),
                 verbose_names[-1],
             )
-            errors = {}.fromkeys(provided_link_fields.keys(), error_msg)
+            errors = {}.fromkeys(list(provided_link_fields.keys()), error_msg)
             raise ValidationError(errors)
 
         if len(provided_link_fields) == 0 and not self.anchor:
@@ -168,9 +166,9 @@ class MainBanner(CMSPlugin):
     title = models.CharField(verbose_name="Title", max_length=254)
     subtitle = models.TextField(verbose_name="Sub-title", blank=True)
 
-    background_video = FilerVideoField(verbose_name="Background video", null=True, blank=True,
+    background_video = FilerVideoField(verbose_name="Background video", null=True, blank=True, on_delete=models.PROTECT,
                                        related_name="main_banners_video")
-    background_image = FilerImageField(verbose_name="Background image", null=True, blank=True,
+    background_image = FilerImageField(verbose_name="Background image", null=True, blank=True, on_delete=models.PROTECT,
                                        help_text="Fallback for background video", related_name="main_banners_image")
 
     def __str__(self):
@@ -363,7 +361,7 @@ class TeamMember(SortableMixin):
 
     @property
     def linkedin_formatted(self):
-        link = urllib.unquote_plus(self.linkedin.encode("utf-8")).decode("utf-8").split("://", 1)[1]
+        link = parse.unquote_plus(self.linkedin).split("://", 1)[1]
         if link.startswith("www."):
             return link[4:]
         return link
@@ -400,7 +398,7 @@ class ContactCard(CMSPlugin):
 
     @property
     def linkedin_formatted(self):
-        link = urllib.unquote_plus(self.linkedin.encode("utf-8")).decode("utf-8").split("://", 1)[1]
+        link = parse.unquote_plus(self.linkedin).split("://", 1)[1]
         if link.startswith("www."):
             return link[4:]
         return link

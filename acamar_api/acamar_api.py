@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 import warnings
 
@@ -32,7 +32,7 @@ class AcamarCourseManager:
 
     @classmethod
     def all_list(cls, cached=True):
-        return cls.all(cached).values()
+        return list(cls.all(cached).values())
 
     @classmethod
     def _all(cls):
@@ -42,7 +42,7 @@ class AcamarCourseManager:
         if resp.status_code == 200:
             json = resp.json()
             courses = {}
-            for id, course in json.iteritems():
+            for id, course in json.items():
                 courses[id] = cls.model(**course)
             return courses
         else:
@@ -56,7 +56,7 @@ class AcamarCourseManager:
     @classmethod
     def get_choices(cls, cached=True):
         courses = cls.all(cached)
-        return [(int(id), obj.title) for id, obj in courses.iteritems()]
+        return [(int(id), obj.title) for id, obj in courses.items()]
 
 
 class AcamarPositionManager:
@@ -131,8 +131,8 @@ class AcamarPositionManager:
             with translation.override(language):
                 for position in cls.get_positions(language):
                     user = position.get("__user", {})
-                    technologies = [key for key, value in position.get("__technologie", {}).iteritems() if value]
-                    pacts = [key for key, value in position.get("__uvazek", {}).iteritems() if value]
+                    technologies = [key for key, value in position.get("__technologie", {}).items() if value]
+                    pacts = [key for key, value in position.get("__uvazek", {}).items() if value]
                     obj, _ = Position.objects.update_or_create(internal_id=position["id"], lang=language,
                                                                defaults={
                         "date": dateparser.parse(position["date"]).replace(tzinfo=timezone.utc),
@@ -172,10 +172,10 @@ class AcamarPositionManager:
     @classmethod
     def sync(cls):
         start = timezone.now()
-        print("POSITION SYNC - START - {}".format(start.strftime("%d.%m.%Y %H:%M:%S")))
+        print(("POSITION SYNC - START - {}".format(start.strftime("%d.%m.%Y %H:%M:%S"))))
         cls.sync_categories()
         cls.sync_technologies()
         cls.sync_pacts()
         cls.sync_positions()
         end = timezone.now()
-        print("POSITION SYNC - FINISH - {} - EST:{}".format(end.strftime("%d.%m.%Y %H:%M:%S"), end-start))
+        print(("POSITION SYNC - FINISH - {} - EST:{}".format(end.strftime("%d.%m.%Y %H:%M:%S"), end-start)))

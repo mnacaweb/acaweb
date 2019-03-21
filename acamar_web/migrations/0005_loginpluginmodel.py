@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.db import migrations, models
 
@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LoginPluginModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_loginpluginmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_loginpluginmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
                 ('username_label', models.CharField(max_length=254, verbose_name='Username label')),

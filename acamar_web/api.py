@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from cms.models import Page
 from django.conf import settings
@@ -73,9 +73,7 @@ class CourseEnrollApi(View):
 def login_api(request, redirect_field_name=REDIRECT_FIELD_NAME):
     redirect_to = request.POST.get(redirect_field_name,
                                    request.GET.get(redirect_field_name, ''))
-    print(redirect_to)
     if request.method == "POST":
-        print(request.POST)
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):

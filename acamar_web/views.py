@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-from __future__ import unicode_literals
 
-from urlparse import urlparse
+
+from urllib.parse import urlparse
 
 from django.contrib.sites.models import Site
 from django.shortcuts import render

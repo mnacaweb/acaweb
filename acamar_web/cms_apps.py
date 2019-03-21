@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
-from django.conf.urls import url
+from django.urls import path
 
 from .views import PositionDetailView, CourseDetailView
 
@@ -16,7 +16,7 @@ class PositionsApphook(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return [
-            url(r'^(?P<slug>[\w-]+)/$', PositionDetailView.as_view(), name="position-detail")
+            path('<slug:slug>/', PositionDetailView.as_view(), name="position-detail")
         ]
 
 
@@ -27,5 +27,5 @@ class CourseApp(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return [
-            url(r'^(?P<slug>[\w-]+)/$', CourseDetailView.as_view(), name="course-detail")
+            path('<slug:slug>/', CourseDetailView.as_view(), name="course-detail")
         ]

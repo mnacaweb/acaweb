@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 import json
 import re
 
-from cms.models import PlaceholderField
+from cms.models import PlaceholderField, NoReverseMatch
 from django.conf import settings
-from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.template.defaultfilters import date as dateformat
+from django.urls import reverse
 from django.utils import translation, timezone
 from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.functional import cached_property
@@ -87,7 +87,7 @@ class CourseTerm(SafeDeleteModel):
                                related_name="terms")
 
     def __str__(self):
-        dates = map(lambda x: dateformat(x.date, "j.n.y"), self.items.all())
+        dates = [dateformat(x.date, "j.n.y") for x in self.items.all()]
         return "{} - {}".format(self.course.title, " + ".join(dates) if dates else "--")
 
     class Meta:
@@ -122,7 +122,7 @@ class CourseTermItem(models.Model):
 @python_2_unicode_compatible
 class CourseCache(object):
     def __init__(self, **kwargs):
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             setattr(self, key, value)
 
     def __str__(self):

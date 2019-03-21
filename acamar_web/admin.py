@@ -1,12 +1,12 @@
 # coding: utf-8
 
-from __future__ import unicode_literals
+
 
 from django.contrib import admin
 from filer.admin import FileAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
 
-from models import FilerVideo, Review, TeamMember, Link, Contact
+from .models import FilerVideo, Review, TeamMember, Link, Contact
 
 
 @admin.register(FilerVideo)

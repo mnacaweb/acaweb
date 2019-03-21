@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.db import migrations, models
 import djangocms_text_ckeditor.fields
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
             name='CourseTerm',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('course', models.ForeignKey(related_name='terms', verbose_name='Course', to='acamar_api.Course')),
+                ('course', models.ForeignKey(related_name='terms', verbose_name='Course', to='acamar_api.Course', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Course term',
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
                 ('description_cs', models.CharField(max_length=254, null=True, verbose_name='Description', blank=True)),
                 ('description_en', models.CharField(max_length=254, null=True, verbose_name='Description', blank=True)),
                 ('description_ru', models.CharField(max_length=254, null=True, verbose_name='Description', blank=True)),
-                ('parent', models.ForeignKey(related_name='items', verbose_name='Course term', to='acamar_api.CourseTerm')),
+                ('parent', models.ForeignKey(related_name='items', verbose_name='Course term', to='acamar_api.CourseTerm', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Course term - item',
@@ -231,7 +231,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='position',
             name='category',
-            field=models.ForeignKey(related_name='positions', to='acamar_api.PositionCategory'),
+            field=models.ForeignKey(related_name='positions', to='acamar_api.PositionCategory', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='position',

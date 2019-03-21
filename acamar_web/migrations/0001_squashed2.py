@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.db import migrations, models
 import filer.fields.image
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AcaFriendCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acafriendcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acafriendcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('author', models.CharField(max_length=254, verbose_name='Author')),
                 ('author_position', models.CharField(max_length=254, verbose_name='Author position')),
                 ('text', models.TextField(verbose_name='Text')),
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AcaFriendPanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acafriendpanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acafriendpanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AcardBenefits',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acardbenefits', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acardbenefits', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AcardBenefitsItem',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acardbenefitsitem', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_acardbenefitsitem', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Subtitle')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BubbleCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_bubblecard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_bubblecard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', models.TextField(verbose_name='Text')),
                 ('bubble_highlight', models.CharField(max_length=254, verbose_name='Bubble highlight')),
@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BubblePanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_bubblepanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_bubblepanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ContactCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('name', models.CharField(max_length=254, verbose_name='Name')),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', models.TextField(verbose_name='Text')),
@@ -117,7 +117,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ContactFormModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactformmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactformmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title')),
                 ('name_label', models.CharField(max_length=254, verbose_name='Label - name')),
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=254, verbose_name='Option name')),
-                ('form', models.ForeignKey(related_name='purpose_options', editable=False, to='acamar_web.ContactFormModel')),
+                ('form', models.ForeignKey(related_name='purpose_options', editable=False, to='acamar_web.ContactFormModel', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Purpose option',
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ContactGrid',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactgrid', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactgrid', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -157,7 +157,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ContactPerson',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactperson', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactperson', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
                 ('person_name', models.CharField(max_length=254, verbose_name='Person name')),
@@ -172,7 +172,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ContactUs',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactus', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_contactus', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -183,7 +183,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseBasicInfo',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebasicinfo', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebasicinfo', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -194,7 +194,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseBasicInfoCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebasicinfocard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebasicinfocard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('image', filer.fields.image.FilerImageField(on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', to=settings.FILER_IMAGE_MODEL)),
             ],
@@ -206,7 +206,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseBonusCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebonuscard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebonuscard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
             ],
@@ -218,7 +218,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseBonusPanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebonuspanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursebonuspanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -229,7 +229,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseGenericRegistration',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursegenericregistration', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursegenericregistration', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
             ],
@@ -241,7 +241,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseLector',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courselector', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courselector', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('person_name', models.CharField(max_length=254, verbose_name='Person name')),
                 ('person_title', models.CharField(max_length=254, verbose_name='Person title')),
@@ -256,7 +256,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CoursePanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursepanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursepanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
                 ('template', models.CharField(default='', max_length=20, verbose_name='Template', blank=True, choices=[('', 'Default'), ('_alternative', 'Alternative with background')])),
@@ -272,7 +272,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('course', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, verbose_name='Course', to='acamar_api.Course')),
-                ('course_panel', models.ForeignKey(related_name='items', to='acamar_web.CoursePanel')),
+                ('course_panel', models.ForeignKey(related_name='items', to='acamar_web.CoursePanel', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Course',
@@ -282,7 +282,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseProgram',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courseprogram', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_courseprogram', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
             ],
@@ -296,13 +296,13 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.CharField(max_length=254, verbose_name='Text')),
-                ('parent', models.ForeignKey(related_name='items', to='acamar_web.CourseProgram')),
+                ('parent', models.ForeignKey(related_name='items', to='acamar_web.CourseProgram', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
             name='CourseTermList',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursetermlist', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_coursetermlist', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
                 ('additional_registration', models.BooleanField(default=False, verbose_name='Additional registration')),
@@ -319,7 +319,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('address', models.CharField(max_length=254, verbose_name='Address', blank=True)),
                 ('description', models.CharField(max_length=254, verbose_name='Description', blank=True)),
-                ('parent', models.ForeignKey(related_name='additional_items', to='acamar_web.CourseTermList')),
+                ('parent', models.ForeignKey(related_name='additional_items', to='acamar_web.CourseTermList', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Additional registration - item',
@@ -329,7 +329,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CreateTeam',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_createteam', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_createteam', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title', blank=True)),
             ],
@@ -341,7 +341,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CreateTeamCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_createteamcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_createteamcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title', blank=True)),
                 ('image', filer.fields.image.FilerImageField(on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', to=settings.FILER_IMAGE_MODEL)),
@@ -354,7 +354,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FilerVideo',
             fields=[
-                ('file_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='filer.File')),
+                ('file_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='filer.File', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -364,7 +364,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GraphCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_graphcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_graphcard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('image', filer.fields.image.FilerImageField(on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', to=settings.FILER_IMAGE_MODEL)),
             ],
@@ -378,7 +378,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.CharField(max_length=254, verbose_name='Text')),
-                ('parent', models.ForeignKey(related_name='texts', to='acamar_web.GraphCard')),
+                ('parent', models.ForeignKey(related_name='texts', to='acamar_web.GraphCard', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Graph card text',
@@ -388,7 +388,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GraphSection',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_graphsection', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_graphsection', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -410,7 +410,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Logo',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_logo', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_logo', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('image', filer.fields.image.FilerImageField(related_name='teamwork_logos', on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', to=settings.FILER_IMAGE_MODEL)),
             ],
             options={
@@ -421,7 +421,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LogoPanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_logopanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_logopanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('button', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, verbose_name='Button', blank=True, to='acamar_web.Link', null=True)),
             ],
@@ -433,12 +433,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MainBanner',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_mainbanner', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_mainbanner', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('template', models.CharField(default='default', max_length=100, verbose_name='Template', choices=[('default', 'Default'), ('for_candidates', 'For candidates'), ('for_companies', 'For companies'), ('we_are', 'We are'), ('course', 'Course'), ('contact', 'Contact'), ('detail', 'Detail'), ('a-card', 'A-card')])),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title', blank=True)),
-                ('background_image', filer.fields.image.FilerImageField(related_name='main_banners_image', blank=True, to=settings.FILER_IMAGE_MODEL, help_text='Fallback for background video', null=True, verbose_name='Background image')),
-                ('background_video', acamar_web.fields.FilerVideoField(related_name='main_banners_video', verbose_name='Background video', blank=True, to='acamar_web.FilerVideo', null=True)),
+                ('background_image', filer.fields.image.FilerImageField(related_name='main_banners_image', blank=True, to=settings.FILER_IMAGE_MODEL, help_text='Fallback for background video', null=True, verbose_name='Background image', on_delete=models.PROTECT)),
+                ('background_video', acamar_web.fields.FilerVideoField(related_name='main_banners_video', verbose_name='Background video', blank=True, to='acamar_web.FilerVideo', null=True, on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -448,7 +448,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MainBannerCard',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_mainbannercard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_mainbannercard', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title')),
                 ('theme', models.CharField(blank=True, max_length=30, verbose_name='Theme', choices=[('', 'Black'), ('looking-for-gray', 'Gray')])),
@@ -462,7 +462,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Map',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_map', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_map', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.TextField(verbose_name='Title')),
                 ('address', models.TextField(verbose_name='Address')),
                 ('ic', models.CharField(max_length=254, verbose_name='I\u010c with label')),
@@ -478,7 +478,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PartnersModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_partnersmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_partnersmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.CharField(max_length=254, verbose_name='Sub-title')),
                 ('text', models.TextField(verbose_name='Text')),
@@ -491,7 +491,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PositionSearch',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_positionsearch', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_positionsearch', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('search_placeholder', models.CharField(max_length=254, verbose_name='Search input placeholder')),
                 ('search_button', models.CharField(max_length=254, verbose_name='Search button text')),
@@ -509,7 +509,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Quote',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_quote', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_quote', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title')),
                 ('text', djangocms_text_ckeditor.fields.HTMLField(verbose_name='Text')),
@@ -546,7 +546,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ReviewPanel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_reviewpanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_reviewpanel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title')),
                 ('positions_pretext', models.CharField(max_length=254, verbose_name='Positions - pre-text')),
@@ -561,7 +561,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TeamGrid',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_teamgrid', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_teamgrid', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title')),
                 ('button_text', models.CharField(max_length=254, verbose_name='Button text')),
@@ -597,7 +597,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Timeline',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_timeline', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_timeline', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('subtitle', models.TextField(verbose_name='Sub-title', blank=True)),
                 ('title_after', models.CharField(max_length=254, verbose_name='Title after', blank=True)),
@@ -611,7 +611,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TimelineItem',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_timelineitem', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_timelineitem', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title', blank=True)),
                 ('text', models.TextField(verbose_name='Text', blank=True)),
                 ('image', filer.fields.image.FilerImageField(on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', blank=True, to=settings.FILER_IMAGE_MODEL, null=True)),
@@ -624,7 +624,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='WorkElipse',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_workelipse', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_workelipse', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
             ],
             options={
@@ -639,7 +639,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=254, verbose_name='Title')),
                 ('text', models.TextField(verbose_name='Text')),
                 ('image', filer.fields.image.FilerImageField(related_name='work_elipse_columns', on_delete=django.db.models.deletion.PROTECT, verbose_name='Image', to=settings.FILER_IMAGE_MODEL)),
-                ('parent', models.ForeignKey(related_name='columns', to='acamar_web.WorkElipse')),
+                ('parent', models.ForeignKey(related_name='columns', to='acamar_web.WorkElipse', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
