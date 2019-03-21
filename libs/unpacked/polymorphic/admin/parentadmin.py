@@ -2,24 +2,29 @@
 The parent admin displays the list view of the base model.
 """
 import sys
-import warnings
 
-import django
-from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.admin.helpers import AdminErrorList, AdminForm
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import RegexURLResolver
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
+from django.db import models
 from django.http import Http404, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-
+from polymorphic.utils import get_base_polymorphic_model
 from .forms import PolymorphicModelChoiceForm
+
+
+try:
+    # Django 2.0+
+    from django.urls import URLResolver
+except ImportError:
+    # Django < 2.0
+    from django.urls import RegexURLResolver as URLResolver
 
 
 if sys.version_info[0] >= 3:
@@ -37,21 +42,20 @@ class ChildAdminNotRegistered(RuntimeError):
 class PolymorphicParentModelAdmin(admin.ModelAdmin):
     """
     A admin interface that can displays different change/delete pages, depending on the polymorphic model.
-    To use this class, two variables need to be defined:
+    To use this class, one attribute need to be defined:
 
-    * :attr:`base_model` should
-    * :attr:`child_models` should be a list of (Model, Admin) tuples
+    * :attr:`child_models` should be a list models.
 
     Alternatively, the following methods can be implemented:
 
-    * :func:`get_child_models` should return a list of (Model, ModelAdmin) tuples
+    * :func:`get_child_models` should return a list of models.
     * optionally, :func:`get_child_type_choices` can be overwritten to refine the choices for the add dialog.
 
     This class needs to be inherited by the model admin base class that is registered in the site.
     The derived models should *not* register the ModelAdmin, but instead it should be returned by :func:`get_child_models`.
     """
 
-    #: The base model that the class uses
+    #: The base model that the class uses (auto-detected if not set explicitly)
     base_model = None
 
     #: The child models that should be displayed
@@ -72,42 +76,26 @@ class PolymorphicParentModelAdmin(admin.ModelAdmin):
         super(PolymorphicParentModelAdmin, self).__init__(model, admin_site, *args, **kwargs)
         self._is_setup = False
 
+        if self.base_model is None:
+            self.base_model = get_base_polymorphic_model(model)
+
     def _lazy_setup(self):
         if self._is_setup:
             return
 
-        # By not having this in __init__() there is less stress on import dependencies as well,
-        # considering an advanced use cases where a plugin system scans for the child models.
-        child_models = self.get_child_models()
-        # Check if get_child_models() returns an iterable of models (new format) or an iterable
-        # of (Model, Admin) (legacy format). When iterable is empty, assume the new format.
-        self._compat_mode = len(child_models) and isinstance(child_models[0], (list, tuple))
-        if not self._compat_mode:
-            self._child_models = child_models
-            self._child_admin_site = self.admin_site
-            self._is_setup = True
-            return
+        self._child_models = self.get_child_models()
 
-        # Continue only if in compatibility mode
-        warnings.warn("Using tuples of (Model, ModelAdmin) in PolymorphicParentModelAdmin.child_models is "
-                      "deprecated; instead child_models should be iterable of child models eg. "
-                      "(Model1, Model2, ..) and child admins should be registered to default admin site",
-                      DeprecationWarning)
-        self._child_admin_site = self.admin_site.__class__(name=self.admin_site.name)
-        self._child_admin_site.get_app_list = lambda request: ()  # HACK: workaround for Django 1.9
+        # Make absolutely sure that the child models don't use the old 0.9 format,
+        # as of polymorphic 1.4 this deprecated configuration is no longer supported.
+        # Instead, register the child models in the admin too.
+        if self._child_models and not issubclass(self._child_models[0], models.Model):
+            raise ImproperlyConfigured(
+                "Since django-polymorphic 1.4, the `child_models` attribute "
+                "and `get_child_models()` method should be a list of models only.\n"
+                "The model-admin class should be registered in the regular Django admin."
+            )
 
-        for Model, Admin in child_models:
-            self.register_child(Model, Admin)
-        self._child_models = dict(child_models)
-
-        # This is needed to deal with the improved ForeignKeyRawIdWidget in Django 1.4 and perhaps other widgets too.
-        # The ForeignKeyRawIdWidget checks whether the referenced model is registered in the admin, otherwise it displays itself as a textfield.
-        # As simple solution, just make sure all parent admin models are also know in the child admin site.
-        # This should be done after all parent models are registered off course.
-        complete_registry = self.admin_site._registry.copy()
-        complete_registry.update(self._child_admin_site._registry)
-
-        self._child_admin_site._registry = complete_registry
+        self._child_admin_site = self.admin_site
         self._is_setup = True
 
     def register_child(self, model, model_admin):
@@ -145,11 +133,7 @@ class PolymorphicParentModelAdmin(admin.ModelAdmin):
         """
         self._lazy_setup()
         choices = []
-        for child_model_desc in self.get_child_models():
-            if self._compat_mode:
-                model = child_model_desc[0]
-            else:
-                model = child_model_desc
+        for model in self.get_child_models():
             perm_function_name = 'has_{0}_permission'.format(action)
             model_admin = self._get_real_admin_by_model(model)
             perm_function = getattr(model_admin, perm_function_name)
@@ -266,49 +250,7 @@ class PolymorphicParentModelAdmin(admin.ModelAdmin):
         # At this point. all admin code needs to be known.
         self._lazy_setup()
 
-        # Continue only if in compatibility mode
-        if not self._compat_mode:
-            return urls
-
-        info = _get_opt(self.model)
-
-        # Patch the change view URL so it's not a big catch-all; allowing all
-        # custom URLs to be added to the end. This is done by adding '/$' to the
-        # end of the regex.  The url needs to be recreated, patching url.regex
-        # is not an option Django 1.4's LocaleRegexProvider changed it.
-        if django.VERSION < (1, 9):
-            # On Django 1.9, the change view URL has been changed from
-            # /<app>/<model>/<pk>/ to /<app>/<model>/<pk>/change/, which is
-            # why we can skip this workaround for Django >= 1.9.
-            new_change_url = url(
-                r'^{0}/$'.format(self.pk_regex),
-                self.admin_site.admin_view(self.change_view),
-                name='{0}_{1}_change'.format(*info)
-            )
-
-            redirect_urls = []
-            for i, oldurl in enumerate(urls):
-                if oldurl.name == new_change_url.name:
-                    urls[i] = new_change_url
-        else:
-            # For Django 1.9, the redirect at the end acts as catch all.
-            # The custom urls need to be inserted before that.
-            redirect_urls = [pat for pat in urls if not pat.name]  # redirect URL has no name.
-            urls = [pat for pat in urls if pat.name]
-
-        # Define the catch-all for custom views
-        custom_urls = [
-            url(r'^(?P<path>.+)$', self.admin_site.admin_view(self.subclass_view))
-        ]
-
-        # Add reverse names for all polymorphic models, so the delete button and "save and add" just work.
-        # These definitions are masked by the definition above, since it needs special handling (and a ct_id parameter).
-        dummy_urls = []
-        for model, _ in self.get_child_models():
-            admin = self._get_real_admin_by_model(model)
-            dummy_urls += admin.get_urls()
-
-        return urls + custom_urls + dummy_urls + redirect_urls
+        return urls
 
     def subclass_view(self, request, path):
         """
@@ -329,7 +271,7 @@ class PolymorphicParentModelAdmin(admin.ModelAdmin):
             ct_id = self.model.objects.values_list('polymorphic_ctype_id', flat=True).get(pk=object_id)
 
         real_admin = self._get_real_admin_by_ct(ct_id)
-        resolver = RegexURLResolver('^', real_admin.urls)
+        resolver = URLResolver('^', real_admin.urls)
         resolvermatch = resolver.resolve(path)  # May raise Resolver404
         if not resolvermatch:
             raise Http404("No match for path '{0}' in admin subclass.".format(path))
@@ -421,7 +363,3 @@ class PolymorphicParentModelAdmin(admin.ModelAdmin):
             "admin/%s/change_list.html" % base_app_label,
             "admin/change_list.html"
         ]
-
-
-def _get_opt(model):
-    return model._meta.app_label, model._meta.model_name

@@ -42,7 +42,7 @@ class PolymorphicInlineAdminFormSet(InlineAdminFormSet):
         """
         for form, original in zip(self.formset.initial_forms, self.formset.get_queryset()):
             # Output the form
-            model = original.get_real_concrete_instance_class()
+            model = original.get_real_instance_class()
             child_inline = self.opts.get_child_inline_instance(model)
             view_on_site_url = self.opts.get_view_on_site_url(original)
 
@@ -82,11 +82,10 @@ class PolymorphicInlineAdminFormSet(InlineAdminFormSet):
         fields.update(child_inline.get_prepopulated_fields(self.request, self.obj))
         return fields
 
-    # The polymorphic template follows the same method like all other inlines do in Django 1.10.
-    # This method is added for compatibility with older Django versions.
     def inline_formset_data(self):
         """
         A JavaScript data structure for the JavaScript code
+        This overrides the default Django version to add the ``childTypes`` data.
         """
         verbose_name = self.opts.verbose_name
         return json.dumps({
@@ -120,7 +119,7 @@ class PolymorphicInlineSupportMixin(object):
     :class:`~django.contrib.admin.helpers.InlineAdminFormSet` for the polymorphic formsets.
     """
 
-    def get_inline_formsets(self, request, formsets, inline_instances, obj=None):
+    def get_inline_formsets(self, request, formsets, inline_instances, obj=None, *args, **kwargs):
         """
         Overwritten version to produce the proper admin wrapping for the
         polymorphic inline formset. This fixes the media and form appearance

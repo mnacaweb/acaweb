@@ -1,59 +1,70 @@
 import hashlib
+import json
 import os
 import os.path
 import re
+import unicodedata
+import uuid
+import zipfile
+
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseRedirect,
+    JsonResponse
+)
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.utils.encoding import force_bytes
+from django.utils.functional import Promise, cached_property
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import never_cache
+from django.views.generic import TemplateView, View
+
+import requests
+import six
+from polib import pofile
+
+from . import get_version as get_rosetta_version
+from .access import can_translate, can_translate_language
+from .conf import settings as rosetta_settings
+from .poutil import find_pos, pagination_range, timestamp_with_timezone
+from .signals import entry_changed, post_save
+from .storage import get_storage
+
+
 try:
     # Python 3
     from urllib.parse import urlencode
 except ImportError:
     # Python 2
     from urllib import urlencode
-import zipfile
-
-from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.paginator import Paginator
-from django.http import Http404, HttpResponseRedirect, HttpResponse, JsonResponse
-from django.views.decorators.cache import never_cache
-from django.views.generic import TemplateView, View
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-from django.utils.decorators import method_decorator
-from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
-from microsofttranslator import Translator, TranslateApiException
-from polib import pofile
-import six
-import unicodedata
-
-from rosetta import get_version as get_rosetta_version
-from rosetta.access import can_translate, can_translate_language
-from rosetta.conf import settings as rosetta_settings
-from rosetta.poutil import find_pos, pagination_range, timestamp_with_timezone
-from rosetta.signals import entry_changed, post_save
-from rosetta.storage import get_storage
 
 
 def get_app_name(path):
     return path.split('/locale')[0].split('/')[-1]
 
 
+class LoginURL(Promise):
+    """
+    Tests friendly login URL, url is resolved at runtime.
+    """
+    def __str__(self):
+        return rosetta_settings.LOGIN_URL
+
+
+@method_decorator(never_cache, 'dispatch')
+@method_decorator(user_passes_test(lambda user: can_translate(user), LoginURL()), 'dispatch')
 class RosettaBaseMixin(object):
     """A mixin class for Rosetta's class-based views. It provides:
-    * security (see decorated dispatch() method)
+    * security (see class decorators)
     * a property for the 'po_filter' url argument
     """
 
-    # Handle security in our mixin
-    # NOTE: after we drop support for Django 1.8, we can employ these decorators
-    # more cleanly on the class itself, rather than the dispatch() method. (See
-    # the Django docs: https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-the-class)
-    @method_decorator(never_cache)
-    @method_decorator(login_required)
-    @method_decorator(user_passes_test(lambda user: can_translate(user), settings.LOGIN_URL))
     def dispatch(self, *args, **kwargs):
         return super(RosettaBaseMixin, self).dispatch(*args, **kwargs)
 
@@ -221,13 +232,7 @@ class TranslationFileListView(RosettaBaseMixin, TemplateView):
             languages.append((language[0], _(language[1]), po_files))
             has_pos = has_pos or bool(po_paths)
 
-        try:
-            ADMIN_MEDIA_PREFIX = settings.ADMIN_MEDIA_PREFIX
-        except AttributeError:
-            ADMIN_MEDIA_PREFIX = settings.STATIC_URL + 'admin/'
-
-        context['version'] = get_rosetta_version(True)
-        context['ADMIN_MEDIA_PREFIX'] = ADMIN_MEDIA_PREFIX
+        context['version'] = get_rosetta_version()
         context['languages'] = languages
         context['has_pos'] = has_pos
         context['po_filter'] = self.po_filter
@@ -365,7 +370,7 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
                     )
                 ).encode('ascii', 'ignore')
                 self.po_file.metadata['X-Translated-Using'] = u"django-rosetta %s" % (
-                    get_rosetta_version(False))
+                    get_rosetta_version())
                 self.po_file.metadata['PO-Revision-Date'] = timestamp_with_timezone()
             except UnicodeDecodeError:
                 pass
@@ -430,7 +435,7 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
         query_string_args = {k: v for k, v in query_string_args.items() if v}
         return HttpResponseRedirect("{url}?{qs}".format(
             url=reverse('rosetta-form', kwargs=self.kwargs),
-            qs=urlencode(query_string_args),
+            qs=urlencode_safe(query_string_args)
         ))
 
     def get_context_data(self, **kwargs):
@@ -496,12 +501,6 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
                 message.main_lang = main_lang_po.find(message.msgid).msgstr
 
         # Collect some constants for the template
-        try:
-            ADMIN_MEDIA_PREFIX = settings.ADMIN_MEDIA_PREFIX
-            ADMIN_IMAGE_DIR = ADMIN_MEDIA_PREFIX + 'img/admin/'
-        except AttributeError:
-            ADMIN_MEDIA_PREFIX = settings.STATIC_URL + 'admin/'
-            ADMIN_IMAGE_DIR = ADMIN_MEDIA_PREFIX + 'img/'
         rosetta_i18n_lang_name = six.text_type(
             dict(settings.LANGUAGES).get(self.language_id)
         )
@@ -515,21 +514,20 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
         if self.ref_lang:
             query_string_args['ref_lang'] = self.ref_lang
         # Base for pagination links; the page num itself is added in template
-        pagination_query_string_base = urlencode(query_string_args)
+        pagination_query_string_base = urlencode_safe(query_string_args)
         # Base for msg filter links; it doesn't make sense to persist page
         # numbers in these links. We just pass in ref_lang, if it's set.
-        filter_query_string_base = urlencode(
+        filter_query_string_base = urlencode_safe(
             {k: v for k, v in query_string_args.items() if k == 'ref_lang'}
         )
 
         context.update({
-            'version': get_rosetta_version(True),
-            'ADMIN_MEDIA_PREFIX': ADMIN_MEDIA_PREFIX,
-            'ADMIN_IMAGE_DIR': ADMIN_IMAGE_DIR,
+            'version': get_rosetta_version(),
             'LANGUAGES': LANGUAGES,
             'rosetta_settings': rosetta_settings,
             'rosetta_i18n_lang_name': rosetta_i18n_lang_name,
             'rosetta_i18n_lang_code': self.language_id,
+            'rosetta_i18n_lang_code_normalized': self.language_id.replace('_', '-'),
             'rosetta_i18n_lang_bidi': rosetta_i18n_lang_bidi,
             'rosetta_i18n_filter': self.msg_filter,
             'rosetta_i18n_write': self.po_file_is_writable,
@@ -570,11 +568,12 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
         """
         ref_pofile = None
         if rosetta_settings.ENABLE_REFLANG and self.ref_lang != 'msgid':
-            ref_fn = re.sub(
-                '/locale/[a-z]{2}/',
-                '/locale/%s/' % (self.ref_lang),
-                self.po_file_path,
+            replacement = '{separator}locale{separator}{ref_lang}'.format(
+                separator=os.sep,
+                ref_lang=self.ref_lang
             )
+            pattern = '\{separator}locale\{separator}[a-z]{{2}}'.format(separator=os.sep)
+            ref_fn = re.sub(pattern, replacement, self.po_file_path,)
             try:
                 ref_pofile = pofile(ref_fn)
             except IOError:
@@ -619,6 +618,7 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
             def concat_entry(e):
                 return (six.text_type(e.msgstr) +
                         six.text_type(e.msgid) +
+                        six.text_type(e.msgctxt) +
                         six.text_type(e.comment) +
                         u''.join([o[0] for o in e.occurrences]) +
                         six.text_type(e.msgid_plural) +
@@ -675,8 +675,43 @@ class TranslationFileDownload(RosettaFileLevelMixin, View):
             )
 
 
-@user_passes_test(lambda user: can_translate(user), settings.LOGIN_URL)
+@user_passes_test(lambda user: can_translate(user), LoginURL())
 def translate_text(request):
+
+    def translate(text, from_language, to_language, subscription_key):
+        """
+        This method does the heavy lifting of connecting to the translator API and fetching a response
+        :param text: The source text to be translated
+        :param from_language: The language of the source text
+        :param to_language: The target language to translate the text into
+        :param subscription_key: An API key that grants you access to the Azure translation service
+        :return: Returns the response from the AZURE service as a python object. For more information about the
+        response, please visit
+        https://docs.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-translate?tabs=curl
+        """
+
+        AZURE_TRANSLATOR_HOST = 'https://api.cognitive.microsofttranslator.com'
+        AZURE_TRANSLATOR_PATH = '/translate?api-version=3.0'
+
+        headers = {
+            'Ocp-Apim-Subscription-Key': subscription_key,
+            'Content-type': 'application/json',
+            'X-ClientTraceId': str(uuid.uuid4())
+        }
+
+        url_parameters = {
+            "from": from_language,
+            "to": to_language
+        }
+
+        request_data = [
+            {"text": text}
+        ]
+
+        api_hostname = AZURE_TRANSLATOR_HOST + AZURE_TRANSLATOR_PATH
+        r = requests.post(api_hostname, headers=headers, params=url_parameters, data=json.dumps(request_data))
+        return json.loads(r.text)
+
     language_from = request.GET.get('from', None)
     language_to = request.GET.get('to', None)
     text = request.GET.get('text', None)
@@ -685,19 +720,52 @@ def translate_text(request):
         data = {'success': True, 'translation': text}
     else:
         # run the translation:
-
-        AZURE_CLIENT_ID = getattr(settings, 'AZURE_CLIENT_ID', None)
         AZURE_CLIENT_SECRET = getattr(settings, 'AZURE_CLIENT_SECRET', None)
 
-        translator = Translator(AZURE_CLIENT_ID, AZURE_CLIENT_SECRET)
-
         try:
-            translated_text = translator.translate(text, language_to, language_from)
-            data = {'success': True, 'translation': translated_text}
-        except TranslateApiException as e:
+            api_response = translate(text, language_from, language_to, AZURE_CLIENT_SECRET)
+
+            # result will be a dict if there is an error, e.g.
+            # {
+            #   "success": false,
+            #    "error": "Microsoft Translation API error: Error code 401000,
+            #             The request is not authorized because credentials are missing or invalid."
+            # }
+            if isinstance(api_response, dict):
+                api_error = api_response.get("error")
+                error_code = api_error.get("code")
+                error_message = api_error.get("message")
+                data = {
+                    'success': False,
+                    'error': "Microsoft Translation API error: Error code {}, {}".format(error_code, error_message),
+                }
+            else:
+                # response body will be of the form:
+                # [
+                #     {
+                #         "translations":[
+                #             {"text": "some chinese text that gave a build error on travis ci", "to": "zh-Hans"}
+                #         ]
+                #     }
+                # ]
+                # for more information, please visit
+                # https://docs.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-translate?tabs=curl
+
+                translations = api_response[0].get("translations")
+                translated_text = translations[0].get("text")
+                data = {
+                    'success': True,
+                    'translation': translated_text
+                }
+        # catch general connection exception in the requests framework
+        except requests.exceptions.RequestException as err:
             data = {
                 'success': False,
-                'error': "Translation API Exception: {0}".format(e.message),
+                'error': "Error connecting to Microsoft Translation Service: {0}".format(err),
             }
 
     return JsonResponse(data)
+
+
+def urlencode_safe(query):
+    return urlencode({k: force_bytes(v) for k, v in query.items()})

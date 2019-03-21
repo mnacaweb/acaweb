@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
 
-import django
 from django.contrib import admin
 from django.contrib.admin.options import BaseModelAdmin, flatten_fieldsets, InlineModelAdmin
 from django import forms
@@ -13,16 +12,8 @@ from modeltranslation.utils import (
     get_language_bidi, unique)
 from modeltranslation.widgets import ClearableWidgetWrapper
 
-# Ensure that models are registered for translation before TranslationAdmin
-# runs. The import is supposed to resolve a race condition between model import
-# and translation registration in production (see issue #19).
-if django.VERSION < (1, 7):
-    from django.contrib.contenttypes.generic import GenericTabularInline
-    from django.contrib.contenttypes.generic import GenericStackedInline
-    import modeltranslation.models  # NOQA
-else:
-    from django.contrib.contenttypes.admin import GenericTabularInline
-    from django.contrib.contenttypes.admin import GenericStackedInline
+from django.contrib.contenttypes.admin import GenericTabularInline
+from django.contrib.contenttypes.admin import GenericStackedInline
 
 
 class TranslationBaseModelAdmin(BaseModelAdmin):
@@ -66,6 +57,12 @@ class TranslationBaseModelAdmin(BaseModelAdmin):
         else:
             orig_formfield = self.formfield_for_dbfield(orig_field, **kwargs)
             field.widget = deepcopy(orig_formfield.widget)
+            # if any widget attrs are defined on the form they should be copied
+            try:
+                field.widget = deepcopy(self.form._meta.widgets[orig_field.name])
+            except (AttributeError, TypeError, KeyError):
+                pass
+            # field.widget = deepcopy(orig_formfield.widget)
             if orig_field.name in self.both_empty_values_fields:
                 from modeltranslation.forms import NullableField, NullCharField
                 form_class = field.__class__
@@ -354,24 +351,6 @@ class TranslationGenericStackedInline(TranslationInlineModelAdmin, GenericStacke
     pass
 
 
-class TabbedDjango15JqueryTranslationAdmin(TranslationAdmin):
-    """
-    Convenience class which includes the necessary static files for tabbed
-    translation fields. Reuses Django's internal jquery version. Django 1.5
-    included jquery 1.4.2 which is known to work well with jquery-ui 1.8.2.
-    """
-    class Media:
-        js = (
-            'modeltranslation/js/force_jquery.js',
-            '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js',
-            '//cdn.jsdelivr.net/jquery.mb.browser/0.1/jquery.mb.browser.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'all': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-
 class TabbedDjangoJqueryTranslationAdmin(TranslationAdmin):
     """
     Convenience class which includes the necessary media files for tabbed
@@ -406,7 +385,4 @@ class TabbedExternalJqueryTranslationAdmin(TranslationAdmin):
         }
 
 
-if django.VERSION < (1, 6):
-    TabbedTranslationAdmin = TabbedDjango15JqueryTranslationAdmin
-else:
-    TabbedTranslationAdmin = TabbedDjangoJqueryTranslationAdmin
+TabbedTranslationAdmin = TabbedDjangoJqueryTranslationAdmin

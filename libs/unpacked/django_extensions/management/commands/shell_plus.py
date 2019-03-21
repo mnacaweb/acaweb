@@ -8,8 +8,8 @@ import traceback
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.db.backends import utils
-from django.utils.six import PY3
 from django.utils.datastructures import OrderedSet
+from six import PY3
 
 from django_extensions.management.shells import import_objects
 from django_extensions.management.utils import signalcommand
@@ -163,6 +163,8 @@ class Command(BaseCommand):
         try:
             from notebook.notebookapp import NotebookApp
         except ImportError:
+            if release.version_info[0] >= 7:
+                raise
             try:
                 from IPython.html.notebookapp import NotebookApp
             except ImportError:
@@ -225,7 +227,7 @@ class Command(BaseCommand):
             notebook_arguments = self.get_notebook_arguments(options)
             if no_browser and '--no-browser' not in notebook_arguments:
                 notebook_arguments.append('--no-browser')
-            if '--notebook-dir' not in notebook_arguments:
+            if '--notebook-dir' not in notebook_arguments and not any(e.startswith('--notebook-dir=') for e in notebook_arguments):
                 notebook_arguments.extend(['--notebook-dir', '.'])
 
             # IPython < 3 passes through kernel args from notebook CLI

@@ -1,18 +1,23 @@
 from collections import OrderedDict
 
-import django
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.forms.models import ModelForm, BaseModelFormSet, BaseInlineFormSet, modelform_factory, modelformset_factory, inlineformset_factory
 from django.utils.functional import cached_property
+
+from polymorphic.models import PolymorphicModel
 from .utils import add_media
+
+
+class UnsupportedChildType(LookupError):
+    pass
 
 
 class PolymorphicFormSetChild(object):
     """
     Metadata to define the inline of a polymorphic child.
-    Provide this information in the :func:`polymorphic_inlineformset_factory` construction.
+    Provide this information in the :func:'polymorphic_inlineformset_factory' construction.
     """
 
     def __init__(self, model, form=ModelForm, fields=None, exclude=None,
@@ -38,9 +43,9 @@ class PolymorphicFormSetChild(object):
     def content_type(self):
         """
         Expose the ContentType that the child relates to.
-        This can be used for the ``polymorphic_ctype`` field.
+        This can be used for the ''polymorphic_ctype'' field.
         """
-        return ContentType.objects.get_for_model(self.model)
+        return ContentType.objects.get_for_model(self.model, for_concrete_model=False)
 
     def get_form(self, **kwargs):
         """
@@ -49,8 +54,8 @@ class PolymorphicFormSetChild(object):
         # Do what modelformset_factory() / inlineformset_factory() does to the 'form' argument;
         # Construct the form with the given ModelFormOptions values
 
-        # Fields can be overwritten. To support the global `polymorphic_child_forms_factory` kwargs,
-        # that doesn't completely replace all `exclude` settings defined per child type,
+        # Fields can be overwritten. To support the global 'polymorphic_child_forms_factory' kwargs,
+        # that doesn't completely replace all 'exclude' settings defined per child type,
         # we allow to define things like 'extra_...' fields that are amended to the current child settings.
 
         exclude = list(self.exclude)
@@ -79,7 +84,7 @@ def polymorphic_child_forms_factory(formset_children, **kwargs):
     """
     Construct the forms for the formset children.
     This is mostly used internally, and rarely needs to be used by external projects.
-    When using the factory methods (:func:`polymorphic_inlineformset_factory`),
+    When using the factory methods (:func:'polymorphic_inlineformset_factory'),
     this feature is called already for you.
     """
     child_forms = OrderedDict()
@@ -98,8 +103,8 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
     as all variations need ot be exposed somewhere.
 
     When switching existing formsets to the polymorphic formset,
-    note that the ID field will no longer be named ``model_ptr``,
-    but just appear as ``id``.
+    note that the ID field will no longer be named ''model_ptr'',
+    but just appear as ''id''.
     """
 
     # Assigned by the factory
@@ -148,6 +153,7 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
         # the minimum forms.
         if i >= self.initial_form_count() and i >= self.min_num:
             defaults['empty_permitted'] = True
+            defaults['use_required_attribute'] = False
         defaults.update(kwargs)
 
         # Need to find the model that will be displayed in this form.
@@ -155,7 +161,7 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
         if self.is_bound:
             if 'instance' in defaults:
                 # Object is already bound to a model, won't change the content type
-                model = defaults['instance'].get_real_concrete_instance_class()  # respect proxy models
+                model = defaults['instance'].get_real_instance_class()  # allow proxy models
             else:
                 # Extra or empty form, use the provided type.
                 # Note this completely tru
@@ -168,10 +174,10 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
                 model = ContentType.objects.get_for_id(ct_id).model_class()
                 if model not in self.child_forms:
                     # Perform basic validation, as we skip the ChoiceField here.
-                    raise ValidationError("Child model type {0} is not part of the formset".format(model))
+                    raise UnsupportedChildType("Child model type {0} is not part of the formset".format(model))
         else:
             if 'instance' in defaults:
-                model = defaults['instance'].get_real_concrete_instance_class()  # respect proxy models
+                model = defaults['instance'].get_real_instance_class()  # allow proxy models
             elif 'polymorphic_ctype' in defaults.get('initial', {}):
                 model = defaults['initial']['polymorphic_ctype'].model_class()
             elif i < len(self.queryset_data):
@@ -190,7 +196,7 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
 
     def add_fields(self, form, index):
         """Add a hidden field for the content type."""
-        ct = ContentType.objects.get_for_model(form._meta.model)
+        ct = ContentType.objects.get_for_model(form._meta.model, for_concrete_model=False)
         choices = [(ct.pk, ct)]  # Single choice, existing forms can't change the value.
         form.fields['polymorphic_ctype'] = forms.ChoiceField(choices=choices, initial=ct.pk, required=False, widget=forms.HiddenInput)
         super(BasePolymorphicModelFormSet, self).add_fields(form, index)
@@ -201,7 +207,18 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
         """
         if not self.child_forms:
             raise ImproperlyConfigured("No 'child_forms' defined in {0}".format(self.__class__.__name__))
-        return self.child_forms[model]
+        if not issubclass(model, PolymorphicModel):
+            raise TypeError("Expect polymorphic model type, not {0}".format(model))
+
+        try:
+            return self.child_forms[model]
+        except KeyError:
+            # This may happen when the query returns objects of a type that was not handled by the formset.
+            raise UnsupportedChildType(
+                "The '{0}' found a '{1}' model in the queryset, "
+                "but no form class is registered to display it.".format(
+                    self.__class__.__name__, model.__name__
+                ))
 
     def is_multipart(self):
         """
@@ -226,15 +243,13 @@ class BasePolymorphicModelFormSet(BaseModelFormSet):
         """
         forms = []
         for model, form_class in self.child_forms.items():
-            if django.VERSION >= (1, 9):
-                kwargs = self.get_form_kwargs(None)  # New Django 1.9 method
-            else:
-                kwargs = {}
+            kwargs = self.get_form_kwargs(None)
 
             form = form_class(
                 auto_id=self.auto_id,
                 prefix=self.add_prefix('__prefix__'),
                 empty_permitted=True,
+                use_required_attribute=False,
                 **kwargs
             )
             self.add_fields(form, None)
@@ -261,10 +276,10 @@ def polymorphic_modelformset_factory(model, formset_children,
     """
     Construct the class for an polymorphic model formset.
 
-    All arguments are identical to :func:`~django.forms.models.modelformset_factory`,
-    with the exception of the ``formset_children`` argument.
+    All arguments are identical to :func:'~django.forms.models.modelformset_factory',
+    with the exception of the ''formset_children'' argument.
 
-    :param formset_children: A list of all child :class:`PolymorphicFormSetChild` objects
+    :param formset_children: A list of all child :class:'PolymorphicFormSetChild' objects
                              that tell the inline how to render the child model types.
     :type formset_children: Iterable[PolymorphicFormSetChild]
     :rtype: type
@@ -325,10 +340,10 @@ def polymorphic_inlineformset_factory(parent_model, model, formset_children,
     """
     Construct the class for an inline polymorphic formset.
 
-    All arguments are identical to :func:`~django.forms.models.inlineformset_factory`,
-    with the exception of the ``formset_children`` argument.
+    All arguments are identical to :func:'~django.forms.models.inlineformset_factory',
+    with the exception of the ''formset_children'' argument.
 
-    :param formset_children: A list of all child :class:`PolymorphicFormSetChild` objects
+    :param formset_children: A list of all child :class:'PolymorphicFormSetChild' objects
                              that tell the inline how to render the child model types.
     :type formset_children: Iterable[PolymorphicFormSetChild]
     :rtype: type

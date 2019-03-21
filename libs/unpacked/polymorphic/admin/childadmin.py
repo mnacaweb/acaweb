@@ -4,10 +4,11 @@ The child admin displays the change/delete view of the subclass model.
 import inspect
 
 from django.contrib import admin
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from django.utils import six
 from django.utils.translation import ugettext_lazy as _
 
+from polymorphic.utils import get_base_polymorphic_model
 from ..admin import PolymorphicParentModelAdmin
 
 
@@ -25,14 +26,31 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
     * It adds the base model to the template lookup paths.
     * It allows to set ``base_form`` so the derived class will automatically include other fields in the form.
     * It allows to set ``base_fieldsets`` so the derived class will automatically display any extra fields.
-
-    The ``base_model`` attribute must be set.
     """
+
+    #: The base model that the class uses (auto-detected if not set explicitly)
     base_model = None
+
+    #: By setting ``base_form`` instead of ``form``, any subclass fields are automatically added to the form.
+    #: This is useful when your model admin class is inherited by others.
     base_form = None
+
+    #: By setting ``base_fieldsets`` instead of ``fieldsets``,
+    #: any subclass fields can be automatically added.
+    #: This is useful when your model admin class is inherited by others.
     base_fieldsets = None
-    extra_fieldset_title = _("Contents")  # Default title for extra fieldset
+
+    #: Default title for extra fieldset
+    extra_fieldset_title = _("Contents")
+
+    #: Whether the child admin model should be visible in the admin index page.
     show_in_index = False
+
+    def __init__(self, model, admin_site, *args, **kwargs):
+        super(PolymorphicChildModelAdmin, self).__init__(model, admin_site, *args, **kwargs)
+
+        if self.base_model is None:
+            self.base_model = get_base_polymorphic_model(model)
 
     def get_form(self, request, obj=None, **kwargs):
         # The django admin validation requires the form to have a 'class Meta: model = ..'
@@ -44,9 +62,9 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
         # If the derived class sets the model explicitly, respect that setting.
         kwargs.setdefault('form', self.base_form or self.form)
 
-        # prevent infinite recursion in django 1.6+
-        if not getattr(self, 'declared_fieldsets', None):
-            kwargs.setdefault('fields', None)
+        # prevent infinite recursion when this is called from get_subclass_fields
+        if not self.fieldsets and not self.fields:
+            kwargs.setdefault('fields', '__all__')
 
         return super(PolymorphicChildModelAdmin, self).get_form(request, obj, **kwargs)
 
@@ -167,10 +185,14 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
 
     # ---- Extra: improving the form/fieldset default display ----
 
+    def get_base_fieldsets(self, request, obj=None):
+        return self.base_fieldsets
+
     def get_fieldsets(self, request, obj=None):
-        # If subclass declares fieldsets, this is respected
-        if (hasattr(self, 'declared_fieldset') and self.declared_fieldsets) \
-           or not self.base_fieldsets:
+        base_fieldsets = self.get_base_fieldsets(request, obj)
+
+        # If subclass declares fieldsets or fields, this is respected
+        if self.fieldsets or self.fields or not self.base_fieldsets:
             return super(PolymorphicChildModelAdmin, self).get_fieldsets(request, obj)
 
         # Have a reasonable default fieldsets,
@@ -179,11 +201,11 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
 
         if other_fields:
             return (
-                self.base_fieldsets[0],
+                base_fieldsets[0],
                 (self.extra_fieldset_title, {'fields': other_fields}),
-            ) + self.base_fieldsets[1:]
+            ) + base_fieldsets[1:]
         else:
-            return self.base_fieldsets
+            return base_fieldsets
 
     def get_subclass_fields(self, request, obj=None):
         # Find out how many fields would really be on the form,
@@ -197,7 +219,7 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
         subclass_fields = list(six.iterkeys(form.base_fields)) + list(self.get_readonly_fields(request, obj))
 
         # Find which fields are not part of the common fields.
-        for fieldset in self.base_fieldsets:
+        for fieldset in self.get_base_fieldsets(request, obj):
             for field in fieldset[1]['fields']:
                 try:
                     subclass_fields.remove(field)

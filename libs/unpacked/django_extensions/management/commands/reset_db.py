@@ -4,7 +4,6 @@ originally from http://www.djangosnippets.org/snippets/828/ by dnordberg
 """
 import logging
 
-import django
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from six.moves import input
@@ -61,10 +60,6 @@ class Command(BaseCommand):
         Note: Transaction wrappers are in reverse as a work around for
         autocommit, anybody know how to do this the right way?
         """
-
-        if args:
-            raise CommandError("reset_db takes no arguments")
-
         router = options['router']
         dbinfo = settings.DATABASES.get(router)
         if dbinfo is None:
@@ -132,13 +127,10 @@ Type 'yes' to continue, or 'no' to cancel: """ % (database_name,))
             logging.info('Executing... "' + drop_query + '"')
             connection.query(drop_query)
             logging.info('Executing... "' + create_query + '"')
-            connection.query(create_query)
+            connection.query(create_query.strip())
 
         elif engine in ('postgresql', 'postgresql_psycopg2', 'postgis'):
-            if engine == 'postgresql' and django.VERSION < (1, 9):
-                import psycopg as Database  # NOQA
-            elif engine in ('postgresql', 'postgresql_psycopg2', 'postgis'):
-                import psycopg2 as Database  # NOQA
+            import psycopg2 as Database  # NOQA
 
             conn_params = {'database': 'template1'}
             if user:
@@ -177,13 +169,6 @@ Type 'yes' to continue, or 'no' to cancel: """ % (database_name,))
             if owner:
                 create_query += " WITH OWNER = \"%s\" " % owner
             create_query += " ENCODING = 'UTF8'"
-
-            if engine == 'postgis' and django.VERSION < (1, 9):
-                # For PostGIS 1.5, fetch template name if it exists
-                from django.contrib.gis.db.backends.postgis.base import DatabaseWrapper
-                postgis_template = DatabaseWrapper(dbinfo).template_postgis
-                if postgis_template is not None:
-                    create_query += ' TEMPLATE = %s' % postgis_template
 
             if settings.DEFAULT_TABLESPACE:
                 create_query += ' TABLESPACE = %s;' % settings.DEFAULT_TABLESPACE

@@ -1,4 +1,4 @@
-#!/Users/jirimakarius/.local/share/virtualenvs/acamar_web-10aq5VJC/bin/python
+#!/Users/jirimakarius/.local/share/virtualenvs/acamar_web-10aq5VJC/bin/python3.5
 from django.core import management
 
 if __name__ == "__main__":

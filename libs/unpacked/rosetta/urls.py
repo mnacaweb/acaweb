@@ -1,9 +1,6 @@
 from django.conf.urls import url
+from django.urls import reverse_lazy
 from django.views.generic.base import RedirectView
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
 
 from . import views
 
@@ -43,6 +40,6 @@ urlpatterns = [
 
     url(r'^translate/$',
         views.translate_text,
-        name='translate_text',
+        name='rosetta.translate_text',
         ),
 ]

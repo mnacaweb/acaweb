@@ -6,6 +6,7 @@ from __future__ import absolute_import
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.fields.related import ReverseOneToOneDescriptor, ForwardManyToOneDescriptor
 from django.db.utils import DEFAULT_DB_ALIAS
 from django.utils import six
 
@@ -15,6 +16,14 @@ from .query_translate import translate_polymorphic_Q_object
 
 ###################################################################################
 # PolymorphicModel
+
+
+class PolymorphicTypeUndefined(LookupError):
+    pass
+
+
+class PolymorphicTypeInvalid(RuntimeError):
+    pass
 
 
 class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
@@ -32,9 +41,6 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
     # for PolymorphicQuery, True => an overloaded __repr__ with nicer multi-line output is used by PolymorphicQuery
     polymorphic_query_multiline_output = False
 
-    class Meta:
-        abstract = True
-
     # avoid ContentType related field accessor clash (an error emitted by model validation)
     #: The model field that stores the :class:`~django.contrib.contenttypes.models.ContentType` reference to the actual class.
     polymorphic_ctype = models.ForeignKey(
@@ -48,7 +54,10 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
     # Note that Django 1.5 removes these managers because the model is abstract.
     # They are pretended to be there by the metaclass in PolymorphicModelBase.get_inherited_managers()
     objects = PolymorphicManager()
-    base_objects = models.Manager()
+
+    class Meta:
+        abstract = True
+        base_manager_name = "objects"
 
     @classmethod
     def translate_polymorphic_Q_object(cls, q):
@@ -82,6 +91,13 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
         retrieve objects, then the real class/type of these objects may be
         determined using this method.
         """
+        if self.polymorphic_ctype_id is None:
+            raise PolymorphicTypeUndefined((
+                "The model {}#{} does not have a `polymorphic_ctype_id` value defined.\n"
+                "If you created models outside polymorphic, e.g. through an import or migration, "
+                "make sure the `polymorphic_ctype_id` field points to the ContentType ID of the model subclass."
+            ).format(self.__class__.__name__, self.pk))
+
         # the following line would be the easiest way to do this, but it produces sql queries
         # return self.polymorphic_ctype.model_class()
         # so we use the following version, which uses the ContentType manager cache.
@@ -94,7 +110,7 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
         if model is not None \
                 and not issubclass(model, self.__class__) \
                 and not issubclass(model, self.__class__._meta.proxy_for_model):
-            raise RuntimeError("ContentType {0} for {1} #{2} does not point to a subclass!".format(
+            raise PolymorphicTypeInvalid("ContentType {0} for {1} #{2} does not point to a subclass!".format(
                 self.polymorphic_ctype_id, model, self.pk,
             ))
         return model
@@ -156,20 +172,12 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
 
         def create_accessor_function_for_model(model, accessor_name):
             def accessor_function(self):
-                attr = model.base_objects.get(pk=self.pk)
+                attr = model._base_objects.get(pk=self.pk)
                 return attr
             return accessor_function
 
         subclasses_and_superclasses_accessors = self._get_inheritance_relation_fields_and_models()
 
-        try:
-            from django.db.models.fields.related import ReverseOneToOneDescriptor, ForwardManyToOneDescriptor
-        except ImportError:
-            # django < 1.9
-            from django.db.models.fields.related import (
-                SingleRelatedObjectDescriptor as ReverseOneToOneDescriptor,
-                ReverseSingleRelatedObjectDescriptor as ForwardManyToOneDescriptor,
-            )
         for name, model in subclasses_and_superclasses_accessors.items():
             # Here be dragons.
             orig_accessor = getattr(self.__class__, name, None)
@@ -202,7 +210,7 @@ class PolymorphicModel(six.with_metaclass(PolymorphicModelBase, models.Model)):
                 if super_cls in sub_cls._meta.parents:  # super_cls may not be in sub_cls._meta.parents if super_cls is a proxy model
                     field_to_super = sub_cls._meta.parents[super_cls]  # get the field that links sub_cls to super_cls
                     if field_to_super is not None:    # if filed_to_super is not a link to a proxy model
-                        super_to_sub_related_field = field_to_super.rel
+                        super_to_sub_related_field = field_to_super.remote_field
                         if super_to_sub_related_field.related_name is None:
                             # if related name is None the related field is the name of the subclass
                             to_subclass_fieldname = sub_cls.__name__.lower()

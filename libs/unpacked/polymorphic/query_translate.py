@@ -5,8 +5,9 @@ PolymorphicQuerySet support functions
 from __future__ import absolute_import
 
 import copy
-import django
 from functools import reduce
+
+from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.fields.related import ForeignObjectRel, RelatedField
@@ -86,13 +87,7 @@ def translate_polymorphic_filter_definitions_in_args(queryset_model, args, using
 
     Returns: modified Q objects
     """
-    if django.VERSION >= (1, 10):
-        q_objects = [copy.deepcopy(q) for q in args]
-    elif django.VERSION >= (1, 8):
-        q_objects = [q.clone() for q in args]
-    else:
-        q_objects = args  # NOTE: edits existing objects in place.
-    return [translate_polymorphic_Q_object(queryset_model, q, using=using) for q in q_objects]
+    return [translate_polymorphic_Q_object(queryset_model, copy.deepcopy(q), using=using) for q in args]
 
 
 def _translate_polymorphic_filter_definition(queryset_model, field_path, field_val, using=DEFAULT_DB_ALIAS):
@@ -148,7 +143,7 @@ def translate_polymorphic_field_path(queryset_model, field_path):
     if '__' in classname:
         # the user has app label prepended to class name via __ => use Django's get_model function
         appname, sep, classname = classname.partition('__')
-        model = models.get_model(appname, classname)
+        model = apps.get_model(appname, classname)
         assert model, 'PolymorphicModel: model %s (in app %s) not found!' % (model.__name__, appname)
         if not issubclass(model, queryset_model):
             e = 'PolymorphicModel: queryset filter error: "' + model.__name__ + '" is not derived from "' + queryset_model.__name__ + '"'

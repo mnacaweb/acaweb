@@ -11,7 +11,7 @@ from django.db.models.query_utils import DeferredAttribute
 from django.utils import six
 from django.utils.translation import ugettext as _
 
-from mptt.compat import remote_field
+from mptt.compat import cached_field_value
 from mptt.fields import TreeForeignKey, TreeOneToOneField, TreeManyToManyField
 from mptt.managers import TreeManager
 from mptt.signals import node_moved
@@ -46,6 +46,7 @@ class classpropertytype(property):
             members.get('__delete__'),
             members.get('__doc__')
         )
+
 
 classproperty = classpropertytype('classproperty')
 
@@ -181,6 +182,12 @@ class MPTTOptions(object):
                 field = instance._meta.get_field(field_name)
                 value = field.pre_save(instance, True)
 
+            if value is None:
+                # we have to use __isnull instead of __lt or __gt becase __lt = Null is invalid
+                # depending on order, we need to find the first node where code is null or not null
+                value = (filter_suffix == '__lt')
+                filter_suffix = '__isnull'
+
             q = Q(**{field_name + filter_suffix: value})
 
             filters__append(reduce(and_, [Q(**{f: v}) for f, v in fields] + [q]))
@@ -213,7 +220,8 @@ class MPTTOptions(object):
                 # Fall back on tree id ordering if multiple root nodes have
                 # the same values.
                 order_by.append(opts.tree_id_attr)
-            queryset = node.__class__._tree_manager.db_manager(node._state.db).filter(filters).order_by(*order_by)
+            queryset = node.__class__._tree_manager.db_manager(
+                node._state.db).filter(filters).order_by(*order_by)
             if node.pk:
                 queryset = queryset.exclude(pk=node.pk)
             try:
@@ -319,7 +327,9 @@ class MPTTModelBase(ModelBase):
                 bases.insert(0, MPTTModel)
                 cls.__bases__ = tuple(bases)
 
-            if _get_tree_model(cls) is cls:
+            is_cls_tree_model = _get_tree_model(cls) is cls
+
+            if is_cls_tree_model:
                 # HACK: _meta.get_field() doesn't work before AppCache.ready in Django>=1.8
                 # ( see https://code.djangoproject.com/ticket/24231 )
                 # So the only way to get existing fields is using local_fields on all superclasses.
@@ -328,28 +338,34 @@ class MPTTModelBase(ModelBase):
                     if hasattr(base, '_meta'):
                         existing_field_names.update([f.name for f in base._meta.local_fields])
 
-                for key in ('left_attr', 'right_attr', 'tree_id_attr', 'level_attr'):
-                    field_name = getattr(cls._mptt_meta, key)
+                mptt_meta = cls._mptt_meta
+                field_names = (mptt_meta.left_attr, mptt_meta.right_attr, mptt_meta.tree_id_attr, mptt_meta.level_attr)
+
+                for field_name in field_names:
                     if field_name not in existing_field_names:
                         field = models.PositiveIntegerField(db_index=True, editable=False)
                         field.contribute_to_class(cls, field_name)
+
+                # Add an index_together on tree_id_attr and left_attr, as these are very
+                # commonly queried (pretty much all reads).
+                index_together = (cls._mptt_meta.tree_id_attr, cls._mptt_meta.left_attr)
+                if index_together not in cls._meta.index_together:
+                    cls._meta.index_together += (index_together,)
 
             # Add a tree manager, if there isn't one already
             if not abstract:
                 # make sure we have a tree manager somewhere
                 tree_manager = None
-                if hasattr(cls._meta, 'concrete_managers'):  # Django < 1.10
-                    cls_managers = cls._meta.concrete_managers + cls._meta.abstract_managers
-                    cls_managers = [r[2] for r in cls_managers]
+                # Use the default manager defined on the class if any
+                if cls._default_manager and isinstance(cls._default_manager, TreeManager):
+                    tree_manager = cls._default_manager
                 else:
-                    cls_managers = cls._meta.managers
-
-                for cls_manager in cls_managers:
-                    if isinstance(cls_manager, TreeManager):
-                        # prefer any locally defined manager (i.e. keep going if not local)
-                        if cls_manager.model is cls:
-                            tree_manager = cls_manager
-                            break
+                    for cls_manager in cls._meta.managers:
+                        if isinstance(cls_manager, TreeManager):
+                            # prefer any locally defined manager (i.e. keep going if not local)
+                            if cls_manager.model is cls:
+                                tree_manager = cls_manager
+                                break
 
                 if tree_manager and tree_manager.model is not cls:
                     tree_manager = tree_manager._copy_to_model(cls)
@@ -781,7 +797,7 @@ class MPTTModel(six.with_metaclass(MPTTModelBase, models.Model)):
         if not self.pk or self._mpttfield('tree_id') is None:
             return False
         opts = self._meta
-        if remote_field(opts.pk) is None:
+        if opts.pk.remote_field is None:
             return True
         else:
             if not hasattr(self, '_mptt_saved'):
@@ -797,7 +813,7 @@ class MPTTModel(six.with_metaclass(MPTTModelBase, models.Model)):
         field_names = []
         internal_fields = (
             self._mptt_meta.left_attr, self._mptt_meta.right_attr, self._mptt_meta.tree_id_attr,
-            self._mptt_meta.level_attr, self._mptt_meta.parent_attr)
+            self._mptt_meta.level_attr)
         for field in self._meta.fields:
             if (field.name not in internal_fields) and (not isinstance(field, AutoField)) and (not field.primary_key):  # noqa
                 field_names.append(field.name)
@@ -831,7 +847,7 @@ class MPTTModel(six.with_metaclass(MPTTModelBase, models.Model)):
             # unless we're also inside TreeManager.delay_mptt_updates()
             if self._mpttfield('left') is None:
                 # we need to set *some* values, though don't care too much what.
-                parent = getattr(self, '_%s_cache' % opts.parent_attr, None)
+                parent = cached_field_value(self, opts.parent_attr)
                 # if we have a cached parent, have a stab at getting
                 # possibly-correct values.  otherwise, meh.
                 if parent:
@@ -1012,12 +1028,12 @@ class MPTTModel(six.with_metaclass(MPTTModelBase, models.Model)):
         target_right = self._mpttfield('right')
         tree_id = self._mpttfield('tree_id')
         self._tree_manager._close_gap(tree_width, target_right, tree_id)
-        parent = getattr(self, '_%s_cache' % self._mptt_meta.parent_attr, None)
+        parent = cached_field_value(self, self._mptt_meta.parent_attr)
         if parent:
             right_shift = -self.get_descendant_count() - 2
             self._tree_manager._post_insert_update_cached_parent_right(parent, right_shift)
 
-        super(MPTTModel, self).delete(*args, **kwargs)
+        return super(MPTTModel, self).delete(*args, **kwargs)
     delete.alters_data = True
 
     def _mptt_refresh(self):
@@ -1025,7 +1041,7 @@ class MPTTModel(six.with_metaclass(MPTTModelBase, models.Model)):
             return
         manager = type(self)._tree_manager
         opts = self._mptt_meta
-        values = manager.filter(pk=self.pk).values(
+        values = manager.using(self._state.db).filter(pk=self.pk).values(
             opts.left_attr,
             opts.right_attr,
             opts.level_attr,

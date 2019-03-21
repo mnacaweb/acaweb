@@ -8,7 +8,7 @@ import csv
 import itertools
 import sys
 
-from django.utils.six import next, text_type
+from django.utils.six import next, PY3, text_type
 from django.utils.six.moves import zip
 from django.utils.translation import ugettext as _
 
@@ -36,7 +36,7 @@ def previous_current_next(items):
     return zip(prev, cur, nex)
 
 
-def tree_item_iterator(items, ancestors=False):
+def tree_item_iterator(items, ancestors=False, callback=text_type):
     """
     Given a list of tree items, iterates over the list, generating
     two-tuples of the current tree item and a ``dict`` containing
@@ -56,9 +56,9 @@ def tree_item_iterator(items, ancestors=False):
     available:
 
        ``'ancestors'``
-          A list of unicode representations of the ancestors of the
-          current node, in descending order (root node first, immediate
-          parent last).
+          A list of representations of the ancestors of the current
+          node, in descending order (root node first, immediate parent
+          last).
 
           For example: given the sample tree below, the contents of the
           list which would be available under the ``'ancestors'`` key
@@ -67,6 +67,10 @@ def tree_item_iterator(items, ancestors=False):
              Books                    ->  []
                 Sci-fi                ->  [u'Books']
                    Dystopian Futures  ->  [u'Books', u'Sci-fi']
+
+          You can overload the default representation by providing an
+          optional ``callback`` function which takes a single argument
+          and performs coersion as required.
 
     """
     structure = {}
@@ -90,7 +94,7 @@ def tree_item_iterator(items, ancestors=False):
                 # If the current node is the start of a new level, add its
                 # parent to the ancestors list.
                 if structure['new_level']:
-                    structure['ancestors'].append(text_type(previous))
+                    structure['ancestors'].append(callback(previous))
         else:
             structure['new_level'] = True
             if ancestors:
@@ -174,7 +178,14 @@ def print_debug_info(qs, file=None):
         row = []
         for field in header[:-1]:
             row.append(getattr(n, field))
-        row.append('%s%s' % ('- ' * level, text_type(n).encode('utf-8')))
+
+        row_text = '%s%s' % ('- ' * level, text_type(n))
+        # Python 3 expects CSV data to be unicode, Python 2 expects it to be
+        # encoded
+        if PY3:
+            row.append(row_text)
+        else:
+            row.append(row_text.encode('utf-8'))
         writer.writerow(row)
 
 

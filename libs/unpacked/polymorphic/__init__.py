@@ -7,5 +7,10 @@ This code and affiliated files are (C) by Bert Constantin and individual contrib
 Please see LICENSE and AUTHORS for more information.
 """
 
-# See PEP 440 (https://www.python.org/dev/peps/pep-0440/)
-__version__ = "1.3"
+import pkg_resources
+
+try:
+    __version__ = pkg_resources.require("django-polymorphic")[0].version
+except pkg_resources.DistributionNotFound:
+    __version__ = None  # for RTD among others
+

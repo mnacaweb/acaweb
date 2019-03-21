@@ -1,23 +1,17 @@
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
-from rosetta.conf import settings as rosetta_settings
 import hashlib
+import importlib
 import time
+
+from django.conf import settings
+from django.core.cache import caches
+from django.core.exceptions import ImproperlyConfigured
+
 import six
-import django
+
+from .conf import settings as rosetta_settings
 
 
-try:
-    from django.core.cache import caches
-    cache = caches[rosetta_settings.ROSETTA_CACHE_NAME]
-except ImportError:
-    from django.core.cache import get_cache
-    cache = get_cache(rosetta_settings.ROSETTA_CACHE_NAME)
-
-try:
-    import importlib
-except ImportError:
-    from django.utils import importlib
+cache = caches[rosetta_settings.ROSETTA_CACHE_NAME]
 
 
 class BaseRosettaStorage(object):
@@ -55,8 +49,8 @@ class SessionRosettaStorage(BaseRosettaStorage):
     def __init__(self, request):
         super(SessionRosettaStorage, self).__init__(request)
 
-        if 'signed_cookies' in settings.SESSION_ENGINE and django.VERSION[1] >= 6 and 'pickle' not in settings.SESSION_SERIALIZER.lower():
-            raise ImproperlyConfigured("Sorry, but django-rosetta doesn't support the `signed_cookies` SESSION_ENGINE in Django >= 1.6, because rosetta specific session files cannot be serialized.")
+        if 'signed_cookies' in settings.SESSION_ENGINE and 'pickle' not in settings.SESSION_SERIALIZER.lower():
+            raise ImproperlyConfigured("Sorry, but django-rosetta doesn't support the `signed_cookies` SESSION_ENGINE, because rosetta specific session files cannot be serialized.")
 
     def get(self, key, default=None):
         if key in self.request.session:

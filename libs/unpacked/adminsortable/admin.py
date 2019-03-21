@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib.admin import ModelAdmin, TabularInline, StackedInline
 from django.contrib.admin.options import InlineModelAdmin
+from django.contrib.admin.views.main import IGNORED_PARAMS
 from django.contrib.contenttypes.admin import (GenericStackedInline,
                                                GenericTabularInline)
 from django.contrib.contenttypes.models import ContentType
@@ -34,13 +35,31 @@ class SortableAdminBase(object):
 
     after_sorting_js_callback_name = None
 
+    def get_querystring_filters(self, request):
+        filters = {}
+
+        for k, v in request.GET.items():
+            if k not in IGNORED_PARAMS:
+                filters[k] = v
+
+        return filters
+
     def changelist_view(self, request, extra_context=None):
         """
         If the model that inherits Sortable has more than one object,
         its sort order can be changed. This view adds a link to the
         object_tools block to take people to the view to change the sorting.
         """
-        if get_is_sortable(self.get_queryset(request)):
+
+        # apply any filters via the querystring
+        filters = self.get_querystring_filters(request)
+
+        # Check if the filtered queryset contains more than 1 item
+        # to enable sort link
+        queryset = self.get_queryset(request).filter(**filters)
+        self.is_sortable = False
+
+        if get_is_sortable(queryset):
             self.change_list_template = \
                 self.sortable_change_list_with_sort_link_template
             self.is_sortable = True
@@ -51,10 +70,17 @@ class SortableAdminBase(object):
         extra_context.update({
             'change_list_template_extends': self.change_list_template_extends,
             'sorting_filters': [sort_filter[0] for sort_filter
-                in getattr(self.model, 'sorting_filters', [])]
+                in getattr(self.model, 'sorting_filters', [])],
+            'is_sortable': self.is_sortable
         })
+
         return super(SortableAdminBase, self).changelist_view(request,
             extra_context=extra_context)
+
+    # override this function in your SortableAdmin if you need to do something
+    # after sorting has occurred
+    def after_sorting(self):
+        pass
 
 
 class SortableAdmin(SortableAdminBase, ModelAdmin):
@@ -111,20 +137,15 @@ class SortableAdmin(SortableAdminBase, ModelAdmin):
         """
         # get sort group index from querystring if present
         sort_filter_index = request.GET.get('sort_filter')
-        filter_expression = request.GET.get('filter_expression')
 
-        filters = {}
+        # apply any filters via the querystring
+        filters = self.get_querystring_filters(request)
 
         if sort_filter_index:
             try:
                 filters = self.model.sorting_filters[int(sort_filter_index)][1]
             except (IndexError, ValueError):
                 pass
-
-        if filter_expression:
-            filters.update(
-                dict([filter_expression.split('=')])
-            )
 
         # Apply any sort filters to create a subset of sortable objects
         return self.get_queryset(request).filter(**filters)
@@ -225,6 +246,7 @@ class SortableAdmin(SortableAdminBase, ModelAdmin):
             'sortable_by_class_display_name': sortable_by_class_display_name,
             'jquery_lib_path': jquery_lib_path,
             'csrf_cookie_name': getattr(settings, 'CSRF_COOKIE_NAME', 'csrftoken'),
+            'csrf_header_name': getattr(settings, 'CSRF_HEADER_NAME', 'X-CSRFToken'),
             'after_sorting_js_callback_name': self.after_sorting_js_callback_name
         })
         return render(request, self.sortable_change_list_template, context)
@@ -249,6 +271,7 @@ class SortableAdmin(SortableAdminBase, ModelAdmin):
             'has_sortable_tabular_inlines': self.has_sortable_tabular_inlines,
             'has_sortable_stacked_inlines': self.has_sortable_stacked_inlines,
             'csrf_cookie_name': getattr(settings, 'CSRF_COOKIE_NAME', 'csrftoken'),
+            'csrf_header_name': getattr(settings, 'CSRF_HEADER_NAME', 'X-CSRFToken'),
             'after_sorting_js_callback_name': self.after_sorting_js_callback_name
         })
 
@@ -302,6 +325,8 @@ class SortableAdmin(SortableAdminBase, ModelAdmin):
             except (KeyError, IndexError, klass.DoesNotExist,
                     AttributeError, ValueError):
                 pass
+
+        self.after_sorting()
 
         return HttpResponse(json.dumps(response, ensure_ascii=False),
             content_type='application/json')

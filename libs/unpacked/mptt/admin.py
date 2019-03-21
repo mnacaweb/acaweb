@@ -2,13 +2,11 @@ from __future__ import unicode_literals
 
 import json
 
-from django import http
+from django import forms, http
 from django.conf import settings
 from django.contrib.admin.actions import delete_selected
 from django.contrib.admin.options import ModelAdmin
 from django.db import IntegrityError, transaction
-from django.forms.utils import flatatt
-from django.templatetags.static import static
 from django.utils.encoding import force_text
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -16,11 +14,13 @@ from django.contrib.admin import RelatedFieldListFilter
 from django.contrib.admin.utils import get_model_from_relation
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import smart_text
 from django.utils.translation import get_language_bidi
 from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 
-from mptt.compat import remote_field, remote_model
+from js_asset import JS
+
 from mptt.exceptions import InvalidMove
 from mptt.forms import MPTTAdminForm, TreeNodeChoiceField
 from mptt.models import MPTTModel, TreeForeignKey
@@ -44,7 +44,7 @@ class MPTTModelAdmin(ModelAdmin):
     form = MPTTAdminForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if issubclass(remote_model(db_field), MPTTModel) \
+        if issubclass(db_field.remote_field.model, MPTTModel) \
                 and not isinstance(db_field, TreeForeignKey) \
                 and db_field.name not in self.raw_id_fields:
             db = kwargs.get('using')
@@ -52,7 +52,7 @@ class MPTTModelAdmin(ModelAdmin):
             limit_choices_to = db_field.get_limit_choices_to()
             defaults = dict(
                 form_class=TreeNodeChoiceField,
-                queryset=remote_model(db_field)._default_manager.using(
+                queryset=db_field.remote_field.model._default_manager.using(
                     db).complex_filter(limit_choices_to),
                 required=False)
             defaults.update(kwargs)
@@ -94,52 +94,12 @@ class MPTTModelAdmin(ModelAdmin):
 
     def get_actions(self, request):
         actions = super(MPTTModelAdmin, self).get_actions(request)
-        if 'delete_selected' in actions:
+        if actions is not None and 'delete_selected' in actions:
             actions['delete_selected'] = (
                 self.delete_selected_tree,
                 'delete_selected',
                 _('Delete selected %(verbose_name_plural)s'))
         return actions
-
-
-class JS(object):
-    """
-    Use this to insert a script tag via ``forms.Media`` containing additional
-    attributes (such as ``id`` and ``data-*`` for CSP-compatible data
-    injection.)::
-
-        media.add_js([
-            JS('asset.js', {
-                'id': 'asset-script',
-                'data-the-answer': '"42"',
-            }),
-        ])
-
-    The rendered media tag (via ``{{ media.js }}`` or ``{{ media }}`` will
-    now contain a script tag as follows, without line breaks::
-
-        <script type="text/javascript" src="/static/asset.js"
-            data-answer="&quot;42&quot;" id="asset-script"></script>
-
-    The attributes are automatically escaped. The data attributes may now be
-    accessed inside ``asset.js``::
-
-        var answer = document.querySelector('#asset-script').dataset.answer;
-    """
-    def __init__(self, js, attrs):
-        self.js = js
-        self.attrs = attrs
-
-    def startswith(self, _):
-        # Masquerade as absolute path so that we are returned as-is.
-        return True
-
-    def __html__(self):
-        return format_html(
-            '{}"{}',
-            static(self.js),
-            mark_safe(flatatt(self.attrs)),
-        ).rstrip('"')
 
 
 class DraggableMPTTAdmin(MPTTModelAdmin):
@@ -153,6 +113,7 @@ class DraggableMPTTAdmin(MPTTModelAdmin):
     list_display = ('tree_actions', 'indented_title')  # Sane defaults.
     list_display_links = ('indented_title',)  # Sane defaults.
     mptt_level_indent = 20
+    expand_tree_by_default = False
 
     def tree_actions(self, item):
         try:
@@ -190,15 +151,19 @@ class DraggableMPTTAdmin(MPTTModelAdmin):
             request, *args, **kwargs)
 
         try:
-            response.context_data['media'].add_css({'all': (
-                'mptt/draggable-admin.css',
-            )})
-            response.context_data['media'].add_js((
-                JS('mptt/draggable-admin.js', {
-                    'id': 'draggable-admin-context',
-                    'data-context': json.dumps(self._tree_context(request)),
-                }),
-            ),)
+            response.context_data['media'] = response.context_data['media'] + forms.Media(
+                css={
+                    'all': ['mptt/draggable-admin.css'],
+                },
+                js=[
+                    JS('mptt/draggable-admin.js', {
+                        'id': 'draggable-admin-context',
+                        'data-context': json.dumps(
+                            self._tree_context(request), cls=DjangoJSONEncoder
+                        ),
+                    }),
+                ],
+            )
         except (AttributeError, KeyError):
             # Not meant for us if there is no context_data attribute (no
             # TemplateResponse) or no media in the context.
@@ -253,6 +218,7 @@ class DraggableMPTTAdmin(MPTTModelAdmin):
                 'collapseTree': _('Collapse tree'),
                 'expandTree': _('Expand tree'),
             },
+            'expandTreeByDefault': self.expand_tree_by_default,
         }
 
     def _build_tree_structure(self, queryset):
@@ -304,8 +270,8 @@ class TreeRelatedFieldListFilter(RelatedFieldListFilter):
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         self.other_model = get_model_from_relation(field)
-        if remote_field(field) is not None and hasattr(remote_field(field), 'get_related_field'):
-            self.rel_name = remote_field(field).get_related_field().name
+        if field.remote_field is not None and hasattr(field.remote_field, 'get_related_field'):
+            self.rel_name = field.remote_field.get_related_field().name
         else:
             self.rel_name = self.other_model._meta.pk.name
         self.changed_lookup_kwarg = '%s__%s__inhierarchy' % (field_path, self.rel_name)
@@ -353,11 +319,7 @@ class TreeRelatedFieldListFilter(RelatedFieldListFilter):
     # yield padding_style
     def choices(self, cl):
         # #### MPTT ADDITION START
-        try:
-            # EMPTY_CHANGELIST_VALUE has been removed in django 1.9
-            from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
-        except:
-            EMPTY_CHANGELIST_VALUE = self.empty_value_display
+        EMPTY_CHANGELIST_VALUE = self.empty_value_display
         # #### MPTT ADDITION END
         yield {
             'selected': self.lookup_val is None and not self.lookup_val_isnull,
@@ -377,7 +339,7 @@ class TreeRelatedFieldListFilter(RelatedFieldListFilter):
             }
         if (isinstance(self.field, ForeignObjectRel) and
                 (self.field.field.null or isinstance(self.field.field, ManyToManyField)) or
-                remote_field(self.field) is not None and
+                self.field.remote_field is not None and
                 (self.field.null or isinstance(self.field, ManyToManyField))):
             yield {
                 'selected': bool(self.lookup_val_isnull),
