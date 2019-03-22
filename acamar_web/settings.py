@@ -448,12 +448,12 @@ if DEV_PROFILE != "local":
     opener = urllib.request.build_opener(proxy_support)
     urllib.request.install_opener(opener)
 
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "127.0.0.1:11211",
-        }
-    }
+    # CACHES = {
+    #     "default": {
+    #         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+    #         "LOCATION": "127.0.0.1:11211",
+    #     }
+    # }
     TEST_RUNNER = "acamar_web.test.testrunner.NoDbTestRunner"
 
 if os.path.exists(os.path.join(BASE_DIR, "acamar_web", "settings_local.py")):
