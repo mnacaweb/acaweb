@@ -244,7 +244,7 @@ META_USE_OG_PROPERTIES = False
 META_USE_TWITTER_PROPERTIES = False
 META_USE_GOOGLEPLUS_PROPERTIES = False
 
-ELASTIC_URL = "http://localhost:9200/"
+ELASTIC_URL = "http://localhost:9200/" if DEV_PROFILE == "local" else "http://prob-elastic:9200/"
 HAYSTACK_CONNECTIONS = {
     "default": {
         "ENGINE": "acamar_web.search.engine.Elasticsearch5SearchEngineCz",
@@ -405,11 +405,17 @@ WEBPACK_LOADER = {
     }
 }
 
+PROXIES = (
+    {"http": "http://localhost:8888", "https": "http://localhost:8888"}
+    if DEV_PROFILE != "local"
+    else {}
+)
+
 if RAVEN_ENABLED:
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
-    sentry_sdk.init(dsn=RAVEN_DSN, integrations=[DjangoIntegration()])
+    sentry_sdk.init(dsn=RAVEN_DSN, integrations=[DjangoIntegration()], http_proxy=PROXIES.get("http"))
 else:
     LOGGING = {
         "version": 1,
@@ -433,12 +439,6 @@ else:
             }
         },
     }
-
-PROXIES = (
-    {"http": "http://localhost:8888", "https": "http://localhost:8888"}
-    if DEV_PROFILE != "local"
-    else {}
-)
 
 if DEV_PROFILE != "local":
     import urllib.request, urllib.error, urllib.parse
