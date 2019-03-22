@@ -11,7 +11,7 @@ def get_profile():
         DEV_PROFILE = "local"
     if os.path.exists("/home/vagrant"):
         DEV_PROFILE = "local"
-    if socket.gethostname() == "prob-preview":
+    if socket.gethostname() == "prob-prev":
         DEV_PROFILE = "preview"
     if socket.gethostname() == "prob-django":
         DEV_PROFILE = "master"
@@ -48,7 +48,7 @@ if DEV_PROFILE == "local":
     }
     STATIC_GRUNT_DIR = "static-preview"
     BASE_URL = "http://127.0.0.1:8000"
-    RAVEN_ENABLED = True
+    RAVEN_ENABLED = False
 
 elif DEV_PROFILE == "preview":
     FILER_DEBUG = True
@@ -58,7 +58,8 @@ elif DEV_PROFILE == "preview":
             "ENGINE": "django.db.backends.mysql",
             "NAME": PB_PROJECT,
             "USER": PB_PROJECT,
-            "PASSWORD": "GAzwyTUeH",
+            "PASSWORD": "sNfCCb1T"
+            # "PASSWORD": "GAzwyTUeH",
         }
     }
     STATIC_GRUNT_DIR = "static-preview"
