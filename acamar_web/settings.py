@@ -87,6 +87,7 @@ ALLOWED_HOSTS = [
     "www.acamar.cz",
     "acamar.cz",
     "%s.django2.proboston.net" % hyphenate(PB_PROJECT),
+    "%s.prob-prev.glow.cz" % hyphenate(PB_PROJECT),
     "127.0.0.1",
     "localhost",
 ]
