@@ -177,7 +177,8 @@ CMS_TEMPLATES = [
     ('course.html', 'Courses'),
     ('a-card.html', 'A-card'),
     ('enroll_in_course.html', 'Enroll in course'),
-    ('thank_you.html', 'Thank you')
+    ('thank_you.html', 'Thank you'),
+    ('privacy-policy.html', 'Privacy policy'),
 ]
 
 ROOT_URLCONF = '%s.urls' % PB_PROJECT

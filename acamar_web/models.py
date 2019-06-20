@@ -161,7 +161,8 @@ class MainBanner(CMSPlugin):
         (CONTACT, "Contact"),
         (DETAIL, "Detail"),
         (AKARTA, "A-card"),
-        (ENROLL_IN_COURSE, "Enroll in course")
+        (ENROLL_IN_COURSE, "Enroll in course"),
+        (PRIVACY_POLICY, "Privacy policy")
     ]
 
     template = models.CharField(verbose_name="Template", max_length=100, choices=_CHOICES, default=DEFAULT)
