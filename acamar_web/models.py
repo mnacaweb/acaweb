@@ -152,6 +152,7 @@ class MainBanner(CMSPlugin):
     DETAIL = "detail"
     AKARTA = "a-card"
     ENROLL_IN_COURSE = "enroll_in_course"
+    PRIVACY_POLICY = "private_policy"
     _CHOICES = [
         (DEFAULT, "Default"),
         (FOR_CANDIDATES, "For candidates"),

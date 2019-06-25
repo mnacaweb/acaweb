@@ -29,7 +29,16 @@ class PositionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PositionDetailView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
+
         return context
+
+    def dictfetchall(cursor):
+        "Return all rows from a cursor as a dict"
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+        ]
 
     def get_queryset(self):
         qs = super(PositionDetailView, self).get_queryset()
