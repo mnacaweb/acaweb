@@ -155,17 +155,17 @@
                                         <label class="label" for="positionText">{% trans "Napište nám pár slov o tom, co vás láká do Acamaru" %}</label>
                                         <textarea class="form-control message-control" name="text" id="positionText"></textarea>
                                     </div>
-{#                                    <div class="form-check">#}
-{#                                        <input class="form-check-input" type="checkbox" id="positionAgreement" name="agreement" required>#}
-{#                                        <label class="form-check-label" for="positionAgreement">#}
-{#                                            <a href="TODO" target="_blank">{% trans "Souhlasím se zpracováním os. údajů" %}</a>#}
-{#                                        </label>#}
-{#                                    </div>#}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="positionAgreement" name="agreement" required>
+                                        <label class="form-check-label" for="positionAgreement">
+                                            <a href="{% trans "private-policy-url" %}" target="_blank">{% trans "Souhlasím se zpracováním os. údajů" %}</a>
+                                        </label>
+                                    </div>
 
-                                    <input type="checkbox" name="gdpr" id="gdpr" required>
+                                    <!--<input type="checkbox" name="gdpr" id="gdpr" required>
                                     <label for="gdpr" class="ml-2">
                                         <a target="_blank" href="{% trans "private-policy-url" %}">Souhlasím se zpracováním osobních údajů</a>
-                                    </label>
+                                    </label>-->
 
                                     <div class="d-flex justify-content-center pt-3 pt-lg-5">
                                         <div>
