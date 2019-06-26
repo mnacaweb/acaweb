@@ -156,3 +156,7 @@ msgstr ""
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"
 msgstr ""
+
+#: templates/apps/position_detail.html:161
+msgid "Souhlasím se zpracováním os. údajů"
+msgstr ""
