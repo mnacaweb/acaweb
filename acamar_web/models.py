@@ -832,3 +832,10 @@ class ThanksBanner(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+@python_2_unicode_compatible
+class HtmlText(CMSPlugin):
+    text = models.TextField(verbose_name="Text", blank=True)
+
+    def __str__(self):
+        return self.text

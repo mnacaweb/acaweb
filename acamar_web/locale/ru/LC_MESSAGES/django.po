@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 10:03+0200\n"
+"POT-Creation-Date: 2019-06-27 15:36+0200\n"
 "PO-Revision-Date: 2018-09-24 16:03+0200\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Translated-Using: django-rosetta 0.8.1\n"
 
 #: templates/404.html:9
@@ -24,8 +25,8 @@ msgid ""
 "Hledali jste pozici Programátor Hvězdy smrti? Tu vám nedohodíme. Ale mnoho "
 "jiných lukrativních IT pozic ano!"
 msgstr ""
-"Вы искали вакансию «программист Звезды Смерти»? Мы не можем это устроить. Но"
-" мы можем вам найти много других прибыльных IT вакансий!"
+"Вы искали вакансию «программист Звезды Смерти»? Мы не можем это устроить. Но "
+"мы можем вам найти много других прибыльных IT вакансий!"
 
 #: templates/404.html:18
 msgid "Hledali jste pozici"
@@ -51,13 +52,19 @@ msgstr "Возвращаться"
 msgid "Zkuste se vrátit zpět"
 msgstr "Попытаться вернуться"
 
-#: templates/_base.html:86
+#: templates/_base.html:102
 msgid "Acamar Outsourcing Services, s.r.o."
 msgstr "Acamar Outsourcing Services, s.r.o."
 
-#: templates/_base.html:86
+#: templates/_base.html:102
 msgid "Ochrana&nbsp;osobních&nbsp;údajů"
 msgstr "Политика конфиденциальности"
+
+#: templates/_base.html:106
+#, fuzzy
+#| msgid "Vrátit se zpět"
+msgid "Vrátit na začátek"
+msgstr "Возвращаться"
 
 #: templates/apps/position_detail.html:67
 msgid "Provedu vás náborem"
@@ -67,74 +74,90 @@ msgstr "Я буду вашим справочником по набору"
 msgid "Máte další otázky k vypsané pozici? Napište mi, se vším poradím."
 msgstr "У вас дальнейшие вопросы о вакансии? Напишите мне, и я помогу вам."
 
-#: templates/apps/position_detail.html:79
+#: templates/apps/position_detail.html:82
 msgid "Napište mi e-mail"
 msgstr "Напишите мне е-мейл"
 
-#: templates/apps/position_detail.html:84
+#: templates/apps/position_detail.html:87
 msgid "Láká vás to? Ozvěte se!"
 msgstr "Интересно ли вам, свяжитесь с нами:"
 
-#: templates/apps/position_detail.html:85
+#: templates/apps/position_detail.html:88
 msgid "Odpovíme vždy a každému."
 msgstr "Мы ответим всегда и всём."
 
-#: templates/apps/position_detail.html:89
+#: templates/apps/position_detail.html:92
 msgid "ODPOVĚZTE NA POZICI"
 msgstr "Ответить на вакансию"
 
-#: templates/apps/position_detail.html:93
+#: templates/apps/position_detail.html:96
 #, python-format
 msgid "Ahoj, mohla by tě zajímat tahle práce: '%(name)s'. %(url)s"
 msgstr "Привет, возможно эта вакансия тебе интересна: '%(name)s'. %(url)s"
 
-#: templates/apps/position_detail.html:93
+#: templates/apps/position_detail.html:96
 msgid "Pošlete nabídku známému"
 msgstr "Отправлять это предложение знакомым"
 
-#: templates/apps/position_detail.html:101
+#: templates/apps/position_detail.html:105
 msgid "Zpět na výpis pozic"
 msgstr "Вернуться к списку вакансий"
 
-#: templates/apps/position_detail.html:114
+#: templates/apps/position_detail.html:119
 msgid "Odpovídáte na pozici"
 msgstr "Вы отвечаете на вакансию"
 
-#: templates/apps/position_detail.html:118
+#: templates/apps/position_detail.html:123
 msgid "Jméno"
 msgstr "Имя"
 
-#: templates/apps/position_detail.html:122
+#: templates/apps/position_detail.html:127
 msgid "Příjmení"
 msgstr "Фамилия"
 
-#: templates/apps/position_detail.html:126
+#: templates/apps/position_detail.html:131
 msgid "E-mail"
 msgstr "Е-мейл"
 
-#: templates/apps/position_detail.html:130
+#: templates/apps/position_detail.html:135
 msgid "Telefon"
 msgstr "Телефон"
 
-#: templates/apps/position_detail.html:135
+#: templates/apps/position_detail.html:140
 msgid "Nahrajte Váš životopis"
 msgstr "Загружить резюме"
 
-#: templates/apps/position_detail.html:142
+#: templates/apps/position_detail.html:147
+msgid "Vybrat soubor"
+msgstr ""
+
+#: templates/apps/position_detail.html:151
 msgid "Odkaz na LinkedIn, pokud máte"
 msgstr "Ссылка на ваш LinkedIn аккаунт"
 
-#: templates/apps/position_detail.html:146
-msgid "Napište nám pár slov o tom, co vás láká do Adastry"
+#: templates/apps/position_detail.html:155
+#, fuzzy
+#| msgid "Napište nám pár slov o tom, co vás láká do Adastry"
+msgid "Napište nám pár slov o tom, co vás láká do Acamaru"
 msgstr "Вкратце, почему вас интересует Adastra?"
 
-#: templates/apps/position_detail.html:157
+#: templates/apps/position_detail.html:161
+#: templates/apps/position_detail.html:167
+msgid "private-policy-url"
+msgstr ""
+
+#: templates/apps/position_detail.html:161
+msgid "Souhlasím se zpracováním os. údajů"
+msgstr ""
+
+#: templates/apps/position_detail.html:172
 msgid "Odeslat odpoveď"
 msgstr "Отправить ответ"
 
-#: templates/apps/position_detail.html:172
-msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
-msgstr "Спасиво за ваш ответ. Мы скоро свяжемся."
+#: templates/apps/position_detail.html:188
+msgid ""
+"Děkujeme za zprávu! Odpovíme vám do 2&nbsp;pracovních dnů, spíš ale dřív."
+msgstr ""
 
 #: templates/menu/language_chooser.html:10
 #: templates/menu/language_chooser.html:16
@@ -142,20 +165,42 @@ msgid "Změnit na jazyk:"
 msgstr "Изменение языка"
 
 #: templates/plugins/course_panel/_course_card.html:13
-#: templates/plugins/course_panel/_course_card_alternative.html:13
-msgid "Cena"
+#, fuzzy
+#| msgid "Cena"
+msgid "Cena: "
 msgstr "Цена"
 
 #: templates/plugins/course_panel/_course_card.html:14
-#: templates/plugins/course_panel/_course_card_alternative.html:14
-msgid "Délka školení"
+#, fuzzy
+#| msgid "Délka školení"
+msgid "Délka školení: "
 msgstr "Длительность курса"
 
 #: templates/plugins/course_panel/_course_card.html:15
-#: templates/plugins/course_panel/_course_card_alternative.html:15
-msgid "Místo školení"
+#, fuzzy
+#| msgid "Místo školení"
+msgid "Místo školení: "
 msgstr "местоположение курса"
 
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"
 msgstr "Больше о курсу"
+
+#: templates/plugins/course_panel/_course_card_alternative.html:13
+msgid "Cena"
+msgstr "Цена"
+
+#: templates/plugins/course_panel/_course_card_alternative.html:14
+msgid "Délka školení"
+msgstr "Длительность курса"
+
+#: templates/plugins/course_panel/_course_card_alternative.html:15
+msgid "Místo školení"
+msgstr "местоположение курса"
+
+#: templates/plugins/team_grid/team_grid_item.html:13
+msgid "LinkedIn"
+msgstr ""
+
+#~ msgid "Děkujeme, že jste odpověděli. Ozveme se vás co nejdříve."
+#~ msgstr "Спасиво за ваш ответ. Мы скоро свяжемся."

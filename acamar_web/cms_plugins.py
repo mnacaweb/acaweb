@@ -15,7 +15,7 @@ from .models import MainBanner, MainBannerCard, WorkElipse, WorkElipseColumn, Re
     AcaFriendPanel, AcaFriendCard, ContactUs, GraphSection, GraphCard, GraphCardText, PartnersModel, ContactPerson, \
     CoursePanelItem, CourseLector, AcardBenefits, AcardBenefitsItem, CourseBonusPanel, CourseBonusCard, CourseProgram, \
     CourseProgramItem, CourseTermList, CourseTermListAdditional, CourseGenericRegistration, CourseBasicInfo, \
-    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel, ThanksBanner
+    CourseBasicInfoCard, PartnersItem, CourseEnrollFormModel, LoginPluginModel, ThanksBanner, HtmlText
 
 
 @plugin_pool.register_plugin
@@ -461,3 +461,9 @@ class ThanksBannerPlugin(CMSPluginBase):
     name = "Thank you banner"
     model = ThanksBanner
     render_template = "plugins/thank_you/thanks_banner.html"
+
+@plugin_pool.register_plugin
+class HtmlTextPlugin(CMSPluginBase):
+    name = "Html text"
+    model = HtmlText
+    render_template = "plugins/htmltext.html"
