@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-27 15:36+0200\n"
-"PO-Revision-Date: 2019-06-28 10:59+0200\n"
+"PO-Revision-Date: 2019-06-28 11:02+0200\n"
 "Last-Translator: <>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgstr "Write us a few words about what intrigues you about Adastra"
 #: templates/apps/position_detail.html:161
 #: templates/apps/position_detail.html:167
 msgid "private-policy-url"
-msgstr ""
+msgstr "/en/privacy-protection-terms-and-conditions/"
 
 #: templates/apps/position_detail.html:161
 msgid "Souhlasím se zpracováním os. údajů"
