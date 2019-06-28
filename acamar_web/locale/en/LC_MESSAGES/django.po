@@ -148,7 +148,7 @@ msgstr ""
 
 #: templates/apps/position_detail.html:161
 msgid "Souhlasím se zpracováním os. údajů"
-msgstr ""
+msgstr "I agree with privacy protection"
 
 #: templates/apps/position_detail.html:172
 msgid "Odeslat odpoveď"
