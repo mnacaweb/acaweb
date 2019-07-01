@@ -56,6 +56,10 @@
         position: relative;
         background: #fff;
 
+        @include media-breakpoint-up(lg) {
+          background: transparent;
+        }
+
         .navbar-nav {
 
           .dropdown-menu {
