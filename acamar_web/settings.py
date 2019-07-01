@@ -447,7 +447,8 @@ else:
                 "include_html": True,
             },
             'file': {
-                'level': 'DEBUG',
+                'level': 'ERROR',
+                "filters": ("require_debug_false",),
                 'class': 'logging.FileHandler',
                 'filename': os.path.join(BASE_DIR, 'log', 'debug.log'),
             },
