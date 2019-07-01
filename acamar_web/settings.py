@@ -55,7 +55,7 @@ if DEV_PROFILE == "local":
 
 elif DEV_PROFILE == "preview":
     FILER_DEBUG = True
-    DEBUG = False
+    DEBUG = True
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -88,15 +88,16 @@ elif DEV_PROFILE == "master":
 
 RAVEN_DSN = "https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537"
 
-ALLOWED_HOSTS = [
-    "www.acamar.cz",
-    "acamar.cz",
-    "%s.django2.proboston.net" % hyphenate(PB_PROJECT),
-    "%s.prob-prev.glow.cz" % hyphenate(PB_PROJECT),
-    "%s.prob-prod.glow.cz" % hyphenate(PB_PROJECT),
-    "127.0.0.1",
-    "localhost",
-]
+# ALLOWED_HOSTS = [
+#     "www.acamar.cz",
+#     "acamar.cz",
+#     "%s.django2.proboston.net" % hyphenate(PB_PROJECT),
+#     "%s.prob-prev.glow.cz" % hyphenate(PB_PROJECT),
+#     "%s.prob-prod.glow.cz" % hyphenate(PB_PROJECT),
+#     "127.0.0.1",
+#     "localhost",
+# ]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = (
     "djangocms_admin_style",
