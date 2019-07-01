@@ -96,6 +96,7 @@ ALLOWED_HOSTS = [
     "%s.prob-prod.glow.cz" % hyphenate(PB_PROJECT),
     "127.0.0.1",
     "localhost",
+    "192.168.99.100"
 ]
 
 INSTALLED_APPS = (
