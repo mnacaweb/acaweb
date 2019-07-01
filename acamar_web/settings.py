@@ -132,21 +132,21 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE = (
-    # "django.middleware.cache.UpdateCacheMiddleware",
-    # "cms.middleware.utils.ApphookReloadMiddleware",
-    # "django.contrib.sessions.middleware.SessionMiddleware",
-    # "django.middleware.common.CommonMiddleware",
-    # "django.middleware.csrf.CsrfViewMiddleware",
-    # "django.contrib.auth.middleware.AuthenticationMiddleware",
-    # "django.contrib.messages.middleware.MessageMiddleware",
-    # "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "django.middleware.security.SecurityMiddleware",
-    # "django.middleware.locale.LocaleMiddleware",
-    # "cms.middleware.user.CurrentUserMiddleware",
-    # "cms.middleware.page.CurrentPageMiddleware",
-    # "cms.middleware.toolbar.ToolbarMiddleware",
-    # "cms.middleware.language.LanguageCookieMiddleware",
-    # "django.middleware.cache.FetchFromCacheMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "cms.middleware.utils.ApphookReloadMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "cms.middleware.user.CurrentUserMiddleware",
+    "cms.middleware.page.CurrentPageMiddleware",
+    "cms.middleware.toolbar.ToolbarMiddleware",
+    "cms.middleware.language.LanguageCookieMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 )
 
 TEMPLATES = [
