@@ -446,16 +446,16 @@ else:
                 "class": "django.utils.log.AdminEmailHandler",
                 "include_html": True,
             },
-            'file': {
-                'level': 'ERROR',
-                "filters": ("require_debug_false",),
-                'class': 'logging.FileHandler',
-                'filename': os.path.join(BASE_DIR, 'log', 'debug.log'),
-            },
+            # 'file': {
+            #     'level': 'ERROR',
+            #     "filters": ("require_debug_false",),
+            #     'class': 'logging.FileHandler',
+            #     'filename': os.path.join(BASE_DIR, 'log', 'debug.log'),
+            # }
         },
         "loggers": {
             "django.request": {
-                "handlers": ["mail_admins", 'file'],
+                "handlers": ["mail_admins"],
                 "level": "ERROR",
                 "propagate": True,
             }
