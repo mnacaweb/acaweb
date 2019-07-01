@@ -1,0 +1,4 @@
+mysqlclient
+Pillow
+django<2.2
+lxml

@@ -18,7 +18,7 @@ module.exports = merge(common, {
 		publicPath: "/static/acamar_web/"
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
+		// new CleanWebpackPlugin(),
 		new BundleTracker({filename: "./webpack-stats-preview.json", indent: 4}),
 		new MiniCssExtractPlugin({
 			filename: "[name].css",
@@ -31,5 +31,9 @@ module.exports = merge(common, {
 			files: ["app/*/templates/**/*.html", project_name+"/templates/**/*.html"],
 			open: false
 		})
-	]
+	],
+    watch: true,
+    watchOptions: {
+        poll: 2000 // Check for changes every second
+    }
 });

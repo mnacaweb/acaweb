@@ -1,4 +1,3 @@
-django<2.2
 djangocms_admin_style
 sentry-sdk
 django-webpack-loader

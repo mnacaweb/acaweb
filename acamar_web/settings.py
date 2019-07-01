@@ -9,7 +9,7 @@ def get_profile():
     DEV_PROFILE = ""
     if os.path.exists("/Users"):
         DEV_PROFILE = "local"
-    if os.path.exists("/home/vagrant"):
+    if os.path.exists("/usr/src/app"):
         DEV_PROFILE = "local"
     if socket.gethostname() == "prob-prev":
         DEV_PROFILE = "preview"
@@ -35,12 +35,15 @@ PB_PROJECT_IN_URL = hyphenate(PB_PROJECT)
 
 DEV_PROFILE = get_profile()
 
+IN_DOCKER = os.path.exists("/usr/src/app")
+
 if DEV_PROFILE == "local":
     FILER_DEBUG = True
     DEBUG = True
     EMAIL_HOST = "smtp.liten.cz"
     DATABASES = {
         "default": {
+            "HOST": "db" if IN_DOCKER else "",
             "ENGINE": "django.db.backends.mysql",
             "NAME": PB_PROJECT,
             "USER": "root",
@@ -250,7 +253,8 @@ META_USE_OG_PROPERTIES = False
 META_USE_TWITTER_PROPERTIES = False
 META_USE_GOOGLEPLUS_PROPERTIES = False
 
-ELASTIC_URL = "http://localhost:9200/" if DEV_PROFILE == "local" else "http://prob-elastic:9200/"
+ELASTIC_URL = ("http://elastic:9200" if IN_DOCKER else "http://localhost:9200/") if DEV_PROFILE == "local" else "http://prob-elastic:9200/"
+
 HAYSTACK_CONNECTIONS = {
     "default": {
         "ENGINE": "acamar_web.search.engine.Elasticsearch5SearchEngineCz",

@@ -1,0 +1,63 @@
+version: "3"
+services:
+    web:
+        build:
+            context: .
+            dockerfile: scripts/Dockerfile-web
+
+        container_name: acamar_web_web
+        image: proboston/acamar_web_web
+        expose:
+            - 8000
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/usr/src/app
+        depends_on:
+            - db
+        restart: always
+
+    db:
+        container_name: acamar_web_db
+        image: mariadb
+        ports:
+            - "33306:3306"
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_USER: "root"
+            MYSQL_PASSWORD: ""
+            MYSQL_DATABASE: "acamar_web"
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_czech_ci
+
+    webpack:
+        build:
+            context: .
+            dockerfile: scripts/Dockerfile-webpack
+
+        container_name: acamar_web_webpack
+        image: proboston/acamar_web_webpack
+        expose:
+            - 3000
+            - 3001
+        ports:
+            - "3000:3000"
+            - "3001:3001"
+        volumes:
+            - .:/usr/src/app
+        # depends_on:
+        #    - web
+        restart: always
+
+#    elastic:
+#        build:
+#            context: .
+#            dockerfile: scripts/Dockerfile-elastic
+#        container_name: acamar_web_elastic
+#        environment:
+#            - discovery.type=single-node
+#            - node.max_local_storage_nodes=4
+#        ports:
+#            - "9200:9200"
+#            - "9300:9300"
+
+

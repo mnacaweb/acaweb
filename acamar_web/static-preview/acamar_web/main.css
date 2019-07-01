@@ -9284,6 +9284,9 @@ textarea {
               justify-content: flex-end;
       position: relative;
       background: #fff; }
+      @media (min-width: 992px) {
+        .site-header .navbar .collapse.navbar-collapse, .site-header .navbar .collapse.navbar-collapsing {
+          background: transparent; } }
       .site-header .navbar .collapse.navbar-collapse .navbar-nav .dropdown-menu, .site-header .navbar .collapse.navbar-collapsing .navbar-nav .dropdown-menu {
         position: absolute;
         left: 0;
@@ -9331,6 +9334,9 @@ textarea {
             margin: 0 auto;
             -webkit-transition: all .3s linear;
             transition: all .3s linear; }
+            @media (max-width: 991.98px) {
+              .site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link::after, .site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item .nav-link::after {
+                display: none; } }
           .site-header .navbar .collapse.navbar-collapse .navbar-nav .nav-item .nav-link.border-right-custom, .site-header .navbar .collapse.navbar-collapsing .navbar-nav .nav-item .nav-link.border-right-custom {
             padding-right: 30px;
             border-right: 1px solid #000;

@@ -1,6 +1,8 @@
 {
   "name": "acamar_web",
   "version": "0.2.0-alpha",
+  "license": "unlicensed",
+  "private": true,
   "devDependencies": {
     "autoprefixer": "^9.6.0",
     "babel-core": "^6.26.3",

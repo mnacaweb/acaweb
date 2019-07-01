@@ -1,0 +1,12 @@
+#FROM elasticsearch:5-alpine
+FROM elasticsearch:6.5.4
+
+RUN    bin/elasticsearch-plugin install --batch ingest-attachment \
+    && bin/elasticsearch-plugin install --batch analysis-icu \
+    && yum install -y hunspell-cs \
+    && mkdir -p /usr/share/elasticsearch/config/hunspell/cs_CZ \
+    && cd /usr/share/elasticsearch/config/hunspell/cs_CZ \
+    && wget http://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.aff \
+    && wget http://cgit.freedesktop.org/libreoffice/dictionaries/plain/cs_CZ/cs_CZ.dic \
+    && cd /usr/share/elasticsearch
+
