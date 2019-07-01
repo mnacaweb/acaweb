@@ -83,7 +83,7 @@ elif DEV_PROFILE == "master":
     }
     STATIC_GRUNT_DIR = "static-master"
     BASE_URL = "https://acamar.cz"
-    RAVEN_ENABLED = True
+    RAVEN_ENABLED = False
     DEPLOYED_ON = "prob-prod"
 
 RAVEN_DSN = "https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537"
