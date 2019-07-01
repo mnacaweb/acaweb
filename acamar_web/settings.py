@@ -55,7 +55,7 @@ if DEV_PROFILE == "local":
 
 elif DEV_PROFILE == "preview":
     FILER_DEBUG = True
-    DEBUG = True
+    DEBUG = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
