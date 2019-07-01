@@ -55,7 +55,7 @@ if DEV_PROFILE == "local":
 
 elif DEV_PROFILE == "preview":
     FILER_DEBUG = True
-    DEBUG = True
+    DEBUG = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -72,7 +72,7 @@ elif DEV_PROFILE == "preview":
 
 elif DEV_PROFILE == "master":
     FILER_DEBUG = False
-    DEBUG = True
+    DEBUG = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -83,7 +83,7 @@ elif DEV_PROFILE == "master":
     }
     STATIC_GRUNT_DIR = "static-master"
     BASE_URL = "https://acamar.cz"
-    RAVEN_ENABLED = True
+    RAVEN_ENABLED = False
     DEPLOYED_ON = "prob-prod"
 
 RAVEN_DSN = "https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537"
@@ -203,6 +203,8 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
+DEFAULT_FROM_EMAIL = "no-reply-acamar-web@proboston.net"
+
 THUMBNAIL_HIGH_RESOLUTION = True
 
 THUMBNAIL_PROCESSORS = (
@@ -319,6 +321,7 @@ MODELTRANSLATION_DEBUG = False
 MANAGERS = ADMINS = (
     ("Jirka Makarius", "jiri.makarius@proboston.net"),
     ("Lukas Sova", "lukas.sova@proboston.net"),
+    ("Lukas 2", "lukas@ornyx.com")
 )
 
 CMS_PLACEHOLDER_CONF = {
@@ -444,7 +447,13 @@ else:
                 "filters": ("require_debug_false",),
                 "class": "django.utils.log.AdminEmailHandler",
                 "include_html": True,
-            }
+            },
+            # 'file': {
+            #     'level': 'ERROR',
+            #     "filters": ("require_debug_false",),
+            #     'class': 'logging.FileHandler',
+            #     'filename': os.path.join(BASE_DIR, 'log', 'debug.log'),
+            # }
         },
         "loggers": {
             "django.request": {
