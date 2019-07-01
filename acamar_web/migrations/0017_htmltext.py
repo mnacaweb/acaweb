@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import migrations, models
 
 
@@ -15,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='HtmlText',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_htmltext', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='acamar_web_htmltext', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('text', models.TextField(verbose_name='Text', blank=True)),
             ],
             options={
