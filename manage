@@ -1,12 +1,4 @@
 #/bin/bash
-ver=`python2 -V 2&> /dev/null`
-
-if [ "$?" == "0" ]; then
-	exec="python2"
-else
-	exec="python"
-fi
-
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export PYTHONPATH="$BASEDIR/libs/unpacked"
-PYTHONPATH="$BASEDIR/libs/unpacked" $exec $BASEDIR/manage.py "$@"
+PYTHONPATH="$BASEDIR/libs/unpacked" python $BASEDIR/manage.py "$@"
