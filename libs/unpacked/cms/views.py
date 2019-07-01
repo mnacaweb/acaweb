@@ -40,8 +40,6 @@ def details(request, slug):
     The main view of the Django-CMS! Takes a request and a slug, renders the
     page.
     """
-    return HttpResponse('P1')
-
     response_timestamp = now()
     if get_cms_setting("PAGE_CACHE") and (
         not hasattr(request, 'toolbar') or (
