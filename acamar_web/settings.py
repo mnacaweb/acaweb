@@ -15,7 +15,7 @@ def get_profile():
         DEV_PROFILE = "preview"
     if socket.gethostname() == "prob-django":
         DEV_PROFILE = "master"
-    if socket.gethostname() == "prob-d2":
+    if socket.gethostname() == "prob-prod":
         DEV_PROFILE = "master"
     return DEV_PROFILE
 
@@ -63,8 +63,9 @@ elif DEV_PROFILE == "preview":
         }
     }
     STATIC_GRUNT_DIR = "static-preview"
-    BASE_URL = "https://%s.preview.proboston.net" % hyphenate(PB_PROJECT)
+    BASE_URL = "https://%s.prob-prev.glow.cz" % hyphenate(PB_PROJECT)
     RAVEN_ENABLED = True
+    DEPLOYED_ON = "prob-prev"
 
 elif DEV_PROFILE == "master":
     FILER_DEBUG = False
@@ -80,6 +81,7 @@ elif DEV_PROFILE == "master":
     STATIC_GRUNT_DIR = "static-master"
     BASE_URL = "https://acamar.cz"
     RAVEN_ENABLED = True
+    DEPLOYED_ON = "prob-prod"
 
 RAVEN_DSN = "https://a2d7d21344ab436b86c143d7aa9b9dc3:604a6dc004454286abaa1b3b2d9a23e5@sentry.io/1241537"
 
@@ -88,6 +90,7 @@ ALLOWED_HOSTS = [
     "acamar.cz",
     "%s.django2.proboston.net" % hyphenate(PB_PROJECT),
     "%s.prob-prev.glow.cz" % hyphenate(PB_PROJECT),
+    "%s.prob-prod.glow.cz" % hyphenate(PB_PROJECT),
     "127.0.0.1",
     "localhost",
 ]
