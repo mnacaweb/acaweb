@@ -3,23 +3,36 @@
 from urllib.parse import urlparse
 
 from django.contrib.sites.models import Site
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.utils.translation import get_language
-from django.views.generic import DetailView
+from django.views import View
+from django.views.generic import DetailView, TemplateView
 
 from acamar_api.models import Position, Course
 
 
-def handler404(request):
-    return HttpResponse('404')
-    # url = request.META.get("HTTP_REFERER", "")
-    # link = "/"
-    # if url and urlparse(Site.objects.get_current(request).domain).netloc in url:
-    #     link = url
-    # response = render(request, "404.html", {"link": link})
-    # response.status_code = 404
-    # return response
+class Error404View(View):
+    def get(self, *args, **kwargs):
+        url = self.request.META.get("HTTP_REFERER", "")
+        link = "/"
+        if url and urlparse(Site.objects.get_current(self.request).domain).netloc in url:
+            link = url
+
+        html = render(self.request, '404.html')
+        return HttpResponseNotFound(html)
+
+#
+# def handler404(request):
+#     ret = HttpResponse('404')
+#     ret.status_code = 404
+#     # url = request.META.get("HTTP_REFERER", "")
+#     # link = "/"
+#     # if url and urlparse(Site.objects.get_current(request).domain).netloc in url:
+#     #     link = url
+#     # response = render(request, "404.html", {"link": link})
+#     # response.status_code = 404
+#     # return response
 
 
 class PositionDetailView(DetailView):
