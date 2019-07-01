@@ -154,6 +154,7 @@ class MainBanner(CMSPlugin):
     DETAIL = "detail"
     AKARTA = "a-card"
     ENROLL_IN_COURSE = "enroll_in_course"
+    PRIVACY_POLICY = "privacy_policy"
     _CHOICES = [
         (DEFAULT, "Default"),
         (FOR_CANDIDATES, "For candidates"),
@@ -164,6 +165,7 @@ class MainBanner(CMSPlugin):
         (DETAIL, "Detail"),
         (AKARTA, "A-card"),
         (ENROLL_IN_COURSE, "Enroll in course"),
+        (PRIVACY_POLICY, "Privacy policy")
     ]
 
     template = models.CharField(
@@ -997,3 +999,10 @@ class ThanksBanner(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+@python_2_unicode_compatible
+class HtmlText(CMSPlugin):
+    text = models.TextField(verbose_name="Text", blank=True)
+
+    def __str__(self):
+        return self.text

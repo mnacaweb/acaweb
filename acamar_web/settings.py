@@ -176,15 +176,16 @@ LOGIN_REDIRECT_URL = "/"
 CMS_PERMISSION = True
 CMS_TEMPLATE_INHERITANCE = False
 CMS_TEMPLATES = [
-    ("basic.html", "Basic page template"),
-    ("we_are.html", "We are"),
-    ("contact.html", "Contact"),
-    ("for_candidates.html", "For candidates"),
-    ("for_companies.html", "For companies"),
-    ("course.html", "Courses"),
-    ("a-card.html", "A-card"),
-    ("enroll_in_course.html", "Enroll in course"),
-    ("thank_you.html", "Thank you"),
+    ('basic.html', 'Basic page template'),
+    ('we_are.html', 'We are'),
+    ('contact.html', 'Contact'),
+    ('for_candidates.html', 'For candidates'),
+    ('for_companies.html', 'For companies'),
+    ('course.html', 'Courses'),
+    ('a-card.html', 'A-card'),
+    ('enroll_in_course.html', 'Enroll in course'),
+    ('thank_you.html', 'Thank you'),
+    ('privacy-policy.html', 'Privacy policy'),
 ]
 
 ROOT_URLCONF = "%s.urls" % PB_PROJECT

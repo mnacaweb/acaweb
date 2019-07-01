@@ -16,5 +16,5 @@
 /whoosh_index
 /import
 /logs
+/venv
 settings_local.py
-venv

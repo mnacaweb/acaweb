@@ -57,6 +57,7 @@ from .models import (
     CourseEnrollFormModel,
     LoginPluginModel,
     ThanksBanner,
+    HtmlText
 )
 
 
@@ -526,3 +527,9 @@ class ThanksBannerPlugin(CMSPluginBase):
     name = "Thank you banner"
     model = ThanksBanner
     render_template = "plugins/thank_you/thanks_banner.html"
+
+@plugin_pool.register_plugin
+class HtmlTextPlugin(CMSPluginBase):
+    name = "Html text"
+    model = HtmlText
+    render_template = "plugins/htmltext.html"
