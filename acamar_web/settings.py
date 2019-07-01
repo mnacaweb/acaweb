@@ -69,7 +69,7 @@ elif DEV_PROFILE == "preview":
 
 elif DEV_PROFILE == "master":
     FILER_DEBUG = False
-    DEBUG = True
+    DEBUG = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -311,7 +311,10 @@ USE_L10N = True
 MODELTRANSLATION_DEBUG = False
 # MODELTRANSLATION_DEFAULT_LANGUAGE = "cs"
 
-MANAGERS = ADMINS = (("Jirka Makarius", "jiri.makarius@proboston.net"),)
+MANAGERS = ADMINS = (
+    ("Jirka Makarius", "jiri.makarius@proboston.net"),
+    ("Lukas Sova", "lukas.sova@proboston.net"),
+)
 
 CMS_PLACEHOLDER_CONF = {
     "main_banner": {
