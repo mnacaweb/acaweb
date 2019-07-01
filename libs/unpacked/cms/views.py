@@ -66,6 +66,8 @@ def details(request, slug):
     toolbar = get_toolbar_from_request(request)
     tree_nodes = TreeNode.objects.get_for_site(site)
 
+    return HttpResponse('P1')
+
     if not page and not slug and not tree_nodes.exists():
         # render the welcome page if the requested path is root "/"
         # and there's no pages
