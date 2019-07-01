@@ -1,6 +1,6 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleTracker = require("./customBundleTracker");
 const webpack = require("webpack");
@@ -17,7 +17,7 @@ module.exports = merge(common, {
 		publicPath: "/static/acamar_web/"
 	},
 	plugins: [
-		new CleanWebpackPlugin([project_name+"/static-master"]),
+		new CleanWebpackPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
 				"NODE_ENV": JSON.stringify("production")

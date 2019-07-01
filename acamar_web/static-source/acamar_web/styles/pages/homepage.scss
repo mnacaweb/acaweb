@@ -3,7 +3,7 @@
   .main-banner.hp {
     height: 890px;
     display: block;
-    background: url("../images/header.jpg") center top no-repeat;
+    background: url("../../images/header.jpg") center top no-repeat;
     background-size: cover;
 
     @include media-breakpoint-down(sm) {
@@ -24,7 +24,7 @@
       align-items: center;
       width: 709px;
       height: 650px;
-      background: url("../images/header-bubble.png") center top no-repeat;
+      background: url("../../images/header-bubble.png") center top no-repeat;
       position: absolute;
       top: 100px;
       left: 50%;
