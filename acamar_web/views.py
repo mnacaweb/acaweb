@@ -19,22 +19,10 @@ class Error404View(View):
         if url and urlparse(Site.objects.get_current(self.request).domain).netloc in url:
             link = url
 
-        html = render(self.request, '404.html')
+        html = render(self.request, '404.html', {'link': link})
         return HttpResponseNotFound(html)
 
 #
-# def handler404(request):
-#     ret = HttpResponse('404')
-#     ret.status_code = 404
-#     # url = request.META.get("HTTP_REFERER", "")
-#     # link = "/"
-#     # if url and urlparse(Site.objects.get_current(request).domain).netloc in url:
-#     #     link = url
-#     # response = render(request, "404.html", {"link": link})
-#     # response.status_code = 404
-#     # return response
-
-
 class PositionDetailView(DetailView):
     model = Position
     template_name = "apps/position_detail.html"
