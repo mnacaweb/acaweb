@@ -40,6 +40,8 @@ def details(request, slug):
     The main view of the Django-CMS! Takes a request and a slug, renders the
     page.
     """
+    return HttpResponse('P1')
+
     response_timestamp = now()
     if get_cms_setting("PAGE_CACHE") and (
         not hasattr(request, 'toolbar') or (
@@ -65,8 +67,6 @@ def details(request, slug):
     page = get_page_from_request(request, use_path=slug)
     toolbar = get_toolbar_from_request(request)
     tree_nodes = TreeNode.objects.get_for_site(site)
-
-    return HttpResponse('P1')
 
     if not page and not slug and not tree_nodes.exists():
         # render the welcome page if the requested path is root "/"
