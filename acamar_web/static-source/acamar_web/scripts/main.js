@@ -71,7 +71,8 @@ $(document).ready(function () {
 			$(".navbar-collapse").addClass("show");
 		}
 	});
-	$(".dropdown-toggle").on("click", function () {
+	$(".dropdown-toggle").on("click", function (e) {
+		e.preventDefault();
 		if ($(".dropdown-menu").hasClass("show")) {
 			$(".dropdown-menu").removeClass("show");
 		} else {
