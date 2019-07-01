@@ -130,6 +130,11 @@
                 width: 0;
                 margin: 0 auto;
                 transition: all .3s linear;
+
+                @include media-breakpoint-down(md) {
+                  display: none;
+                }
+
               }
 
               &.border-right-custom {
