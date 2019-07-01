@@ -320,6 +320,7 @@ MODELTRANSLATION_DEBUG = False
 MANAGERS = ADMINS = (
     ("Jirka Makarius", "jiri.makarius@proboston.net"),
     ("Lukas Sova", "lukas.sova@proboston.net"),
+    ("Lukas 2", "lukas@ornyx.com")
 )
 
 CMS_PLACEHOLDER_CONF = {
