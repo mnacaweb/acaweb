@@ -69,7 +69,7 @@ elif DEV_PROFILE == "preview":
 
 elif DEV_PROFILE == "master":
     FILER_DEBUG = False
-    DEBUG = False
+    DEBUG = True
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
