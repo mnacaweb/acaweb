@@ -1,16 +1,58 @@
+import haystack
+from elasticsearch import NotFoundError
 from haystack.backends.elasticsearch5_backend import Elasticsearch5SearchBackend
 from haystack.backends.elasticsearch5_backend import Elasticsearch5SearchEngine
 from haystack.backends.elasticsearch_backend import FIELD_MAPPINGS
 from haystack.constants import DJANGO_CT, DJANGO_ID
 
 
-class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
+class FixedElasticsearch5SearchBackend(Elasticsearch5SearchBackend):
+    def setup(self):
+        """
+        Defers loading until needed.
+        """
+        # Get the existing mapping & cache it. We'll compare it
+        # during the ``update`` & if it doesn't match, we'll put the new
+        # mapping.
+        self.silently_fail = False
+        try:
+            self.existing_mapping = self.conn.indices.get_mapping(
+                index=self.index_name, ignore=404
+            )
+        except NotFoundError:
+            pass
+        except Exception:
+            if not self.silently_fail:
+                raise
+
+        unified_index = haystack.connections[self.connection_alias].get_unified_index()
+        self.content_field_name, field_mapping = self.build_schema(
+            unified_index.all_searchfields()
+        )
+        current_mapping = {"modelresult": {"properties": field_mapping}}
+
+        if current_mapping != self.existing_mapping:
+            try:
+                # Make sure the index is there first.
+                self.conn.indices.create(
+                    index=self.index_name, body=self.DEFAULT_SETTINGS, ignore=400
+                )
+                self.conn.indices.put_mapping(
+                    index=self.index_name, doc_type="modelresult", body=current_mapping
+                )
+                self.existing_mapping = current_mapping
+            except Exception:
+                if not self.silently_fail:
+                    raise
+
+        self.setup_complete = True
+
+
+class Elasticsearch5SearchBackendCz(FixedElasticsearch5SearchBackend):
     DEFAULT_SETTINGS = {
         "settings": {
-            # "index": {
-            #     "number_of_shards": 4,
-            #     "number_of_replicas": 0
-            # },
+            "max_ngram_diff": 7,
+            "index": {"number_of_shards": 4, "number_of_replicas": 0},
             "analysis": {
                 "analyzer": {
                     "ngram_analyzer": {
@@ -57,12 +99,12 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                     "haystack_ngram_tokenizer": {
                         "type": "nGram",
                         "min_gram": 3,
-                        "max_gram": 15,
+                        "max_gram": 10,
                     },
                     "haystack_edgengram_tokenizer": {
                         "type": "edgeNGram",
-                        "min_gram": 2,
-                        "max_gram": 15,
+                        "min_gram": 3,
+                        "max_gram": 10,
                         "side": "front",
                     },
                 },
@@ -73,11 +115,11 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                 #     }
                 # },
                 "filter": {
-                    "haystack_ngram": {"type": "nGram", "min_gram": 3, "max_gram": 15},
+                    "haystack_ngram": {"type": "nGram", "min_gram": 3, "max_gram": 10},
                     "haystack_edgengram": {
                         "type": "edgeNGram",
-                        "min_gram": 2,
-                        "max_gram": 15,
+                        "min_gram": 3,
+                        "max_gram": 10,
                     },
                     "cs_stopwords": {
                         "type": "stop",
@@ -96,24 +138,15 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
                         "only_on_same_position": True,
                     },
                 },
-            }
+            },
         }
     }
 
-    # get from parent and lightli modified
     def build_schema(self, fields):
         content_field_name = ""
         mapping = {
-            DJANGO_CT: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
-            DJANGO_ID: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
+            DJANGO_CT: {"type": "text", "index": False},
+            DJANGO_ID: {"type": "text", "index": False},
         }
 
         CUSTOM_FIELD_MAPPING = {"type": "text", "analyzer": "pb_analyzer"}
@@ -128,11 +161,10 @@ class Elasticsearch5SearchBackendCz(Elasticsearch5SearchBackend):
             if field_class.document is True:
                 content_field_name = field_class.index_fieldname
 
-            # Do this last to override `text` fields.
             if field_mapping["type"] == "text" or field_mapping["type"] == "string":
                 field_mapping["type"] = "text"
                 if field_class.indexed is False or hasattr(field_class, "facet_for"):
-                    field_mapping["index"] = "not_analyzed"
+                    field_mapping["index"] = False
                     del field_mapping["analyzer"]
 
             mapping[field_class.index_fieldname] = field_mapping
@@ -144,7 +176,7 @@ class Elasticsearch5SearchEngineCz(Elasticsearch5SearchEngine):
     backend = Elasticsearch5SearchBackendCz
 
 
-class Elasticsearch5SearchBackendRu(Elasticsearch5SearchBackend):
+class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
     def build_schema(self, fields):
         content_field_name = ""
         mapping = {

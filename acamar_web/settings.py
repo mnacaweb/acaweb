@@ -39,7 +39,7 @@ IN_DOCKER = os.path.exists("/usr/src/app")
 
 if DEV_PROFILE == "local":
     FILER_DEBUG = True
-    DEBUG = False
+    DEBUG = True
     EMAIL_HOST = "smtp.liten.cz"
     DATABASES = {
         "default": {
