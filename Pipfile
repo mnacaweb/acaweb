@@ -6,7 +6,8 @@ name = "pypi"
 [dev-packages]
 
 [packages]
-mysqlclient = "*"
+mysqlclient = {version = "*", markers="sys_platform == 'darwin' or sys_platform == 'linux'"}
+mysqlclient-local = {sys_platform = "== 'win32'", path = "./libs/windows/mysqlclient-1.4.4-cp35-cp35m-win_amd64.whl"}
 django = "<2.2"
 pillow = "*"
 

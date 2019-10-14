@@ -1,7 +1,10 @@
-{% load menu_tags %}
+{% load menu_tags acamar %}
 
 {% for child in children %}
+    {% is_page_published child.id as is_published%}
+    {% if is_published %}
     <li class="nav-item{% if child.selected %} active{% endif %}">
         <a class="nav-link{% if forloop.last %} border-right-custom{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
     </li>
+    {% endif %}
 {% endfor %}
