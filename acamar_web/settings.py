@@ -61,7 +61,7 @@ elif DEV_PROFILE == "preview":
             "ENGINE": "django.db.backends.mysql",
             "NAME": PB_PROJECT,
             "USER": PB_PROJECT,
-            "PASSWORD": "`sNfCCb1T`"
+            "PASSWORD": "sNfCCb1T"
             # "PASSWORD": "GAzwyTUeH",
         }
     }
