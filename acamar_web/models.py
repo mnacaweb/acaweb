@@ -1006,3 +1006,30 @@ class HtmlText(CMSPlugin):
 
     def __str__(self):
         return self.text
+
+@python_2_unicode_compatible
+class BlockLinks(CMSPlugin):
+    text = models.TextField(verbose_name="Text", blank=True)
+    link_button = models.ForeignKey(
+        "acamar_web.Link",
+        related_name="linkbutton",
+        on_delete=models.PROTECT,
+        verbose_name="Link button",
+        null=True,
+        blank=True,
+    )
+    link_text = models.ForeignKey(
+        "acamar_web.Link",
+        related_name="linktext",
+        on_delete=models.PROTECT,
+        verbose_name="Link text",
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Block with links"
+        verbose_name_plural = "Blocks with links"

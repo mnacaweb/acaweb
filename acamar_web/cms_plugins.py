@@ -57,7 +57,8 @@ from .models import (
     CourseEnrollFormModel,
     LoginPluginModel,
     ThanksBanner,
-    HtmlText
+    HtmlText,
+    BlockLinks
 )
 
 
@@ -533,3 +534,9 @@ class HtmlTextPlugin(CMSPluginBase):
     name = "Html text"
     model = HtmlText
     render_template = "plugins/htmltext.html"
+
+@plugin_pool.register_plugin
+class BlockLinksPlugin(CMSPluginBase):
+    name = "Block with links"
+    model = BlockLinks
+    render_template = "plugins/blocklinks.html"

@@ -1,0 +1,12 @@
+<div class="col-12">
+    {{ instance.text|safe }}
+</div>
+
+{% if instance.link_button %}
+    <a class="text-normal text-underline" href="{{ instance.link_button.get_link_safe }}">{{ instance.link_button.text }}</a>
+{% endif %}
+
+{% if instance.link_text %}
+    <a class="text-normal text-underline" href="{{ instance.link_text.get_link_safe }}">{{ instance.link_text.text }}</a>
+{% endif %}
+
