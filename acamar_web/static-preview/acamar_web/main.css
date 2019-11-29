@@ -10677,6 +10677,21 @@ input[type="text"] {
     font-size: 22px;
     line-height: 29px; }
 
+footer img {
+  width: 50px;
+  height: 50px;
+  margin: 10px 24px 10px 0; }
+
+footer .small {
+  font-size: 13px; }
+
+footer .col:nth-of-type(1) {
+  border-right: 1px solid black;
+  padding-right: 55px; }
+
+footer .col:nth-of-type(2) {
+  padding-left: 55px; }
+
 .creat-title {
   margin-bottom: 0; }
   @media (min-width: 768px) {

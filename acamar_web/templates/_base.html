@@ -86,8 +86,23 @@
 <div class="site-content">
     {% block content %} {% endblock %}
     <footer>
-        <div class="container p-4 text-center text-weight-light">
-            &copy; {% trans "Acamar Outsourcing Services, s.r.o." %} | <a target="_blank" href="/media/pdf/podminky-ochrany-osobnich-udaju-acamar.pdf">{% trans "Ochrana&nbsp;osobních&nbsp;údajů" %}</a>
+        <div class="container p-5 text-center text-weight-light">
+            <div class="row">
+                <div class="col col-6 text-right">
+                    &copy; {% trans "Acamar Outsourcing Services, s.r.o." %}<br>
+                    <span class="small">{% trans "Člen skupiny" %}  <a target="_blank" href="https://www.adastra.cz/cs/">Adastra group</a></span>
+                </div>
+                <div class="col col-6 text-left">
+                    <span>{% trans "Zůstaňte s námi ve spojení" %}</span><br>
+                    <span>
+                        <!--<a target="_blank" href="">--><img src="{% static "acamar_web/images/small-icons/m.svg" %}" alt="M"><!--</a>-->
+                        <a target="_blank" href="https://www.linkedin.com/company/acamar-outsourcing-services/?originalSubdomain=cz"><img src="{% static "acamar_web/images/small-icons/in.svg" %}" alt="in"></a>
+                    </span><br>
+                    <span class="small">
+                        <a target="_blank" href="/media/pdf/podminky-ochrany-osobnich-udaju-acamar.pdf">{% trans "Ochrana osobních údajů" %}</a>
+                    </span>
+                </div>
+            </div>
         </div>
     </footer>
 </div>

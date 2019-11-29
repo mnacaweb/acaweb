@@ -1,12 +1,16 @@
-<div class="col-12">
-    {{ instance.text|safe }}
+<div class="container">
+    <div class="text-center">
+        <h2 class="subtitle-large mb-1"> {{ instance.text|safe }}</h2>
+    </div>
+    {% if instance.link_button %}
+    <div class="col-12 d-flex justify-content-center pt-5">
+        <a class="button card-button button-secondary mb-3" href="{{ instance.link_button.get_link_safe }}">{{ instance.link_button.text }}</a>
+    </div>
+    {% endif %}
+
+    {% if instance.link_text %}
+    <div class="d-flex justify-content-center py-4">
+        <a href="{{ instance.link_text.get_link_safe }}"><span class="contact-link text-weight-light subtitle-normal text-underline">{{ instance.link_text.text }}</span></a>
+    </div>
+    {% endif %}
 </div>
-
-{% if instance.link_button %}
-    <a class="text-normal text-underline" href="{{ instance.link_button.get_link_safe }}">{{ instance.link_button.text }}</a>
-{% endif %}
-
-{% if instance.link_text %}
-    <a class="text-normal text-underline" href="{{ instance.link_text.get_link_safe }}">{{ instance.link_text.text }}</a>
-{% endif %}
-
