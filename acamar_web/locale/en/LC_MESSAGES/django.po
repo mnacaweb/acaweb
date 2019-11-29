@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-27 15:36+0200\n"
+"POT-Creation-Date: 2019-11-29 17:24+0100\n"
 "PO-Revision-Date: 2019-06-28 11:02+0200\n"
 "Last-Translator: <>\n"
+"Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.8.1\n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.2.3\n"
 
 #: templates/404.html:9
@@ -26,41 +26,47 @@ msgstr ""
 "Did you look for a Death Star Programmer job? We cannot arrange that, but "
 "there are many lucrative IT jobs we can!"
 
-#: templates/404.html:18
+#: templates/404.html:24
 msgid "Hledali jste pozici"
 msgstr "Did you look for "
 
-#: templates/404.html:19
+#: templates/404.html:25
 msgid "Programátor hvězdy smrti?"
 msgstr "a Death Star Programmer"
 
-#: templates/404.html:23
+#: templates/404.html:29
 msgid "Hvězda smrti 404"
 msgstr "Death Star 404"
 
-#: templates/404.html:26
+#: templates/404.html:32
 msgid "Ne?"
 msgstr "No?"
 
-#: templates/404.html:27
+#: templates/404.html:33
 msgid "Vrátit se zpět"
 msgstr "Go back"
 
-#: templates/404.html:27
+#: templates/404.html:33
 msgid "Zkuste se vrátit zpět"
 msgstr "Try going back"
 
-#: templates/_base.html:102
+#: templates/_base.html:92
 msgid "Acamar Outsourcing Services, s.r.o."
 msgstr "Acamar Outsourcing Services, s.r.o."
 
+#: templates/_base.html:93
+msgid "Člen skupiny"
+msgstr "Member of"
+
+#: templates/_base.html:96
+msgid "Zůstaňte s námi ve spojení"
+msgstr "Stay connected with us"
+
 #: templates/_base.html:102
-msgid "Ochrana&nbsp;osobních&nbsp;údajů"
+msgid "Ochrana osobních údajů"
 msgstr "Privacy Policy"
 
-#: templates/_base.html:106
-#, fuzzy
-#| msgid "Vrátit se zpět"
+#: templates/_base.html:109
 msgid "Vrátit na začátek"
 msgstr "Go back"
 
@@ -135,26 +141,24 @@ msgstr ""
 msgid "Odkaz na LinkedIn, pokud máte"
 msgstr "A link to your LinkedIn account"
 
-#: templates/apps/position_detail.html:155
-#, fuzzy
-#| msgid "Napište nám pár slov o tom, co vás láká do Adastry"
-msgid "Napište nám pár slov o tom, co vás láká do Acamaru"
-msgstr "Write us a few words about what intrigues you about Adastra"
-
-#: templates/apps/position_detail.html:161
-#: templates/apps/position_detail.html:167
+#: templates/apps/position_detail.html:158
+#: templates/apps/position_detail.html:170
 msgid "private-policy-url"
 msgstr "/en/privacy-protection-terms-and-conditions/"
 
-#: templates/apps/position_detail.html:161
+#: templates/apps/position_detail.html:158
 msgid "Souhlasím se zpracováním os. údajů"
 msgstr "I agree with privacy protection"
 
-#: templates/apps/position_detail.html:172
+#: templates/apps/position_detail.html:163
+msgid "Napište nám pár slov o tom, co vás láká do Acamaru"
+msgstr "Write us a few words about what intrigues you about Acamar"
+
+#: templates/apps/position_detail.html:175
 msgid "Odeslat odpoveď"
 msgstr "Submit answer"
 
-#: templates/apps/position_detail.html:188
+#: templates/apps/position_detail.html:191
 msgid ""
 "Děkujeme za zprávu! Odpovíme vám do 2&nbsp;pracovních dnů, spíš ale dřív."
 msgstr ""
@@ -165,22 +169,16 @@ msgid "Změnit na jazyk:"
 msgstr "Change the language to:"
 
 #: templates/plugins/course_panel/_course_card.html:13
-#, fuzzy
-#| msgid "Cena"
 msgid "Cena: "
-msgstr "Price"
+msgstr "Price: "
 
 #: templates/plugins/course_panel/_course_card.html:14
-#, fuzzy
-#| msgid "Délka školení"
 msgid "Délka školení: "
-msgstr "Course duration"
+msgstr "Course duration: "
 
 #: templates/plugins/course_panel/_course_card.html:15
-#, fuzzy
-#| msgid "Místo školení"
 msgid "Místo školení: "
-msgstr "Course location"
+msgstr "Course location: "
 
 #: templates/plugins/course_panel/_course_card.html:22
 msgid "Více o kurzu"
