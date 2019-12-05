@@ -55,6 +55,22 @@
     }
   }
 
+  &.icon-mail {
+    padding-left: pxpx;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("../../images/small-icons/email.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 25px;
+      height: 25px;
+      padding-right: 10px;
+      left: 0;
+    }
+  }
+
   &.icon-phone-no-ring {
     padding-left: 31px;
 

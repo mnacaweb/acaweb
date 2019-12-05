@@ -16,6 +16,9 @@
                 {% if instance.person_phone %}
                     <div><a href="tel://{{ instance.person_phone }}" class="icon-text icon-phone text-normal text-underline-none"><strong class="pl-2">{{ instance.person_phone }}</strong></a></div>
                 {% endif %}
+                {% if instance.person_email %}
+                    <div><a href="mailto:{{ instance.person_email }}" class="icon-text icon-phone text-normal text-underline-none"><strong class="pl-2">{{ instance.person_email }}</strong></a></div>
+                {% endif %}
             </div>
         </div>
         {% if instance.button %}

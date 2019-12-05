@@ -10186,6 +10186,18 @@ input[type="text"] {
       height: 25px;
       padding-right: 10px;
       left: 0; }
+  .icon-text.icon-mail {
+    padding-left: pxpx; }
+    .icon-text.icon-mail::before {
+      content: '';
+      position: absolute;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAgNEg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yem0wIDRsLTggNS04LTVWNmw4IDUgOC01djJ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==);
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 25px;
+      height: 25px;
+      padding-right: 10px;
+      left: 0; }
   .icon-text.icon-phone-no-ring {
     padding-left: 31px; }
     .icon-text.icon-phone-no-ring::before {
