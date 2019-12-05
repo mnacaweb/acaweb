@@ -10087,6 +10087,8 @@ input[type="text"] {
   @media (min-width: 768px) {
     .main-title-small {
       font-size: 26px; } }
+  .main-title-small a {
+    text-decoration: underline; }
 
 .title {
   font-size: 25px;
