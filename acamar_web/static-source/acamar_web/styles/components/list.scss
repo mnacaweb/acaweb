@@ -207,9 +207,14 @@
 
         p {
           font-size: 16px;
-          font-weight: 700;
+          //font-weight: 700;
           margin: 0;
           line-height: 19px;
+
+          &:first-of-type {
+            font-weight: 700;
+            margin-bottom: 10px;
+          }
 
           @include media-breakpoint-up(md) {
             font-size: 20px;
