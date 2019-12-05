@@ -556,6 +556,9 @@ class ContactPerson(CMSPlugin):
     person_phone = models.CharField(
         verbose_name="Person phone", max_length=254, blank=True
     )
+    person_email = models.CharField(
+        verbose_name="Person e-mail", max_length=254, blank=True
+    )
     image = FilerImageField(verbose_name="Image", on_delete=models.PROTECT)
     button = models.ForeignKey(
         "acamar_web.Link",
