@@ -230,7 +230,7 @@ class ContactPersonPlugin(CMSPluginBase):
         (
             "Person",
             {
-                "fields": ("person_name", "person_title", "person_phone", "image"),
+                "fields": ("person_name", "person_title", "person_phone", "person_email", "image"),
                 "classes": ["wide"],
             },
         ),
