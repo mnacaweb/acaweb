@@ -180,16 +180,8 @@ class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
     def build_schema(self, fields):
         content_field_name = ""
         mapping = {
-            DJANGO_CT: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
-            DJANGO_ID: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
+            DJANGO_CT: {"type": "text", "index": False},
+            DJANGO_ID: {"type": "text", "index": False},
         }
 
         CUSTOM_FIELD_MAPPING = {"type": "text", "analyzer": "russian"}
@@ -204,11 +196,10 @@ class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
             if field_class.document is True:
                 content_field_name = field_class.index_fieldname
 
-            # Do this last to override `text` fields.
             if field_mapping["type"] == "text" or field_mapping["type"] == "string":
                 field_mapping["type"] = "text"
                 if field_class.indexed is False or hasattr(field_class, "facet_for"):
-                    field_mapping["index"] = "not_analyzed"
+                    field_mapping["index"] = False
                     del field_mapping["analyzer"]
 
             mapping[field_class.index_fieldname] = field_mapping
