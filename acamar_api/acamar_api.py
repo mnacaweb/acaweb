@@ -142,9 +142,15 @@ class AcamarPositionManager:
         return data.get("inzerat", [])
 
     @classmethod
-    def sync_positions(cls):
+    def sync_positions(cls, lang=None):
         obj_ids = []
-        for language, _ in settings.LANGUAGES:
+
+        if lang is not None:
+            languages = [lang]
+        else:
+            languages = [lang[0] for lang in settings.LANGUAGES]
+
+        for language in languages:
             with translation.override(language):
                 for position in cls.get_positions(language):
                     user = position.get("__user", {})
