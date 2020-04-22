@@ -267,7 +267,7 @@ HAYSTACK_CONNECTIONS = {
         "INDEX_NAME": "{}_{}_haystack".format(PB_PROJECT, "cz"),
     },
     "default_en": {
-        "ENGINE": "acamar_web.search.engine.Elasticsearch5SearchEngineEn",
+        "ENGINE": "haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine",
         "URL": ELASTIC_URL,
         "INDEX_NAME": "{}_{}_haystack".format(PB_PROJECT, "en"),
     },
