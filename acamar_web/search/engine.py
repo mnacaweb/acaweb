@@ -180,8 +180,16 @@ class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
     def build_schema(self, fields):
         content_field_name = ""
         mapping = {
-            DJANGO_CT: {"type": "text", "index": False},
-            DJANGO_ID: {"type": "text", "index": False},
+            DJANGO_CT: {
+                "type": "text",
+                "index": "not_analyzed",
+                "include_in_all": False,
+            },
+            DJANGO_ID: {
+                "type": "text",
+                "index": "not_analyzed",
+                "include_in_all": False,
+            },
         }
 
         CUSTOM_FIELD_MAPPING = {"type": "text", "analyzer": "russian"}
@@ -210,37 +218,3 @@ class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
 
 class Elasticsearch5SearchEngineRu(Elasticsearch5SearchEngine):
     backend = Elasticsearch5SearchBackendRu
-
-
-class Elasticsearch5SearchBackendEn(FixedElasticsearch5SearchBackend):
-    def build_schema(self, fields):
-        content_field_name = ""
-        mapping = {
-            DJANGO_CT: {"type": "text", "index": False},
-            DJANGO_ID: {"type": "text", "index": False},
-        }
-
-        for field_name, field_class in fields.items():
-            field_mapping = FIELD_MAPPINGS.get(
-                field_class.field_type, DEFAULT_FIELD_MAPPING
-            ).copy()
-            if field_class.boost != 1.0:
-                field_mapping["boost"] = field_class.boost
-
-            if field_class.document is True:
-                content_field_name = field_class.index_fieldname
-
-            # Do this last to override `text` fields.
-            if field_mapping["type"] == "text" or field_mapping["type"] == "string":
-                field_mapping["type"] = "text"
-                if field_class.indexed is False or hasattr(field_class, "facet_for"):
-                    field_mapping["index"] = "not_analyzed"
-                    del field_mapping["analyzer"]
-
-            mapping[field_class.index_fieldname] = field_mapping
-
-        return content_field_name, mapping
-
-
-class Elasticsearch5SearchEngineEn(Elasticsearch5SearchEngine):
-    backend = Elasticsearch5SearchBackendEn
