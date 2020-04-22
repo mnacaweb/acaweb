@@ -11,6 +11,8 @@ def get_profile():
         DEV_PROFILE = "local"
     if os.path.exists("/usr/src/app"):
         DEV_PROFILE = "local"
+    if os.path.exists("/home/green"):
+        DEV_PROFILE = "local"
     if socket.gethostname() == "prob-prev":
         DEV_PROFILE = "preview"
     if socket.gethostname() == "prob-django":

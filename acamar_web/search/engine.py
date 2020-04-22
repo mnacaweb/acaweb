@@ -180,16 +180,8 @@ class Elasticsearch5SearchBackendRu(FixedElasticsearch5SearchBackend):
     def build_schema(self, fields):
         content_field_name = ""
         mapping = {
-            DJANGO_CT: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
-            DJANGO_ID: {
-                "type": "text",
-                "index": "not_analyzed",
-                "include_in_all": False,
-            },
+            DJANGO_CT: {"type": "text", "index": False},
+            DJANGO_ID: {"type": "text", "index": False},
         }
 
         CUSTOM_FIELD_MAPPING = {"type": "text", "analyzer": "russian"}
