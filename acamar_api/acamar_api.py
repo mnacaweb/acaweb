@@ -197,7 +197,6 @@ class AcamarPositionManager:
                             "user_position": user["pozice"],
                         },
                     )
-                    print(obj.pk)
                     obj.pacts.clear()
                     obj.pacts.add(*pacts)
                     obj.technologies.clear()
