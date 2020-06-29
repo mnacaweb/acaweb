@@ -11,7 +11,7 @@
 {#                    {% cycle "" "table-secondary" as row_style silent %}#}
                     {% for item in term.items.all %}
                         <tr>
-                            <td class="font-weight-bold">{{ item.date|date:"j. n. Y." }}</td>
+                            <td class="font-weight-bold">{{ item.date|date:"j. n. Y" }}</td>
                             <td class="font-weight-bold">{{ item.time }}</td>
                             <td class="font-weight-bold">{{ item.address }}</td>
                             <td class="font-weight-bold">{{ item.description }}</td>
