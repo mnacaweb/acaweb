@@ -58,6 +58,7 @@ $(function () {
 					success: response => {
 						if (response.success) {
 							dataLayer.push({"form-nazev": "OdpovedNaPozici", event: "formSent"});
+							dataLayer.push({"event":"odeslaniOdpovediPracovniPozice"});
 							contactModal.modal("hide");
 							thanksModal.modal("show");
 						}
