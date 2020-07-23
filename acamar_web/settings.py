@@ -325,6 +325,7 @@ MANAGERS = ADMINS = (
     ("Lukas Sova", "lukas.sova@proboston.net"),
     ("Lukas 2", "lukas@ornyx.com")
 )
+SERVER_EMAIL = 'django.robot@proboston.net'
 
 CMS_PLACEHOLDER_CONF = {
     "main_banner": {
