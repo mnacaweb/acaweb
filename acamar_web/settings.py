@@ -321,9 +321,7 @@ MODELTRANSLATION_DEBUG = False
 # MODELTRANSLATION_DEFAULT_LANGUAGE = "cs"
 
 MANAGERS = ADMINS = (
-    ("Jirka Makarius", "jiri.makarius@proboston.net"),
     ("Lukas Sova", "lukas.sova@proboston.net"),
-    ("Lukas 2", "lukas@ornyx.com")
 )
 SERVER_EMAIL = 'django.robot@proboston.net'
 
