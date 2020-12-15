@@ -19,7 +19,7 @@ def get_profile():
         DEV_PROFILE = "master"
     if socket.gethostname() == "prob-prod":
         DEV_PROFILE = "master"
-    return DEV_PROFILE
+    return "local"
 
 
 def hyphenate(s):
@@ -49,6 +49,7 @@ if DEV_PROFILE == "local":
             "ENGINE": "django.db.backends.mysql",
             "NAME": PB_PROJECT,
             "USER": "root",
+            "PASSWORD": "root",
         }
     }
     STATIC_GRUNT_DIR = "static-preview"

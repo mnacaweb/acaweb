@@ -2,7 +2,6 @@
 .idea
 .template
 *.iml
-/media
 /settings
 /htdocs
 /libs/unpacked/django
